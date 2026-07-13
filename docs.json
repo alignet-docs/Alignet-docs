@@ -9,8 +9,8 @@
     "dark": "#10366a"
   },
   "logo": {
-    "light": "https://mintcdn.com/alignet-dev/jVhmP0B7zot3rEoQ/images/lan.svg?fit=max&auto=format&n=jVhmP0B7zot3rEoQ&q=85&s=432c7dd69926c932f5717b63f5f6a289",
-    "dark": "https://mintcdn.com/alignet-dev/ia8I307oJ2v1XpCc/images/alignet-integration-logowhitesv.svg?fit=max&auto=format&n=ia8I307oJ2v1XpCc&q=85&s=8c73c27e1dc1a1fec44c14cd0351442f"
+    "light": "/images/nla.svg",
+    "dark": "/images/alignet-integration-logowhitesv.svg"
   },
   "favicon": {
     "light": "/images/favicon.svg",
