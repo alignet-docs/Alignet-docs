@@ -1,36 +1,115 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Alignet",
-  "description": "Documentación de integración para el procesamiento transaccional de Alignet.",
+  "name": "Alignet Integration Docs",
+  "description": "Plataforma de pagos de Alignet para integrar, procesar y gestionar transacciones en canales e-commerce y POS. Incluye APIs, SDKs y herramientas para adquirentes, facilitadores de pago y comercios.",
   "colors": {
-    "primary": "#005EB8"
+    "primary": "#9d5207",
+    "light": "#cd7f07",
+    "dark": "#10366a"
+  },
+  "logo": {
+    "light": "https://mintcdn.com/alignet-dev/jVhmP0B7zot3rEoQ/images/lan.svg?fit=max&auto=format&n=jVhmP0B7zot3rEoQ&q=85&s=432c7dd69926c932f5717b63f5f6a289",
+    "dark": "https://mintcdn.com/alignet-dev/ia8I307oJ2v1XpCc/images/alignet-integration-logowhitesv.svg?fit=max&auto=format&n=ia8I307oJ2v1XpCc&q=85&s=8c73c27e1dc1a1fec44c14cd0351442f"
+  },
+  "favicon": {
+    "light": "/images/favicon.svg",
+    "dark": "/images/favicon-dark.svg"
+  },
+  "appearance": {
+    "default": "light"
+  },
+  "background": {
+    "decoration": "windows",
+    "color": {
+      "light": "#ffffff",
+      "dark": "#161616"
+    }
+  },
+  "fonts": {
+    "family": "Roboto"
+  },
+  "navbar": {
+    "links": [],
+    "primary": {
+      "type": "button",
+      "label": "Contact Sales",
+      "href": "mailto:sales@alignet.com"
+    }
   },
   "navigation": {
-    "groups": [
+    "products": [
       {
-        "group": "Primeros pasos",
-        "pages": [
-          "index",
-          "prerequisites"
-        ]
-      },
-      {
-        "group": "Guía de integración",
-        "pages": [
-          "consideraciones-generales",
-          "ecommerce",
-          "pos",
-          "response"
-        ]
-      },
-      {
-        "group": "Ayuda y contacto",
-        "pages": [
-          "faq",
-          "support"
+        "product": "Procesamiento",
+        "icon": "credit-card-alt",
+        "tabs": [
+          {
+            "tab": "Vista general",
+            "groups": [
+              {
+                "group": "Primeros pasos",
+                "icon": "shoe-prints",
+                "pages": [
+                  "index",
+                  "prerequisites",
+                  {
+                    "group": "Guía de Integración",
+                    "icon": "book-bookmark",
+                    "pages": [
+                      {
+                        "group": "Autorización",
+                        "pages": [
+                          "ecommerce",
+                          "pos",
+                          "response",
+                          "consideraciones-generales"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Ayuda y contacto",
+                "icon": "comment-question",
+                "pages": [
+                  "faq",
+                  "support"
+                ]
+              }
+            ]
+          }
         ]
       }
     ]
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    }
+  },
+  "footer": {
+    "socials": {
+      "linkedin": "https://www.linkedin.com/company/alignet",
+      "website": "https://www.Alignet.com"
+    }
+  },
+  "search": {
+    "prompt": "Haz una pregunta"
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "download-pdf",
+      "chatgpt",
+      "assistant",
+      "view",
+      "claude"
+    ],
+    "display": "header"
+  },
+  "styling": {
+    "latex": false,
+    "codeblocks": "system"
   }
 }
