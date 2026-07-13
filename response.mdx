@@ -1,0 +1,205 @@
+---
+title: "Response"
+description: "Estructura de respuesta para autorizaciones Ecommerce y POS mediante el endpoint POST /authorize."
+---
+
+La respuesta del servicio de autorización aplica para ambos canales:
+
+- Ecommerce
+- POS
+
+Esta estructura permite identificar si la petición fue procesada, el resultado enviado por la marca, los identificadores de trazabilidad y el estado interno de la operación.
+
+## Response exitoso
+
+```json
+{
+  "success": "true",
+  "transaction": {
+    "tk_transaction_identifier": "42c2ff66-3eb0-4a69-9848-430fc722f6bc",
+    "processor_response": {
+      "message": {
+        "code": "00",
+        "description": "Pago exitoso"
+      },
+      "brand_transaction_identifier": "306190611475347",
+      "authorization_identification_response": "087657",
+      "retrieval_reference_code": "619016007284",
+      "system_trace_audit": "007284",
+      "response_code": "00",
+      "date_settlement": "0710"
+    },
+    "meta": {
+      "status": {
+        "code": "success_operation",
+        "message_ilgn": [
+          {
+            "locale": "es_PE",
+            "value": "Petición procesada correctamente"
+          }
+        ]
+      },
+      "metrics": {
+        "aggregate": {
+          "start": "1783616336421",
+          "end": "1783616348410",
+          "duration": {
+            "milliseconds": "11988"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Descripción de campos
+
+| Campo | Tipo | Descripción |
+| --- | --- | --- |
+| `success` | string | Indica si la operación fue procesada por el servicio. Valores: `true` o `false`. |
+| `transaction.tk_transaction_identifier` | string UUID | Identificador único de la transacción en el sistema. |
+| `transaction.processor_response.message.code` | string | Código de respuesta de la marca. `00` indica operación aprobada. |
+| `transaction.processor_response.message.description` | string | Descripción legible del resultado de la operación. |
+| `transaction.processor_response.brand_transaction_identifier` | string | Identificador de la transacción asignado por la marca. |
+| `transaction.processor_response.authorization_identification_response` | string | Código de autorización de la operación. Normalmente contiene 6 dígitos. |
+| `transaction.processor_response.retrieval_reference_code` | string | RRN, Retrieval Reference Number. Se utiliza para consultas, trazabilidad y conciliación. |
+| `transaction.processor_response.system_trace_audit` | string | STAN, System Trace Audit Number. Identificador de auditoría de la transacción. |
+| `transaction.processor_response.response_code` | string | Código ISO de respuesta. `00` indica aprobación. |
+| `transaction.processor_response.date_settlement` | string | Fecha estimada de liquidación en formato `MMDD`. |
+| `transaction.meta.status.code` | string | Estado interno de la operación. Ejemplos: `success_operation`, `invalid_request`. |
+| `transaction.meta.status.message_ilgn` | array | Lista de mensajes localizados asociados al resultado de la operación. |
+| `transaction.meta.status.message_ilgn[].locale` | string | Locale del mensaje. Ejemplo: `es_PE`. |
+| `transaction.meta.status.message_ilgn[].value` | string | Mensaje descriptivo del resultado de la operación. |
+| `transaction.meta.metrics.aggregate.start` | string | Marca de tiempo de inicio del procesamiento. |
+| `transaction.meta.metrics.aggregate.end` | string | Marca de tiempo de fin del procesamiento. |
+| `transaction.meta.metrics.aggregate.duration.milliseconds` | string | Tiempo total de procesamiento en milisegundos. |
+
+## Interpretación de respuesta exitosa
+
+Una autorización se considera aprobada cuando los principales campos de respuesta tienen los siguientes valores:
+
+| Campo | Valor esperado | Interpretación |
+| --- | --- | --- |
+| `success` | `true` | La petición fue procesada por el servicio. |
+| `processor_response.message.code` | `00` | La marca respondió con aprobación. |
+| `processor_response.response_code` | `00` | Código ISO de aprobación. |
+| `meta.status.code` | `success_operation` | Estado interno exitoso. |
+
+## Identificadores de trazabilidad
+
+Los siguientes campos pueden utilizarse para seguimiento transaccional, consultas, conciliación, soporte operativo y validación con la marca.
+
+| Campo | Uso |
+| --- | --- |
+| `tk_transaction_identifier` | Identificador único interno de la transacción. |
+| `brand_transaction_identifier` | Identificador asignado por la marca. |
+| `authorization_identification_response` | Código de autorización de la transacción. |
+| `retrieval_reference_code` | RRN utilizado para trazabilidad, consultas y conciliación. |
+| `system_trace_audit` | STAN de la transacción. |
+| `date_settlement` | Fecha estimada de liquidación. |
+
+## Objeto `processor_response`
+
+El objeto `processor_response` contiene la respuesta recibida desde el procesador o la marca.
+
+```json
+{
+  "processor_response": {
+    "message": {
+      "code": "00",
+      "description": "Pago exitoso"
+    },
+    "brand_transaction_identifier": "306190611475347",
+    "authorization_identification_response": "087657",
+    "retrieval_reference_code": "619016007284",
+    "system_trace_audit": "007284",
+    "response_code": "00",
+    "date_settlement": "0710"
+  }
+}
+```
+
+| Campo | Descripción |
+| --- | --- |
+| `message.code` | Código de respuesta de la marca. |
+| `message.description` | Descripción del resultado de la operación. |
+| `brand_transaction_identifier` | Identificador de la transacción asignado por la marca. |
+| `authorization_identification_response` | Código de autorización. |
+| `retrieval_reference_code` | RRN de la transacción. |
+| `system_trace_audit` | STAN de la transacción. |
+| `response_code` | Código ISO de respuesta. |
+| `date_settlement` | Fecha estimada de liquidación en formato `MMDD`. |
+
+## Objeto `meta.status`
+
+El objeto `meta.status` contiene el estado interno de la operación dentro del sistema.
+
+```json
+{
+  "status": {
+    "code": "success_operation",
+    "message_ilgn": [
+      {
+        "locale": "es_PE",
+        "value": "Petición procesada correctamente"
+      }
+    ]
+  }
+}
+```
+
+| Campo | Descripción |
+| --- | --- |
+| `code` | Código interno del estado de la operación. |
+| `message_ilgn` | Lista de mensajes localizados. |
+| `message_ilgn[].locale` | Locale del mensaje. |
+| `message_ilgn[].value` | Descripción localizada del resultado. |
+
+## Objeto `meta.metrics`
+
+El objeto `meta.metrics` contiene información de tiempos de procesamiento de la operación.
+
+```json
+{
+  "metrics": {
+    "aggregate": {
+      "start": "1783616336421",
+      "end": "1783616348410",
+      "duration": {
+        "milliseconds": "11988"
+      }
+    }
+  }
+}
+```
+
+| Campo | Descripción |
+| --- | --- |
+| `aggregate.start` | Marca de tiempo de inicio del procesamiento. |
+| `aggregate.end` | Marca de tiempo de fin del procesamiento. |
+| `aggregate.duration.milliseconds` | Duración total del procesamiento en milisegundos. |
+
+## Consideraciones
+
+- El campo `success` indica si la petición fue procesada por el servicio.
+- Una operación aprobada debe validar el código de respuesta de la marca y el estado interno de la operación.
+- El campo `tk_transaction_identifier` debe almacenarse para consultas posteriores.
+- El `retrieval_reference_code` y el `system_trace_audit` son relevantes para trazabilidad operativa.
+- El `authorization_identification_response` debe utilizarse como código de autorización de la operación.
+- El campo `date_settlement` permite identificar la fecha estimada de liquidación.
+- Los tiempos de `meta.metrics` pueden utilizarse para monitoreo, soporte y análisis de performance.
+
+---
+
+## Relación con los canales de autorización
+
+<CardGroup cols={2}>
+  <Card title="Ecommerce" icon="cart-shopping" horizontal href="https://alignet-dev.mintlify.site/ecommerce">
+    Ver trama autorización Ecommerce.
+  </Card>
+
+  <Card title="POS" icon="credit-card" horizontal href="https://alignet-dev.mintlify.site/pos">
+    Ver trama de autorización POS.
+  </Card>
+</CardGroup>
