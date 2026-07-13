@@ -1,0 +1,301 @@
+---
+title: "Ecommerce"
+description: "Autorización de transacciones Ecommerce mediante el endpoint POST /authorize."
+---
+
+<Frame>
+  ![Image](/images/image-15.png)
+</Frame>
+
+El servicio de autorización Ecommerce permite procesar pagos de comercio electrónico mediante el endpoint `POST /authorize`.
+
+Esta trama debe utilizarse cuando la transacción proviene de un canal no presencial, como checkout web, mobile checkout, link de pago o integración server-to-server.
+
+<Warning>
+  Los identificadores de adquirencia y los parámetros asignados por las marcas no deben enviarse dentro de la trama de autorización.
+
+  Estos datos se configuran previamente durante el proceso de onboarding y registro de la entidad adquirente, en el cual se registran la llave de integración y los identificadores correspondientes, como `BID`, `PCR`, `ICA`, `BIN` y otros parámetros requeridos por cada marca.
+
+  La plataforma utilizará esta configuración para identificar a la entidad y enrutar correctamente las transacciones.
+</Warning>
+
+## Endpoint
+
+```http
+POST /authorize
+```
+
+## Request
+
+```json
+{
+  "frame_type": "ecommerce",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "internal_operation_number": "ORDER-0000000079",
+  "amount": "38980",
+  "currency": "604",
+  "card": {
+    "pan": "Cifrado",
+    "expiry_date": "cifrado",
+    "security_code": "cifrado"
+  },
+  "card_holder": {
+    "first_name": "Fabricio",
+    "last_name": "Iman",
+    "email_address": "fabricio.iman@pay-me.com",
+    "line_1": "Rupertuups"
+  },
+  "installments": {
+    "number_of_installments": "04",
+    "id_plan": "145",
+    "grace_period": "02"
+  },
+  "authentication": {
+    "3d_secure": {
+      "payment_implementation_mode_indicator": "08",
+      "cavv": "kANvskBe2eEnngBkKwx45YQBV7E=",
+      "version": "2.1.0"
+    }
+  },
+  "metadata": {
+    "sucursal": "Sucursal 1"
+  }
+}
+```
+
+---
+
+## Descripción de campos
+
+| Campo | Tipo | Obligatorio | Longitud | Descripción |
+| --- | --- | --- | --- | --- |
+| `frame_type` | string | Sí | enum | Canal de la transacción. Para Ecommerce debe enviarse `ecommerce`. |
+| `merchant_identifier` | string UUID | Sí | 36 | Identificador único del comercio. Se entrega al registrar el comercio durante el onboarding. |
+| `brand` | string | Sí | enum | Marca de la tarjeta. Valores permitidos: `visa`, `mscd`. |
+| `internal_operation_number` | string | Sí | 1-40 | Referencia o número de orden del comercio. Debe ser único por comercio. |
+| `amount` | string | Sí | 6-17 | Monto de la operación sin decimales. Ejemplo: `389.80 PEN = "38980"`. |
+| `currency` | string | Sí | 3 | Código ISO 4217 numérico. Ejemplo: `604` = PEN, `840` = USD. |
+| `card.pan` | string | Sí | 13-19 | Número de tarjeta cifrado. |
+| `card.expiry_date` | string | Sí | 4 | Fecha de expiración cifrada. |
+| `card.security_code` | string | No | 3-4 | Código de seguridad cifrado. |
+| `card_holder.first_name` | string | No | 1-26 | Nombre del tarjetahabiente. Puede ser utilizado para validaciones AVS. |
+| `card_holder.last_name` | string | No | 1-26 | Apellido del tarjetahabiente. Puede ser utilizado para validaciones AVS. |
+| `card_holder.email_address` | string | No | email | Correo electrónico del tarjetahabiente. |
+| `card_holder.line_1` | string | No | 1-40 | Dirección del tarjetahabiente. Puede ser utilizada para validaciones AVS. |
+| `installments.number_of_installments` | string | No | 1-4 | Número de cuotas. Debe enviarse solo con dígitos. Ejemplo: `04`. |
+| `installments.id_plan` | string | No | 1\+ | Identificador del plan de cuotas configurado por el adquirente. |
+| `installments.grace_period` | string | No | 2 | Periodo de gracia expresado en meses. Ejemplo: `02`. |
+| `authentication.3d_secure.payment_implementation_mode_indicator` | string | No | enum | Indicador de implementación 3DS. |
+| `authentication.3d_secure.cavv` | string | No | 1-40 | Valor CAVV obtenido como resultado de la autenticación 3DS. |
+| `authentication.3d_secure.version` | string | No | 5-8 | Versión del protocolo 3DS. Ejemplo: `2.1.0`. |
+| `metadata` | object | No | — | Campos libres enviados por el comercio en formato key-value. Se almacenan con la transacción. |
+
+## Valores permitidos
+
+### `frame_type`
+
+| Valor | Descripción |
+| --- | --- |
+| `ecommerce` | Transacción de comercio electrónico. |
+
+### `brand`
+
+| Valor | Descripción |
+| --- | --- |
+| `visa` | Transacción con tarjeta Visa. |
+| `mscd` | Transacción con tarjeta Mastercard. |
+
+### `authentication.3d_secure.payment_implementation_mode_indicator`
+
+| Valor | Descripción |
+| --- | --- |
+| `05` | Transacción 3DS con CAVV. |
+| `06` | Attempt Mastercard. |
+| `07` | Attempt Visa. |
+| `08` | Transacción con datos 3DS. |
+
+---
+
+## Consideraciones sobre montos
+
+El campo `amount` debe enviarse sin punto decimal.
+
+El monto se calcula aplicando el exponente de la moneda:
+
+```text
+Monto enviado = monto real × 10^exponente de la moneda
+```
+
+Ejemplo para moneda PEN:
+
+| Monto real | Currency | Valor enviado |
+| --: | --- | --: |
+| 10.00 | `604` | `1000` |
+| 389.80 | `604` | `38980` |
+| 1,250.50 | `604` | `125050` |
+
+## Consideraciones sobre moneda
+
+El campo `currency` debe enviarse en formato ISO 4217 numérico.
+
+| Moneda | Código ISO 4217 numérico |
+| --- | --- |
+| PEN | `604` |
+| USD | `840` |
+
+## Consideraciones sobre tarjeta
+
+Los datos sensibles de tarjeta deben enviarse cifrados.
+
+| Campo | Cifrado requerido |
+| --- | --- |
+| `card.pan` | Sí |
+| `card.expiry_date` | Sí |
+| `card.security_code` | Sí |
+
+## Consideraciones sobre cuotas
+
+El objeto `installments` debe enviarse únicamente cuando la operación aplique a un pago en cuotas.
+
+```json
+{
+  "installments": {
+    "number_of_installments": "04",
+    "id_plan": "145",
+    "grace_period": "02"
+  }
+}
+```
+
+### Reglas
+
+| Regla | Descripción |
+| --- | --- |
+| Número de cuotas | `number_of_installments` debe contener solo dígitos. |
+| Plan de cuotas | `id_plan` debe corresponder a un plan habilitado para el comercio. |
+| Periodo de gracia | `grace_period` debe enviarse en formato de dos dígitos. |
+| Operación sin cuotas | Si la operación no aplica a cuotas, el objeto `installments` puede omitirse. |
+
+## Consideraciones sobre 3DS
+
+El objeto `authentication.3d_secure` debe enviarse cuando la transacción cuente con información de autenticación 3DS.
+
+```json
+{
+  "authentication": {
+    "3d_secure": {
+      "payment_implementation_mode_indicator": "08",
+      "cavv": "kANvskBe2eEnngBkKwx45YQBV7E=",
+      "version": "2.1.0"
+    }
+  }
+}
+```
+
+## Metadata
+
+El campo `metadata` permite enviar información adicional del comercio para fines de trazabilidad, reportería o conciliación.
+
+```json
+{
+  "metadata": {
+    "sucursal": "Sucursal 1",
+    "canal": "web",
+    "numero_pedido": "PED-123456"
+  }
+}
+```
+
+## Validaciones principales
+
+Antes de enviar una autorización Ecommerce, validar lo siguiente:
+
+| Validación | Regla |
+| --- | --- |
+| Comercio | `merchant_identifier` debe estar activo y habilitado para operar. |
+| Canal | `frame_type` debe ser `ecommerce`. |
+| Marca | `brand` debe ser `visa` o `mscd`. |
+| Orden | `internal_operation_number` debe ser único por comercio. |
+| Monto | `amount` debe enviarse sin decimales. |
+| Moneda | `currency` debe enviarse en formato ISO 4217 numérico. |
+| Tarjeta | Los campos sensibles deben enviarse cifrados. |
+| Cuotas | Si se envía `installments`, el plan debe estar habilitado para el comercio. |
+| 3DS | Si se envía información 3DS, debe incluir datos válidos de autenticación. |
+| Metadata | Los campos enviados en `metadata` deben respetar formato key-value. |
+
+## Ejemplo mínimo
+
+```json
+{
+  "frame_type": "ecommerce",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "internal_operation_number": "ORDER-0000000080",
+  "amount": "1000",
+  "currency": "604",
+  "card": {
+    "pan": "Cifrado",
+    "expiry_date": "cifrado",
+    "security_code": "cifrado"
+  }
+}
+```
+
+## Ejemplo con cuotas
+
+```json
+{
+  "frame_type": "ecommerce",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "internal_operation_number": "ORDER-0000000081",
+  "amount": "38980",
+  "currency": "604",
+  "card": {
+    "pan": "Cifrado",
+    "expiry_date": "cifrado",
+    "security_code": "cifrado"
+  },
+  "installments": {
+    "number_of_installments": "04",
+    "id_plan": "145",
+    "grace_period": "02"
+  }
+}
+```
+
+## Ejemplo con 3DS
+
+```json
+{
+  "frame_type": "ecommerce",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "internal_operation_number": "ORDER-0000000082",
+  "amount": "38980",
+  "currency": "604",
+  "card": {
+    "pan": "Cifrado",
+    "expiry_date": "cifrado",
+    "security_code": "cifrado"
+  },
+  "authentication": {
+    "3d_secure": {
+      "payment_implementation_mode_indicator": "08",
+      "cavv": "kANvskBe2eEnngBkKwx45YQBV7E=",
+      "version": "2.1.0"
+    }
+  }
+}
+```
+
+---
+
+## Response
+
+La respuesta de una autorización Ecommerce se encuentra documentada en la página de respuesta general para autorizaciones.
+
+<Card title="Response de autorización" icon="reply" horizontal href="https://alignet-dev.mintlify.site/response">
+  Ver estructura de respuesta para Ecommerce y POS.
+</Card>
