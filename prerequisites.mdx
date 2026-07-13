@@ -1,0 +1,247 @@
+---
+title: "Consideraciones previas"
+description: "Requisitos técnicos, operativos y de marca para iniciar el procesamiento transaccional con Alignet."
+icon: "clipboard-check"
+---
+
+## Antes de iniciar
+
+La integración con los servicios de procesamiento de Alignet requiere una evaluación previa del modelo operativo, las marcas involucradas y las responsabilidades de cada participante.
+
+La habilitación del servicio no depende únicamente de la integración técnica. En determinados escenarios será necesario ejecutar actividades adicionales con las marcas, redes de pago o entidades participantes.
+
+Antes de iniciar el proyecto, la entidad deberá contactar a un representante comercial de Alignet para evaluar el alcance requerido, validar la disponibilidad del servicio y coordinar los siguientes pasos.
+
+<Card title="Contactar al equipo comercial" icon="envelope" horizontal href="mailto:postventa.autenticacion@alignet.com">
+  Comunícate con nuestro equipo comercial para iniciar la evaluación del proyecto.
+</Card>
+
+## Definición del modelo de participación
+
+Antes de iniciar el proyecto se debe definir el rol que tendrá cada participante dentro del flujo transaccional.
+
+Los modelos más frecuentes son:
+
+### Entidad adquirente
+
+La entidad mantiene la relación con la marca, los comercios y la liquidación de las operaciones.
+
+Alignet puede participar como procesador tecnológico, encargado de recibir, validar, enrutar y gestionar las transacciones.
+
+### Facilitador de pago
+
+El facilitador de pago envía las transacciones de sus comercios o subcomercios mediante una integración centralizada.
+
+En este modelo se deben definir, entre otros aspectos:
+
+- Identificación del facilitador.
+- Identificación de los comercios o subcomercios.
+- Reglas de afiliación.
+- Modelo de liquidación.
+- Responsabilidad sobre el monitoreo de los comercios.
+- Información requerida por cada marca.
+
+### Alignet como procesador
+
+Alignet puede operar como procesador para las marcas y redes habilitadas en el proyecto.
+
+La disponibilidad puede variar según:
+
+- País de operación.
+- Marca o red solicitada.
+- Modelo de adquirencia.
+- Conexiones disponibles.
+- Certificaciones requeridas.
+- Alcance comercial contratado.
+
+<Info>
+  La participación de Alignet como procesador no reemplaza las obligaciones regulatorias, contractuales o de marca correspondientes a la entidad adquirente o al facilitador de pago.
+</Info>
+
+## Proyecto previo con las marcas
+
+Cuando la entidad requiera procesamiento adquirente, deberá coordinarse previamente un proyecto con la marca correspondiente.
+
+Este proyecto puede ser necesario para Visa, Mastercard, Diners Club, UnionPay u otras redes, dependiendo del alcance solicitado.
+
+Las actividades pueden incluir:
+
+<Steps>
+  <Step title="Registro del proyecto">
+    La entidad debe registrar o solicitar el proyecto ante la marca o red correspondiente.
+  </Step>
+  <Step title="Definición de participantes">
+    Se identifican la entidad adquirente, el procesador, los facilitadores de pago y los demás participantes.
+  </Step>
+  <Step title="Asignación de identificadores">
+    Se confirman los identificadores requeridos para autorización, procesamiento, compensación y liquidación.
+  </Step>
+  <Step title="Configuración de conexiones">
+    Se habilitan los enlaces, estaciones, endpoints o mecanismos de comunicación requeridos.
+  </Step>
+  <Step title="Certificación">
+    Se ejecutan las pruebas técnicas y transaccionales definidas por la marca.
+  </Step>
+  <Step title="Pase a producción">
+    La marca y los participantes confirman la habilitación para operar en el ambiente productivo.
+  </Step>
+</Steps>
+
+## Información requerida de la entidad
+
+Para evaluar la integración, la entidad deberá proporcionar como mínimo:
+
+### Información general
+
+- Razón social (VAT)
+- País de operación.
+- Rol dentro del ecosistema.
+- Tipo de entidad: adquirente o facilitador de pago.
+- Marcas que desea procesar.
+- Canales de origen de las transacciones.
+- Volumen transaccional estimado.
+- Monedas requeridas.
+
+### Información de adquirencia
+
+- BIN o identificador adquirente.
+- Identificador asignado por la marca.
+- Código de procesador, cuando corresponda.
+- Identificadores de comercios.
+- Categorías de comercio.
+- Modelo de liquidación.
+- Flujo de compensación y conciliación.
+- Configuración doméstica e internacional.
+
+### Información técnica
+
+- Arquitectura de integración.
+- Dirección de los endpoints.
+- Direcciones IP de origen.
+- Mecanismos de seguridad.
+- Certificados digitales.
+- Ambientes requeridos.
+- Formato de mensajería.
+- Manejo de timeouts y reintentos.
+- Contactos técnicos y operativos.
+
+## Certificaciones
+
+Según el canal y la marca, pueden ser necesarias certificaciones adicionales.
+
+Estas pueden incluir:
+
+- Certificación de autorización.
+- Certificación de compensación.
+- Certificación de terminales POS.
+- Certificación de comercio electrónico.
+- Certificación 3DS.
+- Certificación de tokenización.
+- Certificación de facilitadores de pago.
+- Certificación de mensajes ISO 8583 o API.
+- Pruebas de continuidad y contingencia.
+
+<Note>
+  El tipo de certificación será determinado durante la etapa de evaluación del proyecto.
+</Note>
+
+## Responsabilidades de la entidad
+
+La entidad será responsable de:
+
+- Contar con las autorizaciones necesarias para operar.
+- Gestionar su relación contractual con las marcas.
+- Mantener actualizados sus identificadores.
+- Enviar información transaccional correcta.
+- Cumplir las reglas de las marcas.
+- Gestionar adecuadamente a sus comercios o subcomercios.
+- Aplicar controles de fraude y riesgo.
+- Cumplir las obligaciones de seguridad y protección de datos.
+- Participar en las pruebas y certificaciones.
+- Validar los resultados antes del pase a producción.
+
+## Responsabilidades de Alignet
+
+De acuerdo con el alcance contratado, Alignet podrá encargarse de:
+
+- Proporcionar los servicios API.
+- Recibir y validar las solicitudes.
+- Aplicar reglas de procesamiento.
+- Enrutar las transacciones.
+- Gestionar la comunicación con la red habilitada.
+- Retornar las respuestas transaccionales.
+- Proporcionar trazabilidad y monitoreo.
+- Participar en las pruebas de certificación.
+- Brindar soporte durante la integración.
+
+## Seguridad
+
+La entidad deberá cumplir las políticas de seguridad definidas para el proyecto.
+
+Estas pueden comprender:
+
+- Uso obligatorio de HTTPS.
+- Autenticación mediante credenciales o certificados.
+- Restricción de direcciones IP.
+- Protección de información sensible.
+- Cumplimiento de PCI DSS, cuando corresponda.
+- Cifrado de información.
+- Gestión segura de llaves y secretos.
+- Control de acceso a los ambientes.
+- Registro y auditoría de las operaciones.
+
+## Ambientes
+
+La integración puede considerar los siguientes ambientes:
+
+<CardGroup cols={2}>
+  <Card title="Sandbox" icon="flask">
+    Ambiente inicial para validar la estructura de las solicitudes y respuestas.
+  </Card>
+
+  <Card title="Certificación" icon="clipboard-check">
+    Ambiente utilizado para ejecutar los casos de prueba requeridos.
+  </Card>
+
+  <Card title="Producción" icon="server">
+    Ambiente habilitado para el procesamiento de transacciones reales.
+  </Card>
+
+  <Card title="Contingencia" icon="shield">
+    Configuración alternativa cuando el modelo contratado lo contemple.
+  </Card>
+</CardGroup>
+
+## Criterios para iniciar producción
+
+La habilitación productiva estará sujeta al cumplimiento de las siguientes condiciones:
+
+- Alcance aprobado.
+- Contratos formalizados.
+- Proyecto de marca completado, cuando corresponda.
+- Identificadores confirmados.
+- Conexiones habilitadas.
+- Certificación aprobada.
+- Pruebas integrales satisfactorias.
+- Configuración de seguridad validada.
+- Contactos de soporte definidos.
+- Plan de pase a producción aprobado.
+
+<Warning>
+  El envío de transacciones reales sin completar las validaciones previas puede ocasionar rechazos, problemas de conciliación o incumplimientos frente a las marcas.
+</Warning>
+
+## Inicio del proyecto
+
+Una vez revisadas estas consideraciones, la entidad deberá coordinar con Alignet la sesión de entendimiento y levantamiento de información.
+
+Durante esta etapa se definirá:
+
+- Alcance funcional.
+- Alcance técnico.
+- Marcas involucradas.
+- Responsabilidades.
+- Cronograma.
+- Certificaciones.
+- Dependencias.
+- Plan de implementación.
