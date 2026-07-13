@@ -1,30 +1,21 @@
 ---
 title: "Introducción"
-description: "Conoce el servicio de procesamiento transaccional de Alignet para entidades adquirentes y facilitadores de pago. "
+description: "Conoce el servicio de procesamiento transaccional de Alignet para entidades adquirentes y facilitadores de pago."
 icon: "book-open-reader"
 ---
-
-<Frame>
-  ![Image](/images/image-18.png)
-</Frame>
-
 ### Procesamiento transaccional
 
 La plataforma de procesamiento de Alignet permite a entidades adquirentes y facilitadores de pago enviar, gestionar y consultar transacciones provenientes de distintos canales de pago.
-
-<frame>
-  <br />
-</frame>
 
 A través de una integración centralizada, las entidades pueden conectar sus canales digitales y presenciales con los servicios de autorización y procesamiento disponibles en la plataforma.
 
 Los canales soportados pueden incluir:
 
-- Sitios web y checkout.
-- Aplicaciones móviles.
-- Terminales POS y PinPad.
-- Plataformas propias de comercio electrónico.
-- Sistemas de adquirencia y facilitación de pagos.
+* Sitios web y checkout.
+* Aplicaciones móviles.
+* Terminales POS y PinPad.
+* Plataformas propias de comercio electrónico.
+* Sistemas de adquirencia y facilitación de pagos.
 
 ## Modelos de servicio
 
@@ -36,12 +27,12 @@ La entidad mantiene su rol como adquirente o facilitador de pago, mientras Align
 
 El servicio puede comprender:
 
-- Recepción de transacciones.
-- Validaciones técnicas y de negocio.
-- Enrutamiento hacia las redes o entidades correspondientes.
-- Autorización y respuesta transaccional.
-- Gestión de extornos, anulaciones y consultas.
-- Monitoreo y trazabilidad de las operaciones.
+* Recepción de transacciones.
+* Validaciones técnicas y de negocio.
+* Enrutamiento hacia las redes o entidades correspondientes.
+* Autorización y respuesta transaccional.
+* Gestión de extornos, anulaciones y consultas.
+* Monitoreo y trazabilidad de las operaciones.
 
 ### Procesamiento adquirente
 
@@ -53,12 +44,12 @@ Este proceso puede incluir certificaciones, habilitación de identificadores, co
 
 Según el modelo contratado, el país, la disponibilidad del servicio y las habilitaciones correspondientes, Alignet puede actuar como procesador para distintas marcas y redes de pago, entre ellas:
 
-- Visa.
-- Mastercard.
-- American Express.
-- Diners Club.
-- UnionPay.
-- Otras redes habilitadas para el proyecto.
+* Visa.
+* Mastercard.
+* American Express.
+* Diners Club.
+* UnionPay.
+* Otras redes habilitadas para el proyecto.
 
 <Note>
   La disponibilidad de cada marca debe ser confirmada durante la etapa de evaluación y definición del alcance.
@@ -74,15 +65,19 @@ El flujo general comprende:
   <Step title="Inicio de la transacción">
     La transacción se origina desde el canal de la entidad, comercio o facilitador de pago.
   </Step>
+
   <Step title="Envío a Alignet">
     La entidad envía la solicitud mediante la API de procesamiento.
   </Step>
+
   <Step title="Validación y enrutamiento">
     Alignet valida la información y determina la ruta de procesamiento aplicable.
   </Step>
+
   <Step title="Procesamiento">
     La operación es enviada a la red, marca o entidad correspondiente.
   </Step>
+
   <Step title="Respuesta">
     Alignet devuelve el resultado de la transacción al sistema de origen.
   </Step>
@@ -92,7 +87,7 @@ El flujo general comprende:
 
 Dependiendo del alcance contratado, la integración puede contemplar las siguientes operaciones:
 
-<CardGroup cols={2}>
+<CardGroup>
   <Card title="Autorización" icon="circle-check">
     Procesamiento de una nueva transacción de pago.
   </Card>
@@ -114,6 +109,6 @@ Dependiendo del alcance contratado, la integración puede contemplar las siguien
 
 Antes de iniciar la integración, la entidad debe revisar las consideraciones técnicas, operativas y de marca aplicables al proyecto.
 
-<Card title="Revisar consideraciones previas" icon="clipboard-check" horizontal href="https://alignet-dev.mintlify.site/prerequisites">
+<Card title="Revisar consideraciones previas" icon="clipboard-check" href="/prerequisites">
   Consulta los requisitos necesarios para iniciar el proyecto de integración.
 </Card>

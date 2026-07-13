@@ -1,0 +1,36 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Alignet",
+  "description": "Documentación de integración para el procesamiento transaccional de Alignet.",
+  "colors": {
+    "primary": "#005EB8"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Primeros pasos",
+        "pages": [
+          "index",
+          "prerequisites"
+        ]
+      },
+      {
+        "group": "Guía de integración",
+        "pages": [
+          "consideraciones-generales",
+          "ecommerce",
+          "pos",
+          "response"
+        ]
+      },
+      {
+        "group": "Ayuda y contacto",
+        "pages": [
+          "faq",
+          "support"
+        ]
+      }
+    ]
+  }
+}
