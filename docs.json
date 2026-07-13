@@ -37,6 +37,43 @@
       "href": "mailto:sales@alignet.com"
     }
   },
+  "redirects": [
+    {
+      "source": "/prerequisites",
+      "destination": "/primeros-pasos/prerequisites",
+      "permanent": true
+    },
+    {
+      "source": "/consideraciones-generales",
+      "destination": "/guia-integracion/consideraciones-generales",
+      "permanent": true
+    },
+    {
+      "source": "/ecommerce",
+      "destination": "/guia-integracion/ecommerce",
+      "permanent": true
+    },
+    {
+      "source": "/pos",
+      "destination": "/guia-integracion/pos",
+      "permanent": true
+    },
+    {
+      "source": "/response",
+      "destination": "/guia-integracion/response",
+      "permanent": true
+    },
+    {
+      "source": "/faq",
+      "destination": "/ayuda-contacto/faq",
+      "permanent": true
+    },
+    {
+      "source": "/support",
+      "destination": "/ayuda-contacto/support",
+      "permanent": true
+    }
+  ],
   "navigation": {
     "products": [
       {
@@ -51,7 +88,7 @@
                 "icon": "shoe-prints",
                 "pages": [
                   "index",
-                  "prerequisites",
+                  "primeros-pasos/prerequisites",
                   {
                     "group": "Guía de Integración",
                     "icon": "book-bookmark",
@@ -59,10 +96,10 @@
                       {
                         "group": "Autorización",
                         "pages": [
-                          "ecommerce",
-                          "pos",
-                          "response",
-                          "consideraciones-generales"
+                          "guia-integracion/ecommerce",
+                          "guia-integracion/pos",
+                          "guia-integracion/response",
+                          "guia-integracion/consideraciones-generales"
                         ]
                       }
                     ]
@@ -73,8 +110,8 @@
                 "group": "Ayuda y contacto",
                 "icon": "comment-question",
                 "pages": [
-                  "faq",
-                  "support"
+                  "ayuda-contacto/faq",
+                  "ayuda-contacto/support"
                 ]
               }
             ]
