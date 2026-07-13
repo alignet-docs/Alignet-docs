@@ -1,0 +1,122 @@
+{
+  "projectType": "api-service",
+  "projectName": "Alignet",
+  "projectDescription": "Alignet is a transactional processing platform that enables acquirers, payment facilitators, merchants, and technology partners to integrate card payment authorization, settlement, and reconciliation services.",
+  "theme": "luma",
+  "primaryColor": "#ef7025",
+  "lightColor": "#eec9bc",
+  "darkColor": "#4fa1ab",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "introduction",
+              "prerequisites",
+              "environments"
+            ]
+          },
+          {
+            "group": "Authentication",
+            "pages": [
+              "authentication/overview",
+              "authentication/credentials",
+              "authentication/security"
+            ]
+          },
+          {
+            "group": "Integration Guides",
+            "pages": [
+              "guides/ecommerce-authorization",
+              "guides/pos-authorization",
+              "guides/transaction-inquiry",
+              "guides/reversal-void",
+              "guides/incremental-authorization",
+              "guides/settlement-reconciliation"
+            ]
+          },
+          {
+            "group": "Notifications",
+            "pages": [
+              "webhooks/overview",
+              "webhooks/events",
+              "webhooks/security"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/response-codes",
+              "reference/error-handling",
+              "reference/testing-data",
+              "reference/certification"
+            ]
+          },
+          {
+            "group": "Support",
+            "pages": [
+              "faq",
+              "support"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Ecommerce",
+            "pages": [
+              "api-reference/ecommerce/authorize",
+              "api-reference/ecommerce/capture",
+              "api-reference/ecommerce/void"
+            ]
+          },
+          {
+            "group": "POS",
+            "pages": [
+              "api-reference/pos/authorize",
+              "api-reference/pos/reversal"
+            ]
+          },
+          {
+            "group": "Transactions",
+            "pages": [
+              "api-reference/transactions/inquiry",
+              "api-reference/transactions/incremental",
+              "api-reference/transactions/settlement"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Ecommerce card authorization and capture",
+    "POS terminal authorization",
+    "Transaction inquiry and status tracking",
+    "Reversal and void operations",
+    "Incremental authorization support",
+    "Settlement and reconciliation reporting",
+    "Webhook notifications for transaction events",
+    "Sandbox testing environment",
+    "Certification and go-live process"
+  ],
+  "publicApiSurface": [
+    "POST /ecommerce/authorize",
+    "POST /ecommerce/capture",
+    "POST /ecommerce/void",
+    "POST /pos/authorize",
+    "POST /pos/reversal",
+    "GET /transactions/inquiry",
+    "POST /transactions/incremental",
+    "POST /transactions/settlement",
+    "Webhook: transaction.authorized",
+    "Webhook: transaction.captured",
+    "Webhook: transaction.reversed",
+    "Webhook: transaction.settled"
+  ]
+}
