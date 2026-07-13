@@ -1,0 +1,516 @@
+---
+title: "POS"
+description: "Autorización de transacciones POS mediante el endpoint POST /authorize."
+---
+
+El servicio de autorización POS permite procesar pagos presenciales mediante el endpoint `POST /authorize`.
+
+Esta trama debe utilizarse cuando la transacción proviene de un canal presencial, como terminal POS, PinPad, dispositivo Android POS o integración de captura física de tarjeta.
+
+## Endpoint
+
+```http
+POST /authorize
+```
+
+## Request
+
+```json
+{
+  "frame_type": "pos",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "payment_method": {
+    "card": [
+      {
+        "pan": "cifrado",
+        "expiry_date": "cifrado",
+        "card_sequence_number": "cifrado",
+        "track1": "B4000222357994675^CHARLES^230420100558222222",
+        "track2": "04000220130005421D230620100222222222"
+      }
+    ],
+    "terminal": {
+      "terminal_id": "POS00001",
+      "pin_block": "7788E773618F7977"
+    }
+  },
+  "card_holder": [
+    {
+      "first_name": "John",
+      "last_name": "Smith"
+    }
+  ],
+  "context": {
+    "pos": {
+      "pan_entry_mode": "05",
+      "pin_entry_capability": "1",
+      "condition_code": "00",
+      "chip_condition_code": "0",
+      "terminal_type": "0",
+      "terminal_entry_capability": "0"
+    }
+  },
+  "merchant": {
+    "card_acceptor": {
+      "card_acceptor_name": "ABC Supplies",
+      "address": {
+        "country": "PE",
+        "city": "LIMA"
+      }
+    }
+  },
+  "transaction": {
+    "currency": "604",
+    "amount": "5000000",
+    "meta": {
+      "internal_operation_number": "123554",
+      "additional_fields": {}
+    }
+  },
+  "icc_related_data": {
+    "vsdc_chip_data": true,
+    "app_interchange_profile": "1800",
+    "dedicated_file_name": "A0000000980840",
+    "terminal_verification_result": "8000048000",
+    "icc_transaction_date": "220607",
+    "icc_transaction_type": "00",
+    "transaction_currency": "604",
+    "authorized_amount": "5000000",
+    "other_amount": "5000000",
+    "issuer_app_data": "06020A03A00000",
+    "terminal_country_code": "604",
+    "app_cryptogram": "B9E652BBD8FE30E5",
+    "terminal_capability_profile": "E0F8C8",
+    "app_transaction_counter": "0151",
+    "unpredictable_number": "D28971EC"
+  }
+}
+```
+
+## Descripción de campos
+
+| Campo | Tipo | Obligatorio | Longitud | Descripción |
+| --- | --- | --- | --- | --- |
+| `frame_type` | string | Sí | enum | Canal de la transacción. Para POS debe enviarse `pos`. |
+| `merchant_identifier` | string UUID | Sí | 36 | Identificador único del comercio. Se entrega al registrar el comercio durante el onboarding. |
+| `brand` | string | Sí | enum | Marca de la tarjeta. Valores permitidos: `visa`, `mscd`. |
+| `payment_method.card[].pan` | string | Sí | 13-19 | Número de tarjeta cifrado. |
+| `payment_method.card[].expiry_date` | string | Sí | 4 | Fecha de expiración cifrada. |
+| `payment_method.card[].card_sequence_number` | string | No | 1-3 | Número de secuencia de tarjeta cifrado. |
+| `payment_method.card[].track1` | string | No | variable | Track 1 de banda magnética. |
+| `payment_method.card[].track2` | string | No | variable | Track 2 de banda magnética o chip. |
+| `payment_method.terminal.terminal_id` | string | Sí | 1-8 | Identificador del terminal POS. |
+| `payment_method.terminal.pin_block` | string | No | 16 | PIN cifrado en bloque TDEA. |
+| `card_holder[].first_name` | string | No | 1-26 | Nombre del tarjetahabiente. |
+| `card_holder[].last_name` | string | No | 1-26 | Apellido del tarjetahabiente. |
+| `context.pos.pan_entry_mode` | string | Sí | 2 | Modo de entrada PAN. `05` = chip, `07` = contactless, `90` = banda magnética, `01` = manual. |
+| `context.pos.pin_entry_capability` | string | Sí | 1 | Capacidad de captura de PIN. `0` = no puede capturar PIN, `1` = puede capturar PIN. |
+| `context.pos.condition_code` | string | Sí | 2 | Código de condición POS. `00` = transacción presencial normal. |
+| `context.pos.chip_condition_code` | string | No | 1 | Condición del chip. `0` = no aplica, `1` = chip no leído. |
+| `context.pos.terminal_type` | string | No | 1 | Tipo de terminal. |
+| `context.pos.terminal_entry_capability` | string | No | 1 | Capacidad de entrada del terminal. |
+| `merchant.card_acceptor.card_acceptor_name` | string | No | 1-25 | Nombre del comercio. Puede utilizarse como override. |
+| `merchant.card_acceptor.address.country` | string | No | 2 | País en formato ISO alpha-2. |
+| `merchant.card_acceptor.address.city` | string | No | 1-13 | Ciudad del comercio. |
+| `transaction.currency` | string | Sí | 3 | Código ISO 4217 numérico. Ejemplo: `604` = PEN, `840` = USD. |
+| `transaction.amount` | string | Sí | 6-17 | Monto de la operación sin decimales. |
+| `transaction.meta.internal_operation_number` | string | Sí | 1-40 | Referencia o número de operación del comercio. Debe ser único por comercio. |
+| `transaction.meta.additional_fields` | object | No | — | Campos libres enviados por el comercio en formato key-value. |
+| `icc_related_data.vsdc_chip_data` | boolean | Sí, si es chip | — | Indica que la transacción contiene datos EMV. |
+| `icc_related_data.app_interchange_profile` | string | Sí, si es chip | 4 hex | AIP, Application Interchange Profile del chip. |
+| `icc_related_data.dedicated_file_name` | string | Sí, si es chip | variable hex | AID de la aplicación. |
+| `icc_related_data.terminal_verification_result` | string | Sí, si es chip | 10 hex | TVR, Terminal Verification Result. |
+| `icc_related_data.icc_transaction_date` | string | Sí, si es chip | 6 | Fecha de transacción ICC en formato `YYMMDD`. |
+| `icc_related_data.icc_transaction_type` | string | Sí, si es chip | 2 | Tipo de transacción ICC. `00` = compra. |
+| `icc_related_data.transaction_currency` | string | Sí, si es chip | 3 | Código ISO 4217 numérico. |
+| `icc_related_data.authorized_amount` | string | Sí, si es chip | variable | Monto autorizado. |
+| `icc_related_data.other_amount` | string | No | variable | Monto adicional, por ejemplo cashback. |
+| `icc_related_data.issuer_app_data` | string | Sí, si es chip | variable hex | IAD, Issuer Application Data. |
+| `icc_related_data.terminal_country_code` | string | Sí, si es chip | 3 | País del terminal en formato ISO numérico. |
+| `icc_related_data.app_cryptogram` | string | Sí, si es chip | 16 hex | TC o ARQC generado por el chip. |
+| `icc_related_data.terminal_capability_profile` | string | Sí, si es chip | 6 hex | Capacidades del terminal. |
+| `icc_related_data.app_transaction_counter` | string | Sí, si es chip | 4 hex | ATC, Application Transaction Counter. |
+| `icc_related_data.unpredictable_number` | string | Sí, si es chip | 8 hex | Número aleatorio generado por el terminal. |
+
+## Valores permitidos
+
+### `frame_type`
+
+| Valor | Descripción |
+| --- | --- |
+| `pos` | Transacción presencial. |
+
+### `brand`
+
+| Valor | Descripción |
+| --- | --- |
+| `visa` | Transacción con tarjeta Visa. |
+| `mscd` | Transacción con tarjeta Mastercard. |
+
+### `context.pos.pan_entry_mode`
+
+| Valor | Descripción |
+| --- | --- |
+| `01` | Entrada manual. |
+| `05` | Lectura por chip. |
+| `07` | Contactless. |
+| `90` | Banda magnética. |
+
+### `context.pos.pin_entry_capability`
+
+| Valor | Descripción |
+| --- | --- |
+| `0` | El terminal no puede capturar PIN. |
+| `1` | El terminal puede capturar PIN. |
+
+### `context.pos.condition_code`
+
+| Valor | Descripción |
+| --- | --- |
+| `00` | Transacción presencial normal. |
+
+### `context.pos.chip_condition_code`
+
+| Valor | Descripción |
+| --- | --- |
+| `0` | No aplica. |
+| `1` | Chip no leído. |
+
+---
+
+## Objeto `payment_method.card`
+
+Contiene la información de la tarjeta utilizada en la transacción POS.
+
+```json
+{
+  "card": [
+    {
+      "pan": "cifrado",
+      "expiry_date": "cifrado",
+      "card_sequence_number": "cifrado",
+      "track1": "B4000222357994675^CHARLES^230420100558222222",
+      "track2": "04000220130005421D230620100222222222"
+    }
+  ]
+}
+```
+
+| Campo | Cifrado requerido | Descripción |
+| --- | --- | --- |
+| `pan` | Sí | Número de tarjeta cifrado. |
+| `expiry_date` | Sí | Fecha de expiración cifrada. |
+| `card_sequence_number` | Sí, cuando aplique | Número de secuencia de tarjeta cifrado. |
+| `track1` | No | Track 1 de banda magnética. |
+| `track2` | No | Track 2 de banda magnética o chip. |
+
+## Objeto `payment_method.terminal`
+
+Contiene la información del terminal POS utilizado para capturar la transacción.
+
+```json
+{
+  "terminal": {
+    "terminal_id": "POS00001",
+    "pin_block": "7788E773618F7977"
+  }
+}
+```
+
+| Campo | Descripción |
+| --- | --- |
+| `terminal_id` | Identificador del terminal POS. |
+| `pin_block` | PIN cifrado en bloque TDEA. Debe enviarse cuando la operación requiera PIN. |
+
+## Objeto `context.pos`
+
+Contiene información del contexto de captura POS.
+
+```json
+{
+  "context": {
+    "pos": {
+      "pan_entry_mode": "05",
+      "pin_entry_capability": "1",
+      "condition_code": "00",
+      "chip_condition_code": "0",
+      "terminal_type": "0",
+      "terminal_entry_capability": "0"
+    }
+  }
+}
+```
+
+| Campo | Descripción |
+| --- | --- |
+| `pan_entry_mode` | Modo de captura de la tarjeta. Debe reflejar el mecanismo real de captura. |
+| `pin_entry_capability` | Indica si el terminal tiene capacidad de capturar PIN. |
+| `condition_code` | Condición bajo la cual se realiza la transacción POS. |
+| `chip_condition_code` | Condición de lectura del chip, cuando aplique. |
+| `terminal_type` | Tipo de terminal utilizado. |
+| `terminal_entry_capability` | Capacidad de entrada del terminal. |
+
+## Objeto `merchant.card_acceptor`
+
+Permite enviar información referencial del comercio o realizar un override de datos de aceptación.
+
+```json
+{
+  "merchant": {
+    "card_acceptor": {
+      "card_acceptor_name": "ABC Supplies",
+      "address": {
+        "country": "PE",
+        "city": "LIMA"
+      }
+    }
+  }
+}
+```
+
+| Campo | Descripción |
+| --- | --- |
+| `card_acceptor_name` | Nombre del comercio o nombre de aceptación. |
+| `address.country` | País en formato ISO alpha-2. |
+| `address.city` | Ciudad del comercio. |
+
+## Objeto `transaction`
+
+Contiene la información transaccional de monto, moneda y referencia del comercio.
+
+```json
+{
+  "transaction": {
+    "currency": "604",
+    "amount": "5000000",
+    "meta": {
+      "internal_operation_number": "123554",
+      "additional_fields": {}
+    }
+  }
+}
+```
+
+| Campo | Descripción |
+| --- | --- |
+| `currency` | Código ISO 4217 numérico. |
+| `amount` | Monto sin decimales. |
+| `meta.internal_operation_number` | Referencia o número de operación del comercio. |
+| `meta.additional_fields` | Campos libres enviados por el comercio en formato key-value. |
+
+## Objeto `icc_related_data`
+
+El objeto `icc_related_data` debe enviarse cuando la transacción sea chip o contactless EMV.
+
+```json
+{
+  "icc_related_data": {
+    "vsdc_chip_data": true,
+    "app_interchange_profile": "1800",
+    "dedicated_file_name": "A0000000980840",
+    "terminal_verification_result": "8000048000",
+    "icc_transaction_date": "220607",
+    "icc_transaction_type": "00",
+    "transaction_currency": "604",
+    "authorized_amount": "5000000",
+    "other_amount": "5000000",
+    "issuer_app_data": "06020A03A00000",
+    "terminal_country_code": "604",
+    "app_cryptogram": "B9E652BBD8FE30E5",
+    "terminal_capability_profile": "E0F8C8",
+    "app_transaction_counter": "0151",
+    "unpredictable_number": "D28971EC"
+  }
+}
+```
+
+| Campo | Descripción |
+| --- | --- |
+| `vsdc_chip_data` | Indica que la transacción contiene datos EMV. |
+| `app_interchange_profile` | AIP, Application Interchange Profile del chip. |
+| `dedicated_file_name` | AID de la aplicación. |
+| `terminal_verification_result` | TVR, Terminal Verification Result. |
+| `icc_transaction_date` | Fecha de transacción ICC en formato `YYMMDD`. |
+| `icc_transaction_type` | Tipo de transacción ICC. `00` = compra. |
+| `transaction_currency` | Código ISO 4217 numérico. |
+| `authorized_amount` | Monto autorizado. |
+| `other_amount` | Monto adicional, por ejemplo cashback. |
+| `issuer_app_data` | IAD, Issuer Application Data. |
+| `terminal_country_code` | País del terminal en formato ISO numérico. |
+| `app_cryptogram` | TC o ARQC generado por el chip. |
+| `terminal_capability_profile` | Capacidades del terminal. |
+| `app_transaction_counter` | ATC, Application Transaction Counter. |
+| `unpredictable_number` | Número aleatorio generado por el terminal. |
+
+## Consideraciones sobre montos
+
+El campo `transaction.amount` debe enviarse sin punto decimal.
+
+El monto se calcula aplicando el exponente de la moneda:
+
+```text
+Monto enviado = monto real × 10^exponente de la moneda
+```
+
+Ejemplo para moneda PEN:
+
+| Monto real | Currency | Valor enviado |
+| --: | --- | --: |
+| 10.00 | `604` | `1000` |
+| 389.80 | `604` | `38980` |
+| 50,000.00 | `604` | `5000000` |
+
+## Consideraciones sobre moneda
+
+El campo `transaction.currency` debe enviarse en formato ISO 4217 numérico.
+
+| Moneda | Código ISO 4217 numérico |
+| --- | --- |
+| PEN | `604` |
+| USD | `840` |
+
+---
+
+## Consideraciones sobre tarjeta
+
+Los datos sensibles de tarjeta deben enviarse cifrados.
+
+| Campo | Cifrado requerido |
+| --- | --- |
+| `payment_method.card[].pan` | Sí |
+| `payment_method.card[].expiry_date` | Sí |
+| `payment_method.card[].card_sequence_number` | Sí, cuando aplique |
+
+## Consideraciones sobre EMV
+
+Para operaciones chip o contactless EMV, debe enviarse el objeto `icc_related_data`.
+
+| Tipo de captura | Requiere `icc_related_data` |
+| --- | --- |
+| Chip | Sí |
+| Contactless EMV | Sí |
+| Banda magnética | No |
+| Manual | No |
+
+## Validaciones principales
+
+Antes de enviar una autorización POS, validar lo siguiente:
+
+| Validación | Regla |
+| --- | --- |
+| Comercio | `merchant_identifier` debe estar activo y habilitado para operar. |
+| Canal | `frame_type` debe ser `pos`. |
+| Marca | `brand` debe ser `visa` o `mscd`. |
+| Terminal | `payment_method.terminal.terminal_id` debe estar registrado y habilitado. |
+| Operación | `transaction.meta.internal_operation_number` debe ser único por comercio. |
+| Monto | `transaction.amount` debe enviarse sin decimales. |
+| Moneda | `transaction.currency` debe enviarse en formato ISO 4217 numérico. |
+| Tarjeta | Los campos sensibles deben enviarse cifrados. |
+| PAN Entry Mode | `context.pos.pan_entry_mode` debe corresponder al modo real de captura. |
+| PIN Capability | `context.pos.pin_entry_capability` debe corresponder a la capacidad real del terminal. |
+| ICC | Si la operación es chip o contactless EMV, debe enviarse `icc_related_data`. |
+
+## Ejemplo mínimo
+
+El siguiente ejemplo muestra una autorización POS sin información EMV.
+
+```json
+{
+  "frame_type": "pos",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "payment_method": {
+    "card": [
+      {
+        "pan": "cifrado",
+        "expiry_date": "cifrado"
+      }
+    ],
+    "terminal": {
+      "terminal_id": "POS00001"
+    }
+  },
+  "context": {
+    "pos": {
+      "pan_entry_mode": "01",
+      "pin_entry_capability": "0",
+      "condition_code": "00"
+    }
+  },
+  "transaction": {
+    "currency": "604",
+    "amount": "1000",
+    "meta": {
+      "internal_operation_number": "POS-000000001"
+    }
+  }
+}
+```
+
+## Ejemplo con chip EMV
+
+```json
+{
+  "frame_type": "pos",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "payment_method": {
+    "card": [
+      {
+        "pan": "cifrado",
+        "expiry_date": "cifrado",
+        "card_sequence_number": "cifrado",
+        "track2": "04000220130005421D230620100222222222"
+      }
+    ],
+    "terminal": {
+      "terminal_id": "POS00001",
+      "pin_block": "7788E773618F7977"
+    }
+  },
+  "context": {
+    "pos": {
+      "pan_entry_mode": "05",
+      "pin_entry_capability": "1",
+      "condition_code": "00",
+      "chip_condition_code": "0",
+      "terminal_type": "0",
+      "terminal_entry_capability": "0"
+    }
+  },
+  "transaction": {
+    "currency": "604",
+    "amount": "5000000",
+    "meta": {
+      "internal_operation_number": "POS-000000002",
+      "additional_fields": {}
+    }
+  },
+  "icc_related_data": {
+    "vsdc_chip_data": true,
+    "app_interchange_profile": "1800",
+    "dedicated_file_name": "A0000000980840",
+    "terminal_verification_result": "8000048000",
+    "icc_transaction_date": "220607",
+    "icc_transaction_type": "00",
+    "transaction_currency": "604",
+    "authorized_amount": "5000000",
+    "other_amount": "0",
+    "issuer_app_data": "06020A03A00000",
+    "terminal_country_code": "604",
+    "app_cryptogram": "B9E652BBD8FE30E5",
+    "terminal_capability_profile": "E0F8C8",
+    "app_transaction_counter": "0151",
+    "unpredictable_number": "D28971EC"
+  }
+}
+```
+
+## Response
+
+La respuesta de una autorización POS se encuentra documentada en la página de respuesta general para autorizaciones.
+
+<Card title="Response de autorización" icon="reply" horizontal href="https://alignet-dev.mintlify.site/response">
+  Ver estructura de respuesta para Ecommerce y POS.
+</Card>
