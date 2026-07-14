@@ -1,0 +1,7 @@
+.nav-logo {
+  height: 40px !important;
+}
+
+img[alt="dark logo"] {
+  filter: brightness(0) invert(1);
+}

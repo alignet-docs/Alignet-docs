@@ -1,0 +1,391 @@
+---
+title: "Frequently asked questions"
+description: "Answers to the most common questions about Alignet's Acquiring Processing service."
+---
+This section answers the most common questions about integration, onboarding, certification, and transaction processing with Alignet.
+
+## General information
+
+<AccordionGroup>
+  <Accordion title="What is the Acquiring Processing service?">
+    It is the service through which Alignet receives, validates, routes, and processes transactions originated by acquirers, payment facilitators, and other ecosystem participants.
+
+    Depending on the contracted scope, the service may include authorization, inquiry, reversal, refund, monitoring, and transaction traceability.
+  </Accordion>
+
+  <Accordion title="Who is the service intended for?">
+    The service is primarily intended for:
+
+    * Acquirers.
+    * Payment facilitators.
+    * Payment processors.
+    * Financial institutions.
+    * Fintech companies.
+    * Platforms that manage merchants or submerchants.
+  </Accordion>
+
+  <Accordion title="Can Alignet act as a processor for card brands?">
+    Yes. Alignet can participate as a technology processor for the card brands and networks enabled within the project scope.
+
+    This may include Visa, Mastercard, Diners Club, UnionPay, or other available networks.
+
+    <Note>
+      The availability of each brand depends on the country, acquiring model, available connections, certifications, and contracted commercial scope.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Does Alignet act as an acquirer?">
+    Not necessarily.
+
+    In most scenarios, the entity retains its role as acquirer and Alignet acts as the technology processor.
+
+    The role and responsibilities of each participant must be defined during the initial project stage.
+  </Accordion>
+</AccordionGroup>
+
+## Starting the project
+
+<AccordionGroup>
+  <Accordion title="How do I start an integration with Alignet?">
+    Before beginning the technical integration, the entity must contact Alignet's commercial team.
+
+    The following are evaluated during this stage:
+
+    * Operating model.
+    * Processing country.
+    * Required card brands.
+    * Transaction channels.
+    * Estimated volume.
+    * Required operations.
+    * Necessary certifications.
+    * Responsibilities of each participant.
+
+    <Card title="Contact the commercial team" icon="envelope" href="mailto:postventa.autenticacion@alignet.com?subject=Acquiring%20Processing%20inquiry">
+      Request a commercial and technical service assessment.
+    </Card>
+  </Accordion>
+
+  <Accordion title="Can I start directly with the API integration?">
+    Starting directly with the technical integration is not recommended.
+
+    The commercial, operational, and architecture assessments must be completed first. Alignet will then confirm the scope, available environments, and required credentials.
+  </Accordion>
+
+  <Accordion title="Is a project with the card brand required?">
+    Yes, when the entity requires acquiring processing or needs to enable new connections, identifiers, or flows with a card brand.
+
+    The card-brand project may include:
+
+    * Processor registration.
+    * BIN or identifier enablement.
+    * Connection configuration.
+    * Certifications.
+    * Transaction testing.
+    * Clearing and settlement validation.
+    * Production approval.
+  </Accordion>
+
+  <Accordion title="Who must manage the project with the card brand?">
+    Responsibility depends on the agreed model.
+
+    The acquirer generally maintains the contractual relationship with the card brand, while Alignet participates as the processor and provides technical support during implementation and certification.
+  </Accordion>
+</AccordionGroup>
+
+## Entity onboarding
+
+<AccordionGroup>
+  <Accordion title="What information is registered during onboarding?">
+    The entity's operational and technical configuration is registered during onboarding.
+
+    This information may include:
+
+    * Integration key or credential.
+    * Acquirer BIN.
+    * BID.
+    * PCR.
+    * ICA.
+    * Processor identifiers.
+    * Identifiers assigned by the card brand.
+    * Enabled currencies.
+    * Countries of operation.
+    * Enabled card brands.
+    * Routing parameters.
+  </Accordion>
+
+  <Accordion title="Must BID, PCR, ICA, and BIN be sent in every transaction?">
+    No.
+
+    These values are configured during acquirer onboarding and associated with the integration key or credential.
+
+    The platform uses this configuration to identify the entity and route each transaction correctly.
+
+    <Warning>
+      Card-brand identifiers must not be sent in the authorization request unless the approved technical scope explicitly states otherwise.
+    </Warning>
+  </Accordion>
+
+  <Accordion title="How is the entity sending the transaction identified?">
+    The entity is identified through the credentials, keys, or authentication mechanisms assigned during onboarding.
+
+    Using these credentials, Alignet retrieves the corresponding card-brand, acquiring, BIN, BID, PCR, ICA, and other enabled parameter settings.
+  </Accordion>
+
+  <Accordion title="Can a payment facilitator register multiple merchants?">
+    Yes.
+
+    A payment facilitator can operate with multiple merchants or submerchants, provided that the model has been approved and configured in advance.
+
+    The required information depends on each card brand's rules and the contracted scope.
+  </Accordion>
+</AccordionGroup>
+
+## Technical integration
+
+<AccordionGroup>
+  <Accordion title="How is the integration performed?">
+    The integration is performed mainly through APIs.
+
+    The entity sends transaction requests from its systems, and Alignet returns the processing result.
+
+    The general flow is:
+
+    1. The transaction originates in the channel.
+    2. The entity sends the request to Alignet.
+    3. Alignet validates the information.
+    4. The transaction is routed to the appropriate network.
+    5. The response is returned to the entity.
+  </Accordion>
+
+  <Accordion title="Which channels can send transactions?">
+    Depending on the enabled scope, transactions may originate from:
+
+    * Websites.
+    * Checkout pages.
+    * Mobile applications.
+    * Server-to-server integrations.
+    * POS terminals.
+    * PinPads.
+    * The entity's own systems.
+    * Payment facilitator platforms.
+  </Accordion>
+
+  <Accordion title="Which operations are available?">
+    The service may include:
+
+    * Authorization.
+    * Inquiry.
+    * Reversal.
+    * Void.
+    * Refund.
+    * Account validation.
+    * Preauthorization.
+    * Confirmation.
+    * Incremental authorization.
+
+    <Note>
+      Available operations depend on the functional scope, card brand, channel, and contracted model.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Is the API the same for Ecommerce and POS?">
+    The platform may expose a common integration structure, but fields and validations may vary by channel.
+
+    For example, an Ecommerce transaction requires information that differs from a transaction originated at a POS terminal.
+  </Accordion>
+
+  <Accordion title="Must card data be sent encrypted?">
+    Yes.
+
+    Sensitive data, such as PAN, expiration date, and security code, must be sent using the encryption mechanism defined for the integration.
+
+    The entity must also comply with applicable security standards, including PCI DSS where applicable.
+  </Accordion>
+</AccordionGroup>
+
+## 3DS authentication
+
+<AccordionGroup>
+  <Accordion title="Is 3DS mandatory for Ecommerce transactions?">
+    It depends on the country, card brand, regulations, merchant type, and processing model.
+
+    When a transaction has 3DS authentication, the entity must send the data obtained during the authentication process.
+  </Accordion>
+
+  <Accordion title="Does Alignet perform 3DS authentication?">
+    Alignet may offer 3DS authentication services depending on the contracted scope.
+
+    The entity may also use its own 3DS provider and send the authentication result to Alignet.
+  </Accordion>
+
+  <Accordion title="What 3DS information must be sent?">
+    Depending on the version and card brand, the following may be required:
+
+    * CAVV.
+    * ECI.
+    * 3DS version.
+    * Implementation indicator.
+    * Transaction ID.
+    * Additional data defined by the card brand.
+  </Accordion>
+</AccordionGroup>
+
+## Card brands and processing
+
+<AccordionGroup>
+  <Accordion title="Which card brands can be processed?">
+    Depending on service availability and project configuration, Alignet can process transactions from:
+
+    * Visa.
+    * Mastercard.
+    * Diners Club.
+    * UnionPay.
+    * Other enabled card brands or networks.
+  </Accordion>
+
+  <Accordion title="Can the entity enable multiple card brands through one integration?">
+    Yes.
+
+    A single integration can process multiple card brands, provided they are enabled during onboarding.
+  </Accordion>
+
+  <Accordion title="How is the transaction's card brand determined?">
+    The card brand may be included in the request or determined through identification rules configured on the platform.
+
+    The final behavior depends on the approved integration design.
+  </Accordion>
+
+  <Accordion title="Can local and international cards be processed?">
+    Yes, provided that the acquiring model, BINs, connections, and card-brand rules are enabled for that type of operation.
+  </Accordion>
+</AccordionGroup>
+
+## Certification and environments
+
+<AccordionGroup>
+  <Accordion title="Which environments are available?">
+    The project may include:
+
+    * Sandbox.
+    * Development.
+    * Certification.
+    * Production.
+    * Contingency.
+
+    The availability of each environment will be confirmed at the beginning of the project.
+  </Accordion>
+
+  <Accordion title="Is certification mandatory?">
+    Yes, when the scope includes new card brands, connections, channels, or flows that require validation.
+
+    Certification verifies that the integration complies with the defined technical and functional rules.
+  </Accordion>
+
+  <Accordion title="What is validated during certification?">
+    Depending on the scope, the following may be validated:
+
+    * Authorization messages.
+    * Approved and declined responses.
+    * Timeouts.
+    * Reversals.
+    * Retries.
+    * Installments.
+    * 3DS.
+    * Currencies.
+    * Local and international transactions.
+    * Reconciliation.
+    * Contingency.
+  </Accordion>
+
+  <Accordion title="When can production processing begin?">
+    The production launch takes place when:
+
+    * The integration has been certified.
+    * Contracts have been formalized.
+    * Identifiers have been confirmed.
+    * Connections have been enabled.
+    * The card brand has approved the project, when applicable.
+    * End-to-end tests have been completed successfully.
+    * The production plan has been approved.
+  </Accordion>
+</AccordionGroup>
+
+## Operations and support
+
+<AccordionGroup>
+  <Accordion title="How can processed transactions be viewed?">
+    Depending on the contracted service, transactions may be viewed through:
+
+    * Inquiry API.
+    * Transaction management platform.
+    * Reports.
+    * Monitoring tools.
+  </Accordion>
+
+  <Accordion title="What happens if a transaction receives no response?">
+    The entity must apply the timeout logic defined for the project.
+
+    Depending on the result, it may be necessary to perform a status inquiry or execute a reversal.
+
+    Automatically resending an authorization without first checking the status of the original operation is not recommended.
+  </Accordion>
+
+  <Accordion title="Does Alignet provide transaction monitoring?">
+    Yes, depending on the contracted scope.
+
+    Monitoring may include traceability, statuses, response times, declines, incidents, and connection behavior.
+  </Accordion>
+
+  <Accordion title="How is an incident reported?">
+    Incidents must be reported through the support channels defined during onboarding.
+
+    The report must include, at minimum:
+
+    * Date and time.
+    * Transaction identifier.
+    * Merchant.
+    * Card brand.
+    * Amount.
+    * Response code.
+    * Description of the issue.
+  </Accordion>
+</AccordionGroup>
+
+## Security and compliance
+
+<AccordionGroup>
+  <Accordion title="Which security requirements must the entity meet?">
+    The entity must comply with the controls defined during the project, which may include:
+
+    * HTTPS.
+    * Encryption of sensitive data.
+    * Credential-based authentication.
+    * IP restrictions.
+    * Secure key management.
+    * Access control.
+    * Auditing.
+    * PCI DSS compliance.
+  </Accordion>
+
+  <Accordion title="Can the entity store card data?">
+    Only if it has the corresponding certifications, controls, and authorizations.
+
+    Otherwise, it must use tokenization or integration mechanisms that prevent sensitive data from being stored.
+  </Accordion>
+
+  <Accordion title="Can credentials be shared among multiple entities?">
+    No.
+
+    Each entity must use only the credentials assigned during its onboarding.
+
+    Credentials are specific to the integration and identify its corresponding configuration.
+  </Accordion>
+</AccordionGroup>
+
+## Contact
+
+Did not find the answer you were looking for?
+
+<Card title="Contact the Alignet team" icon="headset" href="mailto:postventa.autenticacion@alignet.com?subject=Acquiring%20Processing%20inquiry">
+  Write to us to discuss your case and receive guidance on the integration process.
+</Card>

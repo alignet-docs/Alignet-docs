@@ -1,0 +1,297 @@
+---
+title: "Ecommerce"
+description: "Authorize ecommerce transactions through the POST /authorize endpoint."
+---
+
+The Ecommerce authorization service processes online payments through the `POST /authorize` endpoint.
+
+Use this message when the transaction originates from a card-not-present channel such as a web checkout, mobile checkout, payment link, or server-to-server integration.
+
+<Warning>
+  Acquiring identifiers and parameters assigned by card brands must not be included in the authorization message.
+
+  These values are configured beforehand during the acquiring institution's onboarding and registration process. This process registers the integration key and applicable identifiers, such as `BID`, `PCR`, `ICA`, `BIN`, and other parameters required by each brand.
+
+  The platform uses this configuration to identify the institution and route transactions correctly.
+</Warning>
+
+## Endpoint
+
+```http
+POST /authorize
+```
+
+## Request
+
+```json
+{
+  "frame_type": "ecommerce",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "internal_operation_number": "ORDER-0000000079",
+  "amount": "38980",
+  "currency": "604",
+  "card": {
+    "pan": "Encrypted",
+    "expiry_date": "Encrypted",
+    "security_code": "Encrypted"
+  },
+  "card_holder": {
+    "first_name": "Fabricio",
+    "last_name": "Iman",
+    "email_address": "fabricio.iman@pay-me.com",
+    "line_1": "Rupertuups"
+  },
+  "installments": {
+    "number_of_installments": "04",
+    "id_plan": "145",
+    "grace_period": "02"
+  },
+  "authentication": {
+    "3d_secure": {
+      "payment_implementation_mode_indicator": "08",
+      "cavv": "kANvskBe2eEnngBkKwx45YQBV7E=",
+      "version": "2.1.0"
+    }
+  },
+  "metadata": {
+    "branch": "Branch 1"
+  }
+}
+```
+
+***
+
+## Field descriptions
+
+| Field                                                            | Type        | Required | Length | Description                                                                                         |
+| ---------------------------------------------------------------- | ----------- | -------- | ------ | --------------------------------------------------------------------------------------------------- |
+| `frame_type`                                                     | string      | Yes      | enum   | Transaction channel. For Ecommerce, send `ecommerce`.                                               |
+| `merchant_identifier`                                            | string UUID | Yes      | 36     | Unique merchant identifier. Provided when the merchant is registered during onboarding.             |
+| `brand`                                                          | string      | Yes      | enum   | Card brand. Allowed values: `visa`, `mscd`.                                                         |
+| `internal_operation_number`                                      | string      | Yes      | 1-40   | Merchant reference or order number. It must be unique per merchant.                                 |
+| `amount`                                                         | string      | Yes      | 6-17   | Transaction amount without a decimal separator. Example: `389.80 PEN = "38980"`.                   |
+| `currency`                                                       | string      | Yes      | 3      | Numeric ISO 4217 code. Example: `604` = PEN, `840` = USD.                                           |
+| `card.pan`                                                       | string      | Yes      | 13-19  | Encrypted card number.                                                                              |
+| `card.expiry_date`                                               | string      | Yes      | 4      | Encrypted expiration date.                                                                          |
+| `card.security_code`                                             | string      | No       | 3-4    | Encrypted security code.                                                                            |
+| `card_holder.first_name`                                         | string      | No       | 1-26   | Cardholder first name. May be used for AVS validations.                                             |
+| `card_holder.last_name`                                          | string      | No       | 1-26   | Cardholder last name. May be used for AVS validations.                                              |
+| `card_holder.email_address`                                      | string      | No       | email  | Cardholder email address.                                                                           |
+| `card_holder.line_1`                                             | string      | No       | 1-40   | Cardholder address. May be used for AVS validations.                                                 |
+| `installments.number_of_installments`                            | string      | No       | 1-4    | Number of installments. Send digits only. Example: `04`.                                            |
+| `installments.id_plan`                                           | string      | No       | 1+     | Identifier of the installment plan configured by the acquirer.                                      |
+| `installments.grace_period`                                      | string      | No       | 2      | Grace period expressed in months. Example: `02`.                                                     |
+| `authentication.3d_secure.payment_implementation_mode_indicator` | string      | No       | enum   | 3DS implementation indicator.                                                                       |
+| `authentication.3d_secure.cavv`                                  | string      | No       | 1-40   | CAVV value obtained from 3DS authentication.                                                         |
+| `authentication.3d_secure.version`                               | string      | No       | 5-8    | 3DS protocol version. Example: `2.1.0`.                                                              |
+| `metadata`                                                       | object      | No       | —      | Free-form merchant fields in key-value format. They are stored with the transaction.                 |
+
+## Allowed values
+
+### `frame_type`
+
+| Value       | Description            |
+| ----------- | ---------------------- |
+| `ecommerce` | Ecommerce transaction. |
+
+### `brand`
+
+| Value  | Description                  |
+| ------ | ---------------------------- |
+| `visa` | Visa card transaction.       |
+| `mscd` | Mastercard card transaction. |
+
+### `authentication.3d_secure.payment_implementation_mode_indicator`
+
+| Value | Description                  |
+| ----- | ---------------------------- |
+| `05`  | 3DS transaction with CAVV.   |
+| `06`  | Mastercard attempt.          |
+| `07`  | Visa attempt.                |
+| `08`  | Transaction with 3DS data.   |
+
+***
+
+## Amount considerations
+
+Send the `amount` field without a decimal separator.
+
+Calculate the amount using the currency exponent:
+
+```text
+Submitted amount = actual amount × 10^currency exponent
+```
+
+Example for PEN:
+
+| Actual amount | Currency | Submitted value |
+| ------------: | -------- | --------------: |
+|         10.00 | `604`    |          `1000` |
+|        389.80 | `604`    |         `38980` |
+|      1,250.50 | `604`    |        `125050` |
+
+## Currency considerations
+
+Send `currency` as a numeric ISO 4217 code.
+
+| Currency | Numeric ISO 4217 code |
+| -------- | --------------------- |
+| PEN      | `604`                 |
+| USD      | `840`                 |
+
+## Card considerations
+
+Sensitive card data must be encrypted.
+
+| Field                | Encryption required |
+| -------------------- | ------------------- |
+| `card.pan`           | Yes                 |
+| `card.expiry_date`   | Yes                 |
+| `card.security_code` | Yes                 |
+
+## Installment considerations
+
+Include the `installments` object only when the transaction uses an installment payment plan.
+
+```json
+{
+  "installments": {
+    "number_of_installments": "04",
+    "id_plan": "145",
+    "grace_period": "02"
+  }
+}
+```
+
+### Rules
+
+| Rule                 | Description                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| Installment count    | `number_of_installments` must contain digits only.                                  |
+| Installment plan     | `id_plan` must correspond to a plan enabled for the merchant.                       |
+| Grace period         | `grace_period` must use a two-digit format.                                         |
+| No installments      | If installments do not apply, you may omit the `installments` object.               |
+
+## 3DS considerations
+
+Include `authentication.3d_secure` when the transaction contains 3DS authentication information.
+
+```json
+{
+  "authentication": {
+    "3d_secure": {
+      "payment_implementation_mode_indicator": "08",
+      "cavv": "kANvskBe2eEnngBkKwx45YQBV7E=",
+      "version": "2.1.0"
+    }
+  }
+}
+```
+
+## Metadata
+
+Use `metadata` to submit additional merchant information for traceability, reporting, or reconciliation.
+
+```json
+{
+  "metadata": {
+    "branch": "Branch 1",
+    "channel": "web",
+    "order_number": "ORD-123456"
+  }
+}
+```
+
+## Main validations
+
+Before submitting an Ecommerce authorization, validate the following:
+
+| Validation | Rule                                                                                  |
+| ---------- | ------------------------------------------------------------------------------------- |
+| Merchant   | `merchant_identifier` must be active and enabled to operate.                          |
+| Channel    | `frame_type` must be `ecommerce`.                                                     |
+| Brand      | `brand` must be `visa` or `mscd`.                                                     |
+| Order      | `internal_operation_number` must be unique per merchant.                             |
+| Amount     | `amount` must be submitted without decimals.                                         |
+| Currency   | `currency` must use the numeric ISO 4217 format.                                      |
+| Card       | Sensitive fields must be encrypted.                                                  |
+| Installments | If `installments` is included, the plan must be enabled for the merchant.           |
+| 3DS        | If 3DS information is included, it must contain valid authentication data.            |
+| Metadata   | Fields in `metadata` must use key-value format.                                       |
+
+## Minimal example
+
+```json
+{
+  "frame_type": "ecommerce",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "internal_operation_number": "ORDER-0000000080",
+  "amount": "1000",
+  "currency": "604",
+  "card": {
+    "pan": "Encrypted",
+    "expiry_date": "Encrypted",
+    "security_code": "Encrypted"
+  }
+}
+```
+
+## Installment example
+
+```json
+{
+  "frame_type": "ecommerce",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "internal_operation_number": "ORDER-0000000081",
+  "amount": "38980",
+  "currency": "604",
+  "card": {
+    "pan": "Encrypted",
+    "expiry_date": "Encrypted",
+    "security_code": "Encrypted"
+  },
+  "installments": {
+    "number_of_installments": "04",
+    "id_plan": "145",
+    "grace_period": "02"
+  }
+}
+```
+
+## 3DS example
+
+```json
+{
+  "frame_type": "ecommerce",
+  "merchant_identifier": "b656d278-f047-4e23-9fa5-96c5818b5c8d",
+  "brand": "visa",
+  "internal_operation_number": "ORDER-0000000082",
+  "amount": "38980",
+  "currency": "604",
+  "card": {
+    "pan": "Encrypted",
+    "expiry_date": "Encrypted",
+    "security_code": "Encrypted"
+  },
+  "authentication": {
+    "3d_secure": {
+      "payment_implementation_mode_indicator": "08",
+      "cavv": "kANvskBe2eEnngBkKwx45YQBV7E=",
+      "version": "2.1.0"
+    }
+  }
+}
+```
+
+***
+
+## Response
+
+The response to an Ecommerce authorization is documented on the general authorization response page.
+
+<Card title="Authorization response" icon="reply" href="/en/response">
+  View the response structure for Ecommerce and POS.
+</Card>

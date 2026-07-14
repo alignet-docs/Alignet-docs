@@ -4,17 +4,17 @@
   "name": "Alignet Integration Docs",
   "description": "Plataforma de pagos de Alignet para integrar, procesar y gestionar transacciones en canales e-commerce y POS. Incluye APIs, SDKs y herramientas para adquirentes, facilitadores de pago y comercios.",
   "colors": {
-    "primary": "#0e368d",
-    "light": "#f147f5",
-    "dark": "#10366a"
+    "primary": "#0E368D",
+    "light": "#6F9FEF",
+    "dark": "#092866"
   },
   "logo": {
-    "light": "/images/alignet-integration-logo-29.png",
-    "dark": "/images/alignet-integration-logowhitesv.svg"
+    "light": "/images/alignet-integration-logo.png",
+    "dark": "/images/alignet-integration-logo-dark-transparent.png"
   },
   "favicon": {
-    "light": "/images/favicon.svg",
-    "dark": "/images/favicon-dark.svg"
+    "light": "/images/alignet-mark.svg",
+    "dark": "/images/alignet-mark.svg"
   },
   "appearance": {
     "default": "light"
@@ -22,8 +22,8 @@
   "background": {
     "decoration": "windows",
     "color": {
-      "light": "#ffffff",
-      "dark": "#161616"
+      "light": "#F7F9FE",
+      "dark": "#071225"
     }
   },
   "fonts": {
@@ -33,48 +33,117 @@
     "links": [],
     "primary": {
       "type": "button",
-      "label": "Contact Sales",
-      "href": "mailto:sales@alignet.com"
+      "label": "Contacto comercial",
+      "href": "mailto:postventa.autenticacion@alignet.com"
     }
   },
   "navigation": {
-    "products": [
+    "languages": [
       {
-        "product": "Procesamiento",
-        "icon": "credit-card-alt",
-        "tabs": [
+        "language": "es",
+        "default": true,
+        "navbar": {
+          "links": [],
+          "primary": {
+            "type": "button",
+            "label": "Contacto comercial",
+            "href": "mailto:postventa.autenticacion@alignet.com"
+          }
+        },
+        "products": [
           {
-            "tab": "Vista general",
-            "groups": [
+            "product": "Procesamiento",
+            "icon": "credit-card-alt",
+            "tabs": [
               {
-                "group": "Primeros pasos",
-                "icon": "shoe-prints",
-                "pages": [
-                  "index",
-                  "prerequisites",
+                "tab": "Vista general",
+                "groups": [
                   {
-                    "group": "Guía de Integración",
-                    "icon": "book-bookmark",
+                    "group": "Primeros pasos",
+                    "icon": "shoe-prints",
                     "pages": [
+                      "index",
+                      "prerequisites",
                       {
-                        "group": "Autorización",
+                        "group": "Guía de Integración",
+                        "icon": "book-bookmark",
                         "pages": [
-                          "ecommerce",
-                          "pos",
-                          "response",
-                          "consideraciones-generales"
+                          {
+                            "group": "Autorización",
+                            "pages": [
+                              "ecommerce",
+                              "pos",
+                              "response",
+                              "consideraciones-generales"
+                            ]
+                          }
                         ]
                       }
                     ]
+                  },
+                  {
+                    "group": "Ayuda y contacto",
+                    "icon": "comment-question",
+                    "pages": [
+                      "faq",
+                      "support"
+                    ]
                   }
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "language": "en",
+        "navbar": {
+          "links": [],
+          "primary": {
+            "type": "button",
+            "label": "Sales contact",
+            "href": "mailto:postventa.autenticacion@alignet.com"
+          }
+        },
+        "products": [
+          {
+            "product": "Processing",
+            "icon": "credit-card-alt",
+            "tabs": [
               {
-                "group": "Ayuda y contacto",
-                "icon": "comment-question",
-                "pages": [
-                  "faq",
-                  "support"
+                "tab": "Overview",
+                "groups": [
+                  {
+                    "group": "Getting started",
+                    "icon": "shoe-prints",
+                    "pages": [
+                      "en/index",
+                      "en/prerequisites",
+                      {
+                        "group": "Integration guide",
+                        "icon": "book-bookmark",
+                        "pages": [
+                          {
+                            "group": "Authorization",
+                            "pages": [
+                              "en/ecommerce",
+                              "en/pos",
+                              "en/response",
+                              "en/general-considerations"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Help and contact",
+                    "icon": "comment-question",
+                    "pages": [
+                      "en/faq",
+                      "en/support"
+                    ]
+                  }
                 ]
               }
             ]
@@ -93,9 +162,6 @@
       "linkedin": "https://www.linkedin.com/company/alignet",
       "website": "https://www.Alignet.com"
     }
-  },
-  "search": {
-    "prompt": "Haz una pregunta"
   },
   "contextual": {
     "options": [

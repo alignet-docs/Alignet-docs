@@ -1,0 +1,252 @@
+---
+title: "Prerequisites"
+description: "Technical, operational, and brand requirements for starting transaction processing with Alignet."
+icon: "clipboard-check"
+---
+
+## Before you begin
+
+Integrating with Alignet's processing services requires a prior assessment of the operating model, the brands involved, and each participant's responsibilities.
+
+Service enablement does not depend solely on the technical integration. In certain scenarios, additional activities with card brands, payment networks, or participating institutions may be required.
+
+Before starting the project, the institution must contact an Alignet sales representative to assess the required scope, confirm service availability, and coordinate the next steps.
+
+<Card title="Contact the sales team" icon="envelope" href="mailto:postventa.autenticacion@alignet.com">
+  Contact our sales team to begin the project assessment.
+</Card>
+
+## Define the participation model
+
+Before starting the project, define the role of each participant in the transaction flow.
+
+The most common models are:
+
+### Acquiring institution
+
+The institution maintains its relationship with the card brand and merchants and remains responsible for transaction settlement.
+
+Alignet may participate as the technology processor responsible for receiving, validating, routing, and managing transactions.
+
+### Payment facilitator
+
+The payment facilitator submits transactions for its merchants or submerchants through a centralized integration.
+
+This model requires defining, among other aspects:
+
+* Payment facilitator identification.
+* Merchant or submerchant identification.
+* Affiliation rules.
+* Settlement model.
+* Responsibility for merchant monitoring.
+* Information required by each card brand.
+
+### Alignet as a processor
+
+Alignet may operate as a processor for the card brands and networks enabled for the project.
+
+Availability may vary depending on:
+
+* Country of operation.
+* Requested brand or network.
+* Acquiring model.
+* Available connections.
+* Required certifications.
+* Contracted commercial scope.
+
+<Info>
+  Alignet's participation as a processor does not replace the regulatory, contractual, or card-brand obligations of the acquiring institution or payment facilitator.
+</Info>
+
+## Prior project with card brands
+
+When the institution requires acquiring processing, a project must first be coordinated with the corresponding card brand.
+
+This project may be required for Visa, Mastercard, Diners Club, UnionPay, or other networks, depending on the requested scope.
+
+Activities may include:
+
+<Steps>
+  <Step title="Project registration">
+    The institution must register or request the project with the corresponding brand or network.
+  </Step>
+
+  <Step title="Participant definition">
+    The acquiring institution, processor, payment facilitators, and other participants are identified.
+  </Step>
+
+  <Step title="Identifier assignment">
+    The identifiers required for authorization, processing, clearing, and settlement are confirmed.
+  </Step>
+
+  <Step title="Connection setup">
+    The required links, stations, endpoints, or communication mechanisms are enabled.
+  </Step>
+
+  <Step title="Certification">
+    The technical and transactional tests defined by the card brand are performed.
+  </Step>
+
+  <Step title="Production launch">
+    The brand and participants confirm enablement to operate in the production environment.
+  </Step>
+</Steps>
+
+## Information required from the institution
+
+To assess the integration, the institution must provide at least the following:
+
+### General information
+
+* Legal company name (VAT).
+* Country of operation.
+* Role within the ecosystem.
+* Institution type: acquirer or payment facilitator.
+* Card brands to be processed.
+* Transaction source channels.
+* Estimated transaction volume.
+* Required currencies.
+
+### Acquiring information
+
+* Acquirer BIN or identifier.
+* Identifier assigned by the card brand.
+* Processor code, when applicable.
+* Merchant identifiers.
+* Merchant categories.
+* Settlement model.
+* Clearing and reconciliation flow.
+* Domestic and international configuration.
+
+### Technical information
+
+* Integration architecture.
+* Endpoint addresses.
+* Source IP addresses.
+* Security mechanisms.
+* Digital certificates.
+* Required environments.
+* Messaging format.
+* Timeout and retry handling.
+* Technical and operational contacts.
+
+## Certifications
+
+Additional certifications may be required depending on the channel and card brand.
+
+These may include:
+
+* Authorization certification.
+* Clearing certification.
+* POS terminal certification.
+* Ecommerce certification.
+* 3DS certification.
+* Tokenization certification.
+* Payment facilitator certification.
+* ISO 8583 or API message certification.
+* Business continuity and contingency testing.
+
+<Note>
+  The required certification type will be determined during the project assessment stage.
+</Note>
+
+## Institution responsibilities
+
+The institution is responsible for:
+
+* Holding the authorizations required to operate.
+* Managing its contractual relationship with card brands.
+* Keeping its identifiers up to date.
+* Submitting accurate transaction information.
+* Complying with card-brand rules.
+* Properly managing its merchants or submerchants.
+* Applying fraud and risk controls.
+* Complying with security and data protection obligations.
+* Participating in tests and certifications.
+* Validating results before the production launch.
+
+## Alignet responsibilities
+
+Depending on the contracted scope, Alignet may be responsible for:
+
+* Providing API services.
+* Receiving and validating requests.
+* Applying processing rules.
+* Routing transactions.
+* Managing communication with the enabled network.
+* Returning transaction responses.
+* Providing traceability and monitoring.
+* Participating in certification testing.
+* Providing support during the integration.
+
+## Security
+
+The institution must comply with the security policies defined for the project.
+
+These may include:
+
+* Mandatory use of HTTPS.
+* Authentication through credentials or certificates.
+* IP address restrictions.
+* Sensitive information protection.
+* PCI DSS compliance, when applicable.
+* Information encryption.
+* Secure key and secret management.
+* Environment access controls.
+* Operation logging and auditing.
+
+## Environments
+
+The integration may include the following environments:
+
+<CardGroup>
+  <Card title="Sandbox" icon="flask">
+    Initial environment for validating request and response structures.
+  </Card>
+
+  <Card title="Certification" icon="clipboard-check">
+    Environment used to perform the required test cases.
+  </Card>
+
+  <Card title="Production" icon="server">
+    Environment enabled for processing real transactions.
+  </Card>
+
+  <Card title="Contingency" icon="shield">
+    Alternative configuration when included in the contracted model.
+  </Card>
+</CardGroup>
+
+## Production readiness criteria
+
+Production enablement is subject to meeting the following conditions:
+
+* Approved scope.
+* Formalized contracts.
+* Completed card-brand project, when applicable.
+* Confirmed identifiers.
+* Enabled connections.
+* Approved certification.
+* Satisfactory end-to-end testing.
+* Validated security configuration.
+* Defined support contacts.
+* Approved production launch plan.
+
+<Warning>
+  Submitting real transactions before completing the required validations may cause declines, reconciliation problems, or noncompliance with card-brand requirements.
+</Warning>
+
+## Start the project
+
+After reviewing these considerations, the institution must coordinate an understanding and information-gathering session with Alignet.
+
+During this stage, the following will be defined:
+
+* Functional scope.
+* Technical scope.
+* Card brands involved.
+* Responsibilities.
+* Schedule.
+* Certifications.
+* Dependencies.
+* Implementation plan.

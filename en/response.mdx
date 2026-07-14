@@ -1,0 +1,205 @@
+---
+title: "Response"
+description: "Response structure for Ecommerce and POS authorizations through the POST /authorize endpoint."
+---
+
+The authorization service response applies to both channels:
+
+* Ecommerce
+* POS
+
+This structure identifies whether the request was processed, the result returned by the card brand, traceability identifiers, and the operation's internal status.
+
+## Successful response
+
+```json
+{
+  "success": "true",
+  "transaction": {
+    "tk_transaction_identifier": "42c2ff66-3eb0-4a69-9848-430fc722f6bc",
+    "processor_response": {
+      "message": {
+        "code": "00",
+        "description": "Successful payment"
+      },
+      "brand_transaction_identifier": "306190611475347",
+      "authorization_identification_response": "087657",
+      "retrieval_reference_code": "619016007284",
+      "system_trace_audit": "007284",
+      "response_code": "00",
+      "date_settlement": "0710"
+    },
+    "meta": {
+      "status": {
+        "code": "success_operation",
+        "message_ilgn": [
+          {
+            "locale": "en_US",
+            "value": "Request processed successfully"
+          }
+        ]
+      },
+      "metrics": {
+        "aggregate": {
+          "start": "1783616336421",
+          "end": "1783616348410",
+          "duration": {
+            "milliseconds": "11988"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Field descriptions
+
+| Field                                                                  | Type        | Description                                                                                 |
+| ---------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------- |
+| `success`                                                              | string      | Indicates whether the service processed the operation. Values: `true` or `false`.           |
+| `transaction.tk_transaction_identifier`                                | string UUID | Unique transaction identifier in the system.                                                |
+| `transaction.processor_response.message.code`                          | string      | Card-brand response code. `00` indicates an approved operation.                             |
+| `transaction.processor_response.message.description`                   | string      | Human-readable description of the operation result.                                         |
+| `transaction.processor_response.brand_transaction_identifier`          | string      | Transaction identifier assigned by the card brand.                                          |
+| `transaction.processor_response.authorization_identification_response` | string      | Operation authorization code. It normally contains six digits.                              |
+| `transaction.processor_response.retrieval_reference_code`              | string      | RRN, or Retrieval Reference Number. Used for queries, traceability, and reconciliation.      |
+| `transaction.processor_response.system_trace_audit`                    | string      | STAN, or System Trace Audit Number. Transaction audit identifier.                            |
+| `transaction.processor_response.response_code`                         | string      | ISO response code. `00` indicates approval.                                                  |
+| `transaction.processor_response.date_settlement`                       | string      | Estimated settlement date in `MMDD` format.                                                  |
+| `transaction.meta.status.code`                                         | string      | Internal operation status. Examples: `success_operation`, `invalid_request`.                 |
+| `transaction.meta.status.message_ilgn`                                 | array       | List of localized messages associated with the operation result.                             |
+| `transaction.meta.status.message_ilgn[].locale`                        | string      | Message locale. Example: `en_US`.                                                            |
+| `transaction.meta.status.message_ilgn[].value`                         | string      | Descriptive operation result message.                                                        |
+| `transaction.meta.metrics.aggregate.start`                             | string      | Processing start timestamp.                                                                  |
+| `transaction.meta.metrics.aggregate.end`                               | string      | Processing end timestamp.                                                                    |
+| `transaction.meta.metrics.aggregate.duration.milliseconds`             | string      | Total processing time in milliseconds.                                                       |
+
+## Interpret a successful response
+
+An authorization is considered approved when the main response fields contain these values:
+
+| Field                              | Expected value      | Interpretation                           |
+| ---------------------------------- | ------------------- | ---------------------------------------- |
+| `success`                          | `true`              | The service processed the request.       |
+| `processor_response.message.code`  | `00`                | The card brand returned an approval.     |
+| `processor_response.response_code` | `00`                | ISO approval code.                       |
+| `meta.status.code`                 | `success_operation` | Successful internal status.              |
+
+## Traceability identifiers
+
+Use the following fields for transaction tracking, queries, reconciliation, operational support, and card-brand validation.
+
+| Field                                   | Use                                                            |
+| --------------------------------------- | -------------------------------------------------------------- |
+| `tk_transaction_identifier`             | Unique internal transaction identifier.                        |
+| `brand_transaction_identifier`          | Identifier assigned by the card brand.                          |
+| `authorization_identification_response` | Transaction authorization code.                                |
+| `retrieval_reference_code`              | RRN used for traceability, queries, and reconciliation.         |
+| `system_trace_audit`                    | Transaction STAN.                                               |
+| `date_settlement`                       | Estimated settlement date.                                     |
+
+## `processor_response` object
+
+The `processor_response` object contains the response received from the processor or card brand.
+
+```json
+{
+  "processor_response": {
+    "message": {
+      "code": "00",
+      "description": "Successful payment"
+    },
+    "brand_transaction_identifier": "306190611475347",
+    "authorization_identification_response": "087657",
+    "retrieval_reference_code": "619016007284",
+    "system_trace_audit": "007284",
+    "response_code": "00",
+    "date_settlement": "0710"
+  }
+}
+```
+
+| Field                                   | Description                                      |
+| --------------------------------------- | ------------------------------------------------ |
+| `message.code`                          | Card-brand response code.                        |
+| `message.description`                   | Description of the operation result.             |
+| `brand_transaction_identifier`          | Transaction identifier assigned by the brand.    |
+| `authorization_identification_response` | Authorization code.                              |
+| `retrieval_reference_code`              | Transaction RRN.                                 |
+| `system_trace_audit`                    | Transaction STAN.                                |
+| `response_code`                         | ISO response code.                               |
+| `date_settlement`                       | Estimated settlement date in `MMDD` format.      |
+
+## `meta.status` object
+
+The `meta.status` object contains the operation's internal status in the system.
+
+```json
+{
+  "status": {
+    "code": "success_operation",
+    "message_ilgn": [
+      {
+        "locale": "en_US",
+        "value": "Request processed successfully"
+      }
+    ]
+  }
+}
+```
+
+| Field                   | Description                                |
+| ----------------------- | ------------------------------------------ |
+| `code`                  | Internal operation status code.            |
+| `message_ilgn`          | List of localized messages.                |
+| `message_ilgn[].locale` | Message locale.                            |
+| `message_ilgn[].value`  | Localized result description.              |
+
+## `meta.metrics` object
+
+The `meta.metrics` object contains operation processing-time information.
+
+```json
+{
+  "metrics": {
+    "aggregate": {
+      "start": "1783616336421",
+      "end": "1783616348410",
+      "duration": {
+        "milliseconds": "11988"
+      }
+    }
+  }
+}
+```
+
+| Field                             | Description                            |
+| --------------------------------- | -------------------------------------- |
+| `aggregate.start`                 | Processing start timestamp.            |
+| `aggregate.end`                   | Processing end timestamp.              |
+| `aggregate.duration.milliseconds` | Total processing time in milliseconds. |
+
+## Considerations
+
+* `success` indicates whether the service processed the request.
+* For an approved operation, validate both the card-brand response code and the internal operation status.
+* Store `tk_transaction_identifier` for future queries.
+* `retrieval_reference_code` and `system_trace_audit` are relevant for operational traceability.
+* Use `authorization_identification_response` as the operation's authorization code.
+* `date_settlement` identifies the estimated settlement date.
+* Use `meta.metrics` timing data for monitoring, support, and performance analysis.
+
+***
+
+## Authorization channels
+
+<CardGroup>
+  <Card title="Ecommerce" icon="cart-shopping" href="/en/ecommerce">
+    View the Ecommerce authorization message.
+  </Card>
+
+  <Card title="POS" icon="credit-card" href="/en/pos">
+    View the POS authorization message.
+  </Card>
+</CardGroup>
