@@ -4,8 +4,8 @@
   "name": "Alignet Integration Docs",
   "description": "Plataforma de pagos de Alignet para integrar, procesar y gestionar transacciones en canales e-commerce y POS. Incluye APIs, SDKs y herramientas para adquirentes, facilitadores de pago y comercios.",
   "colors": {
-    "primary": "#9d5207",
-    "light": "#cd7f07",
+    "primary": "#4249e6",
+    "light": "#db46f4",
     "dark": "#10366a"
   },
   "logo": {
