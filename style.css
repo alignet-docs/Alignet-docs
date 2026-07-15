@@ -5,3 +5,10 @@
 img[alt="dark logo"] {
   filter: brightness(0) invert(1);
 }
+
+html:not(.dark) body,
+html:not(.dark) header,
+html:not(.dark) aside,
+html:not(.dark) main {
+  background-color: #ffffff !important;
+}
