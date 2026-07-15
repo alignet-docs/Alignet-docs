@@ -9,6 +9,14 @@ img[alt="dark logo"] {
   filter: brightness(0) invert(1);
 }
 
+#localization-select-trigger::before,
+[data-component-part="localization-select-item"]::before {
+  content: "\1F310";
+  flex: 0 0 auto;
+  font-size: 14px;
+  line-height: 1;
+}
+
 @media (min-width: 1024px) {
   .nav-dropdown-products-selector-trigger {
     margin-left: 24px !important;
