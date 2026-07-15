@@ -8,3 +8,14 @@
 img[alt="dark logo"] {
   filter: brightness(0) invert(1);
 }
+
+@media (min-width: 1024px) {
+  #navbar div:has(> #localization-select-trigger) {
+    position: absolute;
+    right: 222px;
+    top: 50%;
+    z-index: 30;
+    display: flex;
+    transform: translateY(-50%);
+  }
+}
