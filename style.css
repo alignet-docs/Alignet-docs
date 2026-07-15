@@ -10,6 +10,10 @@ img[alt="dark logo"] {
 }
 
 @media (min-width: 1024px) {
+  .nav-dropdown-products-selector-trigger {
+    margin-left: 24px !important;
+  }
+
   #navbar div:has(> #localization-select-trigger) {
     position: absolute;
     right: 222px;
