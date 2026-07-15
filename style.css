@@ -9,6 +9,11 @@ img[alt="dark logo"] {
   filter: brightness(0) invert(1);
 }
 
+#header > .mt-2.text-lg {
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+}
+
 #localization-select-trigger::before,
 [data-component-part="localization-select-item"]::before {
   content: "";
