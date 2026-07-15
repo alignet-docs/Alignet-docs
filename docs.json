@@ -22,7 +22,7 @@
   "background": {
     "decoration": "windows",
     "color": {
-      "light": "#FFFFFF",
+      "light": "#F7F9FE",
       "dark": "#071225"
     }
   },
