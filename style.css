@@ -9,6 +9,16 @@ img[alt="dark logo"] {
   filter: brightness(0) invert(1);
 }
 
+.dark #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
+  background-color: #f5f5f5 !important;
+  color: #011c57 !important;
+}
+
+.dark #navbar a[href^="mailto:postventa.autenticacion@alignet.com"]:hover {
+  background-color: #ffffff !important;
+  color: #011c57 !important;
+}
+
 #header > .mt-2.text-lg {
   font-size: 16px !important;
   line-height: 1.6 !important;
