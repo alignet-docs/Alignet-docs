@@ -12,19 +12,29 @@ img[alt="dark logo"] {
 .dark a[href="mailto:postventa.autenticacion@alignet.com"],
 [data-theme="dark"] a[href="mailto:postventa.autenticacion@alignet.com"] {
   display: inline-flex !important;
-  background: #f5f5f5 !important;
-  color: #011c57 !important;
-  -webkit-text-fill-color: #011c57 !important;
-  border-color: #f5f5f5 !important;
+  background: #263168 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-color: #263168 !important;
+  outline-color: #263168 !important;
   box-shadow: none !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
 
+.dark a[href="mailto:postventa.autenticacion@alignet.com"]::before,
+.dark a[href="mailto:postventa.autenticacion@alignet.com"]::after,
+[data-theme="dark"] a[href="mailto:postventa.autenticacion@alignet.com"]::before,
+[data-theme="dark"] a[href="mailto:postventa.autenticacion@alignet.com"]::after {
+  background: #263168 !important;
+  border-color: #263168 !important;
+  box-shadow: none !important;
+}
+
 .dark a[href="mailto:postventa.autenticacion@alignet.com"] *,
 [data-theme="dark"] a[href="mailto:postventa.autenticacion@alignet.com"] * {
-  color: #011c57 !important;
-  -webkit-text-fill-color: #011c57 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   fill: currentColor !important;
   stroke: currentColor !important;
   opacity: 1 !important;
@@ -32,11 +42,15 @@ img[alt="dark logo"] {
 }
 
 .dark a[href="mailto:postventa.autenticacion@alignet.com"]:hover,
-[data-theme="dark"] a[href="mailto:postventa.autenticacion@alignet.com"]:hover {
-  background: #ffffff !important;
-  color: #011c57 !important;
-  -webkit-text-fill-color: #011c57 !important;
-  border-color: #ffffff !important;
+.dark a[href="mailto:postventa.autenticacion@alignet.com"]:focus-visible,
+[data-theme="dark"] a[href="mailto:postventa.autenticacion@alignet.com"]:hover,
+[data-theme="dark"] a[href="mailto:postventa.autenticacion@alignet.com"]:focus-visible {
+  background: #011c57 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-color: #011c57 !important;
+  outline-color: #f96b07 !important;
+  box-shadow: none !important;
 }
 
 #header > .mt-2.text-lg {
