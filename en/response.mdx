@@ -10,7 +10,46 @@ The authorization service response applies to both channels:
 
 This structure identifies whether the request was processed, the result returned by the card brand, traceability identifiers, and the operation's internal status.
 
+## HTTP response headers
+
+Service HTTP responses must include the following security headers:
+
+```http
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+Content-Security-Policy: child-src *; frame-ancestors *;
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin, same-origin
+Permissions-Policy: screen-wake-lock=*
+```
+
+| Header                      | Value                                                 | Purpose                                                                    |
+| --------------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------- |
+| `Strict-Transport-Security` | `max-age=63072000; includeSubDomains; preload`         | Forces HTTPS for the configured period.                                    |
+| `Content-Security-Policy`   | `child-src *; frame-ancestors *;`                     | Defines allowed origins for embedded content and framing.                  |
+| `X-Frame-Options`           | `SAMEORIGIN`                                          | Limits framing of the page to the same origin.                             |
+| `X-Content-Type-Options`    | `nosniff`                                             | Prevents the browser from inferring a different content type.              |
+| `Referrer-Policy`           | `strict-origin, same-origin`                          | Controls the referrer information sent during navigation.                  |
+| `Permissions-Policy`        | `screen-wake-lock=*`                                  | Allows Screen Wake Lock according to the configured origin allowlist.      |
+
+<Warning>
+  Configure these headers on the server, API gateway, CDN, or reverse proxy that returns the response. `frame-ancestors *` allows any origin to frame the page and may conflict with `X-Frame-Options: SAMEORIGIN`. Validate this combination with your security team before using it in production.
+</Warning>
+
 ## Successful response
+
+The main HTTP response contains the security headers and the operation's JSON body:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+Content-Security-Policy: child-src *; frame-ancestors *;
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin, same-origin
+Permissions-Policy: screen-wake-lock=*
+```
 
 ```json
 {

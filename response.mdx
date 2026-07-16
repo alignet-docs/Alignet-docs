@@ -9,7 +9,46 @@ La respuesta del servicio de autorización aplica para ambos canales:
 
 Esta estructura permite identificar si la petición fue procesada, el resultado enviado por la marca, los identificadores de trazabilidad y el estado interno de la operación.
 
+## Encabezados HTTP de respuesta
+
+Las respuestas HTTP del servicio deben incluir los siguientes encabezados de seguridad:
+
+```http
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+Content-Security-Policy: child-src *; frame-ancestors *;
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin, same-origin
+Permissions-Policy: screen-wake-lock=*
+```
+
+| Encabezado                  | Valor                                                 | Propósito                                                                    |
+| --------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `Strict-Transport-Security` | `max-age=63072000; includeSubDomains; preload`         | Obliga a utilizar HTTPS durante el periodo configurado.                      |
+| `Content-Security-Policy`   | `child-src *; frame-ancestors *;`                     | Define los orígenes permitidos para contenido embebido y framing.            |
+| `X-Frame-Options`           | `SAMEORIGIN`                                          | Limita la carga de la página en frames al mismo origen.                      |
+| `X-Content-Type-Options`    | `nosniff`                                             | Evita que el navegador intente inferir un tipo de contenido diferente.       |
+| `Referrer-Policy`           | `strict-origin, same-origin`                          | Controla la información de referencia enviada durante la navegación.        |
+| `Permissions-Policy`        | `screen-wake-lock=*`                                  | Permite el uso de Screen Wake Lock según la lista de orígenes configurada.   |
+
+<Warning>
+  Estos encabezados deben configurarse en el servidor, API gateway, CDN o proxy inverso que entrega la respuesta. `frame-ancestors *` permite que cualquier origen inserte la página en un frame y puede entrar en conflicto con `X-Frame-Options: SAMEORIGIN`. Valida esta combinación con el equipo de seguridad antes de usarla en producción.
+</Warning>
+
 ## Response exitoso
+
+La respuesta HTTP principal contiene los encabezados de seguridad y el cuerpo JSON de la operación:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+Content-Security-Policy: child-src *; frame-ancestors *;
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin, same-origin
+Permissions-Policy: screen-wake-lock=*
+```
 
 ```json
 {
