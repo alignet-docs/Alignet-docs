@@ -78,6 +78,26 @@ img[alt="dark logo"] {
   height: 28px;
 }
 
+.processing-hero {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.processing-hero-dark {
+  display: none;
+}
+
+.dark .processing-hero-light,
+[data-theme="dark"] .processing-hero-light {
+  display: none;
+}
+
+.dark .processing-hero-dark,
+[data-theme="dark"] .processing-hero-dark {
+  display: block;
+}
+
 .ecommerce-flow-heading {
   margin-top: 12px !important;
 }
