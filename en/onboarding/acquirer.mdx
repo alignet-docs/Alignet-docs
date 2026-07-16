@@ -1,0 +1,27 @@
+---
+title: "Acquirer registration"
+description: "Operations available to register, retrieve, and update Acquirers."
+icon: "building-columns"
+---
+
+An Acquirer, such as Banco Mercantil or BNCR, can create Payment Facilitators and Merchants.
+
+## Endpoints
+
+| Method | Path | Description | Who can invoke it |
+| --- | --- | --- | --- |
+| `POST` | `/onboarding/acquirers` | Register an acquirer. | Admin, Gateway. |
+| `GET` | `/onboarding/acquirers/{code}` | Retrieve an acquirer. | Admin, Gateway, Acquirer. |
+| `PUT` | `/onboarding/acquirers/{code}` | Update an acquirer. | Admin, Gateway. |
+
+## Credentials
+
+OAuth credential generation is configurable with `generate_credentials: "true"` or `"false"`.
+
+<Warning>
+  When generated, the `client_id` and `client_secret` are displayed only once during registration. Store them securely.
+</Warning>
+
+<Card title="Continue to Payment Facilitator" icon="arrow-right" href="/en/onboarding/payment-facilitator">
+  Review the operations for registering and managing Payment Facilitators.
+</Card>

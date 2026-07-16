@@ -1,0 +1,27 @@
+---
+title: "Registro de Acquirer"
+description: "Operaciones disponibles para registrar, consultar y actualizar Acquirers."
+icon: "building-columns"
+---
+
+Un Acquirer, como Banco Mercantil o BNCR, puede crear Payment Facilitators y Merchants.
+
+## Endpoints
+
+| Método | Path | Descripción | Quién puede invocar |
+| --- | --- | --- | --- |
+| `POST` | `/onboarding/acquirers` | Registrar un acquirer. | Admin, Gateway. |
+| `GET` | `/onboarding/acquirers/{code}` | Consultar un acquirer. | Admin, Gateway, Acquirer. |
+| `PUT` | `/onboarding/acquirers/{code}` | Actualizar un acquirer. | Admin, Gateway. |
+
+## Credenciales
+
+La generación de credenciales OAuth es configurable mediante `generate_credentials: "true"` o `"false"`.
+
+<Warning>
+  Cuando se generan, el `client_id` y el `client_secret` se muestran una sola vez durante el registro. Deben almacenarse de forma segura.
+</Warning>
+
+<Card title="Continuar con Payment Facilitator" icon="arrow-right" href="/onboarding/payment-facilitator">
+  Consulta las operaciones de registro y administración de Payment Facilitators.
+</Card>

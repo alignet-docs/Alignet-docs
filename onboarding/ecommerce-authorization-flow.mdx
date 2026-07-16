@@ -1,0 +1,20 @@
+---
+title: "Flujo de autorización Ecommerce"
+description: "Disponibilidad de los datos de Onboarding para el flujo de autorización Ecommerce."
+icon: "cart-shopping"
+---
+
+Al registrar cada entidad en el API de Onboarding, los datos normativos se sincronizan automáticamente con TransactionKeyDB mediante EventBridge.
+
+```mermaid
+flowchart LR
+    O["API de Onboarding<br/>Registro de entidad"] --> E["EventBridge"]
+    E --> T["TransactionKeyDB<br/>Cuenta de procesamiento"]
+    T --> A["Autorización Ecommerce<br/>Datos de acquirer y merchant disponibles"]
+```
+
+La sincronización permite que la autorización Ecommerce disponga de la información del acquirer, incluidos los BINs y códigos de institución, y del merchant sin intervención manual.
+
+<Card title="Ver autorización Ecommerce" icon="cart-shopping" href="/ecommerce">
+  Consulta la documentación del endpoint `POST /authorize` para Ecommerce.
+</Card>

@@ -69,6 +69,19 @@
                         "icon": "book-bookmark",
                         "pages": [
                           {
+                            "group": "Onboarding",
+                            "pages": [
+                              "onboarding/index",
+                              "onboarding/authentication-security",
+                              "onboarding/gateway",
+                              "onboarding/acquirer",
+                              "onboarding/payment-facilitator",
+                              "onboarding/merchant",
+                              "onboarding/ecommerce-authorization-flow",
+                              "onboarding/pos-authorization-flow"
+                            ]
+                          },
+                          {
                             "group": "Autorización",
                             "pages": [
                               "ecommerce",
@@ -123,6 +136,19 @@
                         "group": "Integration guide",
                         "icon": "book-bookmark",
                         "pages": [
+                          {
+                            "group": "Onboarding",
+                            "pages": [
+                              "en/onboarding/index",
+                              "en/onboarding/authentication-security",
+                              "en/onboarding/gateway",
+                              "en/onboarding/acquirer",
+                              "en/onboarding/payment-facilitator",
+                              "en/onboarding/merchant",
+                              "en/onboarding/ecommerce-authorization-flow",
+                              "en/onboarding/pos-authorization-flow"
+                            ]
+                          },
                           {
                             "group": "Authorization",
                             "pages": [

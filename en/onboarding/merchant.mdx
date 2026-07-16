@@ -1,0 +1,27 @@
+---
+title: "Merchant registration"
+description: "Operations available to register, retrieve, and update Merchants."
+icon: "store"
+---
+
+Merchants, such as Tienda ABC or JOLLAS KALEP, occupy the last level in the specified entity hierarchy.
+
+## Endpoints
+
+| Method | Path | Description | Who can invoke it |
+| --- | --- | --- | --- |
+| `POST` | `/onboarding/merchants` | Register a merchant. | Admin, Gateway, Acquirer, PF. |
+| `GET` | `/onboarding/merchants/{code}` | Retrieve a merchant. | Admin, Gateway, Acquirer, PF. |
+| `PUT` | `/onboarding/merchants/{code}` | Update a merchant. | Admin, Gateway, Acquirer, PF. |
+
+## Credentials
+
+OAuth credential generation is configurable with `generate_credentials: "true"` or `"false"`.
+
+<Warning>
+  When generated, the `client_id` and `client_secret` are displayed only once during registration. Store them securely.
+</Warning>
+
+<Card title="View synchronization" icon="arrows-rotate" href="/en/onboarding/ecommerce-authorization-flow">
+  Review how registered data becomes available to the authorization flow.
+</Card>

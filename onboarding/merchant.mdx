@@ -1,0 +1,27 @@
+---
+title: "Registro de Merchant"
+description: "Operaciones disponibles para registrar, consultar y actualizar Merchants."
+icon: "store"
+---
+
+Los Merchants, como Tienda ABC o JOLLAS KALEP, ocupan el último nivel de la jerarquía de entidades indicada.
+
+## Endpoints
+
+| Método | Path | Descripción | Quién puede invocar |
+| --- | --- | --- | --- |
+| `POST` | `/onboarding/merchants` | Registrar un merchant. | Admin, Gateway, Acquirer, PF. |
+| `GET` | `/onboarding/merchants/{code}` | Consultar un merchant. | Admin, Gateway, Acquirer, PF. |
+| `PUT` | `/onboarding/merchants/{code}` | Actualizar un merchant. | Admin, Gateway, Acquirer, PF. |
+
+## Credenciales
+
+La generación de credenciales OAuth es configurable mediante `generate_credentials: "true"` o `"false"`.
+
+<Warning>
+  Cuando se generan, el `client_id` y el `client_secret` se muestran una sola vez durante el registro. Deben almacenarse de forma segura.
+</Warning>
+
+<Card title="Ver sincronización" icon="arrows-rotate" href="/onboarding/ecommerce-authorization-flow">
+  Revisa cómo los datos registrados quedan disponibles para el flujo de autorización.
+</Card>

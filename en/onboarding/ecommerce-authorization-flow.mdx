@@ -1,0 +1,20 @@
+---
+title: "Ecommerce authorization flow"
+description: "Availability of Onboarding data to the Ecommerce authorization flow."
+icon: "cart-shopping"
+---
+
+When each entity is registered through the Onboarding API, its regulatory data is automatically synchronized with TransactionKeyDB through EventBridge.
+
+```mermaid
+flowchart LR
+    O["Onboarding API<br/>Entity registration"] --> E["EventBridge"]
+    E --> T["TransactionKeyDB<br/>Processing account"]
+    T --> A["Ecommerce authorization<br/>Acquirer and merchant data available"]
+```
+
+The synchronization makes the acquirer information, including BINs and institution codes, and merchant information available to Ecommerce authorization without manual intervention.
+
+<Card title="View Ecommerce authorization" icon="cart-shopping" href="/en/ecommerce">
+  Review the `POST /authorize` endpoint documentation for Ecommerce.
+</Card>

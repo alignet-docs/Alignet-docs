@@ -1,0 +1,27 @@
+---
+title: "Gateway registration"
+description: "Operations available to register, retrieve, and update Gateways."
+icon: "server"
+---
+
+A Gateway, such as Croem or PayMe, can create Acquirers, Payment Facilitators, and Merchants.
+
+## Endpoints
+
+| Method | Path | Description | Who can invoke it |
+| --- | --- | --- | --- |
+| `POST` | `/onboarding/gateways` | Register a gateway. | Admin. |
+| `GET` | `/onboarding/gateways/{code}` | Retrieve a gateway. | Admin, the Gateway itself. |
+| `PUT` | `/onboarding/gateways/{code}` | Update a gateway. | Admin. |
+
+## Credentials
+
+Gateway OAuth credentials are always generated and required.
+
+<Warning>
+  The `client_id` and `client_secret` are displayed only once during registration. Store them securely.
+</Warning>
+
+<Card title="Continue to Acquirer" icon="arrow-right" href="/en/onboarding/acquirer">
+  Review the operations for registering and managing Acquirers.
+</Card>
