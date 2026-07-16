@@ -98,6 +98,20 @@ img[alt="dark logo"] {
   display: block;
 }
 
+.ecommerce-flow-dark {
+  display: none;
+}
+
+.dark .ecommerce-flow-light,
+[data-theme="dark"] .ecommerce-flow-light {
+  display: none;
+}
+
+.dark .ecommerce-flow-dark,
+[data-theme="dark"] .ecommerce-flow-dark {
+  display: block;
+}
+
 .ecommerce-flow-heading {
   margin-top: 12px !important;
 }

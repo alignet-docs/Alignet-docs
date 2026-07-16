@@ -5,7 +5,16 @@ description: "Autorización de transacciones Ecommerce mediante el endpoint POST
 <h3 id="flujo-de-procesamiento-adquirente" className="ecommerce-flow-heading">Flujo de procesamiento adquirente</h3>
 
 <Frame caption="Los pagos originados en Ecommerce, POS y aplicaciones móviles se procesan mediante la API de Alignet.">
-  ![Flujo de procesamiento adquirente desde Ecommerce, POS y aplicaciones móviles hacia Alignet y los bancos](/images/procesamiento-adquirente-flujo.png)
+  <img
+    className="processing-hero ecommerce-flow-light"
+    src="/images/procesamiento-adquirente-flujo.png"
+    alt="Flujo de procesamiento adquirente desde Ecommerce, POS y aplicaciones móviles hacia Alignet y los bancos"
+  />
+  <img
+    className="processing-hero ecommerce-flow-dark"
+    src="/images/ecommerce-processing-dark.png"
+    alt="Flujo de procesamiento adquirente en modo oscuro"
+  />
 </Frame>
 
 El servicio de autorización Ecommerce permite procesar pagos de comercio electrónico mediante el endpoint `POST /authorize`.
