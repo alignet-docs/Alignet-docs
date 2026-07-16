@@ -6,7 +6,7 @@
   "colors": {
     "primary": "#263168",
     "light": "#6F9FEF",
-    "dark": "#f96b07"
+    "dark": "#f66b09"
   },
   "logo": {
     "light": "/images/alignet-logo-header-v4.png",
@@ -22,7 +22,7 @@
   "background": {
     "decoration": "windows",
     "color": {
-      "light": "#FBFBFD",
+      "light": "#ffffff",
       "dark": "#071225"
     }
   },
