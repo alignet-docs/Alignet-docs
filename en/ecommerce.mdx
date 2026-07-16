@@ -3,6 +3,21 @@ title: "Ecommerce"
 description: "Authorize ecommerce transactions through the POST /authorize endpoint."
 ---
 
+<h3 id="acquiring-processing-flow" className="ecommerce-flow-heading">Acquiring processing flow</h3>
+
+<Frame caption="Payments originating from Ecommerce, POS, and mobile applications are processed through the Alignet API.">
+  <img
+    className="processing-hero ecommerce-flow-light"
+    src="/images/procesamiento-adquirente-flujo.png"
+    alt="Acquiring processing flow from Ecommerce, POS, and mobile applications to Alignet and banks"
+  />
+  <img
+    className="processing-hero ecommerce-flow-dark"
+    src="/images/ecommerce-processing-dark.png"
+    alt="Acquiring processing flow in dark mode"
+  />
+</Frame>
+
 The Ecommerce authorization service processes online payments through the `POST /authorize` endpoint.
 
 Use this message when the transaction originates from a card-not-present channel such as a web checkout, mobile checkout, payment link, or server-to-server integration.
