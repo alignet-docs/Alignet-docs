@@ -52,7 +52,7 @@
         },
         "products": [
           {
-            "product": "Procesamiento",
+            "product": "Procesamiento Adquirente",
             "icon": "credit-card-alt",
             "tabs": [
               {
@@ -265,7 +265,7 @@
         },
         "products": [
           {
-            "product": "Processing",
+            "product": "Acquiring Processing",
             "icon": "credit-card-alt",
             "tabs": [
               {
