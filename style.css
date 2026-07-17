@@ -155,8 +155,19 @@ html.dark #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
 }
 
 @media (min-width: 1024px) {
+  #navbar .h-16:has(.nav-dropdown-products-selector-trigger) {
+    height: 104px !important;
+  }
+
+  #navbar div:has(> .nav-dropdown-products-selector-trigger) {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    gap: 4px !important;
+  }
+
   .nav-dropdown-products-selector-trigger {
-    margin-left: 24px !important;
+    margin-left: 0 !important;
   }
 
   #navbar div:has(> #localization-select-trigger) {
