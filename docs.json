@@ -119,27 +119,51 @@
                     "pages": [
                       "vpos-2/index",
                       {
-                        "group": "WordPress / WooCommerce",
-                        "icon": "wordpress",
+                        "group": "Ecommerce",
+                        "icon": "cart-shopping",
                         "pages": [
-                          "vpos-2/wordpress/index",
-                          "vpos-2/wordpress/requisitos-y-ambiente",
-                          "vpos-2/wordpress/acceso-y-llaves",
-                          "vpos-2/wordpress/instalacion-y-configuracion",
-                          "vpos-2/wordpress/recomendaciones-y-produccion",
-                          "vpos-2/wordpress/pruebas"
+                          {
+                            "group": "WordPress / WooCommerce",
+                            "icon": "wordpress",
+                            "pages": [
+                              "vpos-2/wordpress/index",
+                              "vpos-2/wordpress/requisitos-y-ambiente",
+                              "vpos-2/wordpress/acceso-y-llaves",
+                              "vpos-2/wordpress/instalacion-y-configuracion",
+                              "vpos-2/wordpress/recomendaciones-y-produccion",
+                              "vpos-2/wordpress/pruebas"
+                            ]
+                          },
+                          {
+                            "group": "PrestaShop",
+                            "icon": "store",
+                            "pages": [
+                              "vpos-2/prestashop/index",
+                              "vpos-2/prestashop/requisitos-y-ambiente",
+                              "vpos-2/prestashop/acceso-y-llaves",
+                              "vpos-2/prestashop/instalacion-y-configuracion",
+                              "vpos-2/prestashop/recomendaciones-y-produccion",
+                              "vpos-2/prestashop/pruebas"
+                            ]
+                          }
                         ]
                       },
                       {
-                        "group": "PrestaShop",
-                        "icon": "store",
+                        "group": "Botón de pago",
+                        "icon": "rectangle-ad",
                         "pages": [
-                          "vpos-2/prestashop/index",
-                          "vpos-2/prestashop/requisitos-y-ambiente",
-                          "vpos-2/prestashop/acceso-y-llaves",
-                          "vpos-2/prestashop/instalacion-y-configuracion",
-                          "vpos-2/prestashop/recomendaciones-y-produccion",
-                          "vpos-2/prestashop/pruebas"
+                          {
+                            "group": "Modal",
+                            "icon": "window-maximize",
+                            "pages": [
+                              "vpos-2/modal/index",
+                              "vpos-2/modal/requisitos-y-ambiente",
+                              "vpos-2/modal/acceso-y-llaves",
+                              "vpos-2/modal/integracion",
+                              "vpos-2/modal/parametros-y-respuestas",
+                              "vpos-2/modal/personalizacion-y-pruebas"
+                            ]
+                          }
                         ]
                       }
                     ]
@@ -229,27 +253,51 @@
                     "pages": [
                       "en/vpos-2/index",
                       {
-                        "group": "WordPress / WooCommerce",
-                        "icon": "wordpress",
+                        "group": "Ecommerce",
+                        "icon": "cart-shopping",
                         "pages": [
-                          "en/vpos-2/wordpress/index",
-                          "en/vpos-2/wordpress/requirements-and-environment",
-                          "en/vpos-2/wordpress/access-and-keys",
-                          "en/vpos-2/wordpress/installation-and-configuration",
-                          "en/vpos-2/wordpress/recommendations-and-production",
-                          "en/vpos-2/wordpress/testing"
+                          {
+                            "group": "WordPress / WooCommerce",
+                            "icon": "wordpress",
+                            "pages": [
+                              "en/vpos-2/wordpress/index",
+                              "en/vpos-2/wordpress/requirements-and-environment",
+                              "en/vpos-2/wordpress/access-and-keys",
+                              "en/vpos-2/wordpress/installation-and-configuration",
+                              "en/vpos-2/wordpress/recommendations-and-production",
+                              "en/vpos-2/wordpress/testing"
+                            ]
+                          },
+                          {
+                            "group": "PrestaShop",
+                            "icon": "store",
+                            "pages": [
+                              "en/vpos-2/prestashop/index",
+                              "en/vpos-2/prestashop/requirements-and-environment",
+                              "en/vpos-2/prestashop/access-and-keys",
+                              "en/vpos-2/prestashop/installation-and-configuration",
+                              "en/vpos-2/prestashop/recommendations-and-production",
+                              "en/vpos-2/prestashop/testing"
+                            ]
+                          }
                         ]
                       },
                       {
-                        "group": "PrestaShop",
-                        "icon": "store",
+                        "group": "Payment button",
+                        "icon": "rectangle-ad",
                         "pages": [
-                          "en/vpos-2/prestashop/index",
-                          "en/vpos-2/prestashop/requirements-and-environment",
-                          "en/vpos-2/prestashop/access-and-keys",
-                          "en/vpos-2/prestashop/installation-and-configuration",
-                          "en/vpos-2/prestashop/recommendations-and-production",
-                          "en/vpos-2/prestashop/testing"
+                          {
+                            "group": "Modal",
+                            "icon": "window-maximize",
+                            "pages": [
+                              "en/vpos-2/modal/index",
+                              "en/vpos-2/modal/requirements-and-environment",
+                              "en/vpos-2/modal/access-and-keys",
+                              "en/vpos-2/modal/integration",
+                              "en/vpos-2/modal/parameters-and-responses",
+                              "en/vpos-2/modal/customization-and-testing"
+                            ]
+                          }
                         ]
                       }
                     ]

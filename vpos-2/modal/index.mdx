@@ -1,0 +1,46 @@
+---
+title: "Modal"
+description: "Integra VPOS-2 como un formulario de pago modal dentro de tu sitio web."
+icon: "window-maximize"
+---
+
+El **Modal de Alignet** permite iniciar el pago desde el sitio del comercio y mostrar VPOS-2 en una ventana modal. La solicitud se construye en un formulario HTML, se firma con la llave SHA-2 del comercio y se abre mediante JavaScript.
+
+<Warning>
+  La guía oficial indica que este procedimiento no aplica a comercios en Perú. Confirma con tu adquirente el método correspondiente o escribe a [integraciones@alignet.com](mailto:integraciones@alignet.com).
+</Warning>
+
+## Flujo general
+
+<Steps>
+  <Step title="Solicita accesos">
+    Obtén el ID de adquirente, ID de comercio y acceso administrativo a VPayment web.
+  </Step>
+  <Step title="Genera las llaves">
+    Descarga y protege el archivo `LlavesSHA2.zip`.
+  </Step>
+  <Step title="Implementa el formulario">
+    Carga el JavaScript del ambiente, agrega los parámetros firmados y abre el modal desde una acción del usuario.
+  </Step>
+  <Step title="Valida la respuesta">
+    Verifica la firma recibida y prueba los resultados esperados antes de solicitar producción.
+  </Step>
+</Steps>
+
+<CardGroup cols={2}>
+  <Card title="Requisitos y ambiente" icon="list-check" href="/vpos-2/modal/requisitos-y-ambiente">
+    Revisa las condiciones previas y el ambiente de integración.
+  </Card>
+  <Card title="Acceso y llaves" icon="key" href="/vpos-2/modal/acceso-y-llaves">
+    Obtén las credenciales y genera las llaves SHA-2.
+  </Card>
+  <Card title="Integración" icon="code" href="/vpos-2/modal/integracion">
+    Implementa el formulario HTML y la apertura del modal.
+  </Card>
+  <Card title="Parámetros y respuestas" icon="arrows-rotate" href="/vpos-2/modal/parametros-y-respuestas">
+    Envía, recibe y valida los datos de la transacción.
+  </Card>
+</CardGroup>
+
+[Consultar la guía oficial de Modal](https://docs.alignet.com/es/modal/Working-version/requisitos-y-consideraciones-tecnicas)
+

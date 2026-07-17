@@ -1,0 +1,51 @@
+---
+title: "Parameters and responses"
+description: "Essential fields for requesting a payment and validating the VPOS-2 response."
+icon: "arrows-rotate"
+---
+
+## Essential request parameters
+
+| Field | Use |
+| --- | --- |
+| `acquirerId` | Acquirer code provided by the onboarding entity. |
+| `idCommerce` | Fixed merchant code. |
+| `purchaseOperationNumber` | Unique 6-digit identifier for each transaction. |
+| `purchaseAmount` | Amount without a decimal separator; send `100.30` as `10030`. |
+| `purchaseCurrencyCode` | ISO numeric code enabled by the acquirer; for example, PEN `604` or USD `840`. |
+| `language` | `SP` for Spanish or `EN` for English. |
+| `billingEMail` | Buyer's valid email address. |
+| `descriptionProducts` | Short product or service description. |
+| `programmingLanguage` | Technology used by the merchant. |
+| `purchaseVerification` | SHA-2 signature of the critical fields and gateway key. |
+
+Billing, shipping, Wallet, and `reserved` fields may also be sent according to the agreed scope. Follow the type, length, and required status defined in the official guide.
+
+## Request signature
+
+Generate `purchaseVerification` with:
+
+```text
+acquirerId + idCommerce + purchaseOperationNumber +
+purchaseAmount + purchaseCurrencyCode + gateway SHA-2 key
+```
+
+## Response
+
+The main fields are:
+
+* `authorizationResult`: `00` authorized, `01` denied by the issuer, or `05` rejected by VPOS-2.
+* `authorizationCode`: authorization code when applicable.
+* `errorCode` and `errorMessage`: technical decline information.
+* `purchaseVerification`: response signature that the merchant must validate.
+* `IDTransaction` and `txDateTime`: transaction traceability and date/time.
+* `brand` and `paymentReferenceCode`: brand and masked reference when available.
+
+<Warning>
+  Do not show `errorCode` or `errorMessage` directly to the cardholder. Display customer-facing messages agreed with the acquirer, and always validate the signature before updating the order.
+</Warning>
+
+The response signature adds `authorizationResult` to the critical request fields.
+
+[Continue to customization and testing →](/en/vpos-2/modal/customization-and-testing)
+

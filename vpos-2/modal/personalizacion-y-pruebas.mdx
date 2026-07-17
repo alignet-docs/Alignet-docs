@@ -1,0 +1,59 @@
+---
+title: "Personalización y pruebas"
+description: "Define la apariencia del Modal, valida el flujo y prepara producción."
+icon: "palette"
+---
+
+## Diseños disponibles
+
+El equipo de Integraciones registra el logo y los colores del formulario. El comercio puede elegir uno de los tres diseños publicados.
+
+<Frame caption="Diseños oficiales disponibles para el formulario Modal">
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '16px' }}>
+    <img src="/images/vpos2-modal-diseno-1.png" alt="Diseño 1 del formulario Modal" />
+    <img src="/images/vpos2-modal-diseno-2.png" alt="Diseño 2 del formulario Modal" />
+    <img src="/images/vpos2-modal-diseno-3.png" alt="Diseño 3 del formulario Modal" />
+  </div>
+</Frame>
+
+| Diseño | Tamaño del logo |
+| --- | --- |
+| 1 | 90 × 40 px |
+| 2 | 50 × 50 px |
+| 3 | 75 × 75 px |
+
+El logo debe entregarse en PNG y los colores en hexadecimal. Se pueden definir el fondo, selector de opciones, botón principal, estado seleccionado y color de los vínculos.
+
+<Frame caption="Ejemplos de color de fondo">
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '16px' }}>
+    <img src="/images/vpos2-modal-fondo-1.png" alt="Ejemplo de fondo del diseño 1" />
+    <img src="/images/vpos2-modal-fondo-2.png" alt="Ejemplo de fondo del diseño 2" />
+    <img src="/images/vpos2-modal-fondo-3.png" alt="Ejemplo de fondo del diseño 3" />
+  </div>
+</Frame>
+
+<Frame caption="Elementos personalizables del formulario">
+  <img src="/images/vpos2-modal-selector.png" alt="Color del selector de opciones" />
+  <img src="/images/vpos2-modal-boton.png" alt="Color del botón Pagar" />
+  <img src="/images/vpos2-modal-vinculo.png" alt="Color de los vínculos" />
+</Frame>
+
+## Pruebas mínimas
+
+- [ ] El Modal abre desde una acción directa del usuario en escritorio y móvil.
+- [ ] Se probaron Safari, Chrome y Firefox.
+- [ ] Monto, moneda y número de operación llegan correctamente.
+- [ ] Se validan las firmas de solicitud y respuesta.
+- [ ] El pedido se actualiza una sola vez ante reintentos o recargas.
+- [ ] Se validaron operaciones autorizadas, denegadas y rechazadas.
+- [ ] Los mensajes técnicos no se muestran al comprador.
+- [ ] El equipo de Integraciones recibió los resultados.
+
+## Paso a producción
+
+Después de la conformidad, solicita credenciales y llaves de producción. Cambia el JavaScript y las URLs del ambiente de forma controlada, conserva la validación de firma y realiza una prueba final de importe bajo.
+
+<Warning>
+  No reutilices credenciales, llaves ni URLs de integración en producción.
+</Warning>
+

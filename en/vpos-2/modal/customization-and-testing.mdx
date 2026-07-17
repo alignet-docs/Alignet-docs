@@ -1,0 +1,59 @@
+---
+title: "Customization and testing"
+description: "Define the Modal appearance, validate the flow, and prepare production."
+icon: "palette"
+---
+
+## Available designs
+
+The Integrations team registers the logo and payment-form colors. The merchant can choose one of the three published designs.
+
+<Frame caption="Official designs available for the Modal form">
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '16px' }}>
+    <img src="/images/vpos2-modal-diseno-1.png" alt="Modal form design 1" />
+    <img src="/images/vpos2-modal-diseno-2.png" alt="Modal form design 2" />
+    <img src="/images/vpos2-modal-diseno-3.png" alt="Modal form design 3" />
+  </div>
+</Frame>
+
+| Design | Logo size |
+| --- | --- |
+| 1 | 90 × 40 px |
+| 2 | 50 × 50 px |
+| 3 | 75 × 75 px |
+
+Provide the logo as a PNG and colors as hexadecimal values. The background, option selector, primary button, selected state, and link color can be defined.
+
+<Frame caption="Background color examples">
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '16px' }}>
+    <img src="/images/vpos2-modal-fondo-1.png" alt="Design 1 background example" />
+    <img src="/images/vpos2-modal-fondo-2.png" alt="Design 2 background example" />
+    <img src="/images/vpos2-modal-fondo-3.png" alt="Design 3 background example" />
+  </div>
+</Frame>
+
+<Frame caption="Customizable form elements">
+  <img src="/images/vpos2-modal-selector.png" alt="Option selector color" />
+  <img src="/images/vpos2-modal-boton.png" alt="Pay button color" />
+  <img src="/images/vpos2-modal-vinculo.png" alt="Link color" />
+</Frame>
+
+## Minimum testing
+
+- [ ] The Modal opens from a direct user action on desktop and mobile.
+- [ ] Safari, Chrome, and Firefox were tested.
+- [ ] Amount, currency, and operation number arrive correctly.
+- [ ] Request and response signatures are validated.
+- [ ] The order is updated only once after retries or reloads.
+- [ ] Authorized, denied, and rejected operations were validated.
+- [ ] Technical messages are not shown to the buyer.
+- [ ] The Integrations team received the results.
+
+## Move to production
+
+After approval, request production credentials and keys. Change the environment script and URLs in a controlled release, keep signature validation enabled, and run a final low-value test.
+
+<Warning>
+  Do not reuse integration credentials, keys, or URLs in production.
+</Warning>
+

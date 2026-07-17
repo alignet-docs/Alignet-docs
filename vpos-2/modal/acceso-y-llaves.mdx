@@ -1,0 +1,37 @@
+---
+title: "Acceso y llaves"
+description: "Obtén los identificadores del comercio y las llaves SHA-2 para Modal."
+icon: "key"
+---
+
+## Datos que entrega el adquirente
+
+Solicita antes de comenzar:
+
+1. **ID Adquirente**.
+2. **ID Comercio**.
+3. Acceso administrador del comercio a **VPayment web** en integración.
+
+| Ambiente | VPayment web |
+| --- | --- |
+| Integración | `https://integracion.alignetsac.com/vpaymentweb/index.jsp` |
+| Producción | `https://vpayment.verifika.com/vpaymentweb/index.jsp` |
+
+## Generar las llaves SHA-2
+
+En VPayment web ingresa a **Administración → Llaves Públicas y Privadas**, selecciona **Registrar Llaves** y confirma **Registrar y descargar**.
+
+![Generación y descarga de llaves SHA-2 en VPayment web](/images/vpos2-modal-generar-llaves.gif)
+
+El archivo `LlavesSHA2.zip` contiene las llaves asociadas al comercio:
+
+* `*_PASARELA_*.txt`: llave SHA-2 usada para firmar y validar las operaciones de VPOS-2.
+* `*_WALLET_*.txt`: úsala únicamente si Wallet fue activado por el asesor comercial.
+* Archivos RSA públicos y privados: no se requieren para esta integración.
+
+<Warning>
+  Registrar nuevas llaves reemplaza las actuales inmediatamente. Guarda el ZIP en un lugar seguro y regenera solo cuando sea necesario o según la política de seguridad del comercio.
+</Warning>
+
+[Continuar con la integración →](/vpos-2/modal/integracion)
+

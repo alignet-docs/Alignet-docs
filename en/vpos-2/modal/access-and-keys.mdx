@@ -1,0 +1,37 @@
+---
+title: "Access and keys"
+description: "Obtain the merchant identifiers and SHA-2 keys for Modal."
+icon: "key"
+---
+
+## Information provided by the acquirer
+
+Request the following before you begin:
+
+1. **Acquirer ID**.
+2. **Merchant ID**.
+3. Merchant administrator access to **VPayment web** in the integration environment.
+
+| Environment | VPayment web |
+| --- | --- |
+| Integration | `https://integracion.alignetsac.com/vpaymentweb/index.jsp` |
+| Production | `https://vpayment.verifika.com/vpaymentweb/index.jsp` |
+
+## Generate SHA-2 keys
+
+In VPayment web, go to **Administration → Public and Private Keys**, select **Register Keys**, and confirm **Register and download**.
+
+![Generating and downloading SHA-2 keys in VPayment web](/images/vpos2-modal-generar-llaves.gif)
+
+The `LlavesSHA2.zip` file contains the merchant keys:
+
+* `*_PASARELA_*.txt`: SHA-2 key used to sign and validate VPOS-2 operations.
+* `*_WALLET_*.txt`: use it only if Wallet was enabled by the sales advisor.
+* Public and private RSA files: not required for this integration.
+
+<Warning>
+  Registering new keys immediately replaces the current keys. Store the ZIP securely and regenerate only when necessary or according to the merchant security policy.
+</Warning>
+
+[Continue to integration →](/en/vpos-2/modal/integration)
+

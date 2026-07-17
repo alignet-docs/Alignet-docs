@@ -1,0 +1,51 @@
+---
+title: "Parámetros y respuestas"
+description: "Campos esenciales para solicitar un pago y validar la respuesta de VPOS-2."
+icon: "arrows-rotate"
+---
+
+## Parámetros esenciales de envío
+
+| Campo | Uso |
+| --- | --- |
+| `acquirerId` | Código de adquirente proporcionado por la entidad afiliadora. |
+| `idCommerce` | Código fijo del comercio. |
+| `purchaseOperationNumber` | Identificador único de 6 dígitos por transacción. |
+| `purchaseAmount` | Importe sin separador decimal; `100.30` se envía como `10030`. |
+| `purchaseCurrencyCode` | Código ISO numérico habilitado por el adquirente; por ejemplo, PEN `604` o USD `840`. |
+| `language` | `SP` para español o `EN` para inglés. |
+| `billingEMail` | Correo válido del comprador. |
+| `descriptionProducts` | Descripción breve del producto o servicio. |
+| `programmingLanguage` | Tecnología usada por el comercio. |
+| `purchaseVerification` | Firma SHA-2 de los campos críticos y la llave de pasarela. |
+
+También pueden enviarse datos de facturación, entrega, Wallet y campos `reserved` según el alcance acordado. Respeta el tipo, longitud y obligatoriedad definidos en la guía oficial.
+
+## Firma de la solicitud
+
+`purchaseVerification` se genera con:
+
+```text
+acquirerId + idCommerce + purchaseOperationNumber +
+purchaseAmount + purchaseCurrencyCode + llave SHA-2 de pasarela
+```
+
+## Respuesta
+
+Los campos principales son:
+
+* `authorizationResult`: `00` autorizada, `01` denegada por el emisor o `05` rechazada por VPOS-2.
+* `authorizationCode`: código de autorización cuando corresponda.
+* `errorCode` y `errorMessage`: información técnica del rechazo.
+* `purchaseVerification`: firma de respuesta que el comercio debe validar.
+* `IDTransaction` y `txDateTime`: trazabilidad y fecha/hora de la transacción.
+* `brand` y `paymentReferenceCode`: marca y referencia enmascarada cuando estén disponibles.
+
+<Warning>
+  No muestres `errorCode` ni `errorMessage` directamente al tarjetahabiente. Presenta mensajes comerciales definidos con el adquirente y valida siempre la firma antes de actualizar el pedido.
+</Warning>
+
+La firma de respuesta agrega `authorizationResult` a los campos críticos de la solicitud.
+
+[Continuar con personalización y pruebas →](/vpos-2/modal/personalizacion-y-pruebas)
+

@@ -1,0 +1,55 @@
+---
+title: "Modal integration"
+description: "Load the VPOS-2 JavaScript, prepare the form, and open the Modal."
+icon: "code"
+---
+
+The payment request is sent by **HTTPS POST** from an HTML form. Always use the URL for the correct environment.
+
+| Environment | Modal JavaScript |
+| --- | --- |
+| Integration | `https://integracion.alignetsac.com/VPOS2/js/modalcomercio.js` |
+| Production | `https://vpayment.verifika.com/VPOS2/js/modalcomercio.js` |
+
+## Basic implementation
+
+<Steps>
+  <Step title="Load the script">
+    Include the environment JavaScript inside `head`.
+  </Step>
+  <Step title="Prepare the form">
+    Add `class="alignet-form-vpos2"`, the POST method, and all required fields, including the `purchaseVerification` signature.
+  </Step>
+  <Step title="Open the Modal">
+    Call `AlignetVPOS2.openModal()` from the user's click.
+  </Step>
+</Steps>
+
+```html
+<head>
+  <script
+    type="text/javascript"
+    src="https://integracion.alignetsac.com/VPOS2/js/modalcomercio.js">
+  </script>
+</head>
+
+<form id="payment-form" method="post" class="alignet-form-vpos2">
+  <!-- Operation fields and purchaseVerification -->
+  <button type="button" onclick="AlignetVPOS2.openModal()">
+    Pay
+  </button>
+</form>
+```
+
+## Safari consideration
+
+Safari may block the helper window required to enable gateway cookies if the Modal is opened from `setTimeout`, `onload`, or after an Ajax call.
+
+<Warning>
+  Open the Modal directly from a user action such as `onclick` or a link. If your flow needs a prior asynchronous operation, coordinate the documented Safari alternative with the Integrations team.
+</Warning>
+
+Do not mix integration and production URLs in the same implementation.
+
+[Continue to parameters and responses →](/en/vpos-2/modal/parameters-and-responses)
+
