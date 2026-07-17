@@ -1,0 +1,60 @@
+---
+title: "Testing and examples"
+description: "Validate Redirect in integration and production and review connection patterns."
+icon: "flask"
+---
+
+## Published test cards
+
+<Warning>
+  These are fictitious data for controlled environments. They are not real cards, do not belong to an issuer BIN, and must not be used outside the indicated tests.
+</Warning>
+
+| Card | Expiration | CVV | Environment | Result |
+| --- | --- | --- | --- | --- |
+| `4859 5100 0000 0051` | Dec-26 | `365` | Integration | Authorized |
+| `4111 1111 1111 1111` | Dec-26 | `648` | Coordinated production | Denied |
+| `5038 4900 0000 0032` | Dec-26 | `517` | Coordinated production | Denied |
+
+Tests using production data must be authorized and coordinated with the acquirer.
+
+## Scenarios to cover
+
+| Scenario | Expected validation |
+| --- | --- |
+| Return or cancellation before payment | Rejected response and unpaid order. |
+| Authorized purchase | Authorized result, valid signature, and one order update. |
+| Issuer decline | Denied result and a controlled customer-facing message. |
+| Authentication cancellation | Rejection without marking the order as paid. |
+| Amount above 1000.00 | Amount format and response processing remain correct. |
+| Amount below 1.00 | For example, `75` represents `0.75`. |
+| Repeated notification | Does not duplicate payments, orders, or side effects. |
+
+After each test, confirm `purchaseOperationNumber`, `purchaseAmount`, `authorizationResult`, `errorCode`, `errorMessage`, and the returned signature.
+
+## Signature generation pattern
+
+```php
+$requestSignature = hash(
+    'sha512',
+    $acquirerId .
+    $idCommerce .
+    $purchaseOperationNumber .
+    $purchaseAmount .
+    $purchaseCurrencyCode .
+    $gatewayKey
+);
+```
+
+For the response, concatenate the same fields, add `authorizationResult`, and then the key. Compare both hashes securely before processing the result.
+
+## Move to production
+
+- [ ] Integrations approved the test cases.
+- [ ] The final HTTPS response URL was registered.
+- [ ] Integration endpoint, credentials, and keys were replaced.
+- [ ] Signature validation and idempotency remain enabled.
+- [ ] A final transaction was coordinated with the acquirer.
+
+[View the official connection examples](https://docs.alignet.com/redirect/working-version/ejemplos-de-conexion)
+

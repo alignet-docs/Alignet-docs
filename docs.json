@@ -163,6 +163,19 @@
                               "vpos-2/modal/parametros-y-respuestas",
                               "vpos-2/modal/personalizacion-y-pruebas"
                             ]
+                          },
+                          {
+                            "group": "Redirect",
+                            "icon": "arrow-up-right-from-square",
+                            "pages": [
+                              "vpos-2/redirect/index",
+                              "vpos-2/redirect/requisitos-y-ambiente",
+                              "vpos-2/redirect/acceso-y-llaves",
+                              "vpos-2/redirect/integracion",
+                              "vpos-2/redirect/parametros-y-notificaciones",
+                              "vpos-2/redirect/personalizacion",
+                              "vpos-2/redirect/pruebas-y-ejemplos"
+                            ]
                           }
                         ]
                       }
@@ -296,6 +309,19 @@
                               "en/vpos-2/modal/integration",
                               "en/vpos-2/modal/parameters-and-responses",
                               "en/vpos-2/modal/customization-and-testing"
+                            ]
+                          },
+                          {
+                            "group": "Redirect",
+                            "icon": "arrow-up-right-from-square",
+                            "pages": [
+                              "en/vpos-2/redirect/index",
+                              "en/vpos-2/redirect/requirements-and-environment",
+                              "en/vpos-2/redirect/access-and-keys",
+                              "en/vpos-2/redirect/integration",
+                              "en/vpos-2/redirect/parameters-and-notifications",
+                              "en/vpos-2/redirect/customization",
+                              "en/vpos-2/redirect/testing-and-examples"
                             ]
                           }
                         ]

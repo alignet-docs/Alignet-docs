@@ -1,0 +1,60 @@
+---
+title: "Pruebas y ejemplos"
+description: "Valida Redirect en integración y producción y revisa los patrones de conexión."
+icon: "flask"
+---
+
+## Tarjetas de prueba publicadas
+
+<Warning>
+  Son datos ficticios para entornos controlados. No son tarjetas reales, no pertenecen a un BIN emisor y no deben utilizarse fuera de las pruebas indicadas.
+</Warning>
+
+| Tarjeta | Vencimiento | CVV | Ambiente | Resultado |
+| --- | --- | --- | --- | --- |
+| `4859 5100 0000 0051` | Dic-26 | `365` | Integración | Autorizada |
+| `4111 1111 1111 1111` | Dic-26 | `648` | Producción coordinada | Denegada |
+| `5038 4900 0000 0032` | Dic-26 | `517` | Producción coordinada | Denegada |
+
+Las pruebas con datos de producción deben ser autorizadas y coordinadas con el adquirente.
+
+## Casos que deben cubrirse
+
+| Escenario | Validación esperada |
+| --- | --- |
+| Retorno o cancelación antes de pagar | Respuesta rechazada y pedido sin pago. |
+| Compra autorizada | Resultado autorizado, firma válida y pedido actualizado una sola vez. |
+| Denegación del emisor | Resultado denegado y mensaje comercial controlado. |
+| Cancelación de autenticación | Rechazo sin marcar el pedido como pagado. |
+| Importe mayor a 1000.00 | El importe conserva su formato y la respuesta se procesa correctamente. |
+| Importe menor a 1.00 | Por ejemplo, `75` representa `0.75`. |
+| Notificación repetida | No duplica pagos, pedidos ni efectos secundarios. |
+
+Después de cada prueba confirma `purchaseOperationNumber`, `purchaseAmount`, `authorizationResult`, `errorCode`, `errorMessage` y la firma recibida.
+
+## Patrón de generación de firma
+
+```php
+$requestSignature = hash(
+    'sha512',
+    $acquirerId .
+    $idCommerce .
+    $purchaseOperationNumber .
+    $purchaseAmount .
+    $purchaseCurrencyCode .
+    $gatewayKey
+);
+```
+
+Para la respuesta concatena los mismos campos, agrega `authorizationResult` y finalmente la llave. Compara ambos hashes con una operación segura antes de procesar el resultado.
+
+## Paso a producción
+
+- [ ] Integraciones aprobó los casos de prueba.
+- [ ] Se registró la URL de respuesta HTTPS definitiva.
+- [ ] Se reemplazaron endpoint, credenciales y llaves de integración.
+- [ ] La validación de firma e idempotencia siguen activas.
+- [ ] Se ejecutó una operación final coordinada con el adquirente.
+
+[Consultar los ejemplos oficiales de conexión](https://docs.alignet.com/redirect/working-version/ejemplos-de-conexion)
+

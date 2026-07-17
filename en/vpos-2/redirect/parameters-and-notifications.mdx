@@ -1,0 +1,52 @@
+---
+title: "Parameters and notifications"
+description: "Redirect request and response fields, signatures, and notification modes."
+icon: "arrows-rotate"
+---
+
+## Main request parameters
+
+| Field | Consideration |
+| --- | --- |
+| `acquirerId` | Acquirer code, up to 4 digits. |
+| `idCommerce` | Fixed merchant code, up to 4 digits. |
+| `purchaseOperationNumber` | Unique 6-digit identifier. |
+| `purchaseAmount` | Amount without a decimal separator; send `100.30` as `10030`. |
+| `purchaseCurrencyCode` | Enabled numeric ISO code; PEN `604` or USD `840`. |
+| `language` | `SP` or `EN`. |
+| Billing data | First name, last name, and address; other fields depend on scope. |
+| Shipping data | First name, last name, email, address, ZIP, city, region, and country. |
+| `descriptionProducts` | Short product or service description. |
+| `programmingLanguage` | Technology used by the merchant. |
+| `purchaseVerification` | SHA-512 request signature. |
+
+Wallet, terminal, session, and `reserved` fields are used only when required by scope. Always follow the types, lengths, and required status defined by Integrations.
+
+## Response
+
+The most important fields are `authorizationResult`, `authorizationCode`, `errorCode`, `errorMessage`, `purchaseVerification`, `IDTransaction`, `txDateTime`, `brand`, and `paymentReferenceCode`.
+
+* `00`: authorized transaction.
+* `01`: transaction denied by the issuer.
+* `05`: transaction rejected by VPOS-2.
+
+<Warning>
+  `errorCode` and `errorMessage` are technical data and must not be shown directly to the buyer. The return-code catalog is dynamic; use the current table agreed with your acquirer.
+</Warning>
+
+## Browser-based notifications
+
+VPOS-2 POSTs to the response URL using the buyer's browser as an intermediary.
+
+| Mode | Behavior |
+| --- | --- |
+| Simple | Displays the result and notifies after **Finish** is selected or automatically after 10 seconds. This is the default. |
+| Direct | Notifies during preload without displaying the result first. |
+| Multiple | Notifies during preload and again after **Finish** is selected. The merchant must support duplicates. |
+
+If the buyer loses connectivity or closes the browser, the notification may not arrive. The merchant must be able to check VPayment or use the agreed inquiry service to confirm the final status.
+
+[View the official return-code catalog](https://docs.alignet.com/redirect/working-version/consideraciones-y-recomendaciones)
+
+[Continue to customization →](/en/vpos-2/redirect/customization)
+

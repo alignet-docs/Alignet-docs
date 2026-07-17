@@ -1,0 +1,62 @@
+---
+title: "Integración Redirect"
+description: "Envía el formulario firmado a VPOS-2 y procesa el retorno del comprador."
+icon: "code"
+---
+
+La solicitud se envía por **POST HTTPS** desde un formulario HTML hacia la URL del ambiente.
+
+| Ambiente | Endpoint Redirect |
+| --- | --- |
+| Integración | `https://integracion.alignetsac.com/VPOS2/faces/pages/startPayme.xhtml` |
+| Producción | `https://vpayment.verifika.com/VPOS2/faces/pages/startPayme.xhtml` |
+
+## Formulario básico
+
+```html
+<form
+  id="vpos2-redirect"
+  method="post"
+  action="https://integracion.alignetsac.com/VPOS2/faces/pages/startPayme.xhtml">
+  <input type="hidden" name="acquirerId" value="ACQUIRER_ID" />
+  <input type="hidden" name="idCommerce" value="COMMERCE_ID" />
+  <input type="hidden" name="purchaseOperationNumber" value="123456" />
+  <input type="hidden" name="purchaseAmount" value="10000" />
+  <input type="hidden" name="purchaseCurrencyCode" value="604" />
+  <input type="hidden" name="language" value="SP" />
+  <input type="hidden" name="purchaseVerification" value="SHA512_SIGNATURE" />
+  <button type="submit">Ir a pagar</button>
+</form>
+```
+
+## Firma SHA-512
+
+Genera `purchaseVerification` concatenando, sin separadores:
+
+```text
+acquirerId + idCommerce + purchaseOperationNumber +
+purchaseAmount + purchaseCurrencyCode + llave SHA-2 de pasarela
+```
+
+Aplica SHA-512 al texto resultante y envía el hash hexadecimal.
+
+## Procesar el retorno
+
+La URL de respuesta del comercio recibe un POST con los datos de la operación. Antes de modificar el pedido:
+
+1. Recupera los parámetros recibidos.
+2. Calcula nuevamente la firma, agregando `authorizationResult` antes de la llave.
+3. Compara la firma calculada con `purchaseVerification`.
+4. Verifica que el número de operación, importe y moneda coincidan con el pedido original.
+5. Procesa la operación de forma idempotente para soportar notificaciones repetidas.
+
+<Warning>
+  No mezcles endpoints ni llaves de integración y producción. Nunca expongas la llave SHA-2 en HTML o JavaScript; genera las firmas en el servidor.
+</Warning>
+
+## Safari
+
+El problema de ventanas emergentes descrito en la fuente corresponde a invocaciones del Modal mediante JavaScript. Un Redirect puro usa el envío directo del formulario. Si tu implementación combina ambos comportamientos, abre cualquier ventana desde una acción explícita del usuario y valida el flujo en Safari.
+
+[Continuar con parámetros y notificaciones →](/vpos-2/redirect/parametros-y-notificaciones)
+

@@ -1,0 +1,62 @@
+---
+title: "Redirect integration"
+description: "Submit the signed form to VPOS-2 and process the buyer's return."
+icon: "code"
+---
+
+The request is sent by **HTTPS POST** from an HTML form to the environment URL.
+
+| Environment | Redirect endpoint |
+| --- | --- |
+| Integration | `https://integracion.alignetsac.com/VPOS2/faces/pages/startPayme.xhtml` |
+| Production | `https://vpayment.verifika.com/VPOS2/faces/pages/startPayme.xhtml` |
+
+## Basic form
+
+```html
+<form
+  id="vpos2-redirect"
+  method="post"
+  action="https://integracion.alignetsac.com/VPOS2/faces/pages/startPayme.xhtml">
+  <input type="hidden" name="acquirerId" value="ACQUIRER_ID" />
+  <input type="hidden" name="idCommerce" value="COMMERCE_ID" />
+  <input type="hidden" name="purchaseOperationNumber" value="123456" />
+  <input type="hidden" name="purchaseAmount" value="10000" />
+  <input type="hidden" name="purchaseCurrencyCode" value="604" />
+  <input type="hidden" name="language" value="EN" />
+  <input type="hidden" name="purchaseVerification" value="SHA512_SIGNATURE" />
+  <button type="submit">Proceed to payment</button>
+</form>
+```
+
+## SHA-512 signature
+
+Generate `purchaseVerification` by concatenating, without separators:
+
+```text
+acquirerId + idCommerce + purchaseOperationNumber +
+purchaseAmount + purchaseCurrencyCode + gateway SHA-2 key
+```
+
+Apply SHA-512 to the resulting text and send the hexadecimal hash.
+
+## Process the return
+
+The merchant response URL receives an HTTP POST with the transaction data. Before changing the order:
+
+1. Read the returned parameters.
+2. Recalculate the signature, adding `authorizationResult` before the key.
+3. Compare the calculated signature with `purchaseVerification`.
+4. Verify that the operation number, amount, and currency match the original order.
+5. Process the transaction idempotently to support repeated notifications.
+
+<Warning>
+  Do not mix integration and production endpoints or keys. Never expose the SHA-2 key in HTML or JavaScript; generate signatures on the server.
+</Warning>
+
+## Safari
+
+The popup issue described in the source applies to JavaScript Modal invocations. A pure Redirect submits the form directly. If your implementation combines both behaviors, open any window from an explicit user action and test the flow in Safari.
+
+[Continue to parameters and notifications →](/en/vpos-2/redirect/parameters-and-notifications)
+

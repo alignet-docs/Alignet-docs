@@ -1,0 +1,37 @@
+---
+title: "Access and keys"
+description: "Obtain the merchant identifiers and generate SHA-2 keys for Redirect."
+icon: "key"
+---
+
+## Required information
+
+Request the following from your acquirer:
+
+1. **Acquirer ID**.
+2. **Merchant ID**.
+3. Merchant administrator access to **VPayment web**.
+
+| Environment | VPayment web |
+| --- | --- |
+| Integration | `https://integracion.alignetsac.com/vpaymentweb/index.jsp` |
+| Production | `https://vpayment.verifika.com/vpaymentweb/index.jsp` |
+
+## Generate the keys
+
+In VPayment web, open **Administration → Public and Private Keys**, select **Register Keys**, and confirm **Register and download**.
+
+![Generating and downloading SHA-2 keys for Redirect](/images/vpos2-redirect-generar-llaves.gif)
+
+`LlavesSHA2.zip` contains:
+
+* `*_PASARELA_*.txt`: SHA-2 key required to sign and validate VPOS-2.
+* `*_WALLET_*.txt`: use it only if Wallet was enabled for the merchant.
+* Public and private RSA files: not required for Redirect.
+
+<Warning>
+  Each key registration immediately replaces the previous keys. Store the ZIP securely and regenerate only when necessary or according to the merchant policy.
+</Warning>
+
+[Continue to integration →](/en/vpos-2/redirect/integration)
+

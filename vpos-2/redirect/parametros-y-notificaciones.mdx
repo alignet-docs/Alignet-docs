@@ -1,0 +1,52 @@
+---
+title: "Parámetros y notificaciones"
+description: "Campos de solicitud y respuesta, firma y modalidades de notificación de Redirect."
+icon: "arrows-rotate"
+---
+
+## Parámetros principales de envío
+
+| Campo | Consideración |
+| --- | --- |
+| `acquirerId` | Código de adquirente, hasta 4 dígitos. |
+| `idCommerce` | Código fijo del comercio, hasta 4 dígitos. |
+| `purchaseOperationNumber` | Identificador único de 6 dígitos. |
+| `purchaseAmount` | Importe sin separador decimal; `100.30` se envía como `10030`. |
+| `purchaseCurrencyCode` | ISO numérico habilitado; PEN `604` o USD `840`. |
+| `language` | `SP` o `EN`. |
+| Datos de facturación | Nombre, apellido y dirección; los demás campos dependen del alcance. |
+| Datos de entrega | Nombre, apellido, correo, dirección, código postal, ciudad, región y país. |
+| `descriptionProducts` | Descripción breve del producto o servicio. |
+| `programmingLanguage` | Tecnología utilizada por el comercio. |
+| `purchaseVerification` | Firma SHA-512 de la solicitud. |
+
+Wallet, terminal, sesión y campos `reserved` solo se usan cuando el alcance los requiere. Respeta siempre el tipo, longitud y obligatoriedad definidos por Integraciones.
+
+## Respuesta
+
+Los campos más importantes son `authorizationResult`, `authorizationCode`, `errorCode`, `errorMessage`, `purchaseVerification`, `IDTransaction`, `txDateTime`, `brand` y `paymentReferenceCode`.
+
+* `00`: operación autorizada.
+* `01`: operación denegada por el emisor.
+* `05`: operación rechazada por VPOS-2.
+
+<Warning>
+  `errorCode` y `errorMessage` son información técnica y no deben mostrarse directamente al comprador. El catálogo de retorno es dinámico; utiliza la tabla vigente acordada con tu adquirente.
+</Warning>
+
+## Notificaciones mediante el navegador
+
+VPOS-2 envía un POST a la URL de respuesta usando el navegador del comprador como intermediario.
+
+| Modalidad | Comportamiento |
+| --- | --- |
+| Simple | Muestra el resultado y notifica al presionar **Finalizar** o automáticamente después de 10 segundos. Es la modalidad predeterminada. |
+| Directa | Notifica durante la precarga sin mostrar previamente el resultado. |
+| Múltiple | Notifica durante la precarga y nuevamente al presionar **Finalizar**. El comercio debe soportar duplicados. |
+
+Si el comprador pierde conexión o cierra el navegador, la notificación puede no llegar. El comercio debe poder consultar VPayment o usar el servicio de consulta acordado para confirmar el estado final.
+
+[Consultar el catálogo oficial de códigos de retorno](https://docs.alignet.com/redirect/working-version/consideraciones-y-recomendaciones)
+
+[Continuar con personalización →](/vpos-2/redirect/personalizacion)
+

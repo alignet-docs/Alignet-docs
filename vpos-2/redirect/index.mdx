@@ -1,0 +1,46 @@
+---
+title: "Redirect"
+description: "Integra VPOS-2 mediante redirección y recibe el resultado en el sitio del comercio."
+icon: "arrow-up-right-from-square"
+---
+
+**Alignet Redirect** envía al comprador desde el sitio del comercio hacia la pasarela VPOS-2. El comercio prepara un formulario HTML firmado, lo envía por POST HTTPS y recibe el resultado de la operación en su URL de respuesta.
+
+<Warning>
+  La guía oficial indica que este procedimiento no aplica a comercios en Perú. Confirma el método correspondiente con tu adquirente o escribe a [integraciones@alignet.com](mailto:integraciones@alignet.com).
+</Warning>
+
+## Flujo general
+
+<Steps>
+  <Step title="Obtén accesos y llaves">
+    Solicita los identificadores del adquirente y comercio, accede a VPayment web y descarga las llaves SHA-2.
+  </Step>
+  <Step title="Firma y envía la solicitud">
+    Construye el formulario con los parámetros requeridos y envíalo por POST al endpoint Redirect del ambiente.
+  </Step>
+  <Step title="Recibe la notificación">
+    VPOS-2 devuelve los parámetros al sitio del comercio mediante el navegador del comprador.
+  </Step>
+  <Step title="Valida y concilia">
+    Comprueba la firma de respuesta antes de actualizar el pedido y contempla consultas de estado si el navegador no completa el retorno.
+  </Step>
+</Steps>
+
+<CardGroup cols={2}>
+  <Card title="Requisitos y ambiente" icon="list-check" href="/vpos-2/redirect/requisitos-y-ambiente">
+    Condiciones técnicas y operativas previas.
+  </Card>
+  <Card title="Acceso y llaves" icon="key" href="/vpos-2/redirect/acceso-y-llaves">
+    Credenciales y generación de llaves SHA-2.
+  </Card>
+  <Card title="Integración" icon="code" href="/vpos-2/redirect/integracion">
+    Formulario POST, URLs y validación del retorno.
+  </Card>
+  <Card title="Parámetros y notificaciones" icon="arrows-rotate" href="/vpos-2/redirect/parametros-y-notificaciones">
+    Datos de solicitud, respuesta y tipos de notificación.
+  </Card>
+</CardGroup>
+
+[Consultar la guía oficial de Redirect](https://docs.alignet.com/redirect/working-version/requisitos-y-consideraciones-tecnicas)
+

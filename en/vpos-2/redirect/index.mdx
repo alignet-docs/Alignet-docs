@@ -1,0 +1,46 @@
+---
+title: "Redirect"
+description: "Integrate VPOS-2 through a redirect and receive the result on the merchant website."
+icon: "arrow-up-right-from-square"
+---
+
+**Alignet Redirect** sends the buyer from the merchant website to the VPOS-2 gateway. The merchant prepares a signed HTML form, submits it by HTTPS POST, and receives the transaction result at its response URL.
+
+<Warning>
+  The official guide states that this procedure does not apply to merchants in Peru. Confirm the appropriate method with your acquirer or contact [integraciones@alignet.com](mailto:integraciones@alignet.com).
+</Warning>
+
+## General flow
+
+<Steps>
+  <Step title="Obtain access and keys">
+    Request the acquirer and merchant identifiers, access VPayment web, and download the SHA-2 keys.
+  </Step>
+  <Step title="Sign and submit the request">
+    Build the form with the required parameters and POST it to the environment's Redirect endpoint.
+  </Step>
+  <Step title="Receive the notification">
+    VPOS-2 returns the parameters to the merchant website through the buyer's browser.
+  </Step>
+  <Step title="Validate and reconcile">
+    Verify the response signature before updating the order, and support status inquiries if the browser does not complete the return.
+  </Step>
+</Steps>
+
+<CardGroup cols={2}>
+  <Card title="Requirements and environment" icon="list-check" href="/en/vpos-2/redirect/requirements-and-environment">
+    Technical and operational prerequisites.
+  </Card>
+  <Card title="Access and keys" icon="key" href="/en/vpos-2/redirect/access-and-keys">
+    Credentials and SHA-2 key generation.
+  </Card>
+  <Card title="Integration" icon="code" href="/en/vpos-2/redirect/integration">
+    POST form, URLs, and return validation.
+  </Card>
+  <Card title="Parameters and notifications" icon="arrows-rotate" href="/en/vpos-2/redirect/parameters-and-notifications">
+    Request, response, and notification data.
+  </Card>
+</CardGroup>
+
+[View the official Redirect guide](https://docs.alignet.com/redirect/working-version/requisitos-y-consideraciones-tecnicas)
+
