@@ -1,0 +1,44 @@
+---
+title: "Access and keys"
+description: "Access data, key generation, and secure-storage practices."
+icon: "key"
+---
+
+## Data supplied by the acquirer
+
+Request the following before configuring the plugin:
+
+* Acquirer ID.
+* Merchant ID.
+* Merchant administrator access to VPayment web in the integration environment.
+
+## When to generate keys
+
+<Warning>
+  Generate keys in VPayment only when the merchant uses the Modal integration. Generating a new package immediately replaces the current keys and requires the integration to be registered and configured again.
+</Warning>
+
+1. Sign in to VPayment web with the supplied credentials.
+2. Open **Administration → Public and Private Keys**.
+3. Select **Register Keys**.
+4. Confirm with **Register and download**.
+5. Store `LlavesSHA2.zip` in a secure, access-controlled location.
+
+## Package contents
+
+| File | Contents | Plugin usage |
+| --- | --- | --- |
+| `*_PASARELA_*.txt` | Merchant payment-gateway key. | Required as the VPOS-2 key. |
+| `*_WALLET_*.txt` | Merchant Wallet key. | Only when Wallet has been enabled. |
+| `PRIVATE_RSA_*_PASARELA_*.txt` | Gateway RSA private key. | Not required for this integration. |
+| `PUBLIC_RSA_*_PASARELA*.txt` | Gateway RSA public key. | Not required for this integration. |
+
+## Storage and rotation
+
+* Regenerate keys only if they are lost, compromised, or scheduled for rotation.
+* Keep an encrypted backup of the original package.
+* Never store keys in the website repository or transmit them through public channels.
+* Define a rotation policy; the source guide recommends considering annual rotation.
+* Update the plugin immediately after issuing replacement keys.
+
+[Continue to installation and configuration →](/en/vpos-2/wordpress/installation-and-configuration)

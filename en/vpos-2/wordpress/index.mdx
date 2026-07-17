@@ -1,0 +1,50 @@
+---
+title: "WordPress / WooCommerce"
+description: "Condensed guide for integrating VPOS-2 into a WooCommerce store."
+icon: "wordpress"
+---
+
+Integrate VPOS-2 into a WordPress and WooCommerce store using the Alignet payment plugin.
+
+<Warning>
+  This regional guide does not apply to merchants located in Peru. The integration may vary by country and acquirer. Confirm the applicable process with `integraciones@alignet.com` before starting.
+</Warning>
+
+## Integration path
+
+<Steps>
+  <Step title="Validate requirements">
+    Confirm SSL, supported versions, required PHP extensions, and technical ownership.
+  </Step>
+  <Step title="Request access">
+    Obtain the acquirer ID, merchant ID, and administrative access to the integration environment.
+  </Step>
+  <Step title="Generate and protect keys">
+    Generate keys only for the Modal scheme and store them securely.
+  </Step>
+  <Step title="Install and configure">
+    Install the plugin and configure credentials, currencies, environment, and response URL.
+  </Step>
+  <Step title="Test and go live">
+    Run integration scenarios and switch environments only after coordinating production enablement.
+  </Step>
+</Steps>
+
+<CardGroup cols={2}>
+  <Card title="Requirements and environment" icon="list-check" href="/en/vpos-2/wordpress/requirements-and-environment">
+    Compatibility, security, and test-environment conditions.
+  </Card>
+  <Card title="Access and keys" icon="key" href="/en/vpos-2/wordpress/access-and-keys">
+    Credentials, key generation, and secure storage.
+  </Card>
+  <Card title="Installation and configuration" icon="gear" href="/en/vpos-2/wordpress/installation-and-configuration">
+    Plugin installation and required parameters.
+  </Card>
+  <Card title="Testing" icon="flask" href="/en/vpos-2/wordpress/testing">
+    Test data and expected results.
+  </Card>
+</CardGroup>
+
+<Note>
+  Condensed from the [official WordPress / WooCommerce v4.2 guide](https://docs.alignet.com/es/wordpress-woocommerce/v4.2/).
+</Note>

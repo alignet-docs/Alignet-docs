@@ -117,7 +117,19 @@
                     "group": "Primeros pasos",
                     "icon": "shoe-prints",
                     "pages": [
-                      "vpos-2/index"
+                      "vpos-2/index",
+                      {
+                        "group": "WordPress / WooCommerce",
+                        "icon": "wordpress",
+                        "pages": [
+                          "vpos-2/wordpress/index",
+                          "vpos-2/wordpress/requisitos-y-ambiente",
+                          "vpos-2/wordpress/acceso-y-llaves",
+                          "vpos-2/wordpress/instalacion-y-configuracion",
+                          "vpos-2/wordpress/recomendaciones-y-produccion",
+                          "vpos-2/wordpress/pruebas"
+                        ]
+                      }
                     ]
                   }
                 ]
@@ -203,7 +215,19 @@
                     "group": "Getting started",
                     "icon": "shoe-prints",
                     "pages": [
-                      "en/vpos-2/index"
+                      "en/vpos-2/index",
+                      {
+                        "group": "WordPress / WooCommerce",
+                        "icon": "wordpress",
+                        "pages": [
+                          "en/vpos-2/wordpress/index",
+                          "en/vpos-2/wordpress/requirements-and-environment",
+                          "en/vpos-2/wordpress/access-and-keys",
+                          "en/vpos-2/wordpress/installation-and-configuration",
+                          "en/vpos-2/wordpress/recommendations-and-production",
+                          "en/vpos-2/wordpress/testing"
+                        ]
+                      }
                     ]
                   }
                 ]

@@ -1,0 +1,50 @@
+---
+title: "WordPress / WooCommerce"
+description: "Guía resumida para integrar VPOS-2 en una tienda WooCommerce."
+icon: "wordpress"
+---
+
+Integra VPOS-2 en una tienda creada con WordPress y WooCommerce mediante el plugin de pagos de Alignet.
+
+<Warning>
+  Esta guía regional no aplica a comercios ubicados en Perú. La integración puede variar según el país y el adquirente. Confirma el procedimiento aplicable con `integraciones@alignet.com` antes de comenzar.
+</Warning>
+
+## Recorrido de integración
+
+<Steps>
+  <Step title="Validar requisitos">
+    Confirma SSL, versiones compatibles, extensiones PHP y disponibilidad de un responsable técnico.
+  </Step>
+  <Step title="Solicitar accesos">
+    Obtén el ID de adquirente, el ID de comercio y el acceso administrativo al entorno de integración.
+  </Step>
+  <Step title="Generar y proteger las llaves">
+    Genera las llaves únicamente cuando corresponda al esquema Modal y almacénalas de forma segura.
+  </Step>
+  <Step title="Instalar y configurar">
+    Instala el plugin, configura credenciales, monedas, ambiente y URL de respuesta.
+  </Step>
+  <Step title="Probar y pasar a producción">
+    Ejecuta los escenarios de integración, valida la respuesta y cambia de ambiente solo después de coordinar la salida a producción.
+  </Step>
+</Steps>
+
+<CardGroup cols={2}>
+  <Card title="Requisitos y ambiente" icon="list-check" href="/vpos-2/wordpress/requisitos-y-ambiente">
+    Compatibilidad, seguridad y condiciones del entorno de pruebas.
+  </Card>
+  <Card title="Acceso y llaves" icon="key" href="/vpos-2/wordpress/acceso-y-llaves">
+    Credenciales, generación y custodia de llaves.
+  </Card>
+  <Card title="Instalación y configuración" icon="gear" href="/vpos-2/wordpress/instalacion-y-configuracion">
+    Instalación del plugin y parámetros principales.
+  </Card>
+  <Card title="Pruebas" icon="flask" href="/vpos-2/wordpress/pruebas">
+    Datos de prueba y resultados esperados.
+  </Card>
+</CardGroup>
+
+<Note>
+  Contenido sintetizado a partir de la [guía oficial WordPress / WooCommerce v4.2](https://docs.alignet.com/es/wordpress-woocommerce/v4.2/).
+</Note>

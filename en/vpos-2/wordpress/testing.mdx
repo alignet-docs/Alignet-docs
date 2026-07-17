@@ -1,0 +1,59 @@
+---
+title: "Testing"
+description: "Test cards and minimum validation scenarios."
+icon: "flask"
+---
+
+<Warning>
+  The numbers on this page are fictitious test data for controlled environments only. They do not represent real accounts or BINs and must never be used for real payments.
+</Warning>
+
+## Published test data
+
+| Result | Card | Expiration | CVV | Intended use |
+| --- | --- | --- | --- | --- |
+| Authorized | `4859 5100 0000 0051` | `12/26` | `365` | Integration |
+| Declined | `4111 1111 1111 1111` | `12/26` | `648` | Coordinated production testing |
+| Declined | `5038 4900 0000 0032` | `12/26` | `517` | Coordinated production testing |
+
+The cards are not enrolled in Verified by Visa. Always confirm current test data with the acquirer, especially before production testing.
+
+## Minimum integration scenarios
+
+### Cancellation and return
+
+Start a transaction, select **Return to merchant**, and verify that WooCommerce receives an operation number and records a rejected or cancelled result.
+
+### Low-amount authorization
+
+Submit approximately USD 1.00 or the local-currency equivalent with the card ending in `0051`. Expect an operation number and an authorized result.
+
+### High-amount authorization
+
+Submit approximately USD 1,000.00 or the local-currency equivalent with the card ending in `0051`. Expect an operation number and an authorized result.
+
+## Controlled production scenarios
+
+Validate these response fields:
+
+* `purchaseOperationNumber`
+* `purchaseAmount`
+* `authorizationResult`
+* `errorCode`
+* `errorMessage`
+
+| Scenario | Expected result |
+| --- | --- |
+| User selects **Return to merchant** | `authorizationResult: 05`, `errorCode: 2300`, `errorMessage: User Cancelled in PASS 1` |
+| Visa test card ending in `1111` | `authorizationResult: 01`, `errorCode: 05`, `errorMessage: Do not honor` |
+| Mastercard test card ending in `0032` | `authorizationResult: 01`, `errorCode: 14`, `errorMessage: Invalid account number (no such number)` |
+
+<Note>
+  Run production tests only with the acquirer's authorization and coordination. Preserve evidence and send it to the assigned integration contacts.
+</Note>
+
+## Recommended evidence
+
+Record the date and time, environment, order and operation numbers, amount and currency, result codes, and technical logs or screenshots. Never expose keys or sensitive information.
+
+[Back to WordPress / WooCommerce →](/en/vpos-2/wordpress)

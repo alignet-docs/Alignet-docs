@@ -1,0 +1,45 @@
+---
+title: "Recomendaciones y producción"
+description: "Buenas prácticas antes de habilitar pagos reales."
+icon: "rocket"
+---
+
+## Durante la integración
+
+* Realiza desde acceso a la plataforma hasta configuración en el ambiente de integración.
+* Ejecuta las pruebas con datos controlados antes de solicitar producción.
+* Usa preferentemente el esquema Modal, recomendado en la guía por su experiencia de usuario.
+* Comparte la URL de respuesta generada por el plugin con el adquirente y copia al equipo de Integraciones.
+* Coordina con Integraciones si necesitas personalizar los colores del formulario Modal.
+* Conserva las llaves y la configuración en un lugar seguro.
+
+## Preparar el cambio de ambiente
+
+Antes de producción:
+
+1. Respalda la configuración y las llaves del ambiente de integración para poder retomar pruebas en el futuro.
+2. Solicita o confirma las credenciales y llaves correspondientes a producción.
+3. Verifica que la URL de V-ADMIN corresponda al ambiente correcto.
+4. Cambia el campo **Ambiente** del plugin a **Producción**.
+5. Revisa IDs, monedas, llaves y URL de respuesta antes de habilitar el método de pago.
+6. Ejecuta los casos de prueba de producción coordinados con el adquirente.
+
+| Ambiente | V-ADMIN |
+| --- | --- |
+| Integración | [integracion.alignetsac.com/vpaymentweb](https://integracion.alignetsac.com/vpaymentweb/) |
+| Producción | [vpayment.verifika.com/vpaymentweb](https://vpayment.verifika.com/vpaymentweb/) |
+
+<Warning>
+  No reutilices credenciales ni llaves de integración en producción. No habilites pagos reales hasta que el adquirente confirme la configuración y los resultados de certificación.
+</Warning>
+
+## Verificación final
+
+- [ ] Existe respaldo de la configuración de integración.
+- [ ] Las credenciales pertenecen al ambiente de producción.
+- [ ] El plugin muestra **Producción** como ambiente activo.
+- [ ] La URL de respuesta productiva está registrada.
+- [ ] El comercio puede asociar la respuesta con su número de pedido.
+- [ ] Se validaron resultados autorizados, rechazados y cancelados.
+
+[Continuar con pruebas →](/vpos-2/wordpress/pruebas)

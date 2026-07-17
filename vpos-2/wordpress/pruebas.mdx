@@ -1,0 +1,72 @@
+---
+title: "Pruebas"
+description: "Tarjetas de prueba y escenarios mínimos de validación."
+icon: "flask"
+---
+
+<Warning>
+  Los números de esta página son datos ficticios y se usan exclusivamente en ambientes controlados. No representan cuentas reales, no pertenecen a BIN reales y no deben utilizarse para pagos reales.
+</Warning>
+
+## Datos publicados para prueba
+
+| Resultado | Tarjeta | Expiración | CVV | Uso indicado |
+| --- | --- | --- | --- | --- |
+| Autorizada | `4859 5100 0000 0051` | `12/26` | `365` | Integración |
+| Denegada | `4111 1111 1111 1111` | `12/26` | `648` | Producción controlada y coordinada |
+| Denegada | `5038 4900 0000 0032` | `12/26` | `517` | Producción controlada y coordinada |
+
+Las tarjetas no están enroladas en Verified by Visa. Confirma siempre con el adquirente los datos vigentes antes de ejecutar pruebas, especialmente en producción.
+
+## Casos mínimos en integración
+
+### Cancelación y retorno
+
+1. Inicia una transacción.
+2. En la pantalla de pagos, selecciona **Retornar al comercio**.
+3. Comprueba que WooCommerce reciba un número de operación y muestre la operación como rechazada o cancelada.
+
+### Autorización con monto bajo
+
+1. Envía un importe aproximado de USD 1.00 o su equivalente.
+2. Utiliza la tarjeta de prueba terminada en `0051`.
+3. Comprueba que exista número de operación y que el resultado sea **Transacción autorizada**.
+
+### Autorización con monto alto
+
+1. Envía un importe aproximado de USD 1,000.00 o su equivalente.
+2. Utiliza la tarjeta de prueba terminada en `0051`.
+3. Comprueba que exista número de operación y que el resultado sea **Transacción autorizada**.
+
+## Casos controlados en producción
+
+Confirma en cada respuesta:
+
+* `purchaseOperationNumber`
+* `purchaseAmount`
+* `authorizationResult`
+* `errorCode`
+* `errorMessage`
+
+| Escenario | Resultado esperado |
+| --- | --- |
+| El usuario selecciona **Retornar al comercio** | `authorizationResult: 05`, `errorCode: 2300`, `errorMessage: User Cancelled in PASS 1` |
+| Prueba Visa terminada en `1111` | `authorizationResult: 01`, `errorCode: 05`, `errorMessage: Do not honor` |
+| Prueba Mastercard terminada en `0032` | `authorizationResult: 01`, `errorCode: 14`, `errorMessage: Invalid account number (no such number)` |
+
+<Note>
+  Las pruebas de producción deben ejecutarse únicamente con autorización y coordinación del adquirente. Guarda la evidencia y envíala a los integradores responsables.
+</Note>
+
+## Evidencia recomendada
+
+Para cada escenario registra:
+
+* Fecha, hora y zona horaria.
+* Ambiente utilizado.
+* Número de pedido y número de operación.
+* Importe y moneda.
+* Resultado, código y mensaje recibidos.
+* Captura o registro técnico sin exponer llaves ni información sensible.
+
+[Volver a WordPress / WooCommerce →](/vpos-2/wordpress)

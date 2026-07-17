@@ -1,0 +1,46 @@
+---
+title: "Acceso y llaves"
+description: "Datos de acceso, generación de llaves y prácticas de custodia."
+icon: "key"
+---
+
+## Datos que entrega el adquirente
+
+Antes de configurar el plugin, solicita al contacto del adquirente:
+
+* ID de adquirente.
+* ID de comercio.
+* Acceso administrativo del comercio a VPayment web en el ambiente de integración.
+
+## Cuándo generar llaves
+
+<Warning>
+  Genera las llaves desde VPayment únicamente si el comercio utilizará la integración Modal. Una nueva generación reemplaza de inmediato las llaves actuales y obliga a registrar y configurar nuevamente la integración.
+</Warning>
+
+Para generarlas:
+
+1. Ingresa a VPayment web con las credenciales entregadas. El sistema puede solicitar un cambio de contraseña.
+2. Ve a **Administración → Llaves Públicas y Privadas**.
+3. Selecciona **Registrar Llaves**.
+4. Confirma mediante **Registrar y descargar**.
+5. Guarda el archivo `LlavesSHA2.zip` en un repositorio seguro y con acceso restringido.
+
+## Contenido del archivo
+
+| Archivo | Contenido | Uso en el plugin |
+| --- | --- | --- |
+| `*_PASARELA_*.txt` | Llave de la pasarela asociada al comercio. | Requerida como clave VPOS-2. |
+| `*_WALLET_*.txt` | Llave Wallet asociada al comercio. | Solo si Wallet fue habilitado por el asesor comercial. |
+| `PRIVATE_RSA_*_PASARELA_*.txt` | Llave privada RSA de pasarela. | No requerida por esta integración. |
+| `PUBLIC_RSA_*_PASARELA*.txt` | Llave pública RSA de pasarela. | No requerida por esta integración. |
+
+## Custodia y rotación
+
+* No vuelvas a generar llaves salvo que se hayan perdido, comprometido o exista una rotación planificada.
+* Mantén una copia cifrada y respaldada del archivo original.
+* No envíes llaves por canales públicos ni las almacenes en el repositorio del sitio.
+* Define una política de rotación; la guía recomienda evaluar una renovación anual.
+* Si generas nuevas llaves, actualiza inmediatamente la configuración del plugin.
+
+[Continuar con instalación y configuración →](/vpos-2/wordpress/instalacion-y-configuracion)

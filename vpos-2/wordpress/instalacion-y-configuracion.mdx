@@ -1,0 +1,57 @@
+---
+title: "Instalación y configuración"
+description: "Instala el plugin y configura VPOS-2 en WooCommerce."
+icon: "gear"
+---
+
+## Obtener el plugin
+
+La guía v4.2 referencia el paquete del plugin WordPress 4.1.9. Solicita al adquirente o al equipo de Integraciones el archivo vigente y confirma que sea compatible con las versiones instaladas de WordPress y WooCommerce.
+
+<Warning>
+  No instales paquetes obtenidos desde fuentes no autorizadas. Realiza un respaldo del sitio y prueba primero en un entorno controlado.
+</Warning>
+
+## Instalar y activar
+
+<Steps>
+  <Step title="Abrir el administrador">
+    Ingresa a WordPress con una cuenta administradora y ve a **Plugins → Agregar nuevo**.
+  </Step>
+  <Step title="Subir el archivo">
+    Selecciona **Subir plugin**, elige el archivo ZIP oficial y pulsa **Instalar ahora**.
+  </Step>
+  <Step title="Activar">
+    Activa el plugin y comprueba que WordPress no muestre errores de compatibilidad o dependencias.
+  </Step>
+</Steps>
+
+## Configurar el método de pago
+
+Ve a **WooCommerce → Ajustes → Pagos → Pay-me Checkout** y completa los datos entregados por el adquirente o generados en VPayment.
+
+| Parámetro | Origen o criterio |
+| --- | --- |
+| Ambiente | Utiliza **Integración** durante la instalación y certificación. |
+| ID adquirente | Entregado por el adquirente. |
+| ID comercio | Entregado por el adquirente. |
+| Clave VPOS-2 | Contenido de la llave `PASARELA`. |
+| Clave Wallet | Solo cuando Wallet esté habilitado. |
+| Moneda local | Configúrala en el primer bloque de moneda del plugin. |
+| Dólares | Configúralos en el segundo bloque de moneda extranjera. |
+| URL de respuesta | La genera el plugin; compártela con el adquirente y el equipo de Integraciones. |
+
+<Note>
+  Configura únicamente las monedas habilitadas para el comercio. Verifica que la moneda de WooCommerce coincida con el bloque de credenciales correspondiente.
+</Note>
+
+## Comprobaciones posteriores
+
+- [ ] El método de pago aparece habilitado en el checkout.
+- [ ] El ambiente seleccionado es **Integración**.
+- [ ] Los IDs no contienen espacios ni caracteres adicionales.
+- [ ] Las llaves corresponden al mismo comercio y ambiente.
+- [ ] La URL de respuesta fue compartida y registrada.
+- [ ] Los registros de WordPress no muestran errores del plugin.
+
+[Continuar con recomendaciones y producción →](/vpos-2/wordpress/recomendaciones-y-produccion)

@@ -1,0 +1,43 @@
+---
+title: "Recommendations and production"
+description: "Operational practices before enabling real payments."
+icon: "rocket"
+---
+
+## During integration
+
+* Complete access, key generation, installation, and configuration in the integration environment.
+* Run controlled tests before requesting production enablement.
+* Prefer the Modal scheme, which the source guide recommends for a better customer experience.
+* Share the plugin-generated response URL with the acquirer and copy the Integrations team.
+* Coordinate Modal color customization with Integrations.
+* Keep keys and configuration in secure storage.
+
+## Switch environments safely
+
+1. Back up integration settings and keys so testing can be resumed later.
+2. Obtain or confirm production credentials and keys.
+3. Verify that the V-ADMIN URL belongs to the intended environment.
+4. Change the plugin's **Environment** setting to **Production**.
+5. Review IDs, currencies, keys, and the response URL.
+6. Run the production test cases coordinated with the acquirer.
+
+| Environment | V-ADMIN |
+| --- | --- |
+| Integration | [integracion.alignetsac.com/vpaymentweb](https://integracion.alignetsac.com/vpaymentweb/) |
+| Production | [vpayment.verifika.com/vpaymentweb](https://vpayment.verifika.com/vpaymentweb/) |
+
+<Warning>
+  Do not reuse integration credentials or keys in production. Do not enable real payments until the acquirer confirms configuration and certification results.
+</Warning>
+
+## Final checklist
+
+- [ ] Integration settings are backed up.
+- [ ] Credentials belong to production.
+- [ ] The plugin shows **Production** as the active environment.
+- [ ] The production response URL is registered.
+- [ ] The merchant can associate each response with its order.
+- [ ] Authorized, rejected, and cancelled results were tested.
+
+[Continue to testing →](/en/vpos-2/wordpress/testing)

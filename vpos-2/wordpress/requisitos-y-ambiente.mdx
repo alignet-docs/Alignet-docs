@@ -1,0 +1,55 @@
+---
+title: "Requisitos y ambiente"
+description: "Condiciones comerciales y técnicas para instalar el plugin de VPOS-2."
+icon: "list-check"
+---
+
+## Antes de iniciar
+
+El comercio debe contar con:
+
+* Un sitio web operativo o en desarrollo. Si todavía no dispone de sitio, debe mantener al menos redes sociales activas.
+* Certificado SSL válido y navegación mediante HTTPS.
+* Una persona técnica responsable de instalar, configurar y probar la integración.
+* WordPress y WooCommerce previamente instalados y funcionando correctamente.
+
+<Warning>
+  La guía de referencia no aplica a comercios en Perú. Para confirmar el método de integración de otro país, escribe a `integraciones@alignet.com`.
+</Warning>
+
+## Compatibilidad indicada para la versión 4.2
+
+La documentación base registra certificaciones desde WordPress 4.9.x hasta 6.0.2 y WooCommerce 4.x hasta 6.9.4. La actualización v4.2 añade compatibilidad con WordPress 6.1.1 y WooCommerce 7.4.1.
+
+<Note>
+  Estas versiones corresponden al alcance publicado de la guía v4.2. Antes de instalar el plugin en versiones más recientes, solicita la matriz de compatibilidad vigente al equipo de Integraciones.
+</Note>
+
+## Extensiones PHP
+
+Verifica que el servidor tenga instaladas y habilitadas las siguientes extensiones:
+
+| Extensión | Uso principal |
+| --- | --- |
+| OpenSSL | Comunicación segura y operaciones criptográficas. |
+| HASH | Generación y validación de firmas, con soporte para SHA-512. |
+| XML | Procesamiento de estructuras XML requeridas por componentes del plugin. |
+| SOAP | Comunicación con servicios que utilicen este protocolo. |
+
+## Ambiente de integración
+
+* El entorno de pruebas está disponible las 24 horas, de lunes a domingo.
+* La atención de consultas e incidencias se brinda de 09:00 a 18:00 en días laborables.
+* Los horarios se expresan en hora de Perú, zona GMT-5.
+* Envía los resultados de las pruebas por correo a los integradores responsables.
+
+## Lista de verificación
+
+- [ ] El sitio responde mediante HTTPS sin errores de certificado.
+- [ ] WordPress y WooCommerce funcionan antes de instalar el plugin.
+- [ ] Las extensiones PHP requeridas están activas.
+- [ ] Existe acceso de administrador a WordPress.
+- [ ] Se identificó al responsable técnico de la integración.
+- [ ] El adquirente confirmó que esta guía aplica al país y al comercio.
+
+[Continuar con acceso y llaves →](/vpos-2/wordpress/acceso-y-llaves)
