@@ -1,0 +1,54 @@
+---
+title: "Respuestas y errores"
+description: "Eventos internos, respuesta final y códigos compartidos por Android e iOS."
+icon: "circle-exclamation"
+---
+
+## Acciones internas
+
+`PaymeInternalAction` informa el avance del flujo:
+
+* `PRESS_PAY_BUTTON`.
+* `START_SCORING` y `END_SCORING`.
+* `START_TDS` y `END_TDS`.
+* `START_AUTHORIZATION`.
+
+Úsalas para telemetría o control de interfaz. El estado definitivo de la compra proviene de `PaymeResponse`.
+
+## Respuesta final
+
+| Campo | Descripción |
+| --- | --- |
+| `success` | Indica si el proceso del SDK terminó correctamente. |
+| `resultCode` | Código general del resultado. |
+| `resultMessage` | Mensaje asociado al código. |
+| `resultDetail` | Detalle adicional del procesamiento. |
+| `reserved` | Datos adicionales devueltos al comercio. |
+| `payment` | Resultado del pago cuando el flujo pudo procesarse. |
+
+`PaymentProcessResponse` puede incluir `accepted`, `operationNumber`, `operationDate`, `authorizationCode`, `maskedPan`, `brand` y datos de cuotas.
+
+<Warning>
+  `success` describe la ejecución del proceso; confirma también `payment.accepted` antes de marcar una orden como pagada.
+</Warning>
+
+## Códigos del SDK
+
+| Código | Mensaje | Significado resumido |
+| --- | --- | --- |
+| `00` | `AUTORIZACION_EXITOSA` | Autorización completada. |
+| `01` | `AUTORIZACION_DENEGADA` | Autorización denegada. |
+| `101` | `ERROR_INICIALIZAR_SDK` | Parámetros inválidos o moneda no configurada. |
+| `102` | `ERROR_SERVICIO_CONFIGURADOR` | Error o timeout del servicio de configuración. |
+| `103` | `ERROR_SERVICIO_INTENTO_PAGO` | Error al registrar el intento de pago. |
+| `104` | `ERROR_SERVICIO_SCORING` | Error durante la evaluación de riesgo. |
+| `105` | `ERROR_PROCESO_AUTENTICACION` | Error en el componente 3DS. |
+| `106` | `ERROR_PROCESO_AUTORIZACION` | Error en el servicio de autorización. |
+| `107` | `ERROR_GENERAL` | Error general no clasificado. |
+| `108` | `VOLVER_AL_COMERCIO` | El usuario interrumpió la transacción. |
+| `109` | `TRANSACCION_RIESGO_ALTO` | Rechazo por reglas de riesgo. |
+| `110` | `AUTHENTICACION_NO_EXITOSA` | El usuario no completó la autenticación 3DS. |
+
+## Contacto
+
+Para consultas técnicas escribe a [gerencia.autenticacion@alignet.com](mailto:gerencia.autenticacion@alignet.com) o [integraciones@alignet.com](mailto:integraciones@alignet.com).

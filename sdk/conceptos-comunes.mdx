@@ -1,0 +1,69 @@
+---
+title: "Conceptos y parámetros comunes"
+description: "Flujo, ambientes y objetos compartidos por el SDK Android e iOS."
+icon: "diagram-project"
+---
+
+## Flujo del SDK
+
+<Steps>
+  <Step title="Construir la solicitud">
+    Configura la operación, moneda, datos de facturación y las funciones opcionales.
+  </Step>
+  <Step title="Seleccionar el ambiente">
+    Usa Development durante integración y cambia a Production solo después de la certificación.
+  </Step>
+  <Step title="Autorizar">
+    El SDK ejecuta evaluación de riesgo, autenticación 3DS cuando corresponde y autorización.
+  </Step>
+  <Step title="Procesar la respuesta">
+    Escucha las acciones internas y actualiza la orden únicamente con la respuesta final.
+  </Step>
+</Steps>
+
+## Ambiente de integración
+
+* Disponible las 24 horas, de lunes a domingo.
+* Soporte de 09:00 a 18:00 en días laborables.
+* Horarios expresados en hora de Perú, GMT-5.
+* Los resultados de prueba deben enviarse a los integradores responsables.
+
+## Estructura de `PaymeRequest`
+
+| Objeto | Uso | Obligatorio |
+| --- | --- | --- |
+| `setting` | Idioma y marcas mostradas en el formulario. | Sí |
+| `merchant` / datos de compra | Operación, importe, moneda, facturación y envío. | Sí |
+| `feature` | Wallet, cuotas, autenticación 3DS y campos reservados. | No |
+
+### Ajustes
+
+* `locale`: `es_PE` o `en_US`.
+* `brands`: `VISA`, `MSCD`, `AMEX` y `DINC`, según la configuración del comercio.
+
+### Operación
+
+| Campo | Regla |
+| --- | --- |
+| `operationNumber` | Identificador único de 6 caracteres. |
+| `operationDescription` | Descripción de hasta 30 caracteres. |
+| `amount` | Cadena con punto decimal y máximo dos decimales, por ejemplo `10.55`. |
+| `currency.code` | Código ISO-4217 de 3 dígitos. |
+| `currency.symbol` | Símbolo visual de hasta 5 caracteres; no altera la transacción. |
+
+### Persona
+
+`PaymePersonData` contiene nombre, apellido, correo, dirección, país en código alfabético y numérico, código postal, ciudad, estado y teléfono móvil. `addrLine2`, teléfono fijo y teléfono laboral son opcionales.
+
+### Funciones opcionales
+
+* `reserved`: datos adicionales del comercio.
+* `wallet`: requiere que Wallet esté habilitado; `userID` es obligatorio cuando `enable` es `true`.
+* `installments`: activa planes y cuotas configurados para el comercio.
+* `authentication.tdsChallengeInd`: preferencia 3DS (`01` sin preferencia, `02` sin challenge, `03` challenge preferido, `04` challenge obligatorio).
+
+<Warning>
+  Activa Wallet, cuotas o 3DS únicamente si el servicio correspondiente está configurado para el comercio. No incluyas la Key del comercio en repositorios ni registros de diagnóstico.
+</Warning>
+
+[Continuar con respuestas y errores →](/sdk/respuestas-y-errores)

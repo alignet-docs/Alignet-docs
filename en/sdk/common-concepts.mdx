@@ -1,0 +1,69 @@
+---
+title: "Common concepts and parameters"
+description: "Flow, environments, and objects shared by the Android and iOS SDKs."
+icon: "diagram-project"
+---
+
+## SDK flow
+
+<Steps>
+  <Step title="Build the request">
+    Configure the operation, currency, billing data, and optional features.
+  </Step>
+  <Step title="Select the environment">
+    Use Development during integration and switch to Production only after certification.
+  </Step>
+  <Step title="Authorize">
+    The SDK runs risk assessment, 3DS authentication when applicable, and authorization.
+  </Step>
+  <Step title="Process the response">
+    Observe internal actions and update the order only from the final response.
+  </Step>
+</Steps>
+
+## Integration environment
+
+* Available 24 hours a day, Monday through Sunday.
+* Support from 09:00 to 18:00 on business days.
+* Times are expressed in Peru time, GMT-5.
+* Test results must be sent to the responsible integration specialists.
+
+## `PaymeRequest` structure
+
+| Object | Use | Required |
+| --- | --- | --- |
+| `setting` | Language and brands displayed in the form. | Yes |
+| `merchant` / purchase data | Operation, amount, currency, billing, and shipping. | Yes |
+| `feature` | Wallet, installments, 3DS authentication, and reserved fields. | No |
+
+### Settings
+
+* `locale`: `es_PE` or `en_US`.
+* `brands`: `VISA`, `MSCD`, `AMEX`, and `DINC`, according to merchant configuration.
+
+### Operation
+
+| Field | Rule |
+| --- | --- |
+| `operationNumber` | Unique 6-character identifier. |
+| `operationDescription` | Description up to 30 characters. |
+| `amount` | String with a decimal point and no more than two decimals, such as `10.55`. |
+| `currency.code` | 3-digit ISO-4217 code. |
+| `currency.symbol` | Display symbol up to 5 characters; it does not affect the transaction. |
+
+### Person data
+
+`PaymePersonData` contains first name, last name, email, address, alphabetic and numeric country codes, ZIP code, city, state, and mobile phone. `addrLine2`, home phone, and work phone are optional.
+
+### Optional features
+
+* `reserved`: additional merchant data.
+* `wallet`: Wallet must be enabled; `userID` is required when `enable` is `true`.
+* `installments`: enables plans and installments configured for the merchant.
+* `authentication.tdsChallengeInd`: 3DS preference (`01` no preference, `02` no challenge, `03` challenge preferred, `04` challenge required).
+
+<Warning>
+  Enable Wallet, installments, or 3DS only when the corresponding service is configured for the merchant. Never include the merchant Key in source control or diagnostic logs.
+</Warning>
+
+[Continue to responses and errors →](/en/sdk/responses-and-errors)

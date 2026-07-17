@@ -1,0 +1,51 @@
+---
+title: "Requisitos e instalación Android"
+description: "Agrega las librerías AAR y dependencias de Alignet SDK al proyecto Android."
+icon: "download"
+---
+
+## Requisitos
+
+* Android 5.0, API level 21 o superior.
+* Gradle 7.4 o superior.
+* Android Studio Chipmunk 2021.2.1 o superior.
+* Key del comercio entregada por Alignet.
+* `Payme.aar`, `SecureKey3DS.aar`, `VisaSensoryBranding.aar` y `MastercardSonic.aar`.
+
+[Descargar el paquete oficial Android v2.2](https://docs.alignet.com/__attachments/187990020/SDK_Payme_Android_v2.2.zip)
+
+## Agregar las librerías
+
+Crea una carpeta `libs` dentro del proyecto y copia los cuatro AAR entregados por Alignet.
+
+<Frame caption="Librerías AAR dentro del proyecto Android">
+  <img src="/images/sdk-android-librerias.png" alt="Carpeta libs con las librerías Android del SDK" />
+</Frame>
+
+```kotlin
+dependencies {
+    implementation(files("../libs/SecureKey3DS.aar"))
+    implementation(files("../libs/Payme.aar"))
+    implementation(files("../libs/VisaSensoryBranding.aar"))
+    implementation(files("../libs/MastercardSonic.aar"))
+}
+```
+
+<Frame caption="Configuración Gradle de las librerías AAR">
+  <img src="/images/sdk-android-gradle.png" alt="Dependencias AAR configuradas en Gradle" />
+</Frame>
+
+## Dependencias necesarias
+
+La guía oficial lista AndroidX Core/AppCompat, Kotlin stdlib, ViewPager2, RecyclerView, ConstraintLayout, Retrofit, Gson, OkHttp, SpongyCastle, BouncyCastle y Nimbus JOSE JWT. Mantén versiones compatibles con tu proyecto y con el paquete entregado por Integraciones.
+
+<Note>
+  Evita declarar la misma dependencia con versiones distintas. Revisa el árbol de dependencias y resuelve conflictos antes de ejecutar el SDK.
+</Note>
+
+- [ ] Los cuatro AAR están presentes.
+- [ ] Gradle sincroniza sin errores.
+- [ ] La aplicación conserva API mínima 21 o superior.
+- [ ] La Key se obtiene desde una configuración segura.
+
+[Continuar con inicialización →](/sdk/android/inicializacion)

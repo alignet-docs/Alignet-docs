@@ -1,0 +1,54 @@
+---
+title: "Responses and errors"
+description: "Internal events, final response, and codes shared by Android and iOS."
+icon: "circle-exclamation"
+---
+
+## Internal actions
+
+`PaymeInternalAction` reports flow progress:
+
+* `PRESS_PAY_BUTTON`.
+* `START_SCORING` and `END_SCORING`.
+* `START_TDS` and `END_TDS`.
+* `START_AUTHORIZATION`.
+
+Use them for telemetry or UI control. The final purchase status comes from `PaymeResponse`.
+
+## Final response
+
+| Field | Description |
+| --- | --- |
+| `success` | Whether the SDK process completed successfully. |
+| `resultCode` | General result code. |
+| `resultMessage` | Message associated with the code. |
+| `resultDetail` | Additional processing details. |
+| `reserved` | Additional data returned to the merchant. |
+| `payment` | Payment result when the flow could be processed. |
+
+`PaymentProcessResponse` may include `accepted`, `operationNumber`, `operationDate`, `authorizationCode`, `maskedPan`, `brand`, and installment data.
+
+<Warning>
+  `success` describes process execution; also confirm `payment.accepted` before marking an order as paid.
+</Warning>
+
+## SDK codes
+
+| Code | Message | Summary |
+| --- | --- | --- |
+| `00` | `AUTORIZACION_EXITOSA` | Authorization completed. |
+| `01` | `AUTORIZACION_DENEGADA` | Authorization denied. |
+| `101` | `ERROR_INICIALIZAR_SDK` | Invalid parameters or unconfigured currency. |
+| `102` | `ERROR_SERVICIO_CONFIGURADOR` | Configuration service error or timeout. |
+| `103` | `ERROR_SERVICIO_INTENTO_PAGO` | Payment-attempt service error. |
+| `104` | `ERROR_SERVICIO_SCORING` | Risk-assessment error. |
+| `105` | `ERROR_PROCESO_AUTENTICACION` | 3DS component error. |
+| `106` | `ERROR_PROCESO_AUTORIZACION` | Authorization service error. |
+| `107` | `ERROR_GENERAL` | Unclassified general error. |
+| `108` | `VOLVER_AL_COMERCIO` | The user interrupted the transaction. |
+| `109` | `TRANSACCION_RIESGO_ALTO` | Rejected by risk rules. |
+| `110` | `AUTHENTICACION_NO_EXITOSA` | The user did not complete 3DS authentication. |
+
+## Contact
+
+For technical questions, contact [gerencia.autenticacion@alignet.com](mailto:gerencia.autenticacion@alignet.com) or [integraciones@alignet.com](mailto:integraciones@alignet.com).

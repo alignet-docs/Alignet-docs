@@ -184,6 +184,44 @@
                 ]
               }
             ]
+          },
+          {
+            "product": "SDK",
+            "icon": "mobile-screen-button",
+            "tabs": [
+              {
+                "tab": "Vista general",
+                "groups": [
+                  {
+                    "group": "SDK v2.2",
+                    "icon": "code",
+                    "pages": [
+                      "sdk/index",
+                      "sdk/conceptos-comunes",
+                      "sdk/respuestas-y-errores"
+                    ]
+                  },
+                  {
+                    "group": "Android",
+                    "icon": "android",
+                    "pages": [
+                      "sdk/android/index",
+                      "sdk/android/requisitos-e-instalacion",
+                      "sdk/android/inicializacion"
+                    ]
+                  },
+                  {
+                    "group": "iOS",
+                    "icon": "apple",
+                    "pages": [
+                      "sdk/ios/index",
+                      "sdk/ios/requisitos-e-instalacion",
+                      "sdk/ios/inicializacion"
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -326,6 +364,44 @@
                           }
                         ]
                       }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "product": "SDK",
+            "icon": "mobile-screen-button",
+            "tabs": [
+              {
+                "tab": "Overview",
+                "groups": [
+                  {
+                    "group": "SDK v2.2",
+                    "icon": "code",
+                    "pages": [
+                      "en/sdk/index",
+                      "en/sdk/common-concepts",
+                      "en/sdk/responses-and-errors"
+                    ]
+                  },
+                  {
+                    "group": "Android",
+                    "icon": "android",
+                    "pages": [
+                      "en/sdk/android/index",
+                      "en/sdk/android/requirements-and-installation",
+                      "en/sdk/android/initialization"
+                    ]
+                  },
+                  {
+                    "group": "iOS",
+                    "icon": "apple",
+                    "pages": [
+                      "en/sdk/ios/index",
+                      "en/sdk/ios/requirements-and-installation",
+                      "en/sdk/ios/initialization"
                     ]
                   }
                 ]

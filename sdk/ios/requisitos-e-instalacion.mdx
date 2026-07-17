@@ -1,0 +1,39 @@
+---
+title: "Requisitos e instalación iOS"
+description: "Agrega los XCFrameworks de Alignet SDK al proyecto iOS."
+icon: "download"
+---
+
+## Requisitos
+
+* iOS 13.0 o superior.
+* Xcode 13 o superior.
+* Swift 5.5 o superior.
+* Key del comercio entregada por Alignet.
+* `Payme.xcframework`, `SecureKey3DS.xcframework`, `VisaSensoryBranding.xcframework` y `MastercardSonic.xcframework`.
+
+[Descargar el paquete oficial iOS v2.2](https://docs.alignet.com/__attachments/188350468/SDK_Payme_iOS_v2.2.zip)
+
+## Agregar los frameworks
+
+Arrastra las cuatro librerías al proyecto y selecciona **Copy items if needed** y **Create groups**.
+
+<Frame caption="XCFrameworks agregados al proyecto iOS">
+  <img src="/images/sdk-ios-frameworks.png" alt="Librerías iOS del SDK dentro del proyecto Xcode" />
+</Frame>
+
+En el target abre **Frameworks, Libraries, and Embedded Content** y configura los SDK como **Embed Without Signing**.
+
+<Frame caption="Configuración Embed Without Signing en Xcode">
+  <img src="/images/sdk-ios-embed.png" alt="XCFrameworks configurados como Embed Without Signing" />
+</Frame>
+
+Incluye también el SDK de autenticación proporcionado por Alignet.
+
+- [ ] Los cuatro XCFrameworks están presentes.
+- [ ] El target mínimo es iOS 13 o superior.
+- [ ] La configuración de embed es correcta.
+- [ ] El proyecto compila para dispositivo y simulador según el paquete entregado.
+- [ ] La Key se obtiene desde una configuración segura.
+
+[Continuar con inicialización →](/sdk/ios/inicializacion)

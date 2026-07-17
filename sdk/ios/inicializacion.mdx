@@ -1,0 +1,79 @@
+---
+title: "Inicialización iOS"
+description: "Invoca Alignet SDK v2.2 con Swift y procesa su delegado."
+icon: "code"
+---
+
+## Importar el SDK
+
+```swift
+import Payme
+```
+
+## Crear e invocar el cliente
+
+```swift
+let person = PaymePersonData(
+    firstName: "Ana",
+    lastName: "Pérez",
+    email: "ana@example.com",
+    addrLine1: "Av. Principal 123",
+    addrLine2: "",
+    countryCode: "PE",
+    countryNumber: "604",
+    zip: "15000",
+    city: "Lima",
+    state: "Lima",
+    mobilePhone: "51-999999999"
+)
+
+let request = PaymeRequest(
+    merchant: PaymeMerchantData(
+        operation: PaymeOperationData(
+            operationNumber: "000001",
+            operationDescription: "Compra",
+            amount: "10.55",
+            currency: PaymeCurrencyData(code: "604", symbol: "S/")
+        ),
+        addrMatch: true,
+        billing: person,
+        shipping: person
+    ),
+    setting: PaymeSettingData(
+        locale: "es_PE",
+        brands: ["VISA", "MSCD", "AMEX", "DINC"]
+    )
+)
+
+let client = PaymeClient(delegate: self, key: "COMMERCE_KEY")
+client.setEnvironment(environment: PaymeEnviroment.development)
+client.authorizeTransaction(
+    controller: navigationController!,
+    usePresent: false,
+    paymeRequest: request
+)
+```
+
+`usePresent: true` presenta el flujo de forma modal; `false` utiliza el `navigationController`.
+
+## Implementar el delegado
+
+```swift
+extension PaymentController: PaymeClientDelegate {
+    func onNotificate(action: PaymeInternalAction) {
+        // Telemetría del flujo: scoring, 3DS y autorización.
+    }
+
+    func onRespondsPayme(response: PaymeResponse) {
+        if response.success, response.payment?.accepted == true {
+            // Confirmar la orden usando operationNumber.
+        } else {
+            // Procesar resultCode, resultMessage y resultDetail.
+        }
+    }
+}
+```
+
+<Warning>
+  Conserva una referencia al cliente durante el flujo, no registres datos sensibles y cambia a producción únicamente con la Key aprobada para ese ambiente.
+</Warning>

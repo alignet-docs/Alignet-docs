@@ -1,0 +1,76 @@
+---
+title: "Inicialización Android"
+description: "Invoca Alignet SDK v2.2 con Kotlin y procesa sus callbacks."
+icon: "code"
+---
+
+## Importar clases
+
+```kotlin
+import com.alignet.payme.PaymeClient
+import com.alignet.payme.PaymeClientDelegate
+import com.alignet.payme.util.PaymeEnvironment
+import com.alignet.payme.model.*
+```
+
+## Crear e invocar el cliente
+
+```kotlin
+val person = PaymePersonData(
+    firstName = "Ana",
+    lastName = "Pérez",
+    email = "ana@example.com",
+    addrLine1 = "Av. Principal 123",
+    addrLine2 = "",
+    city = "Lima",
+    countryCode = "PE",
+    countryNumber = "604",
+    zip = "15000",
+    state = "Lima",
+    mobilePhone = "51-999999999"
+)
+
+val request = PaymeRequest(
+    merchant = PaymeMerchantData(
+        operation = PaymeOperationData(
+            operationNumber = "000001",
+            operationDescription = "Compra",
+            amount = "10.55",
+            currency = PaymeCurrencyData(code = "604", symbol = "S/")
+        ),
+        addrMatch = true,
+        shipping = person,
+        billing = person
+    ),
+    setting = PaymeSettingData(
+        locale = "es_PE",
+        brands = listOf("VISA", "MSCD", "AMEX", "DINC")
+    )
+)
+
+val client = PaymeClient(this, "COMMERCE_KEY")
+client.setEnvironment(PaymeEnvironment.DEVELOPMENT)
+client.authorizeTransaction(activity = this, paymeRequest = request)
+```
+
+## Implementar el delegado
+
+La `Activity` debe implementar `PaymeClientDelegate`:
+
+```kotlin
+override fun onNotificate(action: PaymeInternalAction) {
+    // Telemetría del flujo: scoring, 3DS y autorización.
+}
+
+override fun onRespondsPayme(response: PaymeResponse) {
+    if (response.success && response.payment?.accepted == true) {
+        // Confirmar la orden usando operationNumber.
+    } else {
+        // Procesar resultCode, resultMessage y resultDetail.
+    }
+}
+```
+
+<Warning>
+  No uses datos personales reales en registros. Cambia a `PRODUCTION` solo con la Key y configuración de producción aprobadas.
+</Warning>

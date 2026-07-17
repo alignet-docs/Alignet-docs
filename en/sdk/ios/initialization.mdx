@@ -1,0 +1,79 @@
+---
+title: "iOS initialization"
+description: "Invoke Alignet SDK v2.2 with Swift and process its delegate."
+icon: "code"
+---
+
+## Import the SDK
+
+```swift
+import Payme
+```
+
+## Create and invoke the client
+
+```swift
+let person = PaymePersonData(
+    firstName: "Ana",
+    lastName: "Perez",
+    email: "ana@example.com",
+    addrLine1: "123 Main Avenue",
+    addrLine2: "",
+    countryCode: "PE",
+    countryNumber: "604",
+    zip: "15000",
+    city: "Lima",
+    state: "Lima",
+    mobilePhone: "51-999999999"
+)
+
+let request = PaymeRequest(
+    merchant: PaymeMerchantData(
+        operation: PaymeOperationData(
+            operationNumber: "000001",
+            operationDescription: "Purchase",
+            amount: "10.55",
+            currency: PaymeCurrencyData(code: "604", symbol: "S/")
+        ),
+        addrMatch: true,
+        billing: person,
+        shipping: person
+    ),
+    setting: PaymeSettingData(
+        locale: "en_US",
+        brands: ["VISA", "MSCD", "AMEX", "DINC"]
+    )
+)
+
+let client = PaymeClient(delegate: self, key: "COMMERCE_KEY")
+client.setEnvironment(environment: PaymeEnviroment.development)
+client.authorizeTransaction(
+    controller: navigationController!,
+    usePresent: false,
+    paymeRequest: request
+)
+```
+
+`usePresent: true` presents the flow modally; `false` uses the `navigationController`.
+
+## Implement the delegate
+
+```swift
+extension PaymentController: PaymeClientDelegate {
+    func onNotificate(action: PaymeInternalAction) {
+        // Flow telemetry: scoring, 3DS, and authorization.
+    }
+
+    func onRespondsPayme(response: PaymeResponse) {
+        if response.success, response.payment?.accepted == true {
+            // Confirm the order using operationNumber.
+        } else {
+            // Process resultCode, resultMessage, and resultDetail.
+        }
+    }
+}
+```
+
+<Warning>
+  Keep a client reference during the flow, do not log sensitive data, and switch to production only with the Key approved for that environment.
+</Warning>
