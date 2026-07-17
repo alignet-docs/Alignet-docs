@@ -1,0 +1,24 @@
+---
+title: "Recomendaciones y producción"
+description: "Buenas prácticas para habilitar el módulo en producción."
+icon: "rocket"
+---
+
+* Completa acceso, llaves y configuración en integración.
+* Usa preferentemente el esquema Modal.
+* Comparte la URL de respuesta con el adquirente y el equipo de Integraciones.
+* Coordina con Integraciones cualquier personalización visual del Modal.
+* Respalda configuración y llaves antes de cambiar de ambiente.
+
+| Ambiente | V-ADMIN |
+| --- | --- |
+| Integración | [integracion.alignetsac.com/vpaymentweb](https://integracion.alignetsac.com/vpaymentweb/) |
+| Producción | [vpayment.verifika.com/vpaymentweb](https://vpayment.verifika.com/vpaymentweb/) |
+
+Antes de habilitar pagos reales, confirma credenciales productivas, cambia el módulo a **Producción**, valida monedas y registra la URL de respuesta productiva.
+
+<Warning>
+  No reutilices llaves de integración en producción ni habilites pagos reales sin confirmación del adquirente.
+</Warning>
+
+[Continuar con pruebas →](/vpos-2/prestashop/pruebas)

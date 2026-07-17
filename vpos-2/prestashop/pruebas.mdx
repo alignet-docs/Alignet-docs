@@ -1,0 +1,35 @@
+---
+title: "Pruebas"
+description: "Escenarios mínimos para validar el módulo de PrestaShop."
+icon: "flask"
+---
+
+<Warning>
+  Estos datos son ficticios y solo deben utilizarse en ambientes controlados. Confirma con el adquirente los datos vigentes antes de probar.
+</Warning>
+
+| Resultado | Tarjeta | Expiración | CVV |
+| --- | --- | --- | --- |
+| Autorizada | `4859 5100 0000 0051` | `12/26` | `365` |
+| Denegada | `4111 1111 1111 1111` | `12/26` | `648` |
+| Denegada | `5038 4900 0000 0032` | `12/26` | `517` |
+
+## Integración
+
+1. **Retorno al comercio:** inicia una compra y selecciona retornar; espera una operación rechazada o cancelada.
+2. **Monto bajo:** usa aproximadamente USD 1.00 con la tarjeta terminada en `0051`; espera autorización.
+3. **Monto alto:** usa aproximadamente USD 1,000.00 con la misma tarjeta; espera autorización.
+
+## Producción coordinada
+
+Valida `purchaseOperationNumber`, `purchaseAmount`, `authorizationResult`, `errorCode` y `errorMessage`.
+
+| Escenario | Resultado esperado |
+| --- | --- |
+| Retornar al comercio | `authorizationResult: 05`, `errorCode: 2300` |
+| Visa terminada en `1111` | `authorizationResult: 01`, `errorCode: 05` |
+| Mastercard terminada en `0032` | `authorizationResult: 01`, `errorCode: 14` |
+
+Ejecuta pruebas productivas únicamente con autorización del adquirente y conserva evidencia sin exponer llaves ni datos sensibles.
+
+[Volver a PrestaShop →](/vpos-2/prestashop)

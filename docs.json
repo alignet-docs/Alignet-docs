@@ -129,6 +129,18 @@
                           "vpos-2/wordpress/recomendaciones-y-produccion",
                           "vpos-2/wordpress/pruebas"
                         ]
+                      },
+                      {
+                        "group": "PrestaShop",
+                        "icon": "store",
+                        "pages": [
+                          "vpos-2/prestashop/index",
+                          "vpos-2/prestashop/requisitos-y-ambiente",
+                          "vpos-2/prestashop/acceso-y-llaves",
+                          "vpos-2/prestashop/instalacion-y-configuracion",
+                          "vpos-2/prestashop/recomendaciones-y-produccion",
+                          "vpos-2/prestashop/pruebas"
+                        ]
                       }
                     ]
                   }
@@ -226,6 +238,18 @@
                           "en/vpos-2/wordpress/installation-and-configuration",
                           "en/vpos-2/wordpress/recommendations-and-production",
                           "en/vpos-2/wordpress/testing"
+                        ]
+                      },
+                      {
+                        "group": "PrestaShop",
+                        "icon": "store",
+                        "pages": [
+                          "en/vpos-2/prestashop/index",
+                          "en/vpos-2/prestashop/requirements-and-environment",
+                          "en/vpos-2/prestashop/access-and-keys",
+                          "en/vpos-2/prestashop/installation-and-configuration",
+                          "en/vpos-2/prestashop/recommendations-and-production",
+                          "en/vpos-2/prestashop/testing"
                         ]
                       }
                     ]

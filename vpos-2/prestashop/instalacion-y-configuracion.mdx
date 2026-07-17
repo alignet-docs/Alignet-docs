@@ -1,0 +1,63 @@
+---
+title: "Instalación y configuración"
+description: "Instala y configura Pay-me Checkout en PrestaShop."
+icon: "gear"
+---
+
+## Instalar el módulo
+
+La guía v2.2 referencia el módulo PrestaShop 2.0.9. Solicita al adquirente el paquete vigente y confirma su compatibilidad antes de instalarlo.
+
+<Frame caption="Paquete oficial del módulo Pay-me Checkout para PrestaShop.">
+  ![Descarga del módulo Pay-me Checkout](/images/vpos2-prestashop-descarga.jpg)
+</Frame>
+
+1. Ingresa al administrador y abre **Módulos → Module Manager**.
+2. Selecciona **Subir un módulo**.
+3. Elige el archivo ZIP oficial, instálalo y completa la activación.
+
+<Frame caption="Acceso al administrador de módulos.">
+  ![Menú de módulos de PrestaShop](/images/vpos2-prestashop-modulos.png)
+</Frame>
+
+<Frame caption="Carga del archivo del módulo.">
+  ![Subir módulo en PrestaShop](/images/vpos2-prestashop-subir-modulo.png)
+</Frame>
+
+<Frame caption="Instalación y activación del módulo.">
+  ![Instalar módulo Pay-me Checkout](/images/vpos2-prestashop-instalar.png)
+</Frame>
+
+## Configurar Pay-me Checkout
+
+En **Módulos → Module Manager**, localiza Pay-me Checkout dentro de los métodos de pago y abre su configuración. Durante la certificación selecciona **Integración**.
+
+<Frame caption="Acceso a la configuración de Pay-me Checkout.">
+  ![Ubicación del módulo Pay-me Checkout](/images/vpos2-prestashop-configuracion-1.png)
+</Frame>
+
+<Frame caption="Parámetros principales del módulo.">
+  ![Configuración de Pay-me Checkout en PrestaShop](/images/vpos2-prestashop-configuracion-2.png)
+</Frame>
+
+| Parámetro | Origen o criterio |
+| --- | --- |
+| Ambiente | **Integración** durante instalación y pruebas. |
+| ID adquirente e ID comercio | Entregados por el adquirente. |
+| Clave VPOS-2 | Contenido de la llave `PASARELA`. |
+| Clave Wallet | Solo cuando Wallet esté habilitado. |
+| Moneda local | Primer bloque de configuración. |
+| Dólares | Segundo bloque de moneda extranjera. |
+| URL de respuesta | Compártela con el equipo de Integraciones. |
+
+<Frame caption="Configuración por moneda.">
+  ![Bloques de configuración por moneda](/images/vpos2-prestashop-configuracion-monedas.png)
+</Frame>
+
+- [ ] El método de pago aparece habilitado.
+- [ ] El ambiente activo es **Integración**.
+- [ ] IDs y llaves corresponden al mismo comercio y ambiente.
+- [ ] La moneda de la tienda coincide con el bloque configurado.
+- [ ] La URL de respuesta fue registrada.
+
+[Continuar con recomendaciones y producción →](/vpos-2/prestashop/recomendaciones-y-produccion)

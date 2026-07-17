@@ -1,0 +1,57 @@
+---
+title: "Installation and configuration"
+description: "Install and configure Pay-me Checkout in PrestaShop."
+icon: "gear"
+---
+
+## Install the module
+
+The v2.2 guide references PrestaShop module 2.0.9. Request the current authorized package and confirm compatibility before installation.
+
+<Frame caption="Official Pay-me Checkout package for PrestaShop.">
+  ![Pay-me Checkout module download](/images/vpos2-prestashop-descarga.jpg)
+</Frame>
+
+1. Open **Modules → Module Manager**.
+2. Select **Upload a module**.
+3. Choose the official ZIP package, install it, and complete activation.
+
+<Frame caption="Opening Module Manager.">
+  ![PrestaShop modules menu](/images/vpos2-prestashop-modulos.png)
+</Frame>
+
+<Frame caption="Uploading the module package.">
+  ![Upload a module in PrestaShop](/images/vpos2-prestashop-subir-modulo.png)
+</Frame>
+
+<Frame caption="Installing and activating Pay-me Checkout.">
+  ![Install Pay-me Checkout](/images/vpos2-prestashop-instalar.png)
+</Frame>
+
+## Configure Pay-me Checkout
+
+Locate Pay-me Checkout in **Modules → Module Manager**, open its settings, and select **Integration** during certification.
+
+<Frame caption="Opening Pay-me Checkout settings.">
+  ![Locate Pay-me Checkout](/images/vpos2-prestashop-configuracion-1.png)
+</Frame>
+
+<Frame caption="Main module settings.">
+  ![Configure Pay-me Checkout in PrestaShop](/images/vpos2-prestashop-configuracion-2.png)
+</Frame>
+
+| Setting | Source or rule |
+| --- | --- |
+| Environment | **Integration** during setup and tests. |
+| Acquirer and merchant IDs | Supplied by the acquirer. |
+| VPOS-2 key | Contents of the `PASARELA` key. |
+| Wallet key | Only when Wallet is enabled. |
+| Local currency | First settings block. |
+| US dollars | Second foreign-currency block. |
+| Response URL | Share with the Integrations team. |
+
+<Frame caption="Currency-specific settings.">
+  ![Currency settings blocks](/images/vpos2-prestashop-configuracion-monedas.png)
+</Frame>
+
+[Continue to recommendations and production →](/en/vpos-2/prestashop/recommendations-and-production)

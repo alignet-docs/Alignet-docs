@@ -1,0 +1,30 @@
+---
+title: "Acceso y llaves"
+description: "Obtén las credenciales y genera las llaves de VPOS-2."
+icon: "key"
+---
+
+Solicita al adquirente el **ID adquirente**, **ID comercio** y acceso administrativo del comercio a VPayment web en integración.
+
+<Warning>
+  Genera llaves únicamente si usarás la integración Modal. Cada nueva generación reemplaza inmediatamente las llaves actuales.
+</Warning>
+
+1. Ingresa a VPayment web.
+2. Ve a **Administración → Llaves Públicas y Privadas**.
+3. Selecciona **Registrar Llaves** y luego **Registrar y descargar**.
+4. Guarda `LlavesSHA2.zip` en un lugar cifrado y restringido.
+
+<Frame caption="Generación y descarga de llaves desde VPayment web.">
+  ![Generación animada de llaves para PrestaShop](/images/vpos2-prestashop-generar-llaves.gif)
+</Frame>
+
+| Archivo | Uso |
+| --- | --- |
+| `*_PASARELA_*.txt` | Clave VPOS-2 requerida por el módulo. |
+| `*_WALLET_*.txt` | Solo si Wallet fue habilitado. |
+| Llaves RSA pública y privada | No se requieren para esta integración. |
+
+No publiques las llaves, conserva un respaldo y evalúa su rotación anual. Si las reemplazas, actualiza inmediatamente el módulo.
+
+[Continuar con instalación y configuración →](/vpos-2/prestashop/instalacion-y-configuracion)

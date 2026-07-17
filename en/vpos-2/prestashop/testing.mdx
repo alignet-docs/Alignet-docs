@@ -1,0 +1,35 @@
+---
+title: "Testing"
+description: "Minimum scenarios for validating the PrestaShop module."
+icon: "flask"
+---
+
+<Warning>
+  These are fictitious test values for controlled environments only. Confirm current data with the acquirer before testing.
+</Warning>
+
+| Result | Card | Expiration | CVV |
+| --- | --- | --- | --- |
+| Authorized | `4859 5100 0000 0051` | `12/26` | `365` |
+| Declined | `4111 1111 1111 1111` | `12/26` | `648` |
+| Declined | `5038 4900 0000 0032` | `12/26` | `517` |
+
+## Integration
+
+1. **Return to merchant:** expect a rejected or cancelled result.
+2. **Low amount:** submit approximately USD 1.00 with the card ending in `0051`; expect authorization.
+3. **High amount:** submit approximately USD 1,000.00 with the same card; expect authorization.
+
+## Coordinated production testing
+
+Validate `purchaseOperationNumber`, `purchaseAmount`, `authorizationResult`, `errorCode`, and `errorMessage`.
+
+| Scenario | Expected result |
+| --- | --- |
+| Return to merchant | `authorizationResult: 05`, `errorCode: 2300` |
+| Visa ending in `1111` | `authorizationResult: 01`, `errorCode: 05` |
+| Mastercard ending in `0032` | `authorizationResult: 01`, `errorCode: 14` |
+
+Run production tests only with acquirer authorization and preserve evidence without exposing keys or sensitive information.
+
+[Back to PrestaShop →](/en/vpos-2/prestashop)
