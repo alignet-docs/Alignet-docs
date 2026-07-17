@@ -105,6 +105,24 @@
                 ]
               }
             ]
+          },
+          {
+            "product": "VPOS-2",
+            "icon": "credit-card",
+            "tabs": [
+              {
+                "tab": "Vista general",
+                "groups": [
+                  {
+                    "group": "Primeros pasos",
+                    "icon": "shoe-prints",
+                    "pages": [
+                      "vpos-2/index"
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -168,6 +186,24 @@
                     "pages": [
                       "en/faq",
                       "en/support"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "product": "VPOS-2",
+            "icon": "credit-card",
+            "tabs": [
+              {
+                "tab": "Overview",
+                "groups": [
+                  {
+                    "group": "Getting started",
+                    "icon": "shoe-prints",
+                    "pages": [
+                      "en/vpos-2/index"
                     ]
                   }
                 ]
