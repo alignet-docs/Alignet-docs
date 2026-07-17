@@ -205,6 +205,24 @@
                             ]
                           }
                         ]
+                      },
+                      {
+                        "group": "Sistema administrativo",
+                        "icon": "browser",
+                        "pages": [
+                          {
+                            "group": "VPayment Web",
+                            "icon": "chart-line",
+                            "pages": [
+                              "vpos-2/vpayment-web/index",
+                              "vpos-2/vpayment-web/pedidos-y-autenticacion",
+                              "vpos-2/vpayment-web/operaciones",
+                              "vpos-2/vpayment-web/reportes",
+                              "vpos-2/vpayment-web/usuarios-y-seguridad",
+                              "vpos-2/vpayment-web/glosario"
+                            ]
+                          }
+                        ]
                       }
                     ]
                   }
@@ -376,6 +394,24 @@
                                   "en/sdk/ios/initialization"
                                 ]
                               }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Administrative system",
+                        "icon": "browser",
+                        "pages": [
+                          {
+                            "group": "VPayment Web",
+                            "icon": "chart-line",
+                            "pages": [
+                              "en/vpos-2/vpayment-web/index",
+                              "en/vpos-2/vpayment-web/orders-and-authentication",
+                              "en/vpos-2/vpayment-web/operations",
+                              "en/vpos-2/vpayment-web/reports",
+                              "en/vpos-2/vpayment-web/users-and-security",
+                              "en/vpos-2/vpayment-web/glossary"
                             ]
                           }
                         ]

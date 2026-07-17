@@ -1,0 +1,46 @@
+---
+title: "Usuarios y seguridad"
+description: "Roles, permisos, creación de usuarios y actualización de credenciales."
+icon: "users-gear"
+---
+
+## Tipos de usuario
+
+| Usuario | Alcance principal |
+| --- | --- |
+| **Básico Visor** | Consulta pedidos, pero no administra usuarios ni realiza acciones sobre las operaciones. |
+| **Básico Administrador** | Consulta y opera pedidos; puede crear, modificar o deshabilitar usuarios Visor. |
+| **Adquirente administrador** | Controla los comercios y transacciones de su adquirente. |
+| **Administrador de liquidación simple** | Consulta comercios y puede descargar llaves, según su configuración. |
+
+## Crear un usuario
+
+Un administrador puede abrir **Usuarios → Crear usuario** y registrar nombres, apellidos, nombre de usuario, contraseña y confirmación. Se recomienda utilizar cuentas nominales.
+
+<Frame caption="Creación y administración de usuarios">
+  ![Gestión de usuarios en VPayment Web](/images/vpayment-web/gestion-usuarios.gif)
+</Frame>
+
+<Note>
+  Desde el comercio solo se crean usuarios Básico Visor. Para solicitar otro administrador, contacta al adquirente.
+</Note>
+
+## Actualizar los datos personales
+
+Cualquier usuario puede editar su nombre y apellido. El nombre utilizado para iniciar sesión no puede modificarse.
+
+<Frame caption="Edición del nombre visible del usuario">
+  ![Actualización de datos del usuario en VPayment Web](/images/vpayment-web/editar-usuario.gif)
+</Frame>
+
+## Cambiar la contraseña
+
+Ingresa la contraseña actual y luego registra y confirma la nueva contraseña. Debe contener al menos ocho caracteres alfanuméricos y no repetir tres caracteres consecutivos de la contraseña anterior.
+
+<Frame caption="Cambio de contraseña y validación de fortaleza">
+  ![Cambio de contraseña en VPayment Web](/images/vpayment-web/cambiar-contrasena.gif)
+</Frame>
+
+<Warning>
+  Si la cuenta se bloquea por intentos fallidos, solicita el desbloqueo al canal de atención definido por tu adquirente.
+</Warning>

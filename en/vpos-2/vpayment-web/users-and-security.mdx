@@ -1,0 +1,46 @@
+---
+title: "Users and security"
+description: "Roles, permissions, user creation, and credential updates."
+icon: "users-gear"
+---
+
+## User types
+
+| User | Main scope |
+| --- | --- |
+| **Basic Viewer** | Reviews orders but cannot manage users or perform order actions. |
+| **Basic Administrator** | Reviews and operates on orders; can create, update, or disable Viewer users. |
+| **Acquirer Administrator** | Controls the acquirer's merchants and transactions. |
+| **Simple Settlement Administrator** | Reviews merchants and may download keys, depending on configuration. |
+
+## Create a user
+
+An administrator can open **Users → Create user** and enter first name, last name, username, password, and confirmation. Named individual accounts are recommended.
+
+<Frame caption="Creating and managing users">
+  ![User management in VPayment Web](/images/vpayment-web/gestion-usuarios.gif)
+</Frame>
+
+<Note>
+  Merchants can only create Basic Viewer users. Contact the acquirer to request another administrator.
+</Note>
+
+## Update personal data
+
+Any user can edit their first and last name. The sign-in username cannot be changed.
+
+<Frame caption="Editing the user's display name">
+  ![Updating user data in VPayment Web](/images/vpayment-web/editar-usuario.gif)
+</Frame>
+
+## Change the password
+
+Enter the current password, then enter and confirm the new one. It must contain at least eight alphanumeric characters and must not repeat three consecutive characters from the previous password.
+
+<Frame caption="Password change and strength validation">
+  ![Changing a password in VPayment Web](/images/vpayment-web/cambiar-contrasena.gif)
+</Frame>
+
+<Warning>
+  If failed attempts lock the account, request an unlock through the support channel defined by your acquirer.
+</Warning>

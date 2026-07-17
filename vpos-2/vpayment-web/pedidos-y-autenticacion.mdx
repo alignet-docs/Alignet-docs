@@ -1,0 +1,51 @@
+---
+title: "Pedidos y autenticación"
+description: "Estados de un pedido y resultados VCI del proceso de autenticación."
+icon: "receipt"
+---
+
+Cuando VPayment Web recibe un pedido, valida los datos, inicia la autenticación y autorización, y almacena el resultado para su posterior consulta y operación.
+
+<Frame caption="Estados principales que puede atravesar un pedido">
+  ![Diagrama de estados de un pedido en VPayment Web](/images/vpayment-web/estados-pedido.jpg)
+</Frame>
+
+## Estados de un pedido
+
+| Estado | Significado |
+| --- | --- |
+| **Registrado / Incompleto** | Los datos son consistentes y el flujo continúa, o el comprador no terminó la compra. |
+| **Inválido** | Los datos no cumplen el formato o una regla de prevención impidió continuar. |
+| **Autorizado** | El emisor aprobó la operación durante el procesamiento de Base I. |
+| **Denegado** | El emisor rechazó la operación y devolvió el motivo correspondiente. |
+| **Depositado** | En liquidación manual, el pedido autorizado fue incorporado a un lote abierto. |
+| **Liquidado** | El lote fue cerrado y quedó preparado para el procesamiento de Base II. |
+| **Extornado** | Un administrador revirtió un pedido autorizado. |
+| **Devolución** | El comercio inició el retorno parcial o total del importe al tarjetahabiente. |
+
+<Note>
+  Algunos adquirentes pueden manejar estados adicionales.
+</Note>
+
+## Valores VCI de autenticación
+
+Los valores VCI identifican el escenario en el que terminó la autenticación.
+
+| Etapa | Resultado | VCI |
+| --- | --- | --- |
+| Versioning | Comercio no participa | `NPC` |
+| Versioning | BIN no participa | `NPB` |
+| Versioning | Comercio y BIN no participan | `NPCB` |
+| Versioning | Comercio y BIN participan | `SPCB` |
+| Sin fricción | Autenticación exitosa | `TSYS` |
+| Sin fricción | Intento: tarjeta no enrolada o emisor no disponible | `TSAS` |
+| Sin fricción | No autenticado o denegado | `TSNS` |
+| Sin fricción | Autenticación rechazada | `TSRS` |
+| Sin fricción | No se pudo autenticar por un problema técnico | `TSUS` |
+| Con fricción | Autenticación incompleta | `TSCF` |
+| Con fricción | Autenticación exitosa | `TSYF` |
+| Con fricción | No autenticado o denegado | `TSNF` |
+| Con fricción | Autenticación rechazada | `TSRF` |
+| Con fricción | No se pudo autenticar por un problema técnico | `TSUF` |
+
+Los resultados `TSYS`, `TSAS` y `TSYF` pueden continuar hacia autorización. La regla final depende del servicio contratado.

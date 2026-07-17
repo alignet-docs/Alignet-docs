@@ -1,0 +1,49 @@
+---
+title: "Orders and authentication"
+description: "Order statuses and VCI authentication results."
+icon: "receipt"
+---
+
+When VPayment Web receives an order, it validates the data, starts authentication and authorization, and stores the result for later review and operation.
+
+<Frame caption="Main statuses through which an order can pass">
+  ![Order status diagram in VPayment Web](/images/vpayment-web/estados-pedido.jpg)
+</Frame>
+
+## Order statuses
+
+| Status | Meaning |
+| --- | --- |
+| **Registered / Incomplete** | Data is consistent and processing continues, or the buyer did not complete checkout. |
+| **Invalid** | Data does not meet the format or a prevention rule stopped processing. |
+| **Authorized** | The issuer approved the operation during Base I processing. |
+| **Declined** | The issuer rejected the operation and returned a reason. |
+| **Deposited** | Under manual settlement, the authorized order was placed in an open batch. |
+| **Settled** | The batch was closed and prepared for Base II processing. |
+| **Reversed** | An administrator reversed an authorized order. |
+| **Refund** | The merchant initiated a partial or full return to the cardholder. |
+
+<Note>Some acquirers may use additional statuses.</Note>
+
+## Authentication VCI values
+
+VCI values identify the scenario in which authentication ended.
+
+| Stage | Result | VCI |
+| --- | --- | --- |
+| Versioning | Merchant does not participate | `NPC` |
+| Versioning | BIN does not participate | `NPB` |
+| Versioning | Merchant and BIN do not participate | `NPCB` |
+| Versioning | Merchant and BIN participate | `SPCB` |
+| Frictionless | Successful authentication | `TSYS` |
+| Frictionless | Attempt: card not enrolled or issuer unavailable | `TSAS` |
+| Frictionless | Not authenticated or declined | `TSNS` |
+| Frictionless | Authentication rejected | `TSRS` |
+| Frictionless | Technical authentication failure | `TSUS` |
+| Challenge | Authentication incomplete | `TSCF` |
+| Challenge | Successful authentication | `TSYF` |
+| Challenge | Not authenticated or declined | `TSNF` |
+| Challenge | Authentication rejected | `TSRF` |
+| Challenge | Technical authentication failure | `TSUF` |
+
+Results `TSYS`, `TSAS`, and `TSYF` may continue to authorization. The final rule depends on the contracted service.
