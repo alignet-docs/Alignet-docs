@@ -117,6 +117,7 @@
                     "group": "Primeros pasos",
                     "icon": "shoe-prints",
                     "pages": [
+                      "vpos-2/introduccion",
                       "vpos-2/index",
                       {
                         "group": "Ecommerce",
@@ -223,6 +224,13 @@
                             ]
                           }
                         ]
+                      },
+                      {
+                        "group": "Soporte y ayuda",
+                        "icon": "headset",
+                        "pages": [
+                          "vpos-2/soporte"
+                        ]
                       }
                     ]
                   }
@@ -309,6 +317,7 @@
                     "group": "Getting started",
                     "icon": "shoe-prints",
                     "pages": [
+                      "en/vpos-2/introduction",
                       "en/vpos-2/index",
                       {
                         "group": "Ecommerce",
@@ -414,6 +423,13 @@
                               "en/vpos-2/vpayment-web/glossary"
                             ]
                           }
+                        ]
+                      },
+                      {
+                        "group": "Support and help",
+                        "icon": "headset",
+                        "pages": [
+                          "en/vpos-2/support"
                         ]
                       }
                     ]
