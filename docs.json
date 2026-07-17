@@ -108,7 +108,7 @@
           },
           {
             "product": "Integraciones VPOS-2",
-            "icon": "credit-card",
+            "icon": "plug",
             "tabs": [
               {
                 "tab": "Vista general",
@@ -321,7 +321,7 @@
           },
           {
             "product": "VPOS-2 Integrations",
-            "icon": "credit-card",
+            "icon": "plug",
             "tabs": [
               {
                 "tab": "Overview",
