@@ -133,6 +133,14 @@ img[alt="dark logo"] {
   box-shadow: none !important;
 }
 
+html.dark #navbar div:has(> a[href^="mailto:postventa.autenticacion@alignet.com"]),
+html.dark #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline-color: transparent !important;
+}
+
 #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] * {
   color: #ffffff !important;
   background-color: #9a5b3f !important;
