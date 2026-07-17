@@ -1,0 +1,36 @@
+---
+title: "Merchant onboarding"
+description: "Register sponsored merchants individually or in bulk."
+icon: "store"
+---
+
+The onboarding module lets a Payment Facilitator register and enable merchants with their operational configuration, payment methods, and integration credentials.
+
+<Tabs>
+  <Tab title="Individual registration">
+    Registration uses a REST API with `Content-Type: application/json`, a Bearer token, and `payment-facilitator-code`.
+
+    The request groups company, location, contacts, tax information, and payment methods by brand, channel, and currency.
+
+    The service generates the identifiers and credentials required to integrate the merchant. Updates retain existing credentials according to the documented rules.
+  </Tab>
+  <Tab title="Bulk registration">
+    The process uses Excel files uploaded to S3 paths assigned to the Payment Facilitator.
+
+    - `INSERT` registers a new merchant.
+    - `UPDATE` changes an existing merchant and requires its `merchant_code`.
+    - The file name follows the pattern specified by Alignet.
+    - The output file reports each row result and generated credentials when applicable.
+  </Tab>
+</Tabs>
+
+## Recommended flow
+
+<Steps>
+  <Step title="Prepare information">Complete the merchant's legal, operational, contact, and payment method data.</Step>
+  <Step title="Select a registration channel">Use the API for individual records or Excel files for bulk loads.</Step>
+  <Step title="Validate the response">Correct reported errors and retain the `merchant_code` and provided credentials.</Step>
+  <Step title="Protect credentials">Store `client_id` and `client_secret` in a secure secret manager.</Step>
+</Steps>
+
+<Note>Alignet provides environment endpoints, buckets, and credentials. Use only those assigned to your organization.</Note>

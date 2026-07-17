@@ -1,0 +1,40 @@
+---
+title: "Consulta y cancelación"
+description: "Consulta transacciones y cancela o extorna operaciones existentes."
+icon: "magnifying-glass"
+---
+
+## Consulta de una operación
+
+La respuesta de consulta contiene las transacciones asociadas a la operación. Entre los datos relevantes se encuentran:
+
+- `transaction_id`: identificador único de la transacción.
+- `channel`: canal utilizado, como `ecommerce`.
+- `state` y `state_reason`: estado actual y su detalle.
+- `amount` y moneda de la transacción.
+- Datos del método de pago y autenticación, cuando correspondan.
+
+Los estados documentados incluyen `PENDIENTE`, `INVALIDO`, `AUTORIZADO`, `DENEGADO`, `CANCELADO`, `EXPIRADO` y `LIQUIDADO`.
+
+## Cancelación o extorno
+
+```http
+DELETE {{base}}/charges/{{merchant_code}}/{{merchant_operation_number}}
+```
+
+| Dato | Descripción |
+| --- | --- |
+| `merchant_code` | Identificador del comercio. |
+| `merchant_operation_number` | Número de la operación original. |
+| `Authorization` | Token Bearer obtenido previamente. |
+| `ALG-API-VERSION` | Versión de la API acordada. |
+| `payment-facilitator-code` | Identificador requerido para Payment Facilitators. |
+
+| Estado original | Resultado | Métodos documentados |
+| --- | --- | --- |
+| `REGISTRADO` o `PENDIENTE` | `CANCELADO` | CARD Redirect, CUOTEALO, QR, BANK_TRANSFER y PAGOEFECTIVO. |
+| `AUTORIZADO` | `EXTORNADO` | CARD y YAPE. |
+
+<Warning>
+  Valida siempre el estado final mediante la respuesta o una consulta posterior antes de actualizar el pedido del comercio.
+</Warning>

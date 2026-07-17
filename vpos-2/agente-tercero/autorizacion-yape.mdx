@@ -1,0 +1,33 @@
+---
+title: "Autorización con Yape"
+description: "Configura method_details para pagos Ecommerce con Yape."
+icon: "mobile-screen-button"
+---
+
+Para Yape, el objeto `method_details` de la autorización Ecommerce identifica al titular de la billetera y el código de validación.
+
+## Campos principales
+
+| Campo | Obligatorio | Uso |
+| --- | --- | --- |
+| `callback_url` | No | URL para la notificación host-to-host. |
+| `phone` | Sí | Objeto con los datos del teléfono del titular. |
+| `phone.country_code` | Sí | Código de país. |
+| `phone.subscriber` | Sí | Número de teléfono. |
+| `otp` | Sí | Código OTP generado por la billetera Yape. |
+
+<Steps>
+  <Step title="Obtén los datos del comprador">
+    Solicita el teléfono asociado a Yape y el OTP correspondiente al intento de pago.
+  </Step>
+  <Step title="Construye method_details">
+    Incluye `phone`, `otp` y, si corresponde, una `callback_url` accesible por HTTPS.
+  </Step>
+  <Step title="Procesa la respuesta">
+    Conserva los identificadores de la operación para consultas, cancelaciones o conciliación posteriores.
+  </Step>
+</Steps>
+
+<Warning>
+  No almacenes ni reutilices el OTP. Utilízalo únicamente para la operación para la que fue generado.
+</Warning>

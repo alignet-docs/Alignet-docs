@@ -208,6 +208,19 @@
                         ]
                       },
                       {
+                        "group": "Agente Tercero",
+                        "icon": "route",
+                        "pages": [
+                          "vpos-2/agente-tercero/index",
+                          "vpos-2/agente-tercero/autorizacion-tarjeta",
+                          "vpos-2/agente-tercero/autorizacion-yape",
+                          "vpos-2/agente-tercero/consulta-y-cancelacion",
+                          "vpos-2/agente-tercero/devoluciones",
+                          "vpos-2/agente-tercero/onboarding-comercios",
+                          "vpos-2/agente-tercero/soporte"
+                        ]
+                      },
+                      {
                         "group": "Sistema administrativo",
                         "icon": "browser",
                         "pages": [
@@ -405,6 +418,19 @@
                               }
                             ]
                           }
+                        ]
+                      },
+                      {
+                        "group": "Third-party agent",
+                        "icon": "route",
+                        "pages": [
+                          "en/vpos-2/third-party-agent/index",
+                          "en/vpos-2/third-party-agent/card-authorization",
+                          "en/vpos-2/third-party-agent/yape-authorization",
+                          "en/vpos-2/third-party-agent/query-and-cancellation",
+                          "en/vpos-2/third-party-agent/refunds",
+                          "en/vpos-2/third-party-agent/merchant-onboarding",
+                          "en/vpos-2/third-party-agent/support"
                         ]
                       },
                       {

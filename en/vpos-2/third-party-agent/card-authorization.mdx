@@ -1,0 +1,31 @@
+---
+title: "Card authorization"
+description: "Configure method_details for Ecommerce card payments."
+icon: "credit-card"
+---
+
+Card authorization uses the `method_details` object inside the general Ecommerce authorization payload.
+
+## Main data
+
+| Field | Use |
+| --- | --- |
+| `pan` | Card number. |
+| `expiry_date` | Expiration date in `MMYY` format. |
+| `security_code` | Card security code. |
+| `card_holder` | Cardholder data such as first name, last name, and email. |
+| `callback_url` | Notification URL when required by the flow. |
+
+<Warning>
+  Handle card data according to applicable security and compliance controls. Never write it to logs or send it by email.
+</Warning>
+
+## Supported scenarios
+
+<AccordionGroup>
+  <Accordion title="Without authentication">The request contains payment method data and proceeds directly to the corresponding processing flow.</Accordion>
+  <Accordion title="Redirect authentication">The response provides the information required to redirect the buyer and continue authentication.</Accordion>
+  <Accordion title="Authentication data available">The request includes a previously obtained authentication result so the orchestrator can continue processing.</Accordion>
+</AccordionGroup>
+
+<Note>Check the current technical guide for mandatory fields in each scenario before building the request.</Note>

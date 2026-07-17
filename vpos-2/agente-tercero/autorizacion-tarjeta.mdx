@@ -1,0 +1,39 @@
+---
+title: "Autorización con tarjeta"
+description: "Configura method_details para pagos Ecommerce con tarjeta."
+icon: "credit-card"
+---
+
+La autorización con tarjeta utiliza el objeto `method_details` dentro de la trama general de autorización Ecommerce.
+
+## Datos principales
+
+| Campo | Uso |
+| --- | --- |
+| `pan` | Número de tarjeta. |
+| `expiry_date` | Fecha de vencimiento en formato `MMYY`. |
+| `security_code` | Código de seguridad de la tarjeta. |
+| `card_holder` | Datos del titular, como nombres, apellidos y correo. |
+| `callback_url` | URL de notificación cuando el flujo la requiera. |
+
+<Warning>
+  Los datos de tarjeta deben tratarse conforme a los controles de seguridad y cumplimiento aplicables. No los registres en logs ni los envíes por correo.
+</Warning>
+
+## Escenarios contemplados
+
+<AccordionGroup>
+  <Accordion title="Sin autenticación">
+    La solicitud contiene los datos del método de pago y continúa directamente al procesamiento correspondiente.
+  </Accordion>
+  <Accordion title="Autenticación Redirect">
+    La respuesta incluye la información necesaria para redirigir al comprador y continuar la autenticación.
+  </Accordion>
+  <Accordion title="Datos de autenticación disponibles">
+    La solicitud incorpora el resultado de autenticación obtenido previamente para que el orquestador continúe el flujo.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Confirma en la guía técnica vigente los campos obligatorios de cada escenario antes de construir la solicitud.
+</Note>

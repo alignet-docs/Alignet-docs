@@ -1,0 +1,37 @@
+---
+title: "Devoluciones"
+description: "Solicita devoluciones de transacciones liquidadas."
+icon: "rotate-left"
+---
+
+La API de devoluciones procesa una o varias transacciones en estado `LIQUIDADO`. La guía vigente la documenta para los métodos CARD, YAPE y CUOTEALO.
+
+```http
+POST {{base}}/refund
+```
+
+## Cabeceras
+
+| Cabecera | Uso |
+| --- | --- |
+| `Authorization` | Token Bearer obtenido mediante la API de seguridad. |
+| `ALG-API-VERSION` | Versión de API acordada para la integración. |
+| `payment-facilitator-code` | Identificador obligatorio cuando opera un Payment Facilitator. |
+
+## Cuerpo de la solicitud
+
+- `merchant_code`: identifica al comercio.
+- `operations`: arreglo de transacciones que se desean devolver.
+- Cada elemento debe identificar la operación original y el importe correspondiente según la especificación vigente.
+
+<Steps>
+  <Step title="Confirma el estado">
+    Verifica que la transacción se encuentre liquidada y que el método admita devoluciones.
+  </Step>
+  <Step title="Envía la solicitud">
+    Incluye las credenciales, la versión de API, el comercio y las operaciones a devolver.
+  </Step>
+  <Step title="Procesa cada resultado">
+    Revisa la respuesta individual de las operaciones y conserva los identificadores para conciliación.
+  </Step>
+</Steps>

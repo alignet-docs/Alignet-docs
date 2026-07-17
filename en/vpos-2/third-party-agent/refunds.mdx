@@ -1,0 +1,31 @@
+---
+title: "Refunds"
+description: "Request refunds for settled transactions."
+icon: "rotate-left"
+---
+
+The Refund API processes one or more transactions in `LIQUIDADO` status. The current guide documents support for CARD, YAPE, and CUOTEALO.
+
+```http
+POST {{base}}/refund
+```
+
+## Headers
+
+| Header | Use |
+| --- | --- |
+| `Authorization` | Bearer token obtained through the security API. |
+| `ALG-API-VERSION` | API version agreed for the integration. |
+| `payment-facilitator-code` | Required identifier when operating as a Payment Facilitator. |
+
+## Request body
+
+- `merchant_code`: identifies the merchant.
+- `operations`: array of transactions to refund.
+- Each item identifies the original operation and corresponding amount according to the current specification.
+
+<Steps>
+  <Step title="Confirm status">Verify that the transaction is settled and the method supports refunds.</Step>
+  <Step title="Send the request">Include credentials, API version, merchant, and operations to refund.</Step>
+  <Step title="Process each result">Review individual results and retain identifiers for reconciliation.</Step>
+</Steps>

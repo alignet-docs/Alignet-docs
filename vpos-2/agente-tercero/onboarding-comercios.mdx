@@ -1,0 +1,51 @@
+---
+title: "Onboarding de comercios"
+description: "Registra comercios patrocinados de forma individual o masiva."
+icon: "store"
+---
+
+El módulo de onboarding permite a un Payment Facilitator registrar y habilitar comercios con su configuración operativa, métodos de pago y credenciales de integración.
+
+<Tabs>
+  <Tab title="Registro individual">
+    El alta se realiza mediante una API REST con `Content-Type: application/json`, token Bearer y el identificador `payment-facilitator-code`.
+
+    La solicitud agrupa información de:
+
+    - Empresa y nombre comercial.
+    - Ubicación y contactos.
+    - Información fiscal requerida para el alta.
+    - Métodos de pago por marca, canal y moneda.
+
+    El servicio genera los identificadores y credenciales necesarios para integrar el comercio. En una actualización, conserva las credenciales existentes según las reglas documentadas.
+  </Tab>
+  <Tab title="Registro masivo">
+    El proceso utiliza archivos Excel depositados en las rutas S3 asignadas al Payment Facilitator.
+
+    - `INSERT` registra un comercio nuevo.
+    - `UPDATE` modifica un comercio existente y requiere su `merchant_code`.
+    - El nombre del archivo sigue el patrón indicado por Alignet.
+    - El archivo de salida informa el resultado de cada fila y las credenciales generadas cuando corresponda.
+  </Tab>
+</Tabs>
+
+## Flujo recomendado
+
+<Steps>
+  <Step title="Prepara la información">
+    Completa los datos legales, operativos, de contacto y métodos de pago del comercio.
+  </Step>
+  <Step title="Selecciona el canal de alta">
+    Usa la API para registros individuales o el archivo Excel para cargas masivas.
+  </Step>
+  <Step title="Valida la respuesta">
+    Corrige los errores informados y conserva el `merchant_code` y las credenciales entregadas.
+  </Step>
+  <Step title="Protege las credenciales">
+    Almacena `client_id` y `client_secret` en un gestor seguro y evita incluirlos en código o archivos compartidos.
+  </Step>
+</Steps>
+
+<Note>
+  Los endpoints, buckets y credenciales de cada ambiente son proporcionados por Alignet. Utiliza únicamente los asignados a tu organización.
+</Note>

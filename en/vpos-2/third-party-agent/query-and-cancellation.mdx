@@ -1,0 +1,38 @@
+---
+title: "Query and cancellation"
+description: "Query transactions and cancel or reverse existing operations."
+icon: "magnifying-glass"
+---
+
+## Query an operation
+
+The query response includes the transactions associated with an operation. Relevant data includes:
+
+- `transaction_id`: unique transaction identifier.
+- `channel`: channel used, such as `ecommerce`.
+- `state` and `state_reason`: current status and details.
+- Transaction amount and currency.
+- Payment method and authentication data when applicable.
+
+Documented statuses include `PENDIENTE`, `INVALIDO`, `AUTORIZADO`, `DENEGADO`, `CANCELADO`, `EXPIRADO`, and `LIQUIDADO`.
+
+## Cancellation or reversal
+
+```http
+DELETE {{base}}/charges/{{merchant_code}}/{{merchant_operation_number}}
+```
+
+| Data | Description |
+| --- | --- |
+| `merchant_code` | Merchant identifier. |
+| `merchant_operation_number` | Original operation number. |
+| `Authorization` | Previously obtained Bearer token. |
+| `ALG-API-VERSION` | Agreed API version. |
+| `payment-facilitator-code` | Identifier required for Payment Facilitators. |
+
+| Original status | Result | Documented methods |
+| --- | --- | --- |
+| `REGISTRADO` or `PENDIENTE` | `CANCELADO` | CARD Redirect, CUOTEALO, QR, BANK_TRANSFER, and PAGOEFECTIVO. |
+| `AUTORIZADO` | `EXTORNADO` | CARD and YAPE. |
+
+<Warning>Always verify the final status in the response or through a later query before updating the merchant order.</Warning>

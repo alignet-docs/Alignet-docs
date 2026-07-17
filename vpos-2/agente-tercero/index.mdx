@@ -1,0 +1,42 @@
+---
+title: "Agente Tercero"
+description: "Integra pagos y comercios mediante la API de Orquestador de Alignet."
+icon: "route"
+---
+
+La API de Orquestador de Alignet ofrece un punto de integración unificado para enrutar operaciones hacia distintos procesadores y métodos de pago.
+
+## Capacidades principales
+
+- Orquestación de transacciones con diferentes métodos de pago.
+- Evaluaciones de riesgo.
+- Autenticación 3DS en distintos países.
+- Consulta, cancelación, extorno y devolución de operaciones.
+- Registro individual o masivo de comercios patrocinados por un Payment Facilitator.
+
+<Note>
+  La disponibilidad de métodos, procesadores y reglas depende del país y del servicio contratado.
+</Note>
+
+<CardGroup cols={2}>
+  <Card title="Autorización con tarjeta" icon="credit-card" href="/vpos-2/agente-tercero/autorizacion-tarjeta">
+    Datos de tarjeta y escenarios de autenticación.
+  </Card>
+  <Card title="Autorización con Yape" icon="mobile-screen-button" href="/vpos-2/agente-tercero/autorizacion-yape">
+    Información requerida para pagos con la billetera Yape.
+  </Card>
+  <Card title="Consulta y cancelación" icon="magnifying-glass" href="/vpos-2/agente-tercero/consulta-y-cancelacion">
+    Consulta el estado o cancela una operación existente.
+  </Card>
+  <Card title="Devoluciones" icon="rotate-left" href="/vpos-2/agente-tercero/devoluciones">
+    Devuelve transacciones liquidadas compatibles.
+  </Card>
+  <Card title="Onboarding de comercios" icon="store" href="/vpos-2/agente-tercero/onboarding-comercios">
+    Registra comercios mediante API REST o archivos procesados en S3.
+  </Card>
+  <Card title="Soporte" icon="headset" href="/vpos-2/agente-tercero/soporte">
+    Consulta los canales de contacto de esta solución.
+  </Card>
+</CardGroup>
+
+[Consultar la guía oficial de Agente Tercero](https://docs.alignet.com/agente-tercero/Working-version/introduccion)
