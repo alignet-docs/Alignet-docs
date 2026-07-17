@@ -118,11 +118,17 @@ img[alt="dark logo"] {
 
 #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
   color: #ffffff !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+#navbar a[href^="mailto:postventa.autenticacion@alignet.com"] > div {
+  color: #ffffff !important;
   background-color: #9a5b3f !important;
   border-color: #9a5b3f !important;
 }
 
-#navbar a[href^="mailto:postventa.autenticacion@alignet.com"]:hover {
+#navbar a[href^="mailto:postventa.autenticacion@alignet.com"]:hover > div {
   background-color: #814a34 !important;
   border-color: #814a34 !important;
 }
