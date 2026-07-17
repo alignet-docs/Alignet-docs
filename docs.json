@@ -5,7 +5,7 @@
   "description": "Plataforma de pagos de Alignet para integrar, procesar y gestionar transacciones en canales e-commerce y POS. Incluye APIs, SDKs y herramientas para adquirentes, facilitadores de pago y comercios.",
   "colors": {
     "primary": "#263168",
-    "light": "#f96b07",
+    "light": "#fb7413",
     "dark": "#fd8c29"
   },
   "logo": {
