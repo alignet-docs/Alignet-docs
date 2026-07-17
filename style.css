@@ -12,11 +12,11 @@ img[alt="dark logo"] {
 .dark #navbar a[href="mailto:postventa.autenticacion@alignet.com"],
 [data-theme="dark"] #navbar a[href="mailto:postventa.autenticacion@alignet.com"] {
   display: inline-flex !important;
-  background: #263168 !important;
+  background: transparent !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
-  border-color: #263168 !important;
-  outline-color: #263168 !important;
+  border-color: transparent !important;
+  outline-color: transparent !important;
   box-shadow: none !important;
   opacity: 1 !important;
   visibility: visible !important;
@@ -26,8 +26,8 @@ img[alt="dark logo"] {
 .dark #navbar a[href="mailto:postventa.autenticacion@alignet.com"]::after,
 [data-theme="dark"] #navbar a[href="mailto:postventa.autenticacion@alignet.com"]::before,
 [data-theme="dark"] #navbar a[href="mailto:postventa.autenticacion@alignet.com"]::after {
-  background: #263168 !important;
-  border-color: #263168 !important;
+  background: transparent !important;
+  border-color: transparent !important;
   box-shadow: none !important;
 }
 
@@ -45,11 +45,11 @@ img[alt="dark logo"] {
 .dark #navbar a[href="mailto:postventa.autenticacion@alignet.com"]:focus-visible,
 [data-theme="dark"] #navbar a[href="mailto:postventa.autenticacion@alignet.com"]:hover,
 [data-theme="dark"] #navbar a[href="mailto:postventa.autenticacion@alignet.com"]:focus-visible {
-  background: #011c57 !important;
+  background: transparent !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
-  border-color: #011c57 !important;
-  outline-color: #f96b07 !important;
+  border-color: transparent !important;
+  outline-color: transparent !important;
   box-shadow: none !important;
 }
 
