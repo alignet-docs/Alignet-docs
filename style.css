@@ -116,6 +116,27 @@ img[alt="dark logo"] {
   margin-top: 12px !important;
 }
 
+.vpos-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.vpos-cover-dark {
+  display: none;
+  filter: brightness(0.42) contrast(1.08) saturate(0.82);
+}
+
+.dark .vpos-cover-light,
+[data-theme="dark"] .vpos-cover-light {
+  display: none;
+}
+
+.dark .vpos-cover-dark,
+[data-theme="dark"] .vpos-cover-dark {
+  display: block;
+}
+
 #navbar div:has(> a[href^="mailto:postventa.autenticacion@alignet.com"]),
 #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
   background-color: transparent !important;
