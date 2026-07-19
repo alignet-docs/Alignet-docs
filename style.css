@@ -124,7 +124,6 @@ img[alt="dark logo"] {
 
 .vpos-cover-dark {
   display: none;
-  filter: brightness(0.42) contrast(1.08) saturate(0.82);
 }
 
 .dark .vpos-cover-light,
