@@ -28,7 +28,7 @@ Los campos más importantes son `authorizationResult`, `authorizationCode`, `err
 
 * `00`: operación autorizada.
 * `01`: operación denegada por el emisor.
-* `05`: operación rechazada por VPOS-2.
+* `05`: operación rechazada por VPOS.
 
 <Warning>
   `errorCode` y `errorMessage` son información técnica y no deben mostrarse directamente al comprador. El catálogo de retorno es dinámico; utiliza la tabla vigente acordada con tu adquirente.
@@ -36,7 +36,7 @@ Los campos más importantes son `authorizationResult`, `authorizationCode`, `err
 
 ## Notificaciones mediante el navegador
 
-VPOS-2 envía un POST a la URL de respuesta usando el navegador del comprador como intermediario.
+VPOS envía un POST a la URL de respuesta usando el navegador del comprador como intermediario.
 
 | Modalidad | Comportamiento |
 | --- | --- |
@@ -49,4 +49,3 @@ Si el comprador pierde conexión o cierra el navegador, la notificación puede n
 [Consultar el catálogo oficial de códigos de retorno](https://docs.alignet.com/redirect/working-version/consideraciones-y-recomendaciones)
 
 [Continuar con personalización →](/vpos-2/redirect/personalizacion)
-

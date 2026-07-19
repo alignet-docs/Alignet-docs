@@ -1,10 +1,10 @@
 ---
 title: "Redirect"
-description: "Integra VPOS-2 mediante redirección y recibe el resultado en el sitio del comercio."
+description: "Integra VPOS mediante redirección y recibe el resultado en el sitio del comercio."
 icon: "arrow-up-right-from-square"
 ---
 
-**Alignet Redirect** envía al comprador desde el sitio del comercio hacia la pasarela VPOS-2. El comercio prepara un formulario HTML firmado, lo envía por POST HTTPS y recibe el resultado de la operación en su URL de respuesta.
+**Alignet Redirect** envía al comprador desde el sitio del comercio hacia la pasarela VPOS. El comercio prepara un formulario HTML firmado, lo envía por POST HTTPS y recibe el resultado de la operación en su URL de respuesta.
 
 <Warning>
   La guía oficial indica que este procedimiento no aplica a comercios en Perú. Confirma el método correspondiente con tu adquirente o escribe a [integraciones@alignet.com](mailto:integraciones@alignet.com).
@@ -20,7 +20,7 @@ icon: "arrow-up-right-from-square"
     Construye el formulario con los parámetros requeridos y envíalo por POST al endpoint Redirect del ambiente.
   </Step>
   <Step title="Recibe la notificación">
-    VPOS-2 devuelve los parámetros al sitio del comercio mediante el navegador del comprador.
+    VPOS devuelve los parámetros al sitio del comercio mediante el navegador del comprador.
   </Step>
   <Step title="Valida y concilia">
     Comprueba la firma de respuesta antes de actualizar el pedido y contempla consultas de estado si el navegador no completa el retorno.
@@ -43,4 +43,3 @@ icon: "arrow-up-right-from-square"
 </CardGroup>
 
 [Consultar la guía oficial de Redirect](https://docs.alignet.com/redirect/working-version/requisitos-y-consideraciones-tecnicas)
-

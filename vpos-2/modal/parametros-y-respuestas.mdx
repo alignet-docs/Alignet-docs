@@ -1,6 +1,6 @@
 ---
 title: "Parámetros y respuestas"
-description: "Campos esenciales para solicitar un pago y validar la respuesta de VPOS-2."
+description: "Campos esenciales para solicitar un pago y validar la respuesta de VPOS."
 icon: "arrows-rotate"
 ---
 
@@ -34,7 +34,7 @@ purchaseAmount + purchaseCurrencyCode + llave SHA-2 de pasarela
 
 Los campos principales son:
 
-* `authorizationResult`: `00` autorizada, `01` denegada por el emisor o `05` rechazada por VPOS-2.
+* `authorizationResult`: `00` autorizada, `01` denegada por el emisor o `05` rechazada por VPOS.
 * `authorizationCode`: código de autorización cuando corresponda.
 * `errorCode` y `errorMessage`: información técnica del rechazo.
 * `purchaseVerification`: firma de respuesta que el comercio debe validar.
@@ -48,4 +48,3 @@ Los campos principales son:
 La firma de respuesta agrega `authorizationResult` a los campos críticos de la solicitud.
 
 [Continuar con personalización y pruebas →](/vpos-2/modal/personalizacion-y-pruebas)
-

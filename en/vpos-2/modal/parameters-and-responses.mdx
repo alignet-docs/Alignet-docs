@@ -1,6 +1,6 @@
 ---
 title: "Parameters and responses"
-description: "Essential fields for requesting a payment and validating the VPOS-2 response."
+description: "Essential fields for requesting a payment and validating the VPOS response."
 icon: "arrows-rotate"
 ---
 
@@ -34,7 +34,7 @@ purchaseAmount + purchaseCurrencyCode + gateway SHA-2 key
 
 The main fields are:
 
-* `authorizationResult`: `00` authorized, `01` denied by the issuer, or `05` rejected by VPOS-2.
+* `authorizationResult`: `00` authorized, `01` denied by the issuer, or `05` rejected by VPOS.
 * `authorizationCode`: authorization code when applicable.
 * `errorCode` and `errorMessage`: technical decline information.
 * `purchaseVerification`: response signature that the merchant must validate.
@@ -48,4 +48,3 @@ The main fields are:
 The response signature adds `authorizationResult` to the critical request fields.
 
 [Continue to customization and testing →](/en/vpos-2/modal/customization-and-testing)
-
