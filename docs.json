@@ -13,8 +13,8 @@
     "dark": "/images/alignet-logo-header-dark-v10.png"
   },
   "favicon": {
-    "light": "/images/alignet-favicon-v4.svg",
-    "dark": "/images/alignet-favicon-v4.svg"
+    "light": "/images/alignet-favicon-v5.png",
+    "dark": "/images/alignet-favicon-v5.png"
   },
   "appearance": {
     "default": "light"
