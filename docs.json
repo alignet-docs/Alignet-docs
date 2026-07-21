@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "maple",
   "name": "Alignet Integration Docs",
   "description": "Plataforma de pagos de Alignet para integrar, procesar y gestionar transacciones en canales e-commerce y POS. Incluye APIs, SDKs y herramientas para adquirentes, facilitadores de pago y comercios.",
   "colors": {
