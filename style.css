@@ -136,6 +136,32 @@ img[alt="dark logo"] {
   display: block;
 }
 
+/* Keep Mint's page-header decoration visible after theme updates. */
+html.light #content-container > span,
+[data-theme="light"] #content-container > span {
+  opacity: 1 !important;
+  background:
+    radial-gradient(55% 64% at 62% 0%, rgba(84, 95, 120, 0.16) 0%, rgba(84, 95, 120, 0.07) 45%, transparent 100%),
+    repeating-linear-gradient(104deg, transparent 0 92px, rgba(84, 95, 120, 0.045) 93px 94px, transparent 95px 184px) !important;
+}
+
+html.dark #content-container > span,
+[data-theme="dark"] #content-container > span {
+  opacity: 1 !important;
+  background:
+    radial-gradient(58% 68% at 61% 0%, rgba(251, 116, 19, 0.18) 0%, rgba(251, 116, 19, 0.08) 48%, transparent 100%),
+    repeating-linear-gradient(104deg, transparent 0 92px, rgba(251, 116, 19, 0.055) 93px 94px, transparent 95px 184px) !important;
+}
+
+#content-container > span > div {
+  opacity: 0.72;
+}
+
+html.dark #content-container > span > div,
+[data-theme="dark"] #content-container > span > div {
+  opacity: 0.58;
+}
+
 #navbar div:has(> a[href^="mailto:postventa.autenticacion@alignet.com"]),
 #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
   background-color: transparent !important;
