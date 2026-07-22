@@ -162,6 +162,13 @@ html.dark #content-container > span.absolute > div,
   opacity: 0.58;
 }
 
+/* Let Mint's Windows decoration continue behind the light-mode header. */
+html.light #navbar-transition,
+[data-theme="light"] #navbar-transition {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
 #navbar div:has(> a[href^="mailto:postventa.autenticacion@alignet.com"]),
 #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
   background-color: transparent !important;
