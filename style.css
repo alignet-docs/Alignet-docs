@@ -169,6 +169,12 @@ html.light #navbar-transition,
   background-image: none !important;
 }
 
+html.dark #navbar-transition,
+[data-theme="dark"] #navbar-transition {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
 #navbar div:has(> a[href^="mailto:postventa.autenticacion@alignet.com"]),
 #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
   background-color: transparent !important;
