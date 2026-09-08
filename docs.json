@@ -250,6 +250,28 @@
                 ]
               }
             ]
+          },
+          {
+            "product": "Pagos Virtuales",
+            "icon": "credit-card",
+            "tabs": [
+              {
+                "tab": "Guía",
+                "groups": [
+                  {
+                    "group": "Primeros pasos",
+                    "icon": "shoe-prints",
+                    "pages": [
+                      "pagos-virtuales/introduccion",
+                      "pagos-virtuales/tipos-de-integracion",
+                      "pagos-virtuales/inicio-rapido",
+                      "pagos-virtuales/buenas-practicas-generales",
+                      "pagos-virtuales/checklist-de-certificacion"
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -458,6 +480,28 @@
                           "en/vpos-2/support"
                         ]
                       }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "product": "Virtual Payments",
+            "icon": "credit-card",
+            "tabs": [
+              {
+                "tab": "Guide",
+                "groups": [
+                  {
+                    "group": "Getting started",
+                    "icon": "shoe-prints",
+                    "pages": [
+                      "en/virtual-payments/introduction",
+                      "en/virtual-payments/integration-types",
+                      "en/virtual-payments/quickstart",
+                      "en/virtual-payments/general-best-practices",
+                      "en/virtual-payments/certification-checklist"
                     ]
                   }
                 ]

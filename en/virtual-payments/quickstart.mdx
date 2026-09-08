@@ -1,0 +1,79 @@
+---
+title: "Quickstart"
+description: "Configure your integration and run your first transaction with Pay-me."
+icon: "gauge-high"
+---
+
+After completing the commercial process and signing the contract, follow this flow to start accepting payments.
+
+## General flow
+
+<CardGroup cols={3}>
+  <Card title="1. Credentials" icon="key">Obtain the access details required to begin the integration.</Card>
+  <Card title="2. Integration method" icon="shuffle">Choose how to integrate payments for your channel.</Card>
+  <Card title="3. Configuration" icon="code">Configure the integration and payment parameters.</Card>
+  <Card title="4. Testing (Sandbox)" icon="flask-round-potion">Validate the integration in the sandbox environment.</Card>
+  <Card title="5. Preproduction" icon="vial-circle-check">Validate the complete flow with production credentials.</Card>
+  <Card title="6. Production" icon="rocket-launch">Activate live payments and begin operating.</Card>
+</CardGroup>
+
+## Integration flow
+
+<Steps>
+  <Step title="Obtain your credentials">
+    Obtain your access credentials (Client ID, Client Secret, and Merchant ID). The integration team will contact you and deliver them securely.
+
+    You can use these credentials to authenticate API requests, identify your merchant in transactions, and configure the **SANDBOX and PRODUCTION** environments.
+
+    **Sandbox** is used to test and validate an integration without affecting real transactions. **Production** is the live environment for processing real transactions.
+  </Step>
+  <Step title="Choose your integration method">
+    Select the method that best fits your business (Web, Mobile, API, CMS, or POS) and define the payment methods you want to enable. Consider the sales channel, required customization, and available technical resources.
+  </Step>
+  <Step title="Configure your integration method">
+    Follow the corresponding technical guide and implement authentication, transaction parameters, and required components.
+
+    - Configure authentication (API key or tokens).
+    - Define parameters such as `amount`, `currency`, and `merchant_operation_number`.
+    - Configure return URLs and notifications (webhooks/S2S).
+    - Integrate frontend components or an SDK when applicable.
+  </Step>
+  <Step title="Run tests">
+    Execute sandbox transactions and validate payment states, responses, and error handling.
+
+    <Tip>Test approved and declined scenarios and verify that notifications (webhooks/S2S) are received correctly.</Tip>
+
+    Review [Transaction states](https://docs.pay-me.com/dashboard/estados-de-transaccion) for more information about the transaction lifecycle.
+  </Step>
+  <Step title="Validate in preproduction">
+    The integration team will validate your implementation and, if approved, provide your **production credentials**.
+
+    Run controlled tests, validate the end-to-end flow—including notifications—and confirm that transactions are processed correctly. Complete the [Technical certification checklist](/en/virtual-payments/certification-checklist) before continuing.
+  </Step>
+  <Step title="Activate production">
+    Activate the live integration, process real transactions, and monitor system behavior and logs.
+  </Step>
+</Steps>
+
+Review the [General best practices](/en/virtual-payments/general-best-practices) to ensure a secure and robust implementation.
+
+## Run your first transaction
+
+### Direct integration
+
+<CardGroup cols={2}>
+  <Card title="Mobile SDK (iOS / Android)" icon="mobile-screen-button" horizontal href="https://docs.pay-me.com/sdk-mobile/introduccion">Test the payment flow from a mobile application.</Card>
+  <Card title="Web Checkout (Flex)" icon="globe" horizontal href="https://docs.pay-me.com/checkout-web/flex/introduccion">Run a transaction using the hosted checkout.</Card>
+  <Card title="Modal Checkout" icon="window-maximize" horizontal href="https://docs.pay-me.com/checkout-web/modal/introduccion">Run a test using the embedded checkout.</Card>
+  <Card title="Payments API (Orchestrator)" icon="server" horizontal href="https://docs.pay-me.com/api-de-pagos/introduccion">Create a test transaction from your backend.</Card>
+</CardGroup>
+
+### E-commerce (CMS)
+
+<Card title="E-commerce introduction" horizontal href="https://docs.pay-me.com/e-commerce/introduccion">Review the WooCommerce, PrestaShop, and VTEX options.</Card>
+
+<CardGroup cols={3}>
+  <Card title="WooCommerce" icon="shopping-cart" href="https://docs.pay-me.com/wordpress-woocommerce/introduccion">Configure the plugin and run a test purchase.</Card>
+  <Card title="PrestaShop" icon="store" href="https://docs.pay-me.com/prestashop/introduccion">Activate the module and run a test transaction.</Card>
+  <Card title="VTEX" icon="shopping-bag" href="https://docs.pay-me.com/vtex/introduccion">Integrate and validate an e-commerce purchase.</Card>
+</CardGroup>

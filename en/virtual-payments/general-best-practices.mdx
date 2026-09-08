@@ -1,0 +1,56 @@
+---
+title: "General best practices"
+description: "Core principles for preparing a secure Pay-me integration."
+icon: "shield-check"
+---
+
+This guide covers the general criteria that apply to every Pay-me integration. Each integration type also has its own technical, operational, and security recommendations.
+
+<Info>
+  Use this page as your starting point. Then review the specific best practices for your channel: E-commerce, Web Checkout, Mobile SDK, or Payments API.
+</Info>
+
+## Cross-cutting principles
+
+<AccordionGroup>
+  <Accordion title="Credential security" icon="key">
+    - Never expose credentials, Client Secrets, API keys, or tokens in the frontend.
+    - Run sensitive operations from your backend over HTTPS.
+    - Store keys in environment variables or a secure secret manager.
+  </Accordion>
+  <Accordion title="Operation validation" icon="badge-check">
+    - Do not confirm a sale solely from the visual response shown by the checkout, SDK, or browser.
+    - Validate the final state from your backend using the operation identifiers.
+    - Keep the relationship between your internal order and the identifier returned by Pay-me.
+  </Accordion>
+  <Accordion title="Testing before production" icon="vial">
+    - Complete tests for every payment method enabled for your merchant.
+    - Validate approved, declined, pending, expired, and controlled-error scenarios.
+    - Contact the integration team when you need to validate simulators or special flows.
+  </Accordion>
+  <Accordion title="Monitoring and support" icon="chart-line">
+    - Log errors, response codes, and relevant payloads for traceability.
+    - Retain test evidence to streamline certification.
+    - Add alerts for unusual declines, timeouts, or repeated failures.
+  </Accordion>
+</AccordionGroup>
+
+## Guidance by integration type
+
+<CardGroup cols={2}>
+  <Card title="E-commerce" icon="store" href="https://docs.pay-me.com/e-commerce/buenas-practicas">Recommendations for plugins, commerce platforms, order management, and daily operations.</Card>
+  <Card title="Web Checkout" icon="globe" href="https://docs.pay-me.com/checkout-web/buenas-practicas">Guidance for integrating Pay-me Flex and handling `nonce`, callbacks, styles, and the web payment experience.</Card>
+  <Card title="Mobile SDK" icon="mobile-screen" href="https://docs.pay-me.com/sdk-mobile/buenas-practicas">Best practices for Android and iOS apps, packaging, callbacks, sessions, and device testing.</Card>
+  <Card title="Payments API" icon="credit-card-front" href="https://docs.pay-me.com/api-de-pagos/buenas-practicas">Guidelines for server-to-server integrations, authentication, traceability, PCI, and response handling.</Card>
+</CardGroup>
+
+## Recommended path
+
+<Steps>
+  <Step title="Choose the integration type">Select E-commerce, Web Checkout, Mobile SDK, or Payments API based on your channel and required level of control.</Step>
+  <Step title="Review specific best practices">Open the relevant guide and apply the recommendations for that flow.</Step>
+  <Step title="Run complete tests">Validate credentials, test data, expected responses, errors, and traceability before requesting production access.</Step>
+  <Step title="Complete certification">Confirm that your integration meets the technical, operational, and security requirements requested by Pay-me.</Step>
+</Steps>
+
+<Card title="Technical certification checklist" icon="clipboard-check" horizontal href="/en/virtual-payments/certification-checklist">Review the requirements before requesting credentials or a production go-live.</Card>

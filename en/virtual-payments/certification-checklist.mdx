@@ -1,0 +1,110 @@
+---
+title: "Certification checklist"
+description: "Validations required to approve the integration and go live with Pay-me."
+icon: "clipboard-check"
+---
+
+Before moving to production, confirm that your implementation meets the following technical criteria.
+
+<Info>
+  The integration team uses this checklist to validate that your implementation meets the required standards.
+</Info>
+
+<CardGroup cols={2}>
+  <Card title="E-commerce" icon="store" href="https://docs.pay-me.com/e-commerce/checklist-de-integracion">Checklist for WooCommerce, PrestaShop, and VTEX.</Card>
+  <Card title="Web Checkout" icon="globe" href="https://docs.pay-me.com/checkout-web/checklist-de-integracion">Checklist for Flex and Modal.</Card>
+  <Card title="Mobile SDK" icon="mobile-screen" href="https://docs.pay-me.com/sdk-mobile/checklist-de-integracion">Checklist for Android and iOS.</Card>
+  <Card title="Payments API" icon="server" href="https://docs.pay-me.com/api-de-pagos/checklist-de-integracion">Checklist for server-to-server integrations.</Card>
+</CardGroup>
+
+## Validations by stage
+
+<CardGroup cols={2}>
+  <Card title="Sandbox" icon="flask-round-potion">Initial integration tests.</Card>
+  <Card title="Notifications" icon="bell">Webhook and event validation.</Card>
+  <Card title="Technical integration" icon="code">Implementation configuration and logic.</Card>
+  <Card title="Controlled production" icon="shield-check">Validation in the production environment.</Card>
+</CardGroup>
+
+## Sandbox validations
+
+<AccordionGroup>
+  <Accordion title="Transaction tests" icon="credit-card">
+    - Execute successful transactions.
+    - Simulate declined transactions.
+    - Validate approved, pending, and declined states.
+  </Accordion>
+  <Accordion title="Integration flow" icon="code-branch">
+    - Validate the complete payment flow.
+    - Handle responses correctly.
+    - Validate errors and exceptions.
+  </Accordion>
+</AccordionGroup>
+
+## Notification validation
+
+<AccordionGroup>
+  <Accordion title="Event reception" icon="bell">
+    - Keep the endpoint accessible and operational.
+    - Confirm that events are received correctly.
+  </Accordion>
+  <Accordion title="Processing" icon="repeat">
+    - Process events idempotently.
+    - Handle duplicate or out-of-order events.
+  </Accordion>
+  <Accordion title="Consistency" icon="database">
+    - Update the order state.
+    - Synchronize it with your internal system.
+  </Accordion>
+</AccordionGroup>
+
+## Technical integration validation
+
+<CardGroup cols={2}>
+  <Card title="Authentication" icon="key">Configure credentials and tokens correctly.</Card>
+  <Card title="Transaction parameters" icon="list-check">Use unique identifiers (`order_id`) and valid data.</Card>
+  <Card title="URLs and callbacks" icon="link">Configure `return_url` and notifications correctly.</Card>
+  <Card title="Logs and monitoring" icon="monitor-waveform">Implement logs for debugging and tracking.</Card>
+</CardGroup>
+
+## Controlled production validations
+
+<Warning>Run these tests only after receiving production credentials.</Warning>
+
+<AccordionGroup>
+  <Accordion title="Production tests" icon="rocket">
+    - Execute controlled real transactions.
+    - Validate the end-to-end flow.
+  </Accordion>
+  <Accordion title="Production notifications" icon="bell">
+    - Confirm that webhooks are received.
+    - Validate state consistency.
+  </Accordion>
+  <Accordion title="Payment methods" icon="credit-card">Validate every enabled method.</Accordion>
+</AccordionGroup>
+
+## Security
+
+<CardGroup cols={2}>
+  <Card title="Credential protection" icon="shield">Never expose credentials in the frontend.</Card>
+  <Card title="Secure transmission" icon="lock">Always use HTTPS.</Card>
+  <Card title="Endpoint protection" icon="server">Protect critical endpoints.</Card>
+  <Card title="Data integrity" icon="check-circle">Validate transaction consistency.</Card>
+</CardGroup>
+
+## Certification status
+
+<Steps>
+  <Step title="Sandbox tests completed">Initial integration flow validation.</Step>
+  <Step title="Technical validation approved">Integration requirements are met.</Step>
+  <Step title="Controlled production tests">Validation in the production environment.</Step>
+  <Step title="Final approval">Integration is ready for go-live.</Step>
+</Steps>
+
+## Expected result
+
+<CardGroup cols={3}>
+  <Card title="Validated integration" icon="check">The complete flow works correctly.</Card>
+  <Card title="Data consistency" icon="database">States are aligned across systems.</Card>
+  <Card title="Ready for production" icon="rocket">Enabled to process live payments.</Card>
+</CardGroup>
