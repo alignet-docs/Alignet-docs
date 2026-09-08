@@ -1,0 +1,81 @@
+---
+title: "Order and transaction management"
+description: "Manage payment statuses, refunds, and technical logs from the PrestaShop Back Office."
+---
+The module Alignet One centralizes financial management directly onto your control panel, enabling you to manage the life cycle of each order without external tools.
+
+## 1. Module Management Panel
+
+To display the status of your configuration and your logs, contact:
+**Modules** > **Module Manager** > **Alignet One** > **Configure**.
+
+From this panel you can monitor:
+
+* **Configure status:** Visual check that your credentials are activated.
+* **Environmental Indicators:** Real-time confirmation of if you're operating at **Sandbox** or **Production**.
+* **Technical Logs:** Access to database table `payme_logs` where the requests and responses of the gateway are registered.
+
+***
+
+## 2. Management of Reversals (Cancellations)
+
+You can process money refunds safely and directly from the details of each order at PrestaShop.
+
+### How to conduct a revern?
+
+1. Go to **Requests** > **Requests** and select the order you wish to repay.
+2. Locate the button **"Extort with Alignet One"**.
+3. The system will send the request to the gateway and update the order automatically.
+
+<Check>
+  **Duplicate prevention:** The system has a logical validation that prevents duplicated reversals about the same transaction, protecting your funds.
+</Check>
+
+***
+
+## 3. Synchronization of requested states
+
+The module updates the status of the order at PrestaShop and Alignet Oneand automates your workflow:
+
+| Recovery event      | Status at PrestaShop  | Description                                                                        |
+| :------------------ | :-------------------- | :--------------------------------------------------------------------------------- |
+| **Successful payment**    | **Payment accepted**     | The transaction was approved and the funds are confirmed.                        |
+| **Payment outstanding**  | **To be paid** | The order is reserved after confirmation (typical of asynchronous methods). |
+| **Rejected payment**   | **Failed payment**  | The transaction was rejected by the issuer or the client cancelled.                   |
+| **Exstore Reversal** | **Reimbursed**       | Refund money to client confirmed.                                   |
+
+***
+
+## 4. Asynchronous methods (QR, PagoEfectivo)
+
+For methods that are currently unconfirmed, the flow operates under the logic of **deferred notification**:
+
+<Steps>
+  <Step title="Creation of an order">
+    The order is generated in status **"To be paid"**.
+  </Step>
+
+  <Step title="Notification S2S">
+    Once the client does the storage or scanning, Alignet One send a sign to you **URL S2S**.
+  </Step>
+
+  <Step title="Automatic update">
+    The module receives the sign and changes the status to **"Payment accepted"** Auto.
+  </Step>
+</Steps>
+
+<Warning>
+  If you notice that an asynchronous order doesn't change status, check that your server allows outside notifications and that the **URL S2S** have been sent to the Alignet One.
+</Warning>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Tests and certification" icon="vial-circle-check" href="/en/virtual-payments/prestashop/testing-and-certification">
+    Validate your flows with test data before selling.
+  </Card>
+
+  <Card title="Problem solving" icon="wrench" href="/en/virtual-payments/prestashop/troubleshooting">
+    Check solutions to connection errors or credentials.
+  </Card>
+</CardGroup>

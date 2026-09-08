@@ -1,0 +1,95 @@
+---
+title: "Introduction"
+description: "Embed a payment form in your web application with Alignet One Flex."
+---
+Alignet One Flex allows to integrate a payment form into web applications using a single interface for multiple payment methods. The recommended flow combines authentication, generation of `nonce`construction `payload`and capture of result from `responseCallback`.
+
+<Card title="Latest improvements" icon="wand-magic-sparkles" href="/en/virtual-payments/checkout-web/flex/latest-improvements">
+  Check recent viewing, multidioma, checkout closure, Yape UX and operation number.
+</Card>
+
+***
+
+## Initial flow
+
+<CardGroup cols={3}>
+  <Card title="1. Authentication" icon="key" href="https://docs.pay-me.com/api-de-pagos/autenticacion">
+    First generates `Access Token` from API Security. Without that token you cannot apply for `nonce`.
+  </Card>
+
+  <Card title="2. API Nonce" icon="shield-check" href="/en/virtual-payments/checkout-web/flex/api-nonce">
+    with `Access Token` currently applying `nonce` That will be used to initialise Flex.
+  </Card>
+
+  <Card title="3. Bookshop Flex" icon="code" href="/en/virtual-payments/checkout-web/flex/library-and-basic-styles">
+    After you get the `nonce`includes CSS and JS of the environment and continues with the initiation of the form.
+  </Card>
+</CardGroup>
+
+<Note>
+  In FlexThat's right. `Autenticación` → `API Nonce` → library inclusion and then the initialization of the component.
+</Note>
+
+## Recovery implementation
+
+<CardGroup cols={3}>
+  <Card title="Construction of payload" icon="receipt" href="/en/virtual-payments/checkout-web/flex/payload-construction">
+    Guma el `payload` Reusing the structure of API and sending `payment_method: {}` at the root object.
+  </Card>
+
+  <Card title="Initiate component" icon="gear" href="/en/virtual-payments/checkout-web/flex/component-initialization">
+    It creates an instance of `FlexPaymentForms`, defines visible methods and puts the form into your DOM.
+  </Card>
+
+  <Card title="Capture callbacks" icon="bolt" href="/en/virtual-payments/checkout-web/flex/handling-callback-functions">
+    Process `responseCallback`, `trackingCallback` and `onErrorCallback` by the payment method selected.
+  </Card>
+</CardGroup>
+
+<Info>
+  In Flex, the result visible to the front enters by `responseCallback(response)`and that `response` reuses the contract of API of PayIn with respect to the payment method used.
+</Info>
+
+## Why? Alignet One Flex?
+
+<CardGroup cols={3}>
+  <Card title="A single integration" icon="plug">
+    The same capture interface for all available payment methods.
+  </Card>
+
+  <Card title="Easy to use" icon="wand-magic-sparkles">
+    It removes the complexity of managing independent payment flows.
+  </Card>
+
+  <Card title="Sure." icon="shield-halved">
+    Integrated 3DS Authentication and secure data transmission.
+  </Card>
+</CardGroup>
+
+## Available payment methods
+
+<CardGroup cols={3}>
+  <Card title="3DS card" icon="credit-card">
+    Visa, Mastercard, Amex and Dyers with Secure 3D authentication.
+  </Card>
+
+  <Card title="Yape" icon="mobile-screen">
+    Digital wallet with client phone number.
+  </Card>
+
+  <Card title="QR" icon="qrcode">
+    I pay by scanning a code QR from any bank app.
+  </Card>
+
+  <Card title="Banking Transfer" icon="building-columns">
+    Direct payment from online banking.
+  </Card>
+
+  <Card title="Cuotéalo" icon="receipt">
+    I pay in quotas without credit card.
+  </Card>
+
+  <Card title="Coming" icon="clock">
+    PagoEfectivo and Powerpay's on his way.
+  </Card>
+</CardGroup>

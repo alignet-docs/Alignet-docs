@@ -1,0 +1,74 @@
+---
+title: "Troubleshooting"
+description: "Quick guide to resolving technical and configuration issues in PrestaShop."
+---
+If you have difficulties with integrating or processing payments, check with this diagnosis table. Most incidents have been PrestaShop They are due to network restrictions or misconfigured credentials.
+
+## 1. Rapid Diagnosis table
+
+| Problem                      | probable cause                                  | Suggested solution                                                                                                            |
+| :---------------------------- | :---------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **No Loading Form**       | Invalid credentials or missetting of an environment. | Check that **Client ID** and **Customer Secret** matching to select mode (Sandboxproduction).                    |
+| **Successful payment without order**   | Failed notification **S2S**.               | Validate that you URL S2S be accessible externally and are not blocked by a firewall or safety module.                  |
+| **No change of status**    | External notifications blockade.             | Confirm with your hosting provider to allow requests `POST` from Alignet One.                               |
+| **Reversal doesn't work.**       | User permits or transaction status.    | Check that the Back Office user has permission to edit orders and that the original transaction is **Liquid**. |
+| **Currency error (PEN/USD)** | Untuning between storage and gateway.              | Be sure that the coin select from the module matches the active currency from the cart PrestaShop.              |
+
+***
+
+## 2. Filling (Debug Mode)
+
+To get specific details of an error, the module Alignet One an internal registration system.
+
+<Steps>
+  <Step title="Engage Debug Mode">
+    In module configuration, mark box **Debug Mode** and keeps the changes.
+  </Step>
+
+  <Step title="Consult database">
+    Access your database manager (phpMyAdmin) and check the table `payme_logs`. That's where you'll see him. JSON complete sending and response from API.
+  </Step>
+
+  <Step title="Review Logs from PrestaShop">
+    Also available at back office: **Advanced Parameters** > **Records / Logs** To see system errors.
+  </Step>
+</Steps>
+
+<Warning>
+  **Important:** Fan Debug Mode after solving the problem to avoid excessive production database growth.
+</Warning>
+
+***
+
+## 3. Reporting requirements
+
+Make sure your server complies with these network rules:
+
+* **Ports:** The port **443** should be open for outgoing and incoming communication.
+* **Extensions PHP:** Check that `cURL` and `OpenSSL` Be up to date.
+* **Protocol:** The site should operate low **TLS 1.2** or higher to meet safety standards PCI.
+
+***
+
+## 4. Support Channels
+
+If the problem persists after following this guide, send us an email with **Support kit**:
+
+<Card title="Support kit for Prestashop" icon="briefcase">
+  1. **Merchant Code** and URL The place.
+  2. Exacted version of **PrestaShop** and **PHP**.
+  3. Screenshot from the bug.
+  4. Table constores `payme_logs` related to the failed transaction.
+</Card>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Email" icon="envelope" href="mailto:postventa.autenticacion@alignet.com">
+    [posstorea.authentication @ alignet.com](mailto:postventa.autenticacion@alignet.com)
+  </Card>
+
+  <Card title="Back to Home" icon="house" href="/en/virtual-payments/prestashop/introduction">
+    Back to main guide.
+  </Card>
+</CardGroup>

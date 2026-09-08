@@ -1,0 +1,332 @@
+---
+title: "Return codes"
+description: "Technical guide to interpreting Alignet One authorization responses."
+---
+### General Validation of Success
+
+Regardless of the processor used, your system's logic should be strict to avoid fraud or misconduct.
+
+<CardGroup cols={2}>
+  <Card title="Alignet approval" color="#10b981" icon="circle-check">
+    Code **00**
+  </Card>
+
+  <Card title="External Processors" color="#3b82f6" icon="envelopes-bulk">
+    Code **000**
+  </Card>
+</CardGroup>
+
+<Note>
+  Any code other than those mentioned above should be treated automatically by its business logic as a transaction **Not Adopted**.
+</Note>
+
+### Code Dictionary (other processors)
+
+Select your processor or card mark to see the details of back messages.
+
+<Tabs>
+  <Tab title="Visa / Mastercard">
+    ### Main brands
+
+    Direct response management for Visa and Mastercard cards.
+
+    <AccordionGroup>
+      <Accordion title="Visa: Detail of responses" icon="cc-visa">
+        | Code | Return / Answer message                | State         | Action                                                |
+        | :----- | :------------------------------------------ | :------------- | :---------------------------------------------------- |
+        | **00** | Successful payment                                | `[EXITOSO]`    | Proceed with product / service delivery.        |
+        | **01** | Contact the Bank                          | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **02** | Contact the Bank                          | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **03** | Unvalid merchant code.                | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **04** | Keep Card                             | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **05** | Unaccepted payment by the issuer              | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **06** | General error in processing              | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **07** | To retain a card (postoreial fraud).           | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **10** | Successful partial approval. (Unauthorized) | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **11** | Approved (VIP) (Unauthorized)              | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **12** | Invalid transaction.                       | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **13** | Invalid amount or conversion error.       | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **14** | Invalid account number.                  | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **15** | Incorrect Issuer Code                 | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **19** | Retry transaction                   | `[REINTENTAR]` | Request the client to try with another means of payment. |
+        | **21** | Retry transaction                   | `[REINTENTAR]` | Request the client to try with another means of payment. |
+        | **25** | Retry transaction                   | `[REINTENTAR]` | Request the client to try with another means of payment. |
+        | **28** | Retry transaction                   | `[REINTENTAR]` | Request the client to try with another means of payment. |
+        | **39** | Unavailable credit account.            | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **41** | Card reported as lost              | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **43** | Reported card                           | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **46** | Closed tied account number          | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **51** | Insufficient funds                        | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **52** | No current account                  | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **53** | No savings account                 | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **54** | Expiry card                            | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **55** | PIN wrong                              | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **57** | Unallowed transaction contact issuer   | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **58** | Unallowed payment at terminal               | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **59** | Suspicion of fraud                          | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **61** | Exceeding the amount limit                   | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **62** | Restricted card                         | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **63** | Security violation                      | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **64** | Unmet AML              | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **65** | Exceeding retirement frequency     | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **70** | PIN required                            | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **74** | Failed transaction                     | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **75** | Attempts to PIN exceeded                   | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **76** | Unrequested reversion                     | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **78** | First use block                    | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **79** | Retry transaction                   | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **80** | Operation without financial impact            | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **81** | Cryptographic error found at PIN    | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **82** | Invalid authenticity result         | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **85** | Rejected for verifications                  | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **86** | The PIN could have been verified               | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **91** | Unavailable                        | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **92** | Id of an invalid institution               | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **93** | Uncompleted transaction                   | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **94** | Double transmission.                      | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **96** | System error                            | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **1 A** | Authentication required                  | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **6 P** | Failed verification                        | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **B1** | Additional Unpermitted                | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **N0** | Retry transaction                   | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **N3** | Unavailable cash service          | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **N4** | Exceeding cash limit                 | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **N7** | Rejected by key CVV2                      | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **N8** | Amount exceeds preauthorized approval.      | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **P5** | Unlocking of PIN refused by the issuer    | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **p6** | Reg PIN refused (PIN Unsure)       | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **Q1** | I miss the card authentication.    | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **R0** | Stopping payment order                    | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **R1** | Stopping payment order                    | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **R2** | Transaction does not qualify for PIN Visa       | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **R3** | Stopping payment order                    | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **Z1** | Removal of the autoisation process        | `[DENEGADO]`   | Request the client to try with another means of payment. |
+        | **Z3** | Can't connect to line                | `[DENEGADO]`   | Request the client to try with another means of payment. |
+      </Accordion>
+
+      <Accordion title="Mastercard: Detail of responses" icon="cc-mastercard">
+        | Code | Return / Answer message    | State       | Action                                                             |
+        | :----- | :------------------------------ | :----------- | :----------------------------------------------------------------- |
+        | **00** | Successful payment                    | `[EXITOSO]`  | Proceed with product / service delivery.                     |
+        | **01** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **03** | Invalid Merchant Data     | `[DENEGADO]` | Validate merchant configuration and retry operation.      |
+        | **04** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **05** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **08** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **10** | Partial approval Denied     | `[DENEGADO]` | Requesting the client to complete payment with another means.             |
+        | **12** | Unvalid transaction           | `[DENEGADO]` | Validate transaction data and retry.                  |
+        | **13** | Invalid amount                  | `[DENEGADO]` | Validate the amount and try again.                            |
+        | **14** | Unvalid account number      | `[DENEGADO]` | Validate card data and retry.                          |
+        | **15** | Unavailable            | `[ERROR]`    | Retrying in a few minutes or using another means of payment.              |
+        | **30** | Error during the issuing process | `[ERROR]`    | Retrying the operation.                                           |
+        | **41** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **43** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **51** | Insufficient funds            | `[DENEGADO]` | To request the client to use another means of payment or available funds. |
+        | **54** | Expiry card                | `[DENEGADO]` | Requesting the client to use another valid card.                    |
+        | **55** | PIN wrong                  | `[DENEGADO]` | Requesting the client to correctly enter his PIN.                |
+        | **57** | The transaction isn't allowed  | `[DENEGADO]` | Requesting the client to contact his or her bank or to use another means.       |
+        | **58** | The transaction isn't allowed  | `[DENEGADO]` | Requesting the client to contact his or her bank or to use another means.       |
+        | **61** | Exceeding the amount limit      | `[DENEGADO]` | Requesting the client to try with a minor or other means.     |
+        | **62** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **63** | Security violation          | `[DENEGADO]` | Requesting the client to contact his bank.                         |
+        | **65** | Error during the issuing process | `[ERROR]`    | Retrying the operation.                                           |
+        | **70** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **71** | Key error PIN              | `[DENEGADO]` | To request the client to validate his PIN.                               |
+        | **75** | It exceeded the number of attempts   | `[DENEGADO]` | Requesting the client to contact his bank.                         |
+        | **76** | Error during the issuing process | `[ERROR]`    | Retrying the operation.                                           |
+        | **77** | Error during the issuing process | `[ERROR]`    | Retrying the operation.                                           |
+        | **78** | Error during the issuing process | `[ERROR]`    | Retrying the operation.                                           |
+        | **79** | Rejected by brand           | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **81** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **82** | Rejected by brand           | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **83** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **84** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **85** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **86** | Error during the issuing process | `[ERROR]`    | Retrying the operation.                                           |
+        | **87** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **88** | Data entry error       | `[DENEGADO]` | Validate data entered and retry.                             |
+        | **89** | Rejected by the issuer          | `[DENEGADO]` | Request the client to try with another means of payment.              |
+        | **91** | Error during the issuing process | `[ERROR]`    | Retrying the operation.                                           |
+        | **92** | Error during the issuing process | `[ERROR]`    | Retrying the operation.                                           |
+        | **94** | Double order number         | `[ERROR]`    | Validate duplication before forwarding transaction.               |
+        | **96** | Error during the issuing process | `[ERROR]`    | Retrying the operation.                                           |
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+
+  <Tab title="Amex, Dyers,">
+    ### Processor
+
+    <AccordionGroup>
+      <Accordion title="Niubiz" defaultOpen icon="star">
+        | Code  | Return / Answer message        | State        | Action                                          |
+        | :------ | :---------------------------------- | :------------ | :---------------------------------------------- |
+        | **000** | Approved transaction                | `[EXITOSO]`   | Proceed with product / service delivery.  |
+        | **101** | Assigned Card                    | `[DENEGADO]`  | Requesting the client to use another valid card. |
+        | **102** | Suspicion of fraud                  | `[DENEGADO]`  | Requesting the client to contact his bank.      |
+        | **104** | Operation not permitted              | `[DENEGADO]`  | Request another means of payment.                   |
+        | **105** | Requires reading of chip            | `[DENEGADO]`  | Request to insert card or use chip.         |
+        | **106** | Excess of attempts                  | `[DENEGADO]`  | Try later or contact bench.           |
+        | **107** | Contact with issuer                | `[DENEGADO]`  | Requesting the client to contact his bank.      |
+        | **110** | Unallowed operation for card | `[DENEGADO]`  | Request another means of payment.                   |
+        | **112** | Required PIN                     | `[DENEGADO]`  | Request to enter PIN That's right.           |
+        | **114** | Restricted card                 | `[DENEGADO]`  | Contact Bank.                                |
+        | **116** | Insufficient funds                | `[DENEGADO]`  | Request another means of payment.                   |
+        | **117** | PIN wrong                      | `[DENEGADO]`  | Request Reentry PIN.                       |
+        | **118** | Invalid card                    | `[DENEGADO]`  | Validate or use another card.                    |
+        | **121** | Consumption limit                   | `[DENEGADO]`  | Reduce quantity or use another means.                |
+        | **129** | CVV2 wrong                     | `[DENEGADO]`  | Validar CVV.                                    |
+        | **150** | Unallowed share                  | `[DENEGADO]`  | Change payment conditions.                    |
+        | **151** | Closed card                   | `[DENEGADO]`  | Using another card.                              |
+        | **190** | Generic denial                 | `[DENEGADO]`  | Request another means of payment.                   |
+        | **192** | Bank doesn't answer                   | `[ERROR]`     | Retrying operation.                           |
+        | **263** | Error sending parameters              | `[ERROR]`     | Validate integration.                            |
+        | **264** | Unavailable                | `[ERROR]`     | Retry later.                           |
+        | **265** | OTP wrong                      | `[DENEGADO]`  | Request OTP That's right.                         |
+        | **280** | CVV Wrong                         | `[DENEGADO]`  | Validar CVV.                                    |
+        | **290** | Black list                         | `[DENEGADO]`  | Request another means of payment.                   |
+        | **300** | Double order                    | `[ERROR]`     | Validate duplication.                             |
+        | **316** | Card does not exist by issue        | `[DENEGADO]`  | Validate or use another card.                    |
+        | **317** | Issuer blocked card        | `[DENEGADO]`  | Contact Bank.                                |
+        | **319** | Parameter error                     | `[ERROR]`     | Validar request.                                |
+        | **320** | Parameter error                     | `[ERROR]`     | Validar request.                                |
+        | **401** | Unactivated brand in merchant      | `[DENEGADO]`  | Validate merchant configuration.             |
+        | **402** | Invalid IP                        | `[DENEGADO]`  | Validate source of transaction.               |
+        | **403** | Requires authentication              | `[PENDIENTE]` | Complete authentication (3DS).                  |
+        | **404** | Amount outweighs maximum                 | `[DENEGADO]`  | Reduce amount.                                  |
+        | **405** | Exceeding card transactions        | `[DENEGADO]`  | Try later.                             |
+        | **406** | Exces merchant transactions       | `[DENEGADO]`  | Try later.                             |
+        | **407** | Amount less than minimum               | `[DENEGADO]`  | Increase amount.                                 |
+        | **408** | CVC That doesn't match                     | `[DENEGADO]`  | Validar CVC.                                    |
+        | **409** | CVV Unprocessed (P)                | `[DENEGADO]`  | Validar CVV.                                    |
+        | **412** | CVV Unrecognised                   | `[DENEGADO]`  | Validar CVV.                                    |
+        | **413** | Rejection for additional validation    | `[DENEGADO]`  | Review authentication (3DS).                    |
+        | **420** | Card isn't VISA                  | `[DENEGADO]`  | Use valid card.                            |
+        | **421** | BIN risked                        | `[DENEGADO]`  | Request another means of payment.                   |
+        | **422** | Unallowed configuration          | `[DENEGADO]`  | Validate merchant configuration.                 |
+        | **423** | User cancelled                     | `[CANCELADO]` | To allow retrying.                             |
+        | **424** | BIN blacklist                  | `[DENEGADO]`  | Request another means of payment.                   |
+        | **425** | Wrong country                     | `[DENEGADO]`  | Validate issuing country.                            |
+        | **426** | Unauthorized payment link           | `[DENEGADO]`  | Generate new link.                             |
+        | **427** | Generic denial                 | `[DENEGADO]`  | Request another means of payment.                   |
+        | **428** | Requires CVC                        | `[DENEGADO]`  | Enter CVC.                                   |
+        | **665** | Functional error                     | `[ERROR]`     | Retrying.                                     |
+        | **666** | Communication problem            | `[ERROR]`     | Retrying.                                     |
+        | **667** | Rejected transaction              | `[CANCELADO]` | To allow retrying.                             |
+        | **668** | Anti-fraud error                    | `[ERROR]`     | Check anti-fraud.                             |
+        | **670** | Anti-fraud                          | `[DENEGADO]`  | Check anti-fraud rules.                      |
+        | **672** | No response Cybersource           | `[ERROR]`     | Retrying.                                     |
+        | **673** | Without an authorized response           | `[ERROR]`     | Retrying.                                     |
+        | **674** | Invalid meeting                    | `[ERROR]`     | Retrying flow.                               |
+        | **680** | Excess of attempts                  | `[DENEGADO]`  | Try later.                             |
+        | **682** | Out of time                     | `[DENEGADO]`  | Retrying operation.                           |
+        | **683** | Contact issuer                    | `[DENEGADO]`  | Contact Bank.                                |
+        | **684** | Anti-fraud error                    | `[DENEGADO]`  | Check anti-fraud.                             |
+        | **687** | Flaw format                 | `[ERROR]`     | Validate integration.                            |
+        | **690** | Unaccepted wallet card    | `[DENEGADO]`  | Using another means.                                |
+        | **691** | Token error                      | `[ERROR]`     | Regenerate token.                                |
+        | **692** | Token defeated                       | `[DENEGADO]`  | Generate new token.                            |
+        | **693** | Token invalid                      | `[DENEGADO]`  | Validar token.                                  |
+        | **754** | Failed configuration                | `[ERROR]`     | Validate configuration.                          |
+        | **760** | Configure error                 | `[ERROR]`     | Validate configuration.                          |
+        | **777** | Failed communication                  | `[ERROR]`     | Retrying.                                     |
+        | **800** | Echo accepted                       | `[EXITOSO]`   | A proper technical operation.                     |
+        | **900** | Communication accepted               | `[EXITOSO]`   | A proper technical operation.                     |
+        | **904** | Wrong format                     | `[ERROR]`     | Validar request.                                |
+        | **909** | System error                       | `[ERROR]`     | Retrying.                                     |
+        | **912** | Unavailable                | `[ERROR]`     | Retrying.                                     |
+        | **913** | Double transmission               | `[ERROR]`     | Validate duplication.                             |
+        | **940** | Retirement                 | `[CANCELADO]` | No reprocessing.                                  |
+        | **941** | Retirement                          | `[CANCELADO]` | No reprocessing.                                  |
+        | **942** | Original refused                   | `[DENEGADO]`  | No reprocessing.                                  |
+        | **945** | Retirement reference                 | `[ERROR]`     | Validate duplication.                             |
+        | **949** | Non-operative terminal               | `[ERROR]`     | Validate terminal.                               |
+        | **965** | Law enforcement                 | `[DENEGADO]`  | To review emitter rules.                      |
+      </Accordion>
+
+      <Accordion title="Icipay" defaultOpen icon="star">
+        | Code  | Return / Answer message             | State       | Action                                         |
+        | :------ | :--------------------------------------- | :----------- | :--------------------------------------------- |
+        | **00**  | Approved transaction                     | `[EXITOSO]`  | Proceed with product / service delivery. |
+        | **02**  | Check Card Issuer              | `[DENEGADO]` | Requesting the client to contact his bank.     |
+        | **03**  | Invalid merchantr                    | `[DENEGADO]` | Validate merchant configuration.            |
+        | **04**  | No honors                                | `[DENEGADO]` | Request another means of payment.                  |
+        | **05**  | Can't be processed                     | `[DENEGADO]` | Request another means of payment.                  |
+        | **06**  | Unvalid transaction for this terminal | `[DENEGADO]` | Validate terminal configuration.            |
+        | **08**  | Withdrawal time              | `[ERROR]`    | Retrying operation.                          |
+        | **09**  | Without original                             | `[ERROR]`    | Validate transaction reference.          |
+        | **10**  | Can't be reversed                     | `[ERROR]`    | Validate operation status.                |
+        | **11**  | Approved (VIP)                           | `[EXITOSO]`  | Proceed with delivery.                       |
+        | **12**  | Unvalid transaction                    | `[DENEGADO]` | Validate data and try again.           |
+        | **13**  | Invalid                        | `[DENEGADO]` | Validate amount.                                 |
+        | **14**  | Unvalid card number              | `[DENEGADO]` | Validate card data.                      |
+        | **17**  | Invalid date of capture               | `[ERROR]`    | Validate date of terminal.                    |
+        | **19**  | System error                        | `[ERROR]`    | Retrying operation.                          |
+        | **20**  | Not from the account                       | `[DENEGADO]` | Validate account type.                        |
+        | **21**  | No to account                           | `[DENEGADO]` | Validate account destination.                     |
+        | **22**  | No current account                     | `[DENEGADO]` | Validar counts.                                |
+        | **23**  | No saving account                     | `[DENEGADO]` | Validar counts.                                |
+        | **24**  | No credit account                    | `[DENEGADO]` | Validar counts.                                |
+        | **25**  | Unfound registration                   | `[ERROR]`    | Validate transaction information.         |
+        | **30**  | Formatting error                         | `[ERROR]`    | Validate integration.                           |
+        | **39**  | Unpermitted transaction                 | `[DENEGADO]` | Request another means of payment.                  |
+        | **41**  | Hot card                         | `[DENEGADO]` | Keep a card if applicable.                     |
+        | **42**  | Special collection                        | `[DENEGADO]` | Keep a card if applicable.                     |
+        | **43**  | Stolen card                           | `[DENEGADO]` | Keep a card if applicable.                     |
+        | **44**  | Collection card                      | `[DENEGADO]` | Keep a card if applicable.                     |
+        | **45**  | Retirement of transaction                 | `[ERROR]`    | Validate status before retrying.            |
+        | **46**  | Rejected chip                           | `[DENEGADO]` | Retry with chip / contact less.               |
+        | **47**  | Chip not available online                | `[ERROR]`    | Retrying.                                    |
+        | **48**  | Chip error ARQC                          | `[ERROR]`    | Validar EMV.                                   |
+        | **49**  | Tag EMV Unfound                    | `[ERROR]`    | Validar EMV.                                   |
+        | **51**  | Insufficient funds                     | `[DENEGADO]` | Request another means of payment.                  |
+        | **52**  | No current account                     | `[DENEGADO]` | Validar counts.                                |
+        | **53**  | No saving account                     | `[DENEGADO]` | Validar counts.                                |
+        | **54**  | Failed card                          | `[DENEGADO]` | Request valid card.                     |
+        | **55**  | PIN wrong                           | `[DENEGADO]` | Request Reentry PIN.                      |
+        | **56**  | Unregistered card                     | `[DENEGADO]` | Validate card.                               |
+        | **57**  | Unallowed transaction to the holder      | `[DENEGADO]` | Contact Bank.                               |
+        | **58**  | Unallowed transaction to terminal     | `[DENEGADO]` | Validate configuration.                         |
+        | **59**  | Suspicion of fraud                       | `[DENEGADO]` | Contact Bank.                               |
+        | **61**  | That's beyond the limit.                         | `[DENEGADO]` | Reduce quantity or use another means.               |
+        | **62**  | Restricted card                      | `[DENEGADO]` | Contact Bank.                               |
+        | **63**  | Key error MAC                       | `[ERROR]`    | Validate Security / Integration.                 |
+        | **65**  | Frequency limit exceeded            | `[DENEGADO]` | Try later.                            |
+        | **66**  | Exceeding acquirer boundary           | `[DENEGADO]` | Try later.                            |
+        | **67**  | Keep Card                        | `[DENEGADO]` | Keep a card if applicable.                     |
+        | **68**  | Delayed response                         | `[ERROR]`    | Retrying.                                    |
+        | **75**  | Exces attempts to PIN                   | `[DENEGADO]` | Contact Bank.                               |
+        | **76**  | Invalid account                         | `[DENEGADO]` | Validar counts.                                |
+        | **77**  | Without network agreement                       | `[ERROR]`    | Validate integration / network.                       |
+        | **78**  | Function not available                    | `[ERROR]`    | Validate operation.                             |
+        | **79**  | Key validation error                | `[ERROR]`    | Validate security.                             |
+        | **80**  | Length error PIN                       | `[ERROR]`    | Validar PIN.                                   |
+        | **81**  | Block PIN Invalid                   | `[ERROR]`    | Validar PIN.                                   |
+        | **82**  | CVV Unvalid                            | `[DENEGADO]` | Validar CVV.                                   |
+        | **83**  | Meter synchronization error            | `[ERROR]`    | Validar EMV.                                   |
+        | **84**  | Invalid living cycle                   | `[ERROR]`    | Validate transaction status.                    |
+        | **85**  | No keys available                | `[ERROR]`    | Validate configuration.                         |
+        | **86**  | Can't be verified PIN                | `[ERROR]`    | Retrying.                                    |
+        | **87**  | Key error PIN                       | `[ERROR]`    | Validar PIN.                                   |
+        | **88**  | sync error MAC                 | `[ERROR]`    | Validate security.                             |
+        | **89**  | Security violation                   | `[DENEGADO]` | Check security.                             |
+        | **91**  | Switch not available                     | `[ERROR]`    | Retrying.                                    |
+        | **92**  | Invalid emitter                         | `[DENEGADO]` | Validate emitter.                                |
+        | **93**  | Unvalid acquirer                     | `[ERROR]`    | Validate Acquire configuration.              |
+        | **94**  | Unvalid originator                     | `[ERROR]`    | Validate origin.                                |
+        | **95**  | System error                        | `[ERROR]`    | Retrying.                                    |
+        | **96**  | System error                        | `[ERROR]`    | Retrying.                                    |
+        | **97**  | No transfer of funds              | `[DENEGADO]` | Validate operation.                             |
+        | **98**  | Double reversion                      | `[ERROR]`    | Validate duplication.                            |
+        | **99**  | Double transaction                    | `[ERROR]`    | Validate before forwarding.                     |
+        | **102** | Issuer Timeout                           | `[ERROR]`    | Retry later.                          |
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+</Tabs>
+
+### Important Notes about Marks
+
+<Info>
+  If your merchant uses **Niubiz** or **Icipay**It's vital that I also implement logic for brands **Visa** and **Mastercard**and **Dyers Club** and **American Express**as these processors act as a bridge for these brands.
+</Info>

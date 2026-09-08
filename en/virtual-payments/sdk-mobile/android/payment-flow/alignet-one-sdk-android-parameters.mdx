@@ -1,0 +1,138 @@
+---
+title: "Alignet One Android SDK input and output parameters"
+---
+# Fits: Input and Departure Parameters Alignet One SDK Android
+
+The following are details of the entry and output parameters of Alignet One SDK.
+
+## Input Parameters
+
+### **PAYMEChargesRequest**
+
+Open complete board
+
+| **Parameter** | **Type**                                                                                                                                           | **Description**                                                           | **Mandatory** |
+| :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------ | :-------------- |
+| transaction   | [PAYMETransactionData](https://docs.pay-me.com/es/sdk/v3.2/Android/parametros-de-entrada-y-salida-de-pay-me-sdk-andro#PAYMETransactionData) | Contains transaction information                                    | If              |
+| setting       | [PAYMESettingData](https://docs.pay-me.com/es/sdk/v3.2/Android/parametros-de-entrada-y-salida-de-pay-me-sdk-andro#PAYMESettingData)         | It contains information about the performance of the payment form. | NO              |
+
+#### **PAYMETransactionData**
+
+Open complete board
+
+| **Parameter**    | **Type**                                                                                                                                   | **Long.** | **Description**                                                                                                                                                                                                  | **Mandatory** |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| operation.Number  | String                                                                                                                                     | 12        | A unique operation number at the gateway, which will be used to conduct the transaction. (6 to 12 digits).                                                                         | If              |
+| amount           | String                                                                                                                                     | 11        | That's how bad I get. The dateway will be charged with applying the decimal separator. Example: <ul><li>If the amount is 0.50 → Send 50</li><li>If the amount is 10.00 → Send 1000</li></ul> | If              |
+| currency         | String                                                                                                                                     | 3         | Currency code ISO-4217 (3 numerical digits) <ul><li>Soles → 604</li><li>Dollars → 840</li></ul>                                                                                                          | If              |
+| Additional | Dictionary                                                                                                                                | -         | It contains additional information provided by the merchant.                                                                                                                                                    | NO              |
+| billing          | [PAYMEAddressData](https://docs.pay-me.com/es/sdk/v3.2/Android/parametros-de-entrada-y-salida-de-pay-me-sdk-andro#PAYMEAddressData) | -         | Billing information from the purchase order.                                                                                                                                                                | If              |
+| shipping         | [PAYMEAddressData](https://docs.pay-me.com/es/sdk/v3.2/Android/parametros-de-entrada-y-salida-de-pay-me-sdk-andro#PAYMEAddressData) | -         | Reg information from purchase order.                                                                                                                                                                      | NO              |
+| keeper         | [PAYMEAddressData](https://docs.pay-me.com/es/sdk/v3.2/Android/parametros-de-entrada-y-salida-de-pay-me-sdk-andro#PAYMEAddressData) | -         | The buyer's information.                                                                                                                                                                                       | NO              |
+
+**PAYMEAddressData**
+
+Open complete board
+
+| **Parameter**    | **Type**                                                                                                                                             | **Long.** | **Description**                                                                                             | **Mandatory** |
+| :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :---------------------------------------------------------------------------------------------------------- | :-------------- |
+| firstName        | String                                                                                                                                               | 30        | Names                                                                                                     | If              |
+| last         | String                                                                                                                                               | 50        | Surname                                                                                                   | If              |
+| email            | String                                                                                                                                               | 50        | Email                                                                                          | If              |
+| phone            | String                                                                                                                                               | 15        | Country code and phone number of the card holder (51- 958435685)                                | If              |
+| identityDocument | [PAYMEIdentification Object](https://docs.pay-me.com/es/sdk/v3.2/Android/parametros-de-entrada-y-salida-de-pay-me-sdk-andro#PAYMEIdentityDocument) | -         | Object containing information about the buyer's identity document. Only available for **CUSTOMER.** | NO              |
+| line1            | String                                                                                                                                               | 50        | Address                                                                                                   | If              |
+| line2            | String                                                                                                                                               | 50        | Address                                                                                                   | NO              |
+| city             | String                                                                                                                                               | 50        | City / Province                                                                                            | If              |
+| status            | String                                                                                                                                               | 15        | Status / Department                                                                                         | If              |
+| Country          | String                                                                                                                                               | 2         | Country code in letter. ISO3166. Tube: <ul><li>Peru → PE</li></ul>                                        | If              |
+
+###### **PAYMEIdentification Object**
+
+Open complete board
+
+| **Parameter** | **Type** | **Long.** | **Description**                                                                                                   | **Mandatory** |
+| :------------ | :------- | :-------- | :---------------------------------------------------------------------------------------------------------------- | :-------------- |
+| Country       | String   | 2         | Country code in letter. ISO3166. Tube: <ul><li>Peru → PE</li></ul>                                              | If              |
+| Type          | String   | 20        | Type of identity document: <ul><li>DNI</li><li>CARNET\_EXTRANJERIA</li><li>PASAPORTE</li><li>OTROS</li></ul> | If              |
+| identifier    | String   | 20        | Identification number                                                                                  | If              |
+
+#### **PAYMESettingData**
+
+Open complete board
+
+| **Parameter**                                    | **Type**        | **Long.** | **Description**                                                                                                                  | **Mandatory** |
+| :----------------------------------------------- | :-------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| locale                                           | String          | 5         | Localization of the language using the form to display itself.                                                              | If              |
+| **Value - Description**                          |                 |           |                                                                                                                                  |                 |
+| It's\_PE Spanish Peru                              |                 |           |                                                                                                                                  |                 |
+| walletUserId                                     | String          | 15        | Value to identify a user's walk.                                                                                  | NO              |
+| paymentMethods                                   | Arrays\[String] | -         | Loan of methods of payments that will carry SDKif you do not send, the list of the merchant configuration shall be used | NO              |
+| **Value - Description**                          |                 |           |                                                                                                                                  |                 |
+| CARD - Credit and debt cards              |                 |           |                                                                                                                                  |                 |
+| YAPE - Yape payment                             |                 |           |                                                                                                                                  |                 |
+| CUOTEALO - I pay with Cuotelo BCP                 |                 |           |                                                                                                                                  |                 |
+| QR - Recovery with mobile bills                 |                 |           |                                                                                                                                  |                 |
+| BANK\_TRANSFER - Payment for Banking Transfer |                 |           |                                                                                                                                  |                 |
+| PAGO\_FUNCTIVE - Payment by PagoEfectivo           |                 |           |                                                                                                                                  |                 |
+| `urlNotification`                                | String          | 200       | URL where the notification will be made after authorisation of the transaction. It's optional as it can be set by back        | NO              |
+
+## **Departure Parameters**
+
+### PaymeEvents Object
+
+Open complete board
+
+| **Parameter** | **Type** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | **Req.** |
+| :------------ | :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
+| PaymeEvents   | Inum     | Internal action indicator SDK. Can have the following values <ul><li>`BUILD_FORM(methods:[String])`: indicates that methods were shown to users at SDK</li><li>`CHOOSE_PAYMENT_METHOD(method: String)`: indicates that payment method select the user.</li><li>`RETURN_LIST_PAYMENT_METHODS`: indicates that she returned to the list of payment methods.</li><li>`CANCEL_PAYMENT_METHOD(method: String)`: indicates that payment method was cancelled by the user.</li><li>`PRESS_PAY_BUTTON(method: String)`: indicates how the user chose to pay.</li><li>`CLOSE_PAYME`: indicates that the user closed the SDK</li></ul> | If       |
+
+The object `PAYMEChargesResponse` includes the following:
+
+### PAYMEChargesResponse
+
+Open complete board
+
+| **Parameter** | **Type**                                                                                                                                               | **Long.** | **Description**                                                                                                                          | **Mandatory** |
+| :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| success       | Boolean                                                                                                                                                | -         | It's got value.*\*true\*\*if the process was performed correctly,\*\*Fasse\*\*if an error occurred during the payment processing. | If              |
+| resultCode    | String                                                                                                                                                 | 2         | Reprocessing result code.                                                                                                   | If              |
+| resultMessage | String                                                                                                                                                 | 30        | Text describing the result of processing.                                                                                       | If              |
+| result        | [PAYMETransactionResult](https://docs.pay-me.com/es/sdk/v3.2/Android/parametros-de-entrada-y-salida-de-pay-me-sdk-andro#PAYMETransactionResult) | -         | Detail of the transaction result.                                                                                                 | NO              |
+
+#### PAYMETransactionResult
+
+Open complete board
+
+| **Parameter**     | **Type**                                                                                                                                                    | **Long.** | **Description**                                                                                            | **Mandatory** |
+| :---------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------------- | :-------------- |
+| transactionId     | String                                                                                                                                                      | 25        | To identify unique transaction generated by Alignet One                                                    | If              |
+| operation.Number   | String                                                                                                                                                      | 12        | Operation number sent by merchant                                                                | If              |
+| status             | String                                                                                                                                                      | -         | Status of transaction: <ul><li>PENDIENTE</li><li>INVALIDO</li><li>AUTORIZADO</li><li>DENEGADO</li></ul> | If              |
+| statesReason       | String                                                                                                                                                      | 100       | That's why she stayed in that state.                                                                | If              |
+| amount            | String                                                                                                                                                      | 11        | Authorisation amount                                                                                   | If              |
+| currency          | String                                                                                                                                                      | 3         | Currency used at authorization                                                                            | If              |
+| Additional  | Dictionary                                                                                                                                                 | -         | It contains additional information provided by the merchant.                                              | NO              |
+| paymentMethod     | [PAYMEPaymentMethod](https://docs.pay-me.com/es/sdk/v3.2/Android/parametros-de-entrada-y-salida-de-pay-me-sdk-andro#PAYMEPaymentMethod)              | -         | Purpose of the payment method                                                                                  | If              |
+| atoning    | String                                                                                                                                                      | -         | Date in format **UNIX** where the transaction will be terminated. Available for QR and PAGO\_EFFECTIVE      | NO              |
+| process | String                                                                                                                                                      | 500       | JSON String with a response from the processor.                                                      | NO              |
+| lifecycle         | [Array PAYMETRASsactionLifecycle](https://docs.pay-me.com/es/sdk/v3.2/Android/parametros-de-entrada-y-salida-de-pay-me-sdk-andro#PAYMETransactionLifecycle) | -         | Array of times and states by which I pass the transaction                                                 | If              |
+
+##### PAYMEPaymentMethod
+
+Open complete board
+
+| **Parameter** | **Type** | **Long.** | **Description**                                                                                                                                                   | **Mandatory** |
+| :------------ | :------- | :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| name          | String   | -         | Payment method used to approve the transaction: <ul><li>CARD</li><li>YAPE</li><li>QR</li><li>CUOTEALO</li><li>BANK\_TRANSFER</li><li>PAGO\_EFFECTIVE</li></ul> | If              |
+| MethodDetail  | String   | 500       | JSON String that contains information from the card used for authorization, these data are available in methods CARD - YAPE - QR.                               | NO              |
+
+##### PAYMETransactionLifecycle
+
+Open complete board
+
+| **Parameter** | **Type** | **Long.** | **Description**                                                                                                               | **Mandatory** |
+| :------------ | :------- | :-------- | :---------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| status         | String   | -         | Status of transaction: <ul><li>REGISTRADO</li><li>PENDIENTE</li><li>INVALIDO</li><li>AUTORIZADO</li><li>DENEGADO</li></ul> | If              |
+| utcTime       | String   | -         | Date in format UTC with the transaction changing status.                                                               | If              |
+| unixTime      | String   | -         | Date in format UNIX with the transaction changing status.                                                              | If              |

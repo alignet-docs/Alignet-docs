@@ -1,0 +1,146 @@
+---
+title: "Latest improvements"
+description: "Recent improvements in viewing and user experience at Alignet One Flex."
+---
+Alignet One Flex incorporates visual and experience improvements to make the checkout more clear, modern and user-friendly for the buyer.
+
+<Info>
+  These improvements apply to the visual experience of the component Flex. The final availability may depend on the library version used and the matching set.
+</Info>
+
+<Frame>
+  <img src="https://mintcdn.com/alignet/bKQM6Afgv20BwWHw/images/Mejoras_Flex_V2.png?fit=max&auto=format&n=bKQM6Afgv20BwWHw&q=85&s=723ddb1e4c1a20f85cc7b40e196707ea" alt="Improvements in viewing Alignet One Flex" width="1770" height="1143" data-path="images/Mejoras_Flex_V2.png" />
+</Frame>
+
+## Where they are set up
+
+These improvements are seen according to the component version and the configuration sent by initializing Flex. If your merchant already has Flex Please check this table to figure out what to add or validate to your integration.
+
+| Enhancement              | What have you got to check?                                                                                                 | Parameter or guide                                                                                                                                     |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Configure logo   | The merchant should share URL public logo that you wish to display at the top left of the check out. | Configure enabled by integration equipment                                                                                              |
+| Multidioma          | Add the language settings if you want to display the selector `ES` / `EN`.                                     | [`i18n.mode`, `i18n.default_language`, `i18n.languages`](/en/virtual-payments/checkout-web/flex/component-initialization)                                               |
+| Closing Button     | Turn on the button if you need the buyer to get out of the checkout from the interface.                         | [`settings.show_close_button`](/en/virtual-payments/checkout-web/flex/component-initialization)                                                                         |
+| Most visual card  | Valves that the method `CARD` have been authorized and have the payload send the required buyer information.             | [`display_settings.methods`](/en/virtual-payments/checkout-web/flex/component-initialization) and [Construction of payload](/en/virtual-payments/checkout-web/flex/payload-construction) |
+| Bordes and styles    | Define if the container is shown with visual edge or if your external Layout already handles it.                          | [`settings.show_border`](/en/virtual-payments/checkout-web/flex/component-initialization)                                                                               |
+| Yape UX             | Realizes that `YAPE` be available for the merchant and, if you have limited methods, put it in the visible list.         | [`display_settings.methods`](/en/virtual-payments/checkout-web/flex/component-initialization) and [Test data](/en/virtual-payments/payments/test-data)                               |
+| Operating number | It activates the display of the operation number if you need traceability for support.                       | [`settings.show_operation_number`](/en/virtual-payments/checkout-web/flex/component-initialization)                                                                     |
+
+<Note>
+  If you don't send `display_settings.methods`, Flex will display the methods enabled for your default merchant. If you do send the list, you have to explicitly include the methods you want to display, for example `CARD` or `YAPE`.
+</Note>
+
+<Info>
+  The configurable logo isn't sent into the initialization object. To enable it, the merchant should share with the integration team an URL public HTTPS from the logo that will be shown in the checkout.
+</Info>
+
+## Upgrading of viewing
+
+<CardGroup cols={2}>
+  <Card title="Configure logo" icon="image">
+    Personalization of the upper left checkout logo. The merchant should send the URL from logo to integration equipment to configure.
+  </Card>
+
+  <Card title="Multidioma" icon="globe" href="/en/virtual-payments/checkout-web/flex/component-initialization">
+    Language selector `ES` / `EN` To offer a more clear experience with the user's language.
+  </Card>
+
+  <Card title="Closing Button" icon="xmark" href="/en/virtual-payments/checkout-web/flex/component-initialization">
+    New visible clasp to leave the check out quickly, clear and controlled.
+  </Card>
+
+  <Card title="Most visual card" icon="credit-card" href="/en/virtual-payments/checkout-web/flex/payload-construction">
+    Upgrading card visualisation with brand logos, name and date of expiry.
+  </Card>
+
+  <Card title="Bordes and styles" icon="border-all" href="/en/virtual-payments/checkout-web/flex/component-initialization">
+    Rounding bordes and consisstore visual styles for a more modern and clean experience.
+  </Card>
+
+  <Card title="Yape UX" icon="mobile-screen" href="/en/virtual-payments/payments/test-data">
+    Integrated and improved flow for payments with Yapewith more clear user fields and messages.
+  </Card>
+
+  <Card title="Operating number" icon="hashtag" href="/en/virtual-payments/checkout-web/flex/component-initialization">
+    Visualization of operation number to improve traceability and support during payment.
+  </Card>
+</CardGroup>
+
+## Detail for improvement
+
+<AccordionGroup>
+  <Accordion title="Configure logo" icon="image" defaultOpen>
+    * It allows you to customize the logo that appears at the top left of the checkout.
+    * The merchant should share URL public HTTPS from the logo you wish to display.
+    * The URL have to aim directly at the image file and be available without authentication.
+    * The activation is co-ordinated with the integration equipment and cannot be configured from `settings`, `display_settings` and `i18n`.
+  </Accordion>
+
+  <Accordion title="Multidioma" icon="language">
+    * Visible language select inside the checkout.
+    * initial support for `ES` and `EN`.
+    * Help merchantrs with buyers who prefer a bilingual experience.
+    * It's set up with [Initiate component](/en/virtual-payments/checkout-web/flex/component-initialization), within the object `i18n`.
+  </Accordion>
+
+  <Accordion title="Closing Button" icon="circle-xmark">
+    * Most visible closing button at interface.
+    * It allows us to leave the checkout without ambiguity.
+    * It improves user monitoring during the payment process.
+    * It's activated with `settings.show_close_button` in [Initiate component](/en/virtual-payments/checkout-web/flex/component-initialization).
+  </Accordion>
+
+  <Accordion title="Card display" icon="credit-card-front">
+    * A more visual renderized card.
+    * Visible brand Logos as appropriate.
+    * Main fields organized to facilitate reading.
+    * Check. `CARD` in `display_settings.methods` and information sent at [Construction of payload](/en/virtual-payments/checkout-web/flex/payload-construction).
+  </Accordion>
+
+  <Accordion title="Bordes and visual consistency" icon="object-group">
+    * Rounding bordes in containers and fields.
+    * Cleaner visual separation between payment methods and form.
+    * Cleaner and more consisstore appearance between flows.
+    * It's controlled with `settings.show_border` in [Initiate component](/en/virtual-payments/checkout-web/flex/component-initialization).
+  </Accordion>
+
+  <Accordion title="Yape UX" icon="mobile">
+    * Display of Yape more direct.
+    * Cell field and better differentiated approval code.
+    * Help messages aimed at reducing buyer errors.
+    * Check that `YAPE` and `display_settings.methods` and uses [Test data](/en/virtual-payments/payments/test-data) To validate the flow.
+  </Accordion>
+
+  <Accordion title="Operating number" icon="receipt">
+    * Checkout shows the operation number associated with payment.
+    * Facilitates traceability for support, reconciliation and operational review.
+    * Help the merchant and the buyer to identify an attempt to pay.
+    * It's activated with `settings.show_operation_number` in [Initiate component](/en/virtual-payments/checkout-web/flex/component-initialization).
+  </Accordion>
+</AccordionGroup>
+
+## Recommendation
+
+<Note>
+  If you have an integration Flex Reg these improvements to production before enabling them to production. Specially valid logo configurable, language, checkout closure, Yape and display card in browsers supported by your merchant.
+</Note>
+
+## Related guides
+
+<CardGroup cols={2}>
+  <Card title="Initiate component" icon="gear" href="/en/virtual-payments/checkout-web/flex/component-initialization">
+    Figure `settings`, `display_settings.methods` e `i18n` to activate or restrict these improvements.
+  </Card>
+
+  <Card title="Construction of payload" icon="receipt" href="/en/virtual-payments/checkout-web/flex/payload-construction">
+    Check the operation and buyer data that Flex used to render the flow correctly.
+  </Card>
+
+  <Card title="Capture callbacks" icon="bolt" href="/en/virtual-payments/checkout-web/flex/handling-callback-functions">
+    Processes responses, events and errors during payment flow.
+  </Card>
+
+  <Card title="Test data" icon="vial" href="/en/virtual-payments/payments/test-data">
+    Valid card, Yape and other methods at production before enabling production.
+  </Card>
+</CardGroup>

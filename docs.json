@@ -463,6 +463,166 @@
                       "en/virtual-payments/general-best-practices",
                       "en/virtual-payments/certification-checklist"
                     ]
+                  },
+                  {
+                    "group": "Integration",
+                    "icon": "wrench",
+                    "pages": [
+                      {
+                        "group": "E-commerce",
+                        "icon": "store",
+                        "pages": [
+                          "en/virtual-payments/e-commerce/introduction",
+                          "en/virtual-payments/e-commerce/integration-checklist",
+                          "en/virtual-payments/e-commerce/best-practices",
+                          {
+                            "group": "WooCommerce",
+                            "icon": "wordpress",
+                            "pages": [
+                              "en/virtual-payments/wordpress-woocommerce/introduction",
+                              "en/virtual-payments/wordpress-woocommerce/installation-and-activation",
+                              "en/virtual-payments/wordpress-woocommerce/configuration-and-keys",
+                              "en/virtual-payments/wordpress-woocommerce/checkout-experience",
+                              "en/virtual-payments/wordpress-woocommerce/order-and-transaction-management",
+                              "en/virtual-payments/wordpress-woocommerce/testing-and-certification",
+                              "en/virtual-payments/wordpress-woocommerce/troubleshooting"
+                            ]
+                          },
+                          {
+                            "group": "PrestaShop",
+                            "icon": "store",
+                            "pages": [
+                              "en/virtual-payments/prestashop/introduction",
+                              "en/virtual-payments/prestashop/installation-and-activation",
+                              "en/virtual-payments/prestashop/module-configuration",
+                              "en/virtual-payments/prestashop/customer-experience",
+                              "en/virtual-payments/prestashop/order-and-transaction-management",
+                              "en/virtual-payments/prestashop/testing-and-certification",
+                              "en/virtual-payments/prestashop/troubleshooting"
+                            ]
+                          },
+                          {
+                            "group": "VTEX",
+                            "icon": "shopping-cart",
+                            "pages": [
+                              "en/virtual-payments/vtex/introduction",
+                              "en/virtual-payments/vtex/installation",
+                              "en/virtual-payments/vtex/configuration",
+                              "en/virtual-payments/vtex/credential-and-payment-method-configuration",
+                              "en/virtual-payments/vtex/payment-condition-configuration",
+                              "en/virtual-payments/vtex/payment-flow",
+                              "en/virtual-payments/vtex/testing-and-troubleshooting"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Web Checkout",
+                        "icon": "globe",
+                        "pages": [
+                          "en/virtual-payments/checkout-web/introduction",
+                          "en/virtual-payments/checkout-web/integration-checklist",
+                          "en/virtual-payments/checkout-web/best-practices",
+                          "en/virtual-payments/checkout-web/business-requirements",
+                          {
+                            "group": "Flex",
+                            "icon": "window-maximize",
+                            "pages": [
+                              "en/virtual-payments/checkout-web/flex/introduction",
+                              "en/virtual-payments/checkout-web/flex/latest-improvements",
+                              "en/virtual-payments/checkout-web/flex/api-nonce",
+                              "en/virtual-payments/checkout-web/flex/library-and-basic-styles",
+                              "en/virtual-payments/checkout-web/flex/payment-functionality",
+                              "en/virtual-payments/checkout-web/flex/payload-construction",
+                              "en/virtual-payments/checkout-web/flex/component-initialization",
+                              "en/virtual-payments/checkout-web/flex/handling-callback-functions",
+                              "en/virtual-payments/checkout-web/flex/automatic-debit-functionality"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Mobile SDK",
+                        "icon": "mobile-screen-button",
+                        "pages": [
+                          "en/virtual-payments/sdk-mobile/introduction",
+                          "en/virtual-payments/sdk-mobile/integration-checklist",
+                          "en/virtual-payments/sdk-mobile/best-practices",
+                          {
+                            "group": "Android",
+                            "icon": "android",
+                            "pages": [
+                              "en/virtual-payments/sdk-mobile/android/introduction",
+                              "en/virtual-payments/sdk-mobile/android/requirements",
+                              "en/virtual-payments/sdk-mobile/android/installation",
+                              {
+                                "group": "Payment flow",
+                                "pages": [
+                                  "en/virtual-payments/sdk-mobile/android/payment-flow/initialize-alignet-one-sdk-android",
+                                  "en/virtual-payments/sdk-mobile/android/payment-flow/alignet-one-sdk-android-parameters",
+                                  "en/virtual-payments/sdk-mobile/android/payment-flow/error-messages"
+                                ]
+                              },
+                              {
+                                "group": "Affiliations",
+                                "pages": [
+                                  "en/virtual-payments/sdk-mobile/android/affiliations/initialize-sdk-android",
+                                  "en/virtual-payments/sdk-mobile/android/affiliations/sdk-android-parameters",
+                                  "en/virtual-payments/sdk-mobile/android/affiliations/error-messages"
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "group": "iOS",
+                            "icon": "apple",
+                            "pages": [
+                              "en/virtual-payments/sdk-mobile/ios/introduction",
+                              "en/virtual-payments/sdk-mobile/ios/requirements",
+                              "en/virtual-payments/sdk-mobile/ios/installation",
+                              {
+                                "group": "Payment flow",
+                                "pages": [
+                                  "en/virtual-payments/sdk-mobile/ios/payment-flow/initialize-alignet-one-sdk-ios",
+                                  "en/virtual-payments/sdk-mobile/ios/payment-flow/alignet-one-sdk-ios-parameters",
+                                  "en/virtual-payments/sdk-mobile/ios/payment-flow/error-messages"
+                                ]
+                              },
+                              {
+                                "group": "Affiliations",
+                                "pages": [
+                                  "en/virtual-payments/sdk-mobile/ios/affiliations/initialize-sdk-ios",
+                                  "en/virtual-payments/sdk-mobile/ios/affiliations/sdk-ios-parameters",
+                                  "en/virtual-payments/sdk-mobile/ios/affiliations/error-messages"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Payments",
+                    "icon": "credit-card",
+                    "pages": [
+                      {
+                        "group": "Fundamental concepts",
+                        "icon": "lightbulb",
+                        "pages": [
+                          "en/virtual-payments/payments/smart-operations",
+                          "en/virtual-payments/payments/transaction-states",
+                          "en/virtual-payments/payments/return-codes"
+                        ]
+                      },
+                      {
+                        "group": "Sandbox and testing",
+                        "icon": "flask",
+                        "pages": [
+                          "en/virtual-payments/payments/test-data"
+                        ]
+                      }
+                    ]
                   }
                 ]
               }

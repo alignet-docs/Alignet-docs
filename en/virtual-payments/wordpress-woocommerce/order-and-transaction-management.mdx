@@ -1,0 +1,88 @@
+---
+title: "Order and transaction management"
+description: "Manage payments, refunds, and statuses directly from WordPress."
+---
+The plugin of Alignet One centralizes financial operation at a single place, enabling you to make data-based decisions and manage money flow effectively.
+
+## 1. Management Panel Alignet One
+
+To gain access to your payment monitoring centre, contact: **WooCommerce** > **Alignet One Transactions**.
+
+That panel is divided into three key tools:
+
+<Tabs>
+  <Tab title="Transactions">
+    Visualizes the detailed history of all payment attempts.
+
+    * **Advanced filters:** Search by status (Approved, Denied) and date ranges.
+    * **Individual Detail:** Access Gateway's transaction IDs for bank reconciliations.
+  </Tab>
+
+  <Tab title="Events Logs">
+    Technical registration of communication between your server and Alignet One.
+
+    * **Audit:** Tracking connection errors or issuer responses.
+    * **Maintenance:** Option to clear old logs and optimize database.
+  </Tab>
+
+  <Tab title="Statistics">
+    Graphic display of your storage performance in the last 30 days:
+
+    * **Conversion rate:** Percentage of successful and failed transactions.
+    * **Metrics:** Total amount processed, average ticket and sales volume.
+  </Tab>
+</Tabs>
+
+***
+
+## 2. Reimbursements
+
+No more need to get into the Alignet One To give back money. Can you do **total or partial reimbursement** directly from WooCommerce.
+
+### How to conduct a revern?
+
+1. Go to **WooCommerce** > **Requests** and select the desired order.
+2. Click the button **"Extort with Alignet One"**.
+3. The system will process an application S2S (Server-to-Server) with the gateway.
+
+<Check>
+  **Intelligent Security:** The plugin has an internal validation that prevents duplicated reversals automatically, protecting your cash flow.
+</Check>
+
+***
+
+## 3. Automatic Mapping of States
+
+The plugin synchronizes order status at WooCommerce as at Alignet Oneautomates your logistics:
+
+| Event at Alignet One    | Status at WooCommerce                                   | Automatic Action                                            |
+| :------------------ | :------------------------------------------------------ | :----------------------------------------------------------- |
+| **Successful payment**    | <span style={{color: '#2ecc71'}}>**Processing**</span>  | The stock is reduced and confirmation mail sent.        |
+| **Payment outstanding**  | <span style={{color: '#f1c40f'}}>**Stand by**</span>   | The stock will be booked (on-hold) until confirmation S2S.     |
+| **Failed payment**    | <span style={{color: '#e74c3c'}}>**Failed**</span>     | The client is notified to re-attempt payment.           |
+| **Exstore Reversal** | <span style={{color: '#3498db'}}>**Reimbursed**</span> | The status changes automatically by confirming the refund. |
+
+## 4. Asynchronous methods (QR / PagoEfectivo)
+
+For non-instant methods, the flow follows a logic of **deferred confirmation**:
+
+1. The order is created as **Stand by (on-hold)**.
+2. The client pays his or her bank or agent app.
+3. Alignet One sends a notice **S2S** To your store.
+4. The plugin gets the sign and changes the status to **Processing** Auto.
+
+<Warning>
+  **Important:** If your server's under maintenance or under a firewall that blocks the IP from Alignet Onethe status of the order shall not be updated automatically. Always check the **Loks** If this happens.
+</Warning>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Tests and certification" icon="vial-circle-check" href="/en/virtual-payments/wordpress-woocommerce/testing-and-certification">
+    Valids that states change correctly with our test cards.
+  </Card>
+
+  <Card title="Problem solving" icon="life-ring" href="/en/virtual-payments/wordpress-woocommerce/troubleshooting">
+    The order doesn't change status? Check common solutions here.
+  </Card>
+</CardGroup>

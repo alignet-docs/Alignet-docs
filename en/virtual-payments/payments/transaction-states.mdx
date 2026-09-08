@@ -1,0 +1,61 @@
+---
+title: "Transaction states"
+description: "Understand the payment lifecycle and the statuses a transaction can pass through."
+---
+### Payment Life Flow
+
+That's the standard path following a successful transaction versus one that isn't complete.
+
+<Steps>
+  <Step title="outstanding (PENDING)" icon="hourglass-half">
+    The transaction's been initiated. In methods such as transfers or bills, we are awaiting user confirmation.
+  </Step>
+
+  <Step title="Authorisation (AUTHORIZED)" icon="shield-check">
+    The issuer has approved the payment. The funds are booked to the client's account but have been still to be transferred to your account.
+  </Step>
+
+  <Step title="Liquid (SETTLED)" icon="money-bill-transfer">
+    Success! The money has been processed and entered into the authorization cycle to be deposited with your bank account.
+  </Step>
+</Steps>
+
+***
+
+### Glossary of States
+
+Use these states to map logic into your websites and database.
+
+#### Success States
+
+| State         | Label                                                                              | Description                                   |
+| :------------- | :------------------------------------------------------------------------------------ | :-------------------------------------------- |
+| **AUTHORIZED** | <ResponseField name="Autorizado" type="success">                     </ResponseField> | Adopted by the mark. Funds held back.      |
+| **SETTLED**    | <ResponseField name="Liquidado" type="success">                     </ResponseField>  | Transaction completed and processed for payment. |
+
+### Final States of Error
+
+| State        | Label                                                                             | Description                                                                                                                   |
+| :------------ | :----------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| **DECLINED**  | <ResponseField name="Denegado" type="error">                     </ResponseField>    | Rejected by issuing bank or system rules.                                                                           |
+| **INVALID**   | <ResponseField name="Inválido" type="error">                     </ResponseField>    | Failed processing, authentication failure or blocking for fraud prevention. **He's always showing his motif.** |
+| **EXPIRED**   | <ResponseField name="Expirado" type="warning">                     </ResponseField>  | The payment deadline (TTL) has expired.                                                                                   |
+| **CANCELLED** | <ResponseField name="Cancelado" type="neutral">                     </ResponseField> | The user or system decided to cancel the operation.                                                                     |
+
+### Post- Sales
+
+| State       | Label                                                                          | Description                                                  |
+| :----------- | :-------------------------------------------------------------------------------- | :----------------------------------------------------------- |
+| **VOIDED**   | <ResponseField name="Extornado" type="info">                     </ResponseField> | Cancellation of an authorized transaction (before authorization). |
+| **REFUNDED** | <ResponseField name="Devuelto" type="info">                     </ResponseField>  | A complete or partial return of an already settled transaction.  |
+
+### Flow of states
+
+That's the flow of states that conduct a transaction at the platform:
+
+* **Home**: Any operation starts as **Registered** and goes to **Outstanding** while processing.
+* **Resolution**: From an outstanding date, payment can be **Authorisation** (success), **Rejected** (rejection), **Cancelled / Expand**(abandonment) or **Invalid** (data error).
+* **Closure**: Once authorized, the flow advances to **Liquid** (collection of funds) and end up **Subscriber**.
+* **Post-sale**: Allows applying a **Extornado** (cancellation before disposal) or **Rejected** (Retirement after liquidation).
+
+<img src="https://mintcdn.com/alignet/HjFoZLv28Up5F2DM/images/image-25.png?fit=max&auto=format&n=HjFoZLv28Up5F2DM&q=85&s=213a4e6316181d4e2c5f37df22e5a43c" alt="Image" title="Image" className="mx-auto" style={{ width:"80%" }} width="1056" height="992" data-path="images/image-25.png" />

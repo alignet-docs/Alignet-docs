@@ -1,0 +1,54 @@
+---
+title: "Best practices"
+description: "Recommendations for a secure and stable Alignet One Mobile SDK integration on Android and iOS."
+---
+Implement these recommendations as you integrate Alignet One with **SDK Android** or **SDK iOS**.
+
+## Recommended architecture
+
+<CardGroup cols={2}>
+  <Card title="Mobile App" icon="mobile-screen-button">
+    The SDKand shows friendly responses.
+  </Card>
+
+  <Card title="Backend" icon="server">
+    Genera tokens, protect credentials, register operations and confirm final results.
+  </Card>
+</CardGroup>
+
+<Warning>
+  Do not include credentials, secrets or sensible logic within the app. What's critical should be back up.
+</Warning>
+
+## Mobile Security
+
+<AccordionGroup>
+  <Accordion title="Tokens" icon="key" defaultOpen>
+    * Genera `Access Token` from backend.
+    * Do not persist sensitive tokens in unsafe storage.
+    * Avoid printing tokens or complete payloads on login.
+  </Accordion>
+
+  <Accordion title="Private SDKs" icon="box">
+    * Don't come up `.aar`, `.xcframework` or private ZIPS to public repositories.
+    * Use the version delivered or approved by the integration team.
+    * Valids compatibility before upgrading dependencies.
+  </Accordion>
+
+  <Accordion title="Reg. SDK" icon="shield-check">
+    * Use callbacks / delegates to update user experience.
+    * Confirm states from backend as required by the method.
+    * Drive cancellation, error, timeout and back of the app.
+  </Accordion>
+</AccordionGroup>
+
+## Recommended Validation
+
+* Test Android e iOS separately.
+* Validate approved, refused and controlled errors.
+* Review behavior with bad connectivity.
+* Keep operation number and minimum login for support.
+
+<Card title="Integration checklist" icon="clipboard-check" href="/en/virtual-payments/sdk-mobile/integration-checklist">
+  Check the specific checklist for SDK Mobile.
+</Card>

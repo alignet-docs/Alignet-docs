@@ -1,0 +1,140 @@
+---
+title: "Initialize affiliations on iOS"
+description: "Initiates Alignet One SDK iOS to register or update affiliations from your mobile app."
+---
+The Affiliations Flow allows to register or update information associated with a recipient from Alignet One SDK iOS.
+
+<Info>
+  Before we start this flow, complete [Installation SDK iOS](/en/virtual-payments/sdk-mobile/ios/installation)Check. [Affiliation parameters](/en/virtual-payments/sdk-mobile/ios/affiliations/sdk-ios-parameters) and generates an `Access Token` from backend using [Authentication](https://docs.pay-me.com/api-de-pagos/autenticacion).
+</Info>
+
+## Integration Flow
+
+<Steps>
+  <Step title="The SDK">
+    Add `UIKit` and `Alignet One` at `ViewController` from where you will start the flow.
+  </Step>
+
+  <Step title="Build the request">
+    Crea `PAYMEAffiliationRequest` with Affiliation, Beneficiaries and Configure data.
+  </Step>
+
+  <Step title="PaymeClient Configure">
+    Initiates `PaymeClient` with `delegate`, `merchantCode` and atmosphere.
+  </Step>
+
+  <Step title="Invoked form">
+    Send `accessToken` and `paymeAffiliationRequest` in `invokeAffiliationForm`.
+  </Step>
+
+  <Step title="Processes the response">
+    Implement `onAffiliationResponse` To get the final result of the flow.
+  </Step>
+</Steps>
+
+## Import PaymeSDK
+
+```swift theme={"system"}
+import UIKit
+import Alignet One
+```
+
+## Main parameters
+
+<AccordionGroup>
+  <Accordion title="PaymeClient" icon="code" defaultOpen>
+    * `delegate`: instance that implements methods of `PaymeClientDelegate`.
+    * `merchantCode`: Merchant code delivered by Alignet.
+  </Accordion>
+
+  <Accordion title="SetEnvironment" icon="globe">
+    * `PaymeEnviroment.development`: Test environment.
+    * `PaymeEnviroment.production`: production environment.
+  </Accordion>
+
+  <Accordion title="invokeAffiliationForm" icon="user-plus">
+    * `from`: `UINavigationController` or controller from where the SDK.
+    * `accessToken`: token generated from backend for this request.
+    * `paymeAffiliationRequest`: with information from Affiliation.
+  </Accordion>
+</AccordionGroup>
+
+## Example of initiation
+
+```swift theme={"system"}
+let beneficiary = PAYMEAddressData(
+    firstName: "Producto",
+    lastName: "Alignet",
+    email: "producto@alignet.com",
+    phone: "51-999999999",
+    identityDocument: PAYMEIdentityDocument(
+        type: "DNI",
+        identifier: "77777777",
+        country: "PE"
+    ),
+    addressLine1: "Av casimiro Ulloa 333",
+    addressLine2: nil,
+    city: "Lima",
+    state: "Lima",
+    country: "PE"
+)
+
+var additionalFields = [String: String]()
+additionalFields["FACTURACION_ID"] = "CODE_12345"
+additionalFields["reserved1"] = "1"
+
+let affiliation = PAYMEAffiliationData(
+    type: PAYMEAffiliationType.MANUAL,
+    amount: nil,
+    currency: "604",
+    additionalFields: additionalFields,
+    beneficiary: beneficiary
+)
+
+let paymeAffiliationRequest = PAYMEAffiliationRequest(
+    action: PAYMEAffiliationAction.CREATE,
+    affiliationCode: "AFFILIATION_CODE",
+    affiliation: affiliation,
+    setting: PAYMESettingData(
+        locale: "es_PE",
+        walletUserID: "WALLET_USER_CODE"
+    )
+)
+
+let paymeClient = PaymeClient(
+    delegate: self,
+    merchantCode: "MERCHANT_CODE"
+)
+
+paymeClient.setEnvironment(
+    environment: PaymeEnviroment.development
+)
+
+paymeClient.invokeAffiliationForm(
+    from: self.navigationController!,
+    accessToken: "TOKEN_GENERADO_PARA_ESTA_SOLICITUD",
+    paymeAffiliationRequest: paymeAffiliationRequest
+)
+```
+
+<Warning>
+  The `accessToken` should be generated from backend for the application. Do not include credentials or secrets inside the app.
+</Warning>
+
+## Implement delegate
+
+To complete integration, class should implement `PaymeClientDelegate` and process Affiliation response.
+
+```swift theme={"system"}
+extension MainController: PaymeClientDelegate {
+    func onAffiliationResponse(response: PAYMEAffiliationResponse) {
+        // Procesa el resultado final de la afiliación.
+    }
+}
+```
+
+## Next step
+
+<Card title="Affiliation parameters" icon="arrow-right" href="/en/virtual-payments/sdk-mobile/ios/affiliations/sdk-ios-parameters">
+  Check the complete details of objects sent and received by Affiliation flow.
+</Card>

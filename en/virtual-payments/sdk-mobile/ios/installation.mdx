@@ -1,0 +1,121 @@
+---
+title: "Install the iOS SDK"
+description: "Frameworks, embedding and adjustments necessary to integrate Alignet One SDK in iOS."
+---
+This guide describes how to incorporate Alignet One SDK your project iOS before applying collection or affiliations.
+
+<Info>
+  Always use the version of SDK delivered or confirmed by the integration team for your merchant.
+</Info>
+
+<Card title="Download SDK Alignet One iOS v3.3" icon="download" href="https://docs.pay-me.com/sdk-mobile/librerias/SDK_Payme_iOS_v3.3.zip">
+  Download package `.zip` with frameworks necessary to integrate SDK iOS.
+</Card>
+
+## Required equipment
+
+The integration package should include the necessary frameworks to run the payment flow.
+
+<CardGroup cols={2}>
+  <Card title="Alignet One.xcframework" icon="credit-card">
+    Main framework SDK.
+  </Card>
+
+  <Card title="SecureKey3DS.xcframework" icon="shield-check">
+    3DS authentication framework.
+  </Card>
+
+  <Card title="VisaSensorand Branding.xcframework" icon="sparkles">
+    Visa experience framework.
+  </Card>
+
+  <Card title="Mastercard" icon="music">
+    Mastercard experience framework.
+  </Card>
+</CardGroup>
+
+<Warning>
+  Don't put up his artifacts. SDK a Public repositories. Treat the submitted archives as private merchant dependencies.
+</Warning>
+
+## Recommended structure
+
+Create a frameworks folder within the project and place the delivered artifacts there.
+
+```text theme={"system"}
+App/
+  Frameworks/
+    Alignet One.xcframework
+    SecureKey3DS.xcframework
+    VisaSensoryBranding.xcframework
+    MastercardSonic.xcframework
+```
+
+## Add frameworks to Xcode
+
+At Xcode, add frameworks to the project using:
+
+* **Copy items if needed**
+* **Create Groups**
+* Correct implementation target
+
+<Note>
+  After adding them, check that each framework appears at the app target inside **Frameworks, Libraries, and Embed Constore**.
+</Note>
+
+## Embedding
+
+Configure each framework with the option **Embed Without Signing** within target iOS.
+
+<AccordionGroup>
+  <Accordion title="App target" icon="mobile-screen-button" defaultOpen>
+    * Open the main target of the application.
+    * Enter **General**.
+    * Ubica **Frameworks, Libraries, and Embed Constore**.
+    * Add frameworks from SDK if they are not listed.
+  </Accordion>
+
+  <Accordion title="Embed" icon="box">
+    * Figure `Alignet One.xcframework` how **Embed Without Signing**.
+    * Figure `SecureKey3DS.xcframework` how **Embed Without Signing**.
+    * Figure `VisaSensoryBranding.xcframework` how **Embed Without Signing**.
+    * Figure `MastercardSonic.xcframework` how **Embed Without Signing**.
+  </Accordion>
+</AccordionGroup>
+
+## Swift configuration
+
+It matters `Alignet One` at `ViewController` or class from where you will call SDK.
+
+```swift theme={"system"}
+import UIKit
+import Alignet One
+```
+
+## Rapid Validation
+
+<AccordionGroup>
+  <Accordion title="Compilation" icon="hammer" defaultOpen>
+    * The project compiles without missing frameworks errors.
+    * The `.xcframework` they are associated with the right target.
+    * No conflict with architecture or versions of Swift.
+  </Accordion>
+
+  <Accordion title="Configure" icon="gear">
+    * The frameworks are set as **Embed Without Signing**.
+    * The sandbox environment's been identified for first tests.
+    * The app can matter `Alignet One` That's right.
+  </Accordion>
+
+  <Accordion title="Security" icon="lock">
+    * Credentials are generated and protected from backend.
+    * No tokens or secrets are exposed inside the app.
+    * Test logs don't print sensitive information.
+  </Accordion>
+</AccordionGroup>
+
+## Next step
+
+<Card title="Start Alignet One SDK iOS" icon="arrow-right" href="/en/virtual-payments/sdk-mobile/ios/payment-flow/initialize-alignet-one-sdk-ios">
+  It creates an instance of `PaymeClient` and start your first collection flow.
+</Card>

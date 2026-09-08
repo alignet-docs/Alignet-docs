@@ -1,0 +1,79 @@
+---
+title: "iOS SDK"
+description: "Integra Alignet One SDK in iOS to run collection and affiliations from native mobile applications."
+---
+Alignet One SDK iOS allows to integrate **Recovery** and **Affiliation** directly onto your mobile application, while maintaining a native experience for the end user.
+
+<Info>
+  The integration should be coordinated with the integration team to get SDKs, credentials, environment and payment methods enabling your merchant.
+</Info>
+
+## What can you integrate?
+
+<CardGroup cols={2}>
+  <Card title="Mobile" icon="credit-card">
+    Initiates SDK to process payments with methods authorized for the merchant.
+  </Card>
+
+  <Card title="Affiliations" icon="user-plus">
+    Record or update information associated with Affiliation flows when applying to business.
+  </Card>
+
+  <Card title="Methods of payment" icon="wallet">
+    Cards, Yape, QRBank transfer, Cuotéalo and PagoEfectivo by configuration.
+  </Card>
+
+  <Card title="Sandbox" icon="flask">
+    Valids controlled scenarios before applying for production.
+  </Card>
+</CardGroup>
+
+## Suggested route
+
+<Steps>
+  <Step title="Check requirements">
+    Confirms versions, frameworks, permissions and dedicated business at [Requirements SDK iOS](/en/virtual-payments/sdk-mobile/ios/requirements).
+  </Step>
+
+  <Step title="Install the SDK">
+    Add frameworks delivered by Alignet One, set up Xcode and valid embedding from [Installation](/en/virtual-payments/sdk-mobile/ios/installation).
+  </Step>
+
+  <Step title="Implement the flow">
+    Initiates `PaymeClient`, sets up the environment and sends the request for collection or Affiliation.
+  </Step>
+
+  <Step title="Capture answer">
+    Implement the delegates of SDK To process final result, events, cancellations and errors.
+  </Step>
+
+  <Step title="Valid in sandbox">
+    Executes tests with [Test data](/en/virtual-payments/payments/test-data) before applying for final validation.
+  </Step>
+</Steps>
+
+## Integration guides
+
+<CardGroup cols={2}>
+  <Card title="Requirements" icon="key" href="/en/virtual-payments/sdk-mobile/ios/requirements">
+    Check technical and business conditions before starting.
+  </Card>
+
+  <Card title="Installation" icon="download" href="/en/virtual-payments/sdk-mobile/ios/installation">
+    Configure SDKs, frameworks and dependencies iOS.
+  </Card>
+
+  <Card title="Recovery flow" icon="credit-card-front" href="/en/virtual-payments/sdk-mobile/ios/payment-flow/initialize-alignet-one-sdk-ios">
+    Initiates SDK To start a collection from your app.
+  </Card>
+
+  <Card title="Affiliations" icon="user-plus" href="/en/virtual-payments/sdk-mobile/ios/affiliations/initialize-sdk-ios">
+    Implement Affiliation flows as they apply.
+  </Card>
+</CardGroup>
+
+## Before production
+
+<Warning>
+  Do not use credentials, SDks or test data in production. It coordinates final validation with the integrations equipment before going live.
+</Warning>

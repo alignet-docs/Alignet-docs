@@ -1,0 +1,65 @@
+---
+title: "PrestaShop"
+description: "Integrate Alignet One into your PrestaShop store quickly and securely."
+---
+<Frame>
+  <img src="https://mintcdn.com/alignet/1doMEpheovLEa4uV/images/image-64.png?fit=max&auto=format&n=1doMEpheovLEa4uV&q=85&s=2451c3d78dd1b8fe89ee1fba78829e3f" alt="Image" title="Image" className="mx-auto" style={{ width:"58%" }} width="440" height="180" data-path="images/image-64.png" />
+</Frame>
+
+Alignet One PrestaShop is the official module for **Recovery at your store PrestaShop** with the most important payment methods from local market (Peru and region) from a single integration.
+
+### Unavailable payment methods
+
+Depending on your configuration, you can enable
+
+* **Cards:** Visa, Mastercard, American Express, Dines.
+* **Cash bills:** YapePlin.
+* **Payments with QR.**
+* **Transfers and Cash:** PagoEfectivo, Cuotéalo BCP.
+
+### General Flow of Payment
+
+Understanding how information travels is key to a successful integration. The module manages the entire life cycle of the transaction automatically.
+
+<img src="https://mintcdn.com/alignet/o_w6plaWwLfsBKjg/images/image-66.png?fit=max&auto=format&n=o_w6plaWwLfsBKjg&q=85&s=3dd1e78c664bb3710f45ce45e7efa9fa" alt="Image" width="1595" height="672" data-path="images/image-66.png" />
+
+### How does that work?
+
+1. **Selection:** The client chooses Alignet One as a payment method at the PrestaShop.
+2. **Sending:** The module emits the transaction information to the gateway Alignet One.
+3. **Validation:** Alignet One Valids payment with issuers and processors under safety standards PCI-DSS.
+4. **Answer:**
+   * **Symchrone:** The client receives an immediate confirmation on screen.
+   * **Asynchronous (Webhook):** Alignet One notify your store using a web hold to update the order status automatically.
+
+***
+
+## Requesting Life Cycle
+
+To have your operation consisstore, the module maps the states of the gateway with the native states of PrestaShop:
+
+<Steps>
+  <Step title="Registration and pending">
+    The order will be created at PrestaShop how **"Waiting for payment"** or **"Outstanding"**.
+  </Step>
+
+  <Step title="Approved payment">
+    If payment is successful, the state changes to **"Payment accepted"**, enabling them to start preparing their order.
+  </Step>
+
+  <Step title="Judgement or Cancellation">
+    If payment's rejected or the client's leave the flow, the order's marked as **"Recovery error"** or **"Cancelled"**.
+  </Step>
+</Steps>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/en/virtual-payments/prestashop/installation-and-activation">
+    Download the module and put it up from the management panel PrestaShop.
+  </Card>
+
+  <Card title="Configure" icon="gear" href="/en/virtual-payments/prestashop/module-configuration">
+    Configure your credentials and enabling payment methods to suit your business.
+  </Card>
+</CardGroup>

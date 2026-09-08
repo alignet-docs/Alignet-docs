@@ -1,0 +1,64 @@
+---
+title: "WooCommerce"
+description: "Integrate Alignet One into your WordPress store quickly and securely."
+---
+<Frame>
+  <img src="https://mintcdn.com/alignet/1doMEpheovLEa4uV/images/image-65.png?fit=max&auto=format&n=1doMEpheovLEa4uV&q=85&s=164e4c6a5f07e36b083b93f31818a7b8" alt="Image" title="Image" className="mx-auto" style={{ width:"45%" }} width="451" height="120" data-path="images/image-65.png" />
+</Frame>
+
+Alignet One WooCommerce an official plugin for **Recovery at your store WordPress** with the most important payment methods from local market (Peru and region) from a single integration.
+
+### Unavailable payment methods
+
+Depending on your configuration, you can enable:
+
+* **Cards:** Visa, Mastercard, American Express, Dines.
+* **Cash bills:** YapePlin.
+* **Payments with QR.**
+* **Transfers and Cash:** PagoEfectivo, Cuotéalo BCP.
+
+### General Flow of Payment
+
+Understanding how information travels is key to a successful integration. The plugin manages the whole life cycle of the transaction automatically.
+
+<img src="https://mintcdn.com/alignet/fCvWdFCrErAZptgq/images/image-53.png?fit=max&auto=format&n=fCvWdFCrErAZptgq&q=85&s=9028928f578629851375894b5063d4db" alt="Image" width="1564" height="672" data-path="images/image-53.png" />
+
+### How does that work?
+
+1. **Selection:** The client chooses Alignet One as a payment method at the WooCommerce.
+2. **Sending:** The plugin encoded the transaction information to the gateway Alignet One.
+3. **Validation:** Alignet One Valids payment with issuers and processors under safety standards PCI-DSS.
+4. **Answer:** - **Symchrone:** The client receives an immediate confirmation on screen.
+   * **Asynchronous (Webhook):** Alignet One notify your store using a web hold to update the order status automatically.
+
+***
+
+## Requesting Life Cycle
+
+To make your logistics efficient, the plugin mapes the states of the gateway with the native states of WooCommerce:
+
+<Steps>
+  <Step title="Registration and pending">
+    The order will be created at WooCommerce how **"outstanding"**.
+  </Step>
+
+  <Step title="Authorisation">
+    If payment is successful, the state changes to **"Processing"** (or "Complete" as per your configuration), notifying the client by mail.
+  </Step>
+
+  <Step title="Failed or Abandoned">
+    If the payment is rejected or the client closes the window, the order will be marked as **Failed** or **"Cancelled"**.
+  </Step>
+</Steps>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/en/virtual-payments/wordpress-woocommerce/installation-and-activation">
+    Download the plugin and follow the steps to get it up to you WordPress.
+  </Card>
+
+  <Card title="Configure" icon="gear" href="/en/virtual-payments/wordpress-woocommerce/configuration-and-keys">
+    Enter your production credentials and activate payment methods.
+  </Card>
+</CardGroup>

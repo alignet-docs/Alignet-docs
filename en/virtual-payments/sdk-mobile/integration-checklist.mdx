@@ -1,0 +1,166 @@
+---
+title: "Integration checklist"
+description: "Recommended validations for completing a Mobile SDK integration on Android or iOS."
+---
+Use this checklist as a quick guide before applying for final flow validation **SDK Mobile**.
+
+<Info>
+  That guide applies to native implementations at **Android** e **iOS**for both collection and affiliations.
+</Info>
+
+## Overview
+
+<CardGroup cols={2}>
+  <Card title="Preparation" icon="key">
+    Platform, technical requirements, credentials and case of use defined before integrating.
+  </Card>
+
+  <Card title="Installation" icon="mobile-screen-button">
+    SDK Added to project, solved dependencies and permissions set up by platform.
+  </Card>
+
+  <Card title="Functional Validation" icon="credit-card">
+    Approved cozo, rejection, Affiliation and management of revised errors from the app.
+  </Card>
+
+  <Card title="Output to production" icon="rocket">
+    Ready evidence, revised production environment and validated flow with integrations.
+  </Card>
+</CardGroup>
+
+## Suggested route
+
+<Steps>
+  <Step title="Prepare the environment">
+    Confirms target platform, credentials, sandbox environment and case of use: collection, affiliation or both.
+  </Step>
+
+  <Step title="Install the SDK">
+    Add the library to your mobile project and valid dependencies, permits and initial configuration.
+  </Step>
+
+  <Step title="Implement the flow">
+    Configure required parameters, callbacks, response management and user experience.
+  </Step>
+
+  <Step title="Sandbox Test">
+    It runs approved, rejected and tested data-controlled scenarios.
+  </Step>
+
+  <Step title="Requests final validation">
+    When the flow is stable, prepare evidence and coordinate the review with the integration team.
+  </Step>
+</Steps>
+
+## Checklist base
+
+<AccordionGroup>
+  <Accordion title="1. Preparation" icon="key" defaultOpen>
+    * Target platform as defined: **Android**, **iOS** Or both.
+    * Revised technical requirements by platform.
+    * Credentials and testing environment available.
+    * Case of defined use: collection, affiliation or both.
+  </Accordion>
+
+  <Accordion title="2. Installation and configuration" icon="gear">
+    * SDK correctly installed in the project.
+    * Validated supported dependencies and versions.
+    * Rejected permits, network configuration and sandbox environment.
+    * Initiation completed with no bug in the app.
+  </Accordion>
+
+  <Accordion title="3. Flow implementation" icon="code">
+    * Mandatory parameters sent with proper format.
+    * Callbacks or list put in place for success, rejection and error.
+    * Navigation and return management to valid app flow.
+    * Sensitive data that are not exposed to client, login or display.
+  </Accordion>
+
+  <Accordion title="4. Functional Validation" icon="cart-shopping">
+    * Approved collection flow tested correctly.
+    * Rejected flow or validated controlled error.
+    * Affiliation flow tested if applicable.
+    * Revised messages and user experience.
+  </Accordion>
+
+  <Accordion title="5. Production" icon="rocket">
+    * Sandbox complete with minimum evidence of evidence.
+    * Revised final build for production environment.
+    * Minimum logs available for support and diagnosis.
+    * Integration ready for live leave.
+  </Accordion>
+</AccordionGroup>
+
+## Points by platform
+
+<Tabs>
+  <Tab title="Android">
+    <CardGroup cols={2}>
+      <Card title="Fat Dependencies" icon="code">
+        Confirms that the required dependencies, repositories and versions are set up.
+      </Card>
+
+      <Card title="Activity cycle" icon="mobile-screen-button">
+        Check that SDK conduct proper navigation, return and app status.
+      </Card>
+    </CardGroup>
+
+    * Review [Requirements SDK Android](/en/virtual-payments/sdk-mobile/android/requirements).
+    * Validate installation from [Installation Android](/en/virtual-payments/sdk-mobile/android/installation).
+    * Prove Recovery from [Start Alignet One SDK Android](/en/virtual-payments/sdk-mobile/android/payment-flow/initialize-alignet-one-sdk-android).
+    * Test affiliations if they are within range of the merchant.
+  </Tab>
+
+  <Tab title="iOS">
+    <CardGroup cols={2}>
+      <Card title="Units iOS" icon="code">
+        Confirms that the installation, targets and project configuration are aligned with the guide.
+      </Card>
+
+      <Card title="Native experience" icon="mobile-screen-button">
+        Check permissions, navigation, callbacks and user continuity within the app.
+      </Card>
+    </CardGroup>
+
+    * Review [Requirements SDK iOS](/en/virtual-payments/sdk-mobile/ios/requirements).
+    * Validate installation from [Installation iOS](/en/virtual-payments/sdk-mobile/ios/installation).
+    * Prove Recovery from [Start Alignet One SDK iOS](/en/virtual-payments/sdk-mobile/ios/payment-flow/initialize-alignet-one-sdk-ios).
+    * Test affiliations if they are within range of the merchant.
+  </Tab>
+</Tabs>
+
+## Minimum approval criterion
+
+<CardGroup cols={3}>
+  <Card title="Validated amount" icon="check">
+    At least an approved flow and one rejected properly revised Sandbox.
+  </Card>
+
+  <Card title="Controlled response" icon="shield-check">
+    The app manages success, rejection, cancellation and errors without breaking the user's experience.
+  </Card>
+
+  <Card title="Ready to certify" icon="clipboard-check">
+    Evidence, logs and final build available for review with integration equipment.
+  </Card>
+</CardGroup>
+
+## Related guides
+
+<CardGroup cols={2}>
+  <Card title="Android" icon="mobile-screen-button" href="/en/virtual-payments/sdk-mobile/android/introduction">
+    Check the complete flow for Android.
+  </Card>
+
+  <Card title="iOS" icon="mobile-screen-button" href="/en/virtual-payments/sdk-mobile/ios/introduction">
+    Check the complete flow for iOS.
+  </Card>
+
+  <Card title="Test data" icon="flask" href="/en/virtual-payments/payments/test-data">
+    Use sandbox scenarios to validate SDK Mobile and other payment flows.
+  </Card>
+
+  <Card title="Installation iOS" icon="download" href="/en/virtual-payments/sdk-mobile/ios/installation">
+    Download and configure SDK iOS at your Xcode project.
+  </Card>
+</CardGroup>

@@ -1,0 +1,169 @@
+---
+title: "Test data"
+description: "Use these credentials to simulate transactions in the sandbox."
+---
+<Warning>
+  These data are fictitious and only work in the environment of **Sandbox**. Don't try and process real transactions with them.
+</Warning>
+
+## Credit and Debt Card
+
+It uses the following cards to test successful and rejected payment flows. Click the number to quickly copy.
+
+<Tabs>
+  <Tab title="Visa">
+    <CardGroup cols={2}>
+      <Card title="Authorisation Exitosa (DEB)" color="#2ecc71" icon="check" iconType="solid">
+        **Number:** `4474118355632240`\
+        **Exp:** 03/28 | **CVV:** 111
+      </Card>
+
+      <Card title="Authorisation Exitosa (CRED)" color="#2ecc71" icon="check" iconType="solid">
+        **Number:** `4551708161768059`\
+        **Exp:** 03/28 | **CVV:** 111
+      </Card>
+
+      <Card title="Authorisation Exitosa (CRED)" color="#2ecc71" icon="check" iconType="solid">
+        **Number:** `4140682013946809`\
+        **Exp:** 03/28 | **CVV:** 111
+      </Card>
+
+      <Card title="Authorisation Denied (CRED)" color="#e74c3c" icon="xmark" iconType="solid">
+        **Number:** `4041650444437900`\
+        **Exp:** 03/28 | **CVV:** 111
+      </Card>
+    </CardGroup>
+  </Tab>
+
+  <Tab title="Mastercard">
+    <CardGroup cols={2}>
+      <Card title="Authorisation Exitosa (DEB)" color="#2ecc71" icon="check" iconType="solid">
+        **Number:** `5455460920094260`\
+        **Exp:** 03/28 | **CVV:** 111
+      </Card>
+
+      <Card title="Authorisation Exitosa (CRED)" color="#2ecc71" icon="check" iconType="solid">
+        **Number:** `5160030000000310`\
+        **Cod. Action:** 000 | **CVV:** 111
+      </Card>
+
+      <Card title="Authorisation Denied (CIRRUS)" color="#e74c3c" icon="xmark" iconType="solid">
+        **Number:** `5115422225052734`\
+        **Exp:** 03/28 | **CVV:** 111
+      </Card>
+    </CardGroup>
+  </Tab>
+
+  <Tab title="American Express">
+    <CardGroup cols={2}>
+      <Card title="Authorisation Exitosa" color="#2ecc71" icon="check" iconType="solid">
+        **Number:** `371064649323968`\
+        **CVV:** 1111
+      </Card>
+
+      <Card title="Authorisation Denied" color="#e74c3c" icon="xmark" iconType="solid">
+        **Number:** `371327381068590`\
+        **CVV:** 1111
+      </Card>
+    </CardGroup>
+  </Tab>
+
+  <Tab title="Dyers Club">
+    <CardGroup cols={2}>
+      <Card title="Authorisation Exitosa" color="#2ecc71" icon="check" iconType="solid">
+        **Number:** `36006616055724`\
+        **CVV:** 111
+      </Card>
+
+      <Card title="Authorisation Denied" color="#e74c3c" icon="xmark" iconType="solid">
+        **Number:** `36344311372031`\
+        **CVV:** 111
+      </Card>
+    </CardGroup>
+  </Tab>
+</Tabs>
+
+## Alternative methods
+
+It simulates payments with digital bills and bank transfers.
+
+<Info>
+  To conduct tests with `QR` and `PagoEfectivo` using simulators, contact [integration equipment](mailto:postventa.autenticacion@alignet.com). The equipment will give you the flow and available scenarios for your merchant.
+</Info>
+
+<CardGroup cols={3}>
+  <Card title="Yape" icon="mobile-screen">
+    Valids quick approval and rejection scenarios with phone number and code.
+  </Card>
+
+  <Card title="Banking Transfer" icon="building-columns">
+    It simulates authentication and final response with controlled test credentials.
+  </Card>
+
+  <Card title="Cuotéalo" icon="receipt">
+    Test the financing flow with an available sandbox scenario.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={2}>
+  <Card title="QR" icon="qrcode">
+    It requires co-ordination with the integration team to use the appropriate simulator.
+  </Card>
+
+  <Card title="PagoEfectivo" icon="money-bill">
+    It requires co-ordination with the integration team to use the appropriate simulator.
+  </Card>
+</CardGroup>
+
+<Tabs>
+  <Tab title="Yape">
+    <CardGroup cols={2}>
+      <Card title="Adopted" color="#2ecc71" icon="check" iconType="solid">
+        **Telephone:** `969929157`\
+        **Approval code:** `557454`
+      </Card>
+
+      <Card title="Rejected" color="#e74c3c" icon="xmark" iconType="solid">
+        **Telephone:** `999999999`\
+        **Approval code:** `284563`
+      </Card>
+    </CardGroup>
+  </Tab>
+
+  <Tab title="Banking Transfer">
+    <CardGroup cols={2}>
+      <Card title="Successful" color="#2ecc71" icon="check" iconType="solid">
+        **Card:** `123456`\
+        **Key:** `123456`\
+        **Doc. Identity:** `123456`\
+        **Token:** `123456`
+      </Card>
+
+      <Card title="Rejected" color="#e74c3c" icon="xmark" iconType="solid">
+        **Card:** `123456`\
+        **Key:** `123456`\
+        **Doc. Identity:** `123456`\
+        **Token:** `222222`
+      </Card>
+    </CardGroup>
+  </Tab>
+
+  <Tab title="Cuotéalo">
+    <CardGroup cols={1}>
+      <Card title="Scenario available" color="#2ecc71" icon="check" iconType="solid">
+        **DNI:** `46699676`\
+        **Card:** `4557885801589196`\
+        **Key:** `111111`\
+        **Amount (PEN):** `100.00`
+      </Card>
+    </CardGroup>
+  </Tab>
+</Tabs>
+
+***
+
+### Integration Tips
+
+* **Environment:** Make sure your endpoint's signalling to `sandbox.api.tu-servicio.com`.
+* **CVV:** For most cards at Sandbox, you can use `111` (or `1111` for Amex).
+* **Loks:** Check the developer console to see the detailed response code.

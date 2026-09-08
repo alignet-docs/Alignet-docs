@@ -1,0 +1,95 @@
+---
+title: "iOS SDK requirements"
+description: "Business, platform and security requirements to integrate Alignet One SDK in iOS."
+---
+Before starting integration, confirms that the merchant and project iOS meet minimum conditions for use Alignet One SDK.
+
+<Info>
+  Requests from the integration team the credentials, SDKs, authorized payment methods and environment assigned for your tests.
+</Info>
+
+## Business requirements
+
+<CardGroup cols={2}>
+  <Card title="Legal entity" icon="building">
+    Reason registered, RUC and commercial data validated.
+  </Card>
+
+  <Card title="Digital presence" icon="globe">
+    Application, web or digital channel associated with the merchant.
+  </Card>
+
+  <Card title="Security" icon="lock">
+    Protected channels and secure management of credentials, tokens and payment responses.
+  </Card>
+
+  <Card title="Bank account" icon="banknote">
+    Bank account in name of commercial name.
+  </Card>
+</CardGroup>
+
+## Technical requirements iOS
+
+<AccordionGroup>
+  <Accordion title="Platform" icon="mobile-screen-button" defaultOpen>
+    * iOS 13.0 or more.
+    * Xcode 14.2 or more.
+    * Swift 5.5 or more.
+    * Project iOS with support for dynamic frameworks.
+  </Accordion>
+
+  <Accordion title="Connectivity and configuration" icon="wifi">
+    * Internet connectivity available during flow.
+    * Network configuration and revised permits in the project.
+    * Network status validation before starting SDK.
+  </Accordion>
+
+  <Accordion title="Backend of the merchant" icon="server">
+    * Consumption API Security to generate `Access Token`.
+    * Secure management of credentials outside the app.
+    * A single transaction record for an attempt to pay.
+    * Final confirmation of the result from backend when applying.
+  </Accordion>
+</AccordionGroup>
+
+## Required libraries
+
+The integration team will deliver frameworks to be incorporated into the project iOS.
+
+<CardGroup cols={2}>
+  <Card title="Alignet One.xcframework" icon="credit-card">
+    Main framework for initiating collection and affiliations.
+  </Card>
+
+  <Card title="SecureKey3DS.xcframework" icon="shield-check">
+    3DS 2.2 authentication support.
+  </Card>
+
+  <Card title="VisaSensorand Branding.xcframework" icon="sparkles">
+    Experience and branding for Visa payments.
+  </Card>
+
+  <Card title="Mastercard" icon="music">
+    Experience and branding for Mastercard payments.
+  </Card>
+</CardGroup>
+
+## Environmental considerations
+
+<Note>
+  The sandbox environment is available for controlled testing. For testing with simulators or specific methods, coordinate with the integration equipment.
+</Note>
+
+<Note>
+  All operational hours indicated for support or co-ordination are considered at GMT-5 (Peru).
+</Note>
+
+<Warning>
+  Do not display credentials, tokens or sensitive information in mobile app, repository, login or analytics tools.
+</Warning>
+
+## Next step
+
+<Card title="Install SDK" icon="arrow-right" href="/en/virtual-payments/sdk-mobile/ios/installation">
+  Configure frameworks, embedding and necessary adjustments to your project iOS.
+</Card>

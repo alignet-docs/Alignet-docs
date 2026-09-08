@@ -1,0 +1,83 @@
+---
+title: "Testing and certification"
+description: "Validate your integration in the sandbox before processing live payments in PrestaShop."
+---
+Before enabling production mode, a complete test cycle is vital to ensure that demand states at **Back Office** have been correctly updated.
+
+## 1. Test data for Sandbox
+
+The test data are held at a central page so that you can re-use them without duplicating information within this guide:
+
+<CardGroup cols={2}>
+  <Card title="Open Test Data" icon="credit-card" href="/en/virtual-payments/payments/test-data">
+    Check cards, Yapeand other sandbox scenarios from a single reference.
+  </Card>
+
+  <Card title="Validate in Test Mode" icon="flask">
+    Be sure that the module remains at Sandbox before you run your validation purchases.
+  </Card>
+</CardGroup>
+
+<Note>
+  In PrestaShop, this guide focuses on order conduct, states and certification, and concrete data live with shared reference.
+</Note>
+
+<Tip>
+  To test asynchronous methods as **PagoEfectivo** or **QR** in Sandboxcontact our support team if you need to simulate payment confirmation.
+</Tip>
+
+***
+
+## 2. Certification cycle
+
+To secure a note **10/10** Check these 4 key points for implementation:
+
+<Steps>
+  <Step title="Purchase Flow">
+    Reconduct a complete order and check that you are redirected to the **"Confirmed demand!"** in PrestaShop.
+  </Step>
+
+  <Step title="Automatic Status Change">
+    Confirms that order will pass from **"To be paid"** a **"Payment accepted"** after a successful transaction ( S2S).
+  </Step>
+
+  <Step title="Reversal Test">
+    Executs an cancellation from the order and valid that the status changes to **Repaid**.
+  </Step>
+
+  <Step title="Log Review">
+    Check that table `payme_logs` properly register data entry and output without timeout errors.
+  </Step>
+</Steps>
+
+***
+
+## 3. Support considerations
+
+Our team of integrators are available to review your results and support you with production.
+
+* **Availability:** The environment Sandbox is active **24/7**.
+* **Support Hours:** Monday to Friday, **09: 00 AM to 06: 00 PM** (working days).
+* **Time Zone:** All logs and supports are run by hour **Peru (GMT -5)**.
+
+***
+
+## 4. Contact channels
+
+Once your tests have been completed, send the results to those responsible for integration:
+
+<CardGroup cols={2}>
+  <Card title="Integration" icon="envelope-open-text" href="mailto:postventa.autenticacion@alignet.com">
+    [posstorea.authentication @ alignet.com](mailto:postventa.autenticacion@alignet.com)
+  </Card>
+
+  <Card title="Customer care" icon="headset" href="tel:+5117008377">
+    (01) 700-8377
+  </Card>
+</CardGroup>
+
+***
+
+<Card title="Problem solving" icon="bug" href="/en/virtual-payments/prestashop/troubleshooting">
+  Something doesn't work as you thought? Check our common bug guide at PrestaShop.
+</Card>

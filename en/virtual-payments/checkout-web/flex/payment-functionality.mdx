@@ -1,0 +1,79 @@
+---
+title: "Payment functionality"
+description: "Follow the Alignet One Flex payment flow: payload, initialization, and callbacks."
+---
+The collection flow at Flex It should be worked in three separate steps: `payload`, initialise the component and capture `callbacks` of the process.
+
+<Info>
+  At Web Checkout Flex, the payment method is chosen within the form. That's why `payload` reuses the structure of API from authorization sending `payment_method: {}` at the root object.
+</Info>
+
+## Overview
+
+<CardGroup cols={3}>
+  <Card title="1. Construction of payload" icon="receipt" href="/en/virtual-payments/checkout-web/flex/payload-construction">
+    It arms information about the operation, buyer, billing and sending using the same basic contract PayIn.
+  </Card>
+
+  <Card title="2. Initiate component" icon="gear" href="/en/virtual-payments/checkout-web/flex/component-initialization">
+    It creates an instance of `FlexPaymentForms`send `nonce`, `payload` and defines how to display the form.
+  </Card>
+
+  <Card title="3. Capture callbacks" icon="bolt" href="/en/virtual-payments/checkout-web/flex/handling-callback-functions">
+    Process `responseCallback`, `trackingCallback` and `onErrorCallback` by the result of the flow.
+  </Card>
+</CardGroup>
+
+## Recommended sequence
+
+<Steps>
+  <Step title="Building the payload">
+    Prepare the operation with the same request for authorisation ecommerce, including `payment_method: {}` because Flex It will solve the actual method on screen.
+  </Step>
+
+  <Step title="It creates an instance">
+    Initiates `FlexPaymentForms` with `nonce` and `payload` already validated from backend.
+  </Step>
+
+  <Step title="Mount form">
+    Use `paymentForm.init(...)` to render the component within the component DOM where you want to show the check out.
+  </Step>
+
+  <Step title="Processes the response">
+    Take the result from `responseCallback(response)` and use that JSON as a main reference of the front.
+  </Step>
+
+  <Step title="Confirm from backend">
+    To close the order or mark payment as an end, complete with [API Consultation](https://docs.pay-me.com/payin/consulta) and if applicable with [Notifications](https://docs.pay-me.com/payin/notificaciones).
+  </Step>
+</Steps>
+
+## What answer to take
+
+<Note>
+  The object `response` received at `responseCallback` reuses the contract of [API of Authorisation - ecommerce](https://docs.pay-me.com/payin/autorizacion). The exact reference depends on how the client chose within Flex.
+</Note>
+
+<Warning>
+  Do not close the order using only the front in asynchronous methods as `BANK_TRANSFER`, `QR`, `CUOTEALO` or `PAGOEFECTIVO`. Always confirm final status from backend.
+</Warning>
+
+## Flow guides
+
+<CardGroup cols={2}>
+  <Card title="Construction of payload" icon="arrow-right" href="/en/virtual-payments/checkout-web/flex/payload-construction">
+    Check the complete structure of the request that Flex He needs to start an operation.
+  </Card>
+
+  <Card title="Initiate component" icon="arrow-right" href="/en/virtual-payments/checkout-web/flex/component-initialization">
+    Learn how to create an instance, define visible methods and give up the form.
+  </Card>
+
+  <Card title="Capture callback functions" icon="arrow-right" href="/en/virtual-payments/checkout-web/flex/handling-callback-functions">
+    He understands how to read `responseCallback` and how to relate with each PayIn.
+  </Card>
+
+  <Card title="API Consultation" icon="arrow-right" href="https://docs.pay-me.com/payin/consulta">
+    Use as second backend validation before confirming final result to business.
+  </Card>
+</CardGroup>

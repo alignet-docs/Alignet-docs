@@ -1,0 +1,27 @@
+---
+title: "SDK error messages"
+---
+## **Error Codes**
+
+Alignet One SDK manage different errors that stop autoization flow, these errors are delivered to the merchant and can be identified by the error code found in the parameter `success`,`resultCode` and` resultMessage` of the object `PaymeResponse`.
+
+Open complete board
+
+| **success** | **resultCode** | **resultMessage**                                              | **Description**                                                                                                           |
+| :---------- | :------------- | :------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| **true**    | **00**         | The request was properly processed                           | The authorization was performed with success or the transaction is at pending.                                                  |
+| **true**    | **01**         | Request rejected by the Processor                           | The authorization was denied.                                                                                             |
+| **true**    | **02**         | Transaction expires                                       | Notification to the merchant that expired the transaction.                                                                       |
+| **Fasse**   | **03**         | A mistake happened                                               | Invalid demand by system error.                                                                                  |
+| **Fasse**   | **04**         | Unable to process request                                | Invalid request by wrong of the processor.                                                                            |
+| **Fasse**   | **05**         | No order found                                       | Consultation or re-examination of an nonexisstore operation number.                                                                 |
+| **Fasse**   | **06**         | Some data were missent                 | The merchant sent one or more invalid parameters at the time of invoking SDK of Alignet One..                                  |
+| **Fasse**   | **07**         | Non-exisstore merchant                                          | The merchantCode sent doesn't exist.                                                                                        |
+| **Fasse**   | **08**         | Trade requires processing configuration               | The methods of payment are not authorized by merchant.                                                                      |
+| **Fasse**   | **09**         | Unsupported payment method                     | The requested payment method isn't supported by the system.                                                                 |
+| **Fasse**   | **10**         | Access token required                                 | Access token was not sent.                                                                                           |
+| **Fasse**   | **11**         | Invalid Access Token                                       | Access token is invalid or has been defeated.                                                                                  |
+| **Fasse**   | **12**         | The Operation's complete                           | The Operation number sent already exists with an authorized or closed status.                                            |
+| **Fasse**   | **13**         | Operation currently under way                           | The number of Operation sent already exists with an pending status.                                                         |
+| **Fasse**   | **14**         | User returned to merchant without selecting a payment method  | The user enters SDK and return to the merchant without starting a payment with some method of payment.                             |
+| **Fasse**   | **15**         | User cancelled outstanding transaction and returned to commercial | The user enters SDK, start the payment process and decide to return to the merchant by canceling the outstanding transaction. |

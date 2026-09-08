@@ -1,0 +1,63 @@
+---
+title: "Customer experience"
+description: "Configure how customers view and complete payments in PrestaShop checkout."
+---
+The module Alignet One is natively integrated with the PrestaShopby adapting visually to your template and ensuring a secure experience.
+
+## 1. Methods of Visualization
+
+You can decide how payment options are grouped into your final purchase form.
+
+### Separated Mode (Recommended)
+
+That mode engulves every payment method (Visa, Mastercard, Yape, PagoEfectivo) as an individual choice with their respective official icon.
+
+* **Beneficiaries:** Increased customer confidence by recognizing family logos from the start.
+* **Flow:**
+  1. The client select his preferred method (e.g.: **Yape**).
+  2. Loan secure form Alignet One.
+  3. The client confirms payment.
+  4. Automatic Retirement to the store success page.
+
+### "Together" mode
+
+Gather all methods under a single generic selector Alignet One. When select, the SDK of Alignet One with all options inside a single block.
+
+***
+
+## 2. Request Confirmation Page
+
+After processing the transaction, the client receives immediate visual feedback from the confirmation page PrestaShop:
+
+| Recovery result | Visual Indicator | Meaning                                                             |
+| :----------------- | :--------------- | :---------------------------------------------------------------------- |
+| **Successful**        | **Green**        | "Confirmed order!" Transaction approved by the issuer.              |
+| **Outstanding**      | **Yellow**     | "To demand." Waiting for confirmation (ej: Deposit PagoEfectivo). |
+| **Rejected**       | **Red**         | "Rejected payment." The transaction was rejected and another means suggested.   |
+
+**The success page includes:**
+
+* Order and reference number.
+* Product and quantity details.
+* Safe return button to storage.
+
+***
+
+## 3. Compatibility with Checkouts
+
+The module is optimized to run with the standards of PrestaShop:
+
+* **Standard Checkout:** The native flow of 5 steps or 1 step (OPC).
+* **Personalised themes:** Compatible with most templates *PrestaShop Addons* That respect official payment hooks.
+
+<Tip>
+  If you are using a third party "One Page Checkout" module, make sure that you are set up to refresh payment methods as the client changes his or her sending address.
+</Tip>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Order management" icon="clipboard-check" href="/en/virtual-payments/prestashop/order-and-transaction-management">
+    He manages states and operates reversals from the Back Office.
+  </Card>
+</CardGroup>

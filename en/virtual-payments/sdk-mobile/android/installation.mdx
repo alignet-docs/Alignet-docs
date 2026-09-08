@@ -1,0 +1,167 @@
+---
+title: "Install the Android SDK"
+description: "Configure libraries, permits and dependencies necessary to integrate Alignet One SDK in Android."
+---
+This guide describes how to incorporate Alignet One SDK your project Android before applying collection or affiliations.
+
+<Info>
+  Always use the version of SDK delivered or confirmed by the integration team for your merchant.
+</Info>
+
+<Card title="Download SDK Alignet One Android v3.3" icon="download" href="https://docs.pay-me.com/sdk-mobile/librerias/SDK_Payme_Android_v3.3.zip">
+  Download package `.zip` with libraries necessary to integrate SDK Android.
+</Card>
+
+## Required equipment
+
+The integration package should include the libraries necessary to run the payment flow.
+
+<CardGroup cols={2}>
+  <Card title="Alignet One.aar" icon="credit-card">
+    Main library SDK.
+  </Card>
+
+  <Card title="SecureKey3DS.aar" icon="shield-check">
+    3DS authentication library.
+  </Card>
+
+  <Card title="VisaSensorand Branding.aar" icon="sparkles">
+    Visa experience library.
+  </Card>
+
+  <Card title="Mastercard" icon="music">
+    Mastercard experience library.
+  </Card>
+</CardGroup>
+
+<Warning>
+  Don't put up his artifacts. SDK a Public repositories. Treat the submitted archives as private merchant dependencies.
+</Warning>
+
+## Recommended structure
+
+Create a folder `libs` That's how they put them.
+
+```text theme={"system"}
+app/
+  libs/
+    Alignet One.aar
+    SecureKey3DS.aar
+    VisaSensoryBranding.aar
+    MastercardSonic.aar
+```
+
+## Free Configure
+
+He adds `.aar` as local module units Android.
+
+```kotlin theme={"system"}
+dependencies {
+    implementation(files("libs/SecureKey3DS.aar"))
+    implementation(files("libs/Alignet One.aar"))
+    implementation(files("libs/VisaSensoryBranding.aar"))
+    implementation(files("libs/MastercardSonic.aar"))
+}
+```
+
+If your project uses `build.gradle` with Groovy, you can declare that:
+
+```groovy theme={"system"}
+dependencies {
+    implementation files('libs/SecureKey3DS.aar')
+    implementation files('libs/Alignet One.aar')
+    implementation files('libs/VisaSensoryBranding.aar')
+    implementation files('libs/MastercardSonic.aar')
+}
+```
+
+## Plugins and configuration Android
+
+Confirm that the module has Kotlin and `viewBinding` have been authorized.
+
+```kotlin theme={"system"}
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+}
+
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+```
+
+## Permissions
+
+Declare required permits at `AndroidManifest.xml`.
+
+```xml theme={"system"}
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+```
+
+## Base Units
+
+The SDK requires dependencies Android, networking, serialization and safety. Use as a reference minimum versions indicated by the integration equipment and maintain compatibility with your project.
+
+```kotlin theme={"system"}
+dependencies {
+    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.3.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.3.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.5.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.10.0")
+    implementation("com.squareup.okhttp3:okhttp:3.10.0")
+    implementation("com.google.code.gson:gson:2.8.8")
+
+    implementation("com.madgag.spongycastle:core:1.50.0.0")
+    implementation("com.madgag.spongycastle:pg:1.50.0.0")
+    implementation("org.bouncycastle:bcprov-jdk15on:1.56")
+    implementation("com.nimbusds:nimbus-jose-jwt:7.0.1")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.30.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.1")
+}
+```
+
+<Note>
+  If your project already uses higher versions of these dependencies, it will be compatible with them before degradation. Avoid duplicating bookstores with incompatible versions.
+</Note>
+
+## Rapid Validation
+
+<AccordionGroup>
+  <Accordion title="Compilation" icon="hammer" defaultOpen>
+    * The project synchronizes Gradle without mistakes.
+    * The `.aar` are solved from the folder `libs`.
+    * No conflict of versions with shared dependencies.
+  </Accordion>
+
+  <Accordion title="Configure" icon="gear">
+    * The permits are declared at `AndroidManifest.xml`.
+    * `viewBinding` It's enabled if the project requires.
+    * The sandbox environment's been identified for first tests.
+  </Accordion>
+
+  <Accordion title="Security" icon="lock">
+    * Credentials are generated and protected from backend.
+    * No tokens or secrets are exposed inside the app.
+    * Test logs don't print sensitive information.
+  </Accordion>
+</AccordionGroup>
+
+## Next step
+
+<Card title="Start Alignet One SDK Android" icon="arrow-right" href="/en/virtual-payments/sdk-mobile/android/payment-flow/initialize-alignet-one-sdk-android">
+  It creates an instance of `PaymeClient` and start your first collection flow.
+</Card>

@@ -1,0 +1,179 @@
+---
+title: "Integration checklist"
+description: "Recommended validations for completing an e-commerce integration with WooCommerce, PrestaShop, or VTEX."
+---
+Use this checklist as a quick guide before applying for final validation to the integration team.
+
+<Info>
+  This guide applies to implementations CMS with **WooCommerce**, **PrestaShop** and **VTEX**.
+</Info>
+
+## Overview
+
+<CardGroup cols={2}>
+  <Card title="Preparation" icon="key">
+    Credentials, administrative accesses and properly authorized payment methods.
+  </Card>
+
+  <Card title="Configure" icon="gear">
+    Plugin or module installed, set up keys and active sandbox environment.
+  </Card>
+
+  <Card title="Functional Validation" icon="cart-shopping">
+    Approved purchase, rejected and post-payment check end to end.
+  </Card>
+
+  <Card title="Output to production" icon="rocket">
+    Flow validated with equipment and ready to move to production credentials.
+  </Card>
+</CardGroup>
+
+## Suggested route
+
+<Steps>
+  <Step title="Prepare the environment">
+    He confirms that you have already received credentials, backoffice access and Affiliation of payment methods.
+  </Step>
+
+  <Step title="Configure your CMS">
+    Install the right plugin or module and load the evidence environment credentials.
+  </Step>
+
+  <Step title="Test the purchase flow">
+    Valids approved, rejected and asynchronous scenarios as required.
+  </Step>
+
+  <Step title="Check operation and states">
+    Check order states, logs, notifications and consistency between store and gateway.
+  </Step>
+
+  <Step title="Requests final validation">
+    Once the tests have been completed, coordinate the final review with the integration team.
+  </Step>
+</Steps>
+
+## Checklist base
+
+<AccordionGroup>
+  <Accordion title="1. Preparation" icon="key" defaultOpen>
+    * Credentials received for the environment you will use.
+    * A merchant set up with the payment methods enabled.
+    * Administrative access to your platform CMS.
+    * Plugin or module right available to install.
+  </Accordion>
+
+  <Accordion title="2. Functional configuration" icon="gear">
+    * Keys and credentials entered without mistakes.
+    * Retirement URLs and confirmed pages revised.
+    * Currency, country and means of payment set up correctly.
+    * Active Sandbox Mode before validating purchases.
+  </Accordion>
+
+  <Accordion title="3. Purchase Flow" icon="cart-shopping">
+    * Approved purchase validated end to end.
+    * Rejected purchase validated with message visible to the client.
+    * Asynchronous methods tested if activated.
+    * Confirmation of order aligned with actual payment status.
+  </Accordion>
+
+  <Accordion title="4. Operation and backoffice" icon="table-columns">
+    * Requesting States revised from the administrative panel.
+    * Loks or plugin logs available for support.
+    * Reversas, reversals or refunds revised if applicable.
+    * Post, message or post-payment pages revised.
+  </Accordion>
+
+  <Accordion title="5. Production" icon="rocket">
+    * Sandbox Validated before using production credentials.
+    * Flow production controlled with equipment.
+    * Fitted means of payment coincide with the affiliate.
+    * Integration ready for live leave.
+  </Accordion>
+</AccordionGroup>
+
+## Points by platform
+
+<Tabs>
+  <Tab title="WooCommerce">
+    <CardGroup cols={2}>
+      <Card title="Plugin and credentials" icon="wordpress">
+        Check installation, plugin activation and proper key configuration.
+      </Card>
+
+      <Card title="Checkout and order" icon="credit-card">
+        Check that the checkout shows valid means and that the order changes status correctly.
+      </Card>
+    </CardGroup>
+
+    * Validar purchase approved with correct final redirection or confirmation.
+    * Validar buy rejected with clear message for the client.
+    * Confirm plugin logs available for support.
+    * Review conduct of asynchronous methods if they are active.
+  </Tab>
+
+  <Tab title="PrestaShop">
+    <CardGroup cols={2}>
+      <Card title="Module and hooks" icon="store">
+        Confirm that the module is activated and available at the right check out.
+      </Card>
+
+      <Card title="Requesting States" icon="clipboard-check">
+        Check that the order reflect the status of payment after response or notification.
+      </Card>
+    </CardGroup>
+
+    * Validate module installation and configuration from Back Office.
+    * Confirmation of client's experience at approved, pending and rejected payment.
+    * Check automatic update of status and module logs.
+    * Test Reverting or Operating Validation if the flow includes them.
+  </Tab>
+
+  <Tab title="VTEX">
+    <CardGroup cols={2}>
+      <Card title="Business configuration" icon="shopping-cart">
+        Check for credentials, payment conditions and environment config.
+      </Card>
+
+      <Card title="Flow of payment" icon="arrow-right-arrow-left">
+        Check that check out of VTEX complete payment and reflect the result correctly.
+      </Card>
+    </CardGroup>
+
+    * Validar configuration of payment methods and conditions under VTEX.
+    * Review approved purchase and conduct of reattempts or rejections.
+    * Confirm consistency between order, payment and response from the gateway.
+    * Complete functional tests before final approval.
+  </Tab>
+</Tabs>
+
+## Minimum approval criterion
+
+<CardGroup cols={3}>
+  <Card title="Validated purchase" icon="check">
+    At least one approved flow and one rejected correctly.
+  </Card>
+
+  <Card title="Operating coherence" icon="database">
+    Order States, messages and logs aligned between store and gateway.
+  </Card>
+
+  <Card title="Ready to certify" icon="shield-check">
+    The merchant can be moved to final review and production-to-production programming.
+  </Card>
+</CardGroup>
+
+## Related guides
+
+<CardGroup cols={3}>
+  <Card title="WooCommerce" icon="wordpress" href="/en/virtual-payments/wordpress-woocommerce/introduction">
+    Check the complete flow for WordPress.
+  </Card>
+
+  <Card title="PrestaShop" icon="store" href="/en/virtual-payments/prestashop/introduction">
+    Check the complete flow for PrestaShop.
+  </Card>
+
+  <Card title="VTEX" icon="shopping-cart" href="/en/virtual-payments/vtex/introduction">
+    Check the complete flow for VTEX.
+  </Card>
+</CardGroup>

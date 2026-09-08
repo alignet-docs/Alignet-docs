@@ -1,0 +1,77 @@
+---
+title: "Module configuration"
+description: "Connect your store to Alignet One by configuring API credentials and display preferences."
+---
+To gain access to these settings, go to **Modules** > **Module Manager** > **Alignet One** and click the button **Configure**.
+
+## 1. Basic adjustments
+
+Configure the dateway's identity in your checkout:
+
+| Parameter       | Action                                           | Recommendation                      |
+| :-------------- | :----------------------------------------------- | :--------------------------------- |
+| **Enabling**   | It activates or deactivates dateway globally.      | Keep at **activated**.          |
+| **Title**      | The name that the client will see when choosing payment. | "Pay with Alignet One"                  |
+| **Description** | Help text.                       | "Pay with card, Yape, QR and more " |
+| **Country**        | Define the area of operation.                   | Select **Peru**.              |
+
+***
+
+## 2. Credentials API
+
+These data are your storage's "passport" Alignet One. Just get them to your account executive.
+
+<Info>
+  Never share **Customer Secret** with or with third parties and with an open code repository.
+</Info>
+
+* **Client ID:** Public identifier of your merchant.
+* **Customer Secret:** Private authentication key.
+* **Merchant Code:** Unique code assigned by Alignet One.
+
+***
+
+## 3. Environment and Visualization
+
+Personalizes how the gateway behaves and how it operates.
+
+### Implementing environment
+
+<Tabs>
+  <Tab title="Sandbox (Tests)">
+    It uses this mode to conduct fictitious transaction with test cards. It's ideal to validate that your server gets notifications correctly.
+  </Tab>
+
+  <Tab title="Production">
+    It activates this mode only after you have completed the tests and have the actual credentials to process client money.
+  </Tab>
+</Tabs>
+
+### Mode of Display of Form
+
+You can choose between two types of user experience:
+
+* **Retirement:** The payment form is directly integrated into the Checkout page of PrestaShop.
+* **Modal (Popup):** A secure pop up window about your store will be opened to capture payment data.
+
+***
+
+## 4. Advanced and S2S
+
+To ensure success of asynchronous methods (QR, PagoEfectivo), you have to set up interserver communication.
+
+| Option         | Description                                                                                                                   |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| **URL S2S**    | That's the URL of notification. **You have to send her to the police Alignet One** so they can notify your store about confirmed payments. |
+| **Debug Mode** | Act to generate detailed technical records for errors during integration.                                |
+| **Currency**     | Select the base coin of your store: **PEN** (Soles) or **USD** (dollars).                                                  |
+
+<Tip>
+  In PrestaShop, URL after-paid redirection is generated automatically but make sure that the **Debug Mode** It's off production to optimize performance.
+</Tip>
+
+***
+
+<Card title="Customer experience" icon="cart-circle-check" href="/en/virtual-payments/prestashop/customer-experience">
+  Settle the Separated Mode to improve conversion to your checkout.
+</Card>

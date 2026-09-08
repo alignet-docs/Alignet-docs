@@ -1,0 +1,128 @@
+---
+title: "Integration checklist"
+description: "Recommended validations for completing a Web Checkout integration with Flex."
+---
+Use this checklist as a quick guide before applying for final flow validation **Web Checkout**.
+
+<Info>
+  The guide aims at implementation with **Flex**, including front, `nonce`, payment response and final validation of result.
+</Info>
+
+## Overview
+
+<CardGroup cols={2}>
+  <Card title="Preparation" icon="key">
+    Business requirements, credentials, sandbox environment and domains ready to start.
+  </Card>
+
+  <Card title="Technical integration" icon="gear">
+    Nonce operation, loaded bookstores and parameters sent with the right format.
+  </Card>
+
+  <Card title="Functional Validation" icon="cart-shopping">
+    Approved purchase, rejected and post-payment conduct reviewed from end to end.
+  </Card>
+
+  <Card title="Output to production" icon="rocket">
+    Revised production configuration and minimum evidence ready for final validation.
+  </Card>
+</CardGroup>
+
+## Suggested route
+
+<Steps>
+  <Step title="Prepare the environment">
+    Confirms defined business requirements, active credentials for sandbox and return URLs or callbacks.
+  </Step>
+
+  <Step title="Connecting front and backend">
+    Check that authentication to generate `nonce` and that Flex Loan with no mistakes on your checkout.
+  </Step>
+
+  <Step title="Test the purchase flow">
+    It runs an approved and rejected purchase, validating messages, visual response and user continuity.
+  </Step>
+
+  <Step title="Confirms final result">
+    Check front and confirm final status from backend to avoid closing the order with a preliminary result.
+  </Step>
+
+  <Step title="Requests final review">
+    When the flow is stable in sandbox, prepare evidence and coordinate validation with the integration equipment.
+  </Step>
+</Steps>
+
+## Checklist base
+
+<AccordionGroup>
+  <Accordion title="1. Preparation" icon="key" defaultOpen>
+    * Revised business and technical requirements.
+    * Credentials and testing environment available.
+    * Domination, return pages and defined callbacks.
+    * Checkout Flow confirmed for merchant.
+  </Accordion>
+
+  <Accordion title="2. Technical configuration" icon="gear">
+    * Operating Authentication to Generate `token` or `nonce`.
+    * Libraries or fronstore components loaded correctly.
+    * Mandatory parameters sent with proper format.
+    * Styles and visual experience reviewed within the checkout.
+  </Accordion>
+
+  <Accordion title="3. Flow Validation" icon="cart-shopping">
+    * Approved transaction completed correctly.
+    * Rejected transaction validated with bug management.
+    * autoisation response processed at front.
+    * Asynchronous methods tested if activated.
+  </Accordion>
+
+  <Accordion title="4. Confirmation and consistency" icon="database">
+    * Final status confirmed from backend or through consultation.
+    * Duples and reattempts handled securely.
+    * Order or pay properly updated to your system.
+    * Minimum logs available for support and diagnosis.
+  </Accordion>
+
+  <Accordion title="5. Production" icon="rocket">
+    * Sandbox complete with minimum evidence of evidence.
+    * The production configuration revised by environment.
+    * Critical flows tested with integration equipment.
+    * Integration ready for live leave.
+  </Accordion>
+</AccordionGroup>
+
+## Minimum approval criterion
+
+<CardGroup cols={3}>
+  <Card title="Approved purchase" icon="check">
+    At least an approved end to end validated flow.
+  </Card>
+
+  <Card title="Rejected purchase" icon="x">
+    Full Validation of Rejection and message management for the user.
+  </Card>
+
+  <Card title="Consisstore result" icon="shield-check">
+    Confirmation between front and backend and final status of payment before production.
+  </Card>
+</CardGroup>
+
+## Related guides
+
+<CardGroup cols={2}>
+  <Card title="Introduction Flex" icon="credit-card-front" href="/en/virtual-payments/checkout-web/flex/introduction">
+    Check the main flow of Web Checkout with Flex.
+  </Card>
+
+  <Card title="API Nonce" icon="shield-check" href="/en/virtual-payments/checkout-web/flex/api-nonce">
+    Generates `nonce` from backend to start the form.
+  </Card>
+
+  <Card title="Test data" icon="flask" href="/en/virtual-payments/payments/test-data">
+    Use sandbox cards and scenarios to validate your integration.
+  </Card>
+
+  <Card title="API Consultation" icon="magnifying-glass" href="https://docs.pay-me.com/payin/consulta">
+    confirms from backend the final status of the operation.
+  </Card>
+</CardGroup>

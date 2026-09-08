@@ -1,0 +1,64 @@
+---
+title: "Smart operations"
+description: "Understand the Alignet One architecture and how smart operations help maximize conversion."
+---
+To integrate Alignet One successfully, it is important to understand the difference between an **Operation** (purchase intent) and a **Transaction** (technical payment attempt).
+
+### The Intelligent Operation Model
+
+Unlike other gateways that close the session to first error, Alignet One using a model **resilient**. That allows a client to try and pay with different methods without you losing the sale.
+
+#### 1. Operation (OP)
+
+This is the **master container** for a sale. It begins when the customer opens the payment form.
+
+* **Operation ID:** Example `OP-12345`.
+* **Persistence:** The operation remains active while the customer is in checkout.
+* **Purpose:** Group all attempts under the same order number to simplify reconciliation.
+
+#### 2. The Transaction (TX)
+
+This is each **individual payment attempt** made within an operation.
+
+* An operation can contain **multiple transactions**.
+* The customer can switch between payment methods without restarting the process.
+
+***
+
+### Real Example 1: Recovery of Sale
+
+Imagine a customer with a cart totaling **S/ 50.00**. With this architecture, the flow works as follows:
+
+| Customer action       | Transaction status  | Operation status | Result for the merchant         |
+| :----------------------- | :------------------ | :--------------- | :--------------------------------- |
+| Tries one card | Declined (insufficient balance)  | **Pending**    | The customer remains in checkout.   |
+| Tries another card   | Declined (limit) | **Pending**    | The system offers other methods. |
+| Pays with **Yape**        | Approved          | **Successful**      | **Sale completed.**                |
+
+> **Business value:** With a traditional gateway, this could result in two failed sales and a frustrated customer. With Alignet One, it becomes **one successful sale** with a clear transaction record.
+
+> **Omnichannel payments in a single flow:** Alignet One lets the customer retry with another card or **switch payment methods** without requiring the merchant to cancel the original order or the customer to enter all their information again. This reduces friction and can recover a sale after an initial decline.
+
+***
+
+### Benefits for your Integration
+
+<CardGroup cols={3}>
+  <Card title="High Conversion" icon="chart-line">
+    Reduce abandonment by allowing immediate retries.
+  </Card>
+
+  <Card title="Reconciliation 1: 1" icon="file-invoice-dollar">
+    One order in your store generally corresponds to one operation.
+  </Card>
+
+  <Card title="UX Flow" icon="mobile-screen-button">
+    The customer does not need to re-enter their information when an attempt fails.
+  </Card>
+</CardGroup>
+
+***
+
+<Card title="Transaction States" icon="arrow-right" href="/en/virtual-payments/payments/transaction-states">
+  Learn how to interpret the status of each attempt: registered, authorized, or declined.
+</Card>

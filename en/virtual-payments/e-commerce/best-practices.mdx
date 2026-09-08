@@ -1,0 +1,52 @@
+---
+title: "Best practices"
+description: "Recommendations for operating Alignet One e-commerce plugins and modules securely and consistently."
+---
+Implement these recommendations as you integrate Alignet One with **WooCommerce**, **PrestaShop** or **VTEX**.
+
+## Security and credentials
+
+<AccordionGroup>
+  <Accordion title="Credentials by environment" icon="key" defaultOpen>
+    * He uses sandbox credentials only for testing.
+    * Do not mix with prior-production and production credentials.
+    * Restrict administrative access to the panel where keys are set up.
+  </Accordion>
+
+  <Accordion title="Backoffice secure" icon="lock">
+    * Keep up with CMS, plugin, module and dependencies.
+    * He uses individual administrative users and doesn't share accounts.
+    * Check logs without presenting sensitive information from the buyer.
+  </Accordion>
+</AccordionGroup>
+
+## Operation of order
+
+<CardGroup cols={2}>
+  <Card title="Conformed States" icon="database">
+    The status of the order should reflect the actual status of payment, not just the screen that the client saw.
+  </Card>
+
+  <Card title="Asynchronous methods" icon="clock">
+    To QR, Cuotéalo or PagoEfectivoHe expects final confirmation before releasing his order.
+  </Card>
+
+  <Card title="Support logs" icon="file-lines">
+    Keep operation number, status and date for traceability with integration equipment.
+  </Card>
+
+  <Card title="Controlled tests" icon="flask">
+    Valide approved, rejected and earrings in sandbox before passing to production.
+  </Card>
+</CardGroup>
+
+## Before we get out alive
+
+* Check that the plugin or module is production only where appropriate.
+* Confirms that the activated methods coincide with the affiliate for the merchant.
+* Valids emails, back pages, messages to the buyer and order states.
+* Prepare minimum evidence for final review.
+
+<Card title="Integration checklist" icon="clipboard-check" href="/en/virtual-payments/e-commerce/integration-checklist">
+  Check the specific checklist for e-commerce integrations.
+</Card>

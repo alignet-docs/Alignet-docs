@@ -1,0 +1,115 @@
+---
+title: "Android SDK input and output parameters"
+---
+The following are details of the entry and output parameters of Alignet One SDK for affiliations flow:
+
+## Input Parameters
+
+The object `PMEAffiliationRequest` includes the following:
+
+### **PMEAffiliationRequest**
+
+Open complete board
+
+| **Parameter**   | **Type**                                                                                                                                           | **Description**                                                                                                                           | **Mandatory** |
+| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| action          | `PAYMEAffiliationAction`                                                                                                                           | The action to run. Can be CREATE or UPDATE <ul><li>`PAYMEAffiliationAction.CREATE`</li><li>`PAYMEAffiliationAction.UPDATE`</li></ul> | If              |
+| AffiliationCode | String                                                                                                                                             | Merchant-generated Affiliation code                                                                                             | If              |
+| Affiliation     | [PAYMEAffiliationData](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEAffiliationData) | It contains information about Affiliation. It's obligatory when the action's CREATE                                                          | NO              |
+| setting         | [PAYMESettingData](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMESettingData)         | Contains performance titration information from membership form                                                            | NO              |
+
+#### **PAYMEAffiliationData**
+
+Open complete board
+
+| **Parameter**    | **Type**                                                                                                                                   | **Long.** | **Description**                                                                                                                                                                                                  | **Mandatory** |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| Type             | `PAYMEAffiliationType`                                                                                                                     | -         | Affiliation type. Values: <ul><li>`FIXED` → NO DISPONIBLE</li><li>`VARIABLE` → NO DISPONIBLE</li><li>`MANUAL` → DISPONIBLE</li></ul>                                                                          | If              |
+| frequency        | String                                                                                                                                     | -         | Frequency of Affiliation collection                                                                                                                                                                        | NO              |
+| amount           | String                                                                                                                                     | 11        | That's how bad I get. The dateway will be charged with applying the decimal separator. Example: <ul><li>If the amount is 0.50 → Send 50</li><li>If the amount is 10.00 → Send 1000</li></ul> | NO              |
+| maxAmound        | String                                                                                                                                     | 11        | The maximum amount applied to the amount of recurrent payments. The amount should be expressed as an integer in cents                                                                                          | NO              |
+| currency         | String                                                                                                                                     | -         | Currency code ISO-4217.                                                                                                                                                                                       | If              |
+| Additional | Dictionary                                                                                                                                | -         | It contains additional information provided by the merchant.                                                                                                                                                    | NO              |
+| Beneficiaries      | [PAYMEAddressData](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEAddressData) | -         | Affiliate information                                                                                                                                                                                         | If              |
+
+##### **PAYMEAddressData**
+
+Open complete board
+
+| **Parameter**    | **Type**                                                                                                                                             | **Long.** | **Description**                                                              | **Mandatory** |
+| :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------- | :-------------- |
+| firstName        | String                                                                                                                                               | 30        | Names                                                                      | If              |
+| last         | String                                                                                                                                               | 50        | Surname                                                                    | If              |
+| email            | String                                                                                                                                               | 50        | Email                                                           | If              |
+| phone            | String                                                                                                                                               | 15        | Country code and phone number of the card holder (51- 958435685) | If              |
+| identityDocument | [PAYMEIdentification Object](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEIdentityDocument) | -         | Object containing information about an identity document                    | NO              |
+| line1            | String                                                                                                                                               | 50        | Address                                                                    | If              |
+| line2            | String                                                                                                                                               | 50        | Address                                                                    | NO              |
+| city             | String                                                                                                                                               | 50        | City / Province                                                             | If              |
+| status            | String                                                                                                                                               | 15        | Status / Department                                                          | If              |
+| Country          | String                                                                                                                                               | 2         | Country code in letter. ISO-3166                                           | If              |
+
+###### **PAYMEIdentification Object**
+
+Open complete board
+
+| **Parameter** | **Type** | **Long.** | **Description**                                                                                                   | **Mandatory** |
+| :------------ | :------- | :-------- | :---------------------------------------------------------------------------------------------------------------- | :-------------- |
+| Country       | String   | 2         | Country code in letter. ISO3166. Tube: <ul><li>Peru → PE</li></ul>                                              | If              |
+| Type          | String   | 20        | Type of identity document: <ul><li>DNI</li><li>CARNET\_EXTRANJERIA</li><li>PASAPORTE</li><li>OTROS</li></ul> | If              |
+| identifier    | String   | 20        | Identification number                                                                                  | If              |
+
+#### **PAYMESettingData**
+
+Open complete board
+
+| **Parameter**           | **Type** | **Long.** | **Description**                                                     | **Mandatory** |
+| :---------------------- | :------- | :-------- | :------------------------------------------------------------------ | :-------------- |
+| locale                  | String   | 5         | Localization of the language using the form to display itself. | If              |
+| **Value - Description** |          |           |                                                                     |                 |
+| It's\_PE Spanish Peru     |          |           |                                                                     |                 |
+| walletUserId            | String   | 15        | Value to identify a user's walk.                     | NO              |
+
+## **Departure Parameters**
+
+The object `PMEAffiliationResponse` includes the following:
+
+### PMEAffiliationResponse
+
+Open complete board
+
+| **Parameter** | **Type**                                                                                                                                               | **Long.** | **Description**                                                                                                                          | **Mandatory** |
+| :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| success       | Boolean                                                                                                                                                | -         | It's got value.*\*true\*\*if the process was performed correctly,\*\*Fasse\*\*if an error occurred during the payment processing. | If              |
+| resultCode    | String                                                                                                                                                 | 2         | Reprocessing result code.                                                                                                   | If              |
+| resultMessage | String                                                                                                                                                 | 30        | Text describing the result of processing.                                                                                       | If              |
+| result        | [PAYMEAffiliationResult](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEAffiliationResult) | -         | Detail of the transaction result.                                                                                                 | NO              |
+
+#### PAYMEAffiliationResult
+
+Open complete board
+
+| **Parameter**    | **Type**                                                                                                                                           | **Long.** | **Description**                                                                                                                                                                                                  | **Mandatory** |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| AffiliationId    | String                                                                                                                                             | 36        | To identify unique transaction generated by Alignet One                                                                                                                                                          | If              |
+| AffiliationCode  | String                                                                                                                                             | 36        | Operation number sent by merchant                                                                                                                                                                      | If              |
+| Type             | String                                                                                                                                             | -         | Affiliation type. Values: <ul><li>`FIXED` → NO DISPONIBLE</li><li>`VARIABLE` → NO DISPONIBLE</li><li>`MANUAL` → DISPONIBLE</li></ul>                                                                          | If              |
+| status            | String                                                                                                                                             | -         | Current status of affiliation, values: <ul><li>ACTIVE</li><li>INACTIVE</li></ul>                                                                                                                               | If              |
+| frequency        | String                                                                                                                                             | -         | Frequency of Affiliation collection                                                                                                                                                                        | NO              |
+| amount           | String                                                                                                                                             | 11        | That's how bad I get. The dateway will be charged with applying the decimal separator. Example: <ul><li>If the amount is 0.50 → Send 50</li><li>If the amount is 10.00 → Send 1000</li></ul> | NO              |
+| maxAmound        | String                                                                                                                                             | 11        | The maximum amount applied to the amount of recurrent payments. The amount should be expressed as an integer in cents                                                                                          | NO              |
+| currency         | String                                                                                                                                             | -         | Currency code ISO-4217.                                                                                                                                                                                       | If              |
+| Additional | Dictionary                                                                                                                                        | -         | It contains additional information provided by the merchant.                                                                                                                                                    | NO              |
+| card             | [PAYMEAffiliationCard](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEAffiliationCard) | -         | Information about the card used in Affiliation                                                                                                                                                                 | If              |
+
+##### PAYMEAffiliationCard
+
+Open complete board
+
+| **Parameter**  | **Type** | **Long.** | **Description**                                                                                     | **Mandatory** |
+| :------------- | :------- | :-------- | :-------------------------------------------------------------------------------------------------- | :-------------- |
+| brand          | String   | 4         | Card name. The values are: <ul><li>VISA</li><li>MSCD</li><li>AMEX</li><li>DINC</li></ul> | If              |
+| bin            | String   | 6         | Card bin                                                                                   | If              |
+| lastPan        | String   | 4         | Last four digits of the card                                                                | If              |
+| issue     | String   | 50        | Name of card issuer                                                                     | NO              |
+| cardholderName | String   | 50        | Name and name of card holder                                                        | If              |

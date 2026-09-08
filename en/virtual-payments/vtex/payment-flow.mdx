@@ -1,0 +1,50 @@
+---
+title: "VTEX payment flow"
+description: "Understand how an Alignet One transaction flows through VTEX."
+---
+## Flow of payment
+
+The following stream describes how a transaction will be processed when a client pays at your store VTEX using Alignet One.
+
+***
+
+## step by step
+
+1. **Selection of payment method**\
+   The client chooses Alignet One at the check out of VTEX
+
+2. **Initiation of payment**\
+   VTEX invokes the connector Alignet One
+
+3. **Authentication (3DS)**\
+   It's run 3-D Secure if applicable
+
+4. **Authorisation**\
+   The transaction is sent to the processor (Visa / Mastercard / others)
+
+5. **Response**\
+   The result (approved or rejected)
+
+6. **Checkout result**\
+   VTEX shows final status to client
+
+***
+
+## Result of transaction
+
+* **Adopted** → Confirmed order
+* **Rejected** → Other means of payment requested
+
+***
+
+## Considerations
+
+* 3DS run by issuer's rules
+* The response time depends on the processor
+* The flow is clear for the merchant
+
+***
+
+## Next step
+
+Continue with monitoring and validation of integration.

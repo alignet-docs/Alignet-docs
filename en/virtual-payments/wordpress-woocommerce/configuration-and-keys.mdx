@@ -1,0 +1,91 @@
+---
+title: "Configuration and keys"
+description: "Connect your store to Alignet One using your credentials and security keys."
+---
+Once the plugin has been installed, the next step is technical linkage. Alignet One uses an identifier and cryptographic key system to ensure that every transaction is true and secure.
+
+## Setup Panel Access
+
+To start with, get to your manager WordPress a: **WooCommerce** > **Adjustments** > **Payments** > **Alignet One Checkout** > **Finish Configure**.
+
+***
+
+## 1. Trade identifiers
+
+These data are provided by the Alignet One after your affiliation. They are vital to the routing of payments.
+
+| Field                              | Description                                                 |
+| :--------------------------------- | :---------------------------------------------------------- |
+| **Trading ID (Merchant ID)**   | Unique identifier of your storage on the platform Alignet One.   |
+| **Acquier ID (Acquier ID)** | Apps processor identifier assigned to your account. |
+| **Terminal ID**                 | Number of logical terminal for your operations.             |
+
+***
+
+## 2. Security Key Management
+
+To cipher communication, the plugin requires two keys. Can you generate them or get them back from **Management Portal Alignet One**.
+
+<AccordionGroup>
+  <Accordion title="Public Key" icon="key">
+    It's used to cipher data that travel from the client's browser to Alignet One.
+
+    * **Format:** Long alphanumeric chain.
+    * **Location:** Copy the exact value from your merchant panel in the "Security Setup" Section.
+  </Accordion>
+
+  <Accordion title="Private Key" icon="lock">
+    It's used for signing messages S2S (Server to Server) and validation of webhooks.
+
+    * **Security:** Never share this key! It should only be set up on your server.
+  </Accordion>
+</AccordionGroup>
+
+***
+
+## 3. Performance environments
+
+The plugin allows to alternate between two environments. It's vital to validate everything at Sandbox before processing real money.
+
+<Tabs>
+  <Tab title="Mode Sandbox (Tests)">
+    <Warning>
+      Be sure to sign the box **"Enabling Test Mode"**. In this way, evidence credentials will be used and no actual card charges will be charged.
+    </Warning>
+
+    * **URL Test:** Automatic set by the plugin.
+    * **Test data:** [See Consolidated Reference](/en/virtual-payments/payments/test-data).
+  </Tab>
+
+  <Tab title="Production Mode">
+    <Check>
+      When you are ready to sell, scattering the Test Mode and entering final credentials sent by the Support Team.
+    </Check>
+
+    * **Validation SSL:** In production, it's required that your website have a certificate HTTPS Active.
+  </Tab>
+</Tabs>
+
+***
+
+## 4. Configure URL (S2S)
+
+To that Alignet One notify your store when a payment has been successful (especially in asynchronous methods), you have to configure the URL response at your Alignet One:
+
+**[https://tudominio.com/?wc-api=WC\\\_Gateway\\\_Payme](https://tudominio.com/?wc-api=WC\\_Gateway\\_Payme)**
+
+<Info>
+  Replace **Your name. com** by URL Realty from your store. That's him. URL It should be public and not be protected by firewalls that block outside connections.
+</Info>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Checkout experience" icon="cart-shopping" href="/en/virtual-payments/wordpress-woocommerce/checkout-experience">
+    Configure how your customers will see payment methods in the cart.
+  </Card>
+
+  <Card title="Evidence" icon="vial" href="/en/virtual-payments/wordpress-woocommerce/testing-and-certification">
+    Use our test cards to validate your integration.
+  </Card>
+</CardGroup>

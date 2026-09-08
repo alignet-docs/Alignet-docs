@@ -1,0 +1,109 @@
+---
+title: "Alignet One iOS SDK input and output parameters"
+---
+# Fits: Input and Departure Parameters Alignet One SDK iOS
+
+The following are details of the entry and output parameters of Alignet One SDK for autoization flow.
+
+## Input Parameters
+
+### PAYMEChargesRequest
+
+| **Parameter** | **Type**                                                    | **Description**                                                           | **Mandatory** |
+| :------------ | :---------------------------------------------------------- | :------------------------------------------------------------------------ | :-------------- |
+| transaction   | [PAYMETransactionData](#objeto-paymetransactiondata) | Contains transaction information                                    | If              |
+| setting       | [PAYMESettingData](#objeto-paymeSettingdata)         | It contains information about the performance of the payment form. | NO              |
+
+#### PAYMETransactionData
+
+| **Parameter**    | **Type**                                            | **Long.** | **Description**                                                                                                                                                                           | **Mandatory** |
+| :--------------- | :-------------------------------------------------- | :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| operation.Number  | String                                              | 12        | A unique operation number at the gateway, which will be used to conduct the transaction. (6 to 12 digits).                                                    | If              |
+| amount           | String                                              | 11        | That's how bad I get. The dateway will apply the decimal separator. Example: If the amount is 0.50 → Send 50 / If the amount is 10.000 → Send 1000 | If              |
+| currency         | String                                              | -         | Currency code ISO-4217.                                                                                                                                                                | If              |
+| Additional | Dictionary                                         | -         | It contains additional information provided by the merchant.                                                                                                                             | NO              |
+| billing          | [PAYMEAddressData](#objeto-paymeaddressdata) | -         | Billing information from the purchase order.                                                                                                                                         | If              |
+| shipping         | [PAYMEAddressData](#objeto-paymeaddressdata) | -         | To send information about the purchase order.                                                                                                                                               | NO              |
+| keeper         | [PAYMEAddressData](#objeto-paymeaddressdata) | -         | The buyer's information.                                                                                                                                                                | NO              |
+
+#### PAYMEAddressData
+
+| **Parameter**    | **Type**                                                      | **Long.** | **Description**                                                                                             | **Mandatory** |
+| :--------------- | :------------------------------------------------------------ | :-------- | :---------------------------------------------------------------------------------------------------------- | :-------------- |
+| firstName        | String                                                        | 30        | Names                                                                                                     | If              |
+| last         | String                                                        | 50        | Surname                                                                                                   | If              |
+| email            | String                                                        | 50        | Email                                                                                          | If              |
+| phone            | String                                                        | 15        | Country code and phone number of the card holder (51- 958435685)                                | If              |
+| identityDocument | [PAYMEIdentification Object](#objeto-paymeidentitydocument) | -         | Object containing information about the buyer's identity document. Only available for **CUSTOMER.** | NO              |
+| line1            | String                                                        | 50        | Address                                                                                                   | If              |
+| line2            | String                                                        | 50        | Additional address                                                                                    | NO              |
+| city             | String                                                        | 50        | City / Province                                                                                            | If              |
+| status            | String                                                        | 15        | Status / Department                                                                                         | If              |
+| Country          | String                                                        | 2         | Country code in letter. ISO3166. Tube: Peru → PE                                                          | If              |
+
+#### PAYMEIdentification Object
+
+| **Parameter** | **Type** | **Long.** | **Description**                                                               | **Mandatory** |
+| :------------ | :------- | :-------- | :---------------------------------------------------------------------------- | :-------------- |
+| Country       | String   | 2         | Country code in letter. ISO3166. Tube: Peru → PE                            | If              |
+| Type          | String   | 20        | Type of identity document: DNI / CARNET\_EXTRANJERIA / PASAPORTE / OTROS | If              |
+| identifier    | String   | 20        | Identification number                                              | If              |
+
+#### PAYMESettingData
+
+| **Parameter**   | **Type**       | **Long.** | **Description**                                                                                                                                                                    | **Mandatory** |
+| :-------------- | :------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| locale          | String         | 5         | Localization of the form's language. Value: `es_PE` (Peru)                                                                                                              | If              |
+| walletUserId    | String         | 15        | Value to identify a user's walk.                                                                                                                                    | NO              |
+| paymentMethods  | Array\[String] | -         | List of payment methods to be charged by SDK. If it isn't sent, the merchant configuration will be used. Values: `CARD`, `YAPE`, `CUOTEALO`, `QR`, `BANK_TRANSFER`, `PAGO_EFECTIVO` | NO              |
+| urlNotification | String         | 200       | URL where the notification will be made after authorisation of the transaction. Optional if set up by back.                                                                       | NO              |
+
+***
+
+## Departure Parameters
+
+### PaymeEvents Object
+
+| **Parameter** | **Type** | **Description**                                                                                                                                                                                                                                           | **Req.** |
+| :------------ | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
+| PaymeEvents   | Inum     | Internal action indicator SDK. Possible values: `BUILD_FORM(methods:[String])`, `CHOOSE_PAYMENT_METHOD(method: String)`, `RETURN_LIST_PAYMENT_METHODS`, `CANCEL_PAYMENT_METHOD(method: String)`, `PRESS_PAY_BUTTON(method: String)`, `CLOSE_PAYME` | If       |
+
+### PAYMEChargesResponse
+
+| **Parameter** | **Type**                                                        | **Long.** | **Description**                                                 | **Mandatory** |
+| :------------ | :-------------------------------------------------------------- | :-------- | :-------------------------------------------------------------- | :-------------- |
+| success       | Boolean                                                         | -         | `true` if the process was correct, `false` if a mistake happened. | If              |
+| resultCode    | String                                                          | 2         | Reprocessing result code.                          | If              |
+| resultMessage | String                                                          | 30        | Text describing the result of processing.              | If              |
+| result        | [PAYMETransactionResult](#objeto-paymetransactionresult) | -         | Detail of the transaction result.                        | NO              |
+
+#### PAYMETransactionResult
+
+| **Parameter**     | **Type**                                                             | **Long.** | **Description**                                                                                   | **Mandatory** |
+| :---------------- | :------------------------------------------------------------------- | :-------- | :------------------------------------------------------------------------------------------------ | :-------------- |
+| transactionId     | String                                                               | 25        | Unique identifier of transaction generated by Alignet One                                         | If              |
+| operation.Number   | String                                                               | 12        | Operation number sent by merchant                                                       | If              |
+| status             | String                                                               | -         | Status of transaction: `PENDIENTE`, `INVALIDO`, `AUTORIZADO`, `DENEGADO`                       | If              |
+| statesReason       | String                                                               | 100       | That's why she stayed in that state.                                                       | If              |
+| amount            | String                                                               | 11        | Authorisation amount                                                                          | If              |
+| currency          | String                                                               | 3         | Currency used at authorization                                                                   | If              |
+| Additional  | Dictionary                                                          | -         | Additional information provided by the merchant.                                              | NO              |
+| paymentMethod     | [PAYMEPaymentMethod](#objeto-paymepaymentmethod)              | -         | Purpose of the payment method.                                                                        | If              |
+| atoning    | String                                                               | -         | Date in format **UNIX** where the transaction expires. Available for QR and PAGO\_EFFECTIVE. | NO              |
+| process | String                                                               | 500       | JSON String with the processor's response.                                                   | NO              |
+| lifecycle         | [Array PAYMETRASsactionLifecycle](#objeto-paymetransactionlifecycle) | -         | Array of times and states through which you passed the transaction.                                       | If              |
+
+#### PAYMEPaymentMethod
+
+| **Parameter** | **Type** | **Long.** | **Description**                                                                          | **Mandatory** |
+| :------------ | :------- | :-------- | :--------------------------------------------------------------------------------------- | :-------------- |
+| name          | String   | -         | Method of payment used: `CARD`, `YAPE`, `QR`, `CUOTEALO`, `BANK_TRANSFER`, `PAGO_EFECTIVO` | If              |
+| MethodDetail  | String   | 500       | JSON String with information from the used card. Available for CARD, YAPE and QR.              | NO              |
+
+#### PAYMETransactionLifecycle
+
+| **Parameter** | **Type** | **Long.** | **Description**                                                                           | **Mandatory** |
+| :------------ | :------- | :-------- | :---------------------------------------------------------------------------------------- | :-------------- |
+| status         | String   | -         | Status of transaction: `REGISTRADO`, `PENDIENTE`, `INVALIDO`, `AUTORIZADO`, `DENEGADO` | If              |
+| utcTime       | String   | -         | Date in format UTC where the transaction changed status.                           | If              |
+| unixTime      | String   | -         | Date in format UNIX where the transaction changed status.                          | If              |

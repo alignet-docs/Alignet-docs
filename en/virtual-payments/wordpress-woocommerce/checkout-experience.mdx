@@ -1,0 +1,78 @@
+---
+title: "Checkout experience"
+description: "Configure how customers view and complete payments in WooCommerce checkout."
+---
+The plugin of Alignet One offers a native integration that suits your store's design, ensuring a smooth and secure payment flow.
+
+## 1. Visualisation Mode
+
+You can choose how to submit payment methods to your purchase completion form.
+
+### Separated Mode (Recommended)
+
+That mode engulfs every card mark and payment method (YapePlin, PagoEfectivo) as individual options with their own official icon.
+
+* **Advantage:** Transmit more confidence to the client by viewing family logos from the first click.
+* **Flow:**
+  1. The client complete his **Filling Data**.
+  2. Select the specific method (e.g. Visa Card).
+  3. By clicking "Pay," the **Form Alignet One**.
+  4. Following his confirmation, his client was redirected to his success page.
+
+***
+
+## 2. Compatibility with WooCommerce Blocks
+
+The plugin is completely compatible with **Modern Checkout of WooCommerce** (React / Blocks).
+
+<CardGroup cols={2}>
+  <Card title="Classic Checkout" icon="wpforms">
+    Total support for shortcode issues **(\[Woocommerce_Checkout])**.
+  </Card>
+
+  <Card title="Checkout Blocks" icon="cubes">
+    Optimized integration for payment block WooCommerce high performance.
+  </Card>
+</CardGroup>
+
+***
+
+## 3. Validation of Real-time Data
+
+To avoid failed transactions, the plugin does prior validation before invoking the gateway. The following fields are required:
+
+* **Name and name:** Required for validation of the card.
+* **Email:** Where the client will get his voucher.
+* **Direction and town:** Critical data for risk analysis.
+* **Telephone:** Security validation contact.
+
+<Tip>
+  If a field lacks or is poorly formatted, the plugin will show a native warning of WooCommerce Highlights error before trying to process payment.
+</Tip>
+
+***
+
+## 4. Confirmation Display (Visual Feedback)
+
+The post-paid experience is vital. The plugin personalizes the "Rejected Order" page with clear messages as result:
+
+| Status of payment | Meaning                                                                  |
+| :-------------- | :--------------------------------------------------------------------------- |
+| **Successful**     | "Confirmed order!" Approved and ready for dispatch.           |
+| **Outstanding**   | "To demand." Typical in asynchronous methods (QR or PagoEfectivo).        |
+| **Rejected**    | "Rejected payment." Rejected transaction and an opportunity to try with another means. |
+
+**The page automatically includes:**
+
+* Full order summary.
+* Detail of products acquired.
+* Input billing data.
+* Direct button to "Back to Store."
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Order management" icon="clipboard-list" href="/en/virtual-payments/wordpress-woocommerce/order-and-transaction-management">
+    Learn how to manage Retirement and watch logs from admin WordPress.
+  </Card>
+</CardGroup>

@@ -1,0 +1,203 @@
+---
+title: "Build the payload"
+description: "Build the payload that Alignet One Flex uses to start the authorization flow."
+---
+The `payload` of Flex reuses the structure of **API of Authorisation - ecommerce**with an important difference: `payment_method` at the root object but as an empty object `{}`, because the client will choose the method within the form.
+
+<Info>
+  Think about this step as preparing the request for `POST /charges` for Flex. What you build here will be the basis of the operation that you will end up reading at `responseCallback(response)`.
+</Info>
+
+## What's preserved and what's changing
+
+<CardGroup cols={2}>
+  <Card title="Same base PayIn" icon="database">
+    Keep `action`, `channel`, `merchant_code`, `merchant_operation_number`, `payment_method` and `payment_details`.
+  </Card>
+
+  <Card title="Change Flex" icon="wand-magic-sparkles">
+    In Flex, `payment_method` travels as `{}` empty because the actual method resolves in the front as the user select.
+  </Card>
+</CardGroup>
+
+## Payload structure
+
+Expand each block to check which fields belong to each level of the object that you will send to Flex.
+
+<AccordionGroup>
+  <Accordion title="Retirement" icon="table" defaultOpen>
+    Contains general information about the operation and links with `payment_details`where she travels the details of the collection.
+
+    | Field                       | Description                                     | Example                              | Type   | Mandatory |
+    | :-------------------------- | :---------------------------------------------- | :----------------------------------- | :----- | :---------- |
+    | `action`                    | Action to be implemented                               | `authorize`                          | String | If          |
+    | `channel`                   | Channel where transaction will be run         | `ecommerce`                          | String | If          |
+    | `merchant_code`             | Merchant identifier                      | Alphanumeric Chain                  | String | If          |
+    | `merchant_operation_number` | Operation order number                | 6 to 12 digits | String | If          |
+    | `payment_method`            | Subject matter reserved for Flex. To be sent empty | `{}`                                 | Object | If          |
+    | `payment_details`           | Object with information about the transaction        | Object                               | Object | If          |
+  </Accordion>
+
+  <Accordion title="Item payment_details" icon="receipt">
+    Gather the buyer's amount, currency and operating subobjects, billing and sending.
+
+    | Field                               | Description                                                                                      | Example               | Type       | Mandatory |
+    | :---------------------------------- | :----------------------------------------------------------------------------------------------- | :-------------------- | :--------- | :---------- |
+    | `payment_details.amount`            | Operating cents                                                                | `1050`                | String     | If          |
+    | `payment_details.currency`          | Code [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) of the currency of the operation | `604`                 | String     | If          |
+    | `payment_details.additional_fields` | Dictionary to send custom fields and values `key:value`                        | `external_id:5468724` | Dictionary | NO          |
+    | `payment_details.customer`          | Object with information from the client who buys                                         | Object                | Object     | NO          |
+    | `payment_details.billing`           | Object with billing information                                                            | Object                | Object     | If          |
+    | `payment_details.shipping`          | Object with sending information                                                                  | Object                | Object     | NO          |
+  </Accordion>
+
+  <Accordion title="Item payment_details" icon="address-book">
+    Define the optional data of the client that makes the purchase useful for identification and risk context.
+
+    | Field                                                   | Description                                       | Type   | Mandatory |
+    | :------------------------------------------------------ | :------------------------------------------------ | :----- | :---------- |
+    | `payment_details.customer.first_name`                   | Names                                           | String | NO          |
+    | `payment_details.customer.last_name`                    | Surname                                         | String | NO          |
+    | `payment_details.customer.email`                        | Email                                | String | NO          |
+    | `payment_details.customer.phone`                        | Object with phone information               | Object | NO          |
+    | `payment_details.customer.phone.country_code`           | Telephone Country Code                      | String | NO          |
+    | `payment_details.customer.phone.subscriber`             | Telephone number                               | String | NO          |
+    | `payment_details.customer.identity_document`            | Object with information about the identity document | Object | NO          |
+    | `payment_details.customer.identity_document.country`    | Country of document                                | String | NO          |
+    | `payment_details.customer.identity_document.type`       | Type of document                                 | String | NO          |
+    | `payment_details.customer.identity_document.identifier` | document number                               | String | NO          |
+    | `payment_details.customer.location`                     | Object with location information               | Object | NO          |
+    | `payment_details.customer.location.line_1`              | Section 1                                       | String | NO          |
+    | `payment_details.customer.location.line_2`              | Directorate 2                                       | String | NO          |
+    | `payment_details.customer.location.city`                | City                                            | String | NO          |
+    | `payment_details.customer.location.state`               | State                                            | String | NO          |
+    | `payment_details.customer.location.country`             | Country                                              | String | NO          |
+  </Accordion>
+
+  <Accordion title="Item payment_details" icon="file-text">
+    Contains required billing data that Flex necessary to process the operation.
+
+    | Field                                        | Description                         | Type   | Mandatory |
+    | :------------------------------------------- | :---------------------------------- | :----- | :---------- |
+    | `payment_details.billing.first_name`         | Names                             | String | If          |
+    | `payment_details.billing.last_name`          | Surname                           | String | If          |
+    | `payment_details.billing.email`              | Email                  | String | If          |
+    | `payment_details.billing.phone`              | Object with phone information | Object | If          |
+    | `payment_details.billing.phone.country_code` | Telephone Country Code        | String | If          |
+    | `payment_details.billing.phone.subscriber`   | Telephone number                 | String | If          |
+    | `payment_details.billing.location`           | Object with location information | Object | If          |
+    | `payment_details.billing.location.line_1`    | Section 1                         | String | If          |
+    | `payment_details.billing.location.line_2`    | Directorate 2                         | String | NO          |
+    | `payment_details.billing.location.city`      | City                              | String | If          |
+    | `payment_details.billing.location.state`     | State                              | String | If          |
+    | `payment_details.billing.location.country`   | Country                                | String | If          |
+  </Accordion>
+
+  <Accordion title="Item payment_details" icon="location-dot">
+    It includes sending information as soon as your business flow needs to complement the operation.
+
+    | Field                                         | Description                         | Type   | Mandatory |
+    | :-------------------------------------------- | :---------------------------------- | :----- | :---------- |
+    | `payment_details.shipping.first_name`         | Names                             | String | NO          |
+    | `payment_details.shipping.last_name`          | Surname                           | String | NO          |
+    | `payment_details.shipping.email`              | Email                  | String | NO          |
+    | `payment_details.shipping.phone`              | Object with phone information | Object | NO          |
+    | `payment_details.shipping.phone.country_code` | Telephone Country Code        | String | NO          |
+    | `payment_details.shipping.phone.subscriber`   | Telephone number                 | String | NO          |
+    | `payment_details.shipping.location`           | Object with location information | Object | NO          |
+    | `payment_details.shipping.location.line_1`    | Section 1                         | String | NO          |
+    | `payment_details.shipping.location.line_2`    | Directorate 2                         | String | NO          |
+    | `payment_details.shipping.location.city`      | City                              | String | NO          |
+    | `payment_details.shipping.location.state`     | State                              | String | NO          |
+    | `payment_details.shipping.location.country`   | Country                                | String | NO          |
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  For S /. 10.50 you should send `1050` and `currency` Value `604` for Soles.
+</Note>
+
+<Note>
+  In Flexand the root matter should be explicitly included `payment_method: {}` but the final method has not been selected by the user.
+</Note>
+
+## Full example
+
+```javascript theme={"system"}
+var payload = {
+    "action": "authorize",
+    "channel": "ecommerce",
+    "merchant_code": "b0deb6f3-e51a-48a7-9268-f1441d46f7bd",
+    "merchant_operation_number": "221354",
+    "payment_method": {},
+    "payment_details": {
+        "amount": "7000",
+        "currency": "604",
+        "billing": {
+            "first_name": "Levis",
+            "last_name": "Silvestre",
+            "email": "levis.silvestre@alignet.com",
+            "phone": {
+                "country_code": "+51",
+                "subscriber": "958435685"
+            },
+            "location": {
+                "line_1": "Av. San Borja Norte 1743",
+                "line_2": "",
+                "city": "Lima",
+                "state": "Lima",
+                "country": "PE"
+            }
+        },
+        "shipping": {
+            "first_name": "Levis",
+            "last_name": "Silvestre",
+            "email": "levis.silvestre@alignet.com",
+            "phone": {
+                "country_code": "+51",
+                "subscriber": "958435685"
+            },
+            "location": {
+                "line_1": "Av. San Borja Norte 1743",
+                "line_2": "",
+                "city": "Lima",
+                "state": "Lima",
+                "country": "PE"
+            }
+        },
+        "customer": {
+            "first_name": "Levis",
+            "last_name": "Silvestre",
+            "email": "levis.silvestre@alignet.com",
+            "phone": {
+                "country_code": "+51",
+                "subscriber": "958435685"
+            },
+            "identity_document": {
+                "country": "PER",
+                "type": "DNI",
+                "identifier": "72661927"
+            },
+            "location": {
+                "line_1": "Av. San Borja Norte 1743",
+                "line_2": "",
+                "city": "Lima",
+                "state": "Lima",
+                "country": "PE"
+            }
+        }
+    }
+}
+```
+
+## Next step
+
+<CardGroup cols={2}>
+  <Card title="Initiate component" icon="arrow-right" href="/en/virtual-payments/checkout-web/flex/component-initialization">
+    Use this `payload` with you `nonce` to create an instance `FlexPaymentForms`.
+  </Card>
+
+  <Card title="API of Authorisation - ecommerce" icon="book" href="https://docs.pay-me.com/payin/autorizacion">
+    Take this reference as a basic contract of the request that you are re-using at Flex.
+  </Card>
+</CardGroup>

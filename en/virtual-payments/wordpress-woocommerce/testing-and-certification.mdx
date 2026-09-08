@@ -1,0 +1,88 @@
+---
+title: "Testing and certification"
+description: "Validate your integration in the sandbox before moving to production."
+---
+Before enabling actual payments, end-to-end tests are required to ensure that orders are properly created and your server receives payment notifications (S2S).
+
+## 1. Test data for Sandbox
+
+To avoid duplication, test scenarios are consulted from a single shared page:
+
+<CardGroup cols={2}>
+  <Card title="Open Test Data" icon="credit-card" href="/en/virtual-payments/payments/test-data">
+    Check cards, Yapeand other sandbox scenarios from a central reference.
+  </Card>
+
+  <Card title="Use only in Sandbox" icon="flask">
+    Run these validations with the plugin in an active sandbox and testing mode.
+  </Card>
+</CardGroup>
+
+<Note>
+  In WooCommerce, uses that reference to cover approvals, rejections and alternative methods without repeating the same data here.
+</Note>
+
+<Tip>
+  For methods such as **PagoEfectivo** or flows that require delayed confirmation, you can support with support equipment if you have to validate manual stage approval.
+</Tip>
+
+***
+
+## 2. Mandatory Test Cases
+
+Run this checklist to guarantee a note **10/10** in your implementation:
+
+<Steps>
+  <Step title="Full Flow Recovery">
+    Reconduct an actual purchase, complete the form and check that you are redirected to the **"Confirmed order"**.
+  </Step>
+
+  <Step title="Validation S2S (Webhooks)">
+    Check at admin of WordPress That order changed from **Outstanding** a **Processing** without manual intervention.
+  </Step>
+
+  <Step title="Abandoning Management">
+    Close the payment window by half and confirm that order at WooCommerce have been marked as **Cancelled** after expiry time.
+  </Step>
+
+  <Step title="Reversal Test">
+    From the plugin's transaction panel, partially reimbursements and valids the amount to be reflected in the order's history.
+  </Step>
+</Steps>
+
+***
+
+## 3. Checklist for Pass to Production
+
+All set? Before applying for your final keys, be sure to fulfill:
+
+* **Certificate SSL:** Your place should have to load low **https\: / /**.
+* **Final Credentials:** You have your Merchant ID and production keys at hand.
+* **URL S2S:** Your server is accessible from external IP (Alignet One).
+* **Environment:** The "Test Mode" box has been unchecked with the plugin settings.
+
+***
+
+## 4. Get Technical Support
+
+If you find unexpected conduct during your tests, our integration team is ready to help you:
+
+<CardGroup cols={3}>
+  <Card title="Technical support" icon="envelope" href="mailto:postventa.autenticacion@alignet.com">
+    [posstorea.authentication @ alignet.com](mailto:postventa.autenticacion@alignet.com)
+  </Card>
+
+  <Card title="WhatsApp Business" icon="whatsapp" href="https://wa.me/51940133391">
+    +51 940 133 391
+  </Card>
+
+  <Card title="Central" icon="phone">
+    (01) 700-8377
+  </Card>
+</CardGroup>
+
+***
+
+<Card title="Problem solving" icon="circle-question" href="/en/virtual-payments/wordpress-woocommerce/troubleshooting">
+  Do you get a specific mistake? Check our common bug guide.
+</Card>

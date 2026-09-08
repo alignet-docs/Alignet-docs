@@ -1,0 +1,49 @@
+---
+title: "Library and basic styles"
+description: "Add the Alignet One Flex library to your web application."
+---
+To be used Alignet One Flex have to include the following code in the HTML from the page by environment:
+
+<Tabs>
+  <Tab title="production">
+    ```html theme={"system"}
+        <!-- Estilos CSS -->
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://flex.dev.pay-me.cloud/main-flex-payment-forms.css"
+        />
+
+        <!-- Librería JS -->
+        <script src="https://flex.dev.pay-me.cloud/flex-payment-forms.min.js"></script>
+    ```
+  </Tab>
+
+  <Tab title="Production">
+    ```html theme={"system"}
+        <!-- Estilos CSS -->
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://flex.alignet.io/main-flex-payment-forms.css"
+        />
+
+        <!-- Librería JS -->
+        <script src="https://flex.alignet.io/flex-payment-forms.min.js"></script>
+    ```
+  </Tab>
+</Tabs>
+
+<CardGroup cols={2}>
+  <Card title="CSS" icon="paintbrush">
+    Undetermined terms of the payment form. Include before closure `<head>`.
+  </Card>
+
+  <Card title="JS" icon="code">
+    Main library Alignet One Flex. Include after CSS at `<head>`.
+  </Card>
+</CardGroup>
+
+<Note>
+  Be sure to first include CSS and then JS to ensure that styles are applied correctly before the form starts.
+</Note>

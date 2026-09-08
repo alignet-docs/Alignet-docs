@@ -1,0 +1,99 @@
+---
+title: "iOS SDK input and output parameters"
+---
+The following are details of the entry and output parameters of Alignet One SDK for affiliations flow:
+
+## Input Parameters
+
+The object `PMEAffiliationRequest` includes the following:
+
+### PMEAffiliationRequest
+
+| **Parameter**   | **Type**                                                    | **Description**                                                                                                    | **Mandatory** |
+| :-------------- | :---------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- | :-------------- |
+| action          | `PAYMEAffiliationAction`                                    | The action to run. Can be CREATE or UPDATE: `PAYMEAffiliationAction.CREATE` / `PAYMEAffiliationAction.UPDATE` | If              |
+| AffiliationCode | String                                                      | Merchant-generated Affiliation code                                                                      | If              |
+| Affiliation     | [PAYMEAffiliationData](#objeto-paymeaffiliationdata) | It contains information about Affiliation. It's obligatory when the action's CREATE                                   | NO              |
+| setting         | [PAYMESettingData](#objeto-paymeSettingdata)         | Contains performance adjustment information from Affiliation Form                                     | NO              |
+
+#### PAYMEAffiliationData
+
+| **Parameter**    | **Type**                                            | **Long.** | **Description**                                                                                  | **Mandatory** |
+| :--------------- | :-------------------------------------------------- | :-------- | :----------------------------------------------------------------------------------------------- | :-------------- |
+| Type             | `PAYMEAffiliationType`                              | -         | Affiliation type: `FIXED` → NO DISPONIBLE / `VARIABLE` → NO DISPONIBLE / `MANUAL` → DISPONIBLE | If              |
+| frequency        | String                                              | -         | Frequency of Affiliation collection                                                        | NO              |
+| amount           | String                                              | 11        | That's a coin to be charged. Example: 0.50 → Send 50 / 10 → Send 1000                      | NO              |
+| maxAmound        | String                                              | 11        | Maximum amount for recurrent payments expressed as cents                                       | NO              |
+| currency         | String                                              | -         | Currency code ISO-4217                                                                        | If              |
+| Additional | Dictionary                                         | -         | Contains additional information provided by the merchant                                     | NO              |
+| Beneficiaries      | [PAYMEAddressData](#objeto-paymeaddressdata) | -         | Affiliate information                                                                         | If              |
+
+#### PAYMEAddressData
+
+| **Parameter**    | **Type**                                                      | **Long.** | **Description**                                           | **Mandatory** |
+| :--------------- | :------------------------------------------------------------ | :-------- | :-------------------------------------------------------- | :-------------- |
+| firstName        | String                                                        | 30        | Names                                                   | If              |
+| last         | String                                                        | 50        | Surname                                                 | If              |
+| email            | String                                                        | 50        | Email                                        | If              |
+| phone            | String                                                        | 15        | Country code and cell phone number (51-958435685)        | If              |
+| identityDocument | [PAYMEIdentification Object](#objeto-paymeidentitydocument) | -         | Object containing information about an identity document | NO              |
+| line1            | String                                                        | 50        | Address                                                 | If              |
+| line2            | String                                                        | 50        | Additional address                                  | NO              |
+| city             | String                                                        | 50        | City / Province                                          | If              |
+| status            | String                                                        | 15        | Status / Department                                       | If              |
+| Country          | String                                                        | 2         | Country code in letter. ISO-3166                        | If              |
+
+#### PAYMEIdentification Object
+
+| **Parameter** | **Type** | **Long.** | **Description**                                                  | **Mandatory** |
+| :------------ | :------- | :-------- | :--------------------------------------------------------------- | :-------------- |
+| Country       | String   | 2         | Country code in letter. ISO3166. Tube: Peru → PE               | If              |
+| Type          | String   | 20        | Type of document: DNI / CARNET\_EXTRANJERIA / PASAPORTE / OTROS | If              |
+| identifier    | String   | 20        | Identification number                                 | If              |
+
+#### PAYMESettingData
+
+| **Parameter** | **Type** | **Long.** | **Description**                                                       | **Mandatory** |
+| :------------ | :------- | :-------- | :-------------------------------------------------------------------- | :-------------- |
+| locale        | String   | 5         | Localization of the form's language. Value: `es_PE` (Peru) | If              |
+| walletUserId  | String   | 15        | Value to identify a user's walk                        | NO              |
+
+***
+
+## Departure Parameters
+
+The object `PMEAffiliationResponse` includes the following:
+
+### PMEAffiliationResponse
+
+| **Parameter** | **Type**                                                        | **Long.** | **Description**                                                 | **Mandatory** |
+| :------------ | :-------------------------------------------------------------- | :-------- | :-------------------------------------------------------------- | :-------------- |
+| success       | Boolean                                                         | -         | `true` if the process was correct, `false` if a mistake happened. | If              |
+| resultCode    | String                                                          | 2         | Reprocessing result code.                          | If              |
+| resultMessage | String                                                          | 30        | Text describing the result of processing.              | If              |
+| result        | [PAYMEAffiliationResult](#objeto-paymeaffiliationresult) | -         | Detail of the transaction result.                        | NO              |
+
+#### PAYMEAffiliationResult
+
+| **Parameter**    | **Type**                                                    | **Long.** | **Description**                                                                                  | **Mandatory** |
+| :--------------- | :---------------------------------------------------------- | :-------- | :----------------------------------------------------------------------------------------------- | :-------------- |
+| AffiliationId    | String                                                      | 36        | Unique identifier of transaction generated by Alignet One                                        | If              |
+| AffiliationCode  | String                                                      | 36        | Operation number sent by merchant                                                      | If              |
+| Type             | String                                                      | -         | Affiliation type: `FIXED` → NO DISPONIBLE / `VARIABLE` → NO DISPONIBLE / `MANUAL` → DISPONIBLE | If              |
+| status            | String                                                      | -         | Current status of affiliation: `ACTIVE` / `INACTIVE`                                            | If              |
+| frequency        | String                                                      | -         | Frequency of Affiliation collection                                                        | NO              |
+| amount           | String                                                      | 11        | A quarter. Example: 0.50 → Send 50 / 10 → Send 1000                               | NO              |
+| maxAmound        | String                                                      | 11        | Maximum amount for recurrent payments expressed as cents                                       | NO              |
+| currency         | String                                                      | -         | Currency code ISO-4217                                                                        | If              |
+| Additional | Dictionary                                                 | -         | Additional information provided by the merchant                                              | NO              |
+| card             | [PAYMEAffiliationCard](#objeto-paymeaffiliationcard) | -         | Information about the card used in Affiliation                                                 | If              |
+
+#### PAYMEAffiliationCard
+
+| **Parameter**  | **Type** | **Long.** | **Description**                                        | **Mandatory** |
+| :------------- | :------- | :-------- | :----------------------------------------------------- | :-------------- |
+| brand          | String   | 4         | Card name: `VISA` / `MSCD` / `AMEX` / `DINC` | If              |
+| bin            | String   | 6         | Card bin                                      | If              |
+| lastPan        | String   | 4         | Last four digits of the card                   | If              |
+| issue     | String   | 50        | Name of card issuer                        | NO              |
+| cardholderName | String   | 50        | Name and name of card holder           | If              |

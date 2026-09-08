@@ -1,0 +1,143 @@
+---
+title: "Initialize affiliations on Android"
+description: "Initiates Alignet One SDK Android to register or update affiliations from your mobile app."
+---
+The Affiliations Flow allows to register or update information associated with a recipient from Alignet One SDK Android.
+
+<Info>
+  Before we start this flow, complete [Installation SDK Android](/en/virtual-payments/sdk-mobile/android/installation)Check. [Affiliation parameters](/en/virtual-payments/sdk-mobile/android/affiliations/sdk-android-parameters) and generates an `Access Token` from backend using [Authentication](https://docs.pay-me.com/api-de-pagos/autenticacion).
+</Info>
+
+## Integration Flow
+
+<Steps>
+  <Step title="The SDK">
+    Add `PaymeClient`, `PaymeClientDelegate`models and environment in your `Activity`.
+  </Step>
+
+  <Step title="Build the request">
+    Crea `PAYMEAffiliationRequest` with Affiliation, Beneficiaries and Configure data.
+  </Step>
+
+  <Step title="PaymeClient Configure">
+    Initiates `PaymeClient` with `delegate`, `merchantCode` and atmosphere.
+  </Step>
+
+  <Step title="Invoked form">
+    Send `sessionToken` and `paymeAffiliationRequest` in `invokeAffiliationForm`.
+  </Step>
+
+  <Step title="Processes the response">
+    Implement `onAffiliationResponse` To get the final result of the flow.
+  </Step>
+</Steps>
+
+## Import PaymeSDK
+
+```kotlin theme={"system"}
+import com.alignet.payme.PaymeClient
+import com.alignet.payme.PaymeClientDelegate
+import com.alignet.payme.model.*
+import com.alignet.payme.util.PaymeEnvironment
+```
+
+## Main parameters
+
+<AccordionGroup>
+  <Accordion title="PaymeClient" icon="code" defaultOpen>
+    * `delegate`: Activity that implements methods of `PaymeClientDelegate`.
+    * `merchantCode`: Merchant code delivered by Alignet.
+  </Accordion>
+
+  <Accordion title="SetEnvironment" icon="globe">
+    * `PaymeEnvironment.DEVELOPMENT`: Test environment.
+    * `PaymeEnvironment.PRODUCTION`: production environment.
+  </Accordion>
+
+  <Accordion title="invokeAffiliationForm" icon="user-plus">
+    * `from`: Activities from where the SDK.
+    * `sessionToken`: token generated from backend for this request.
+    * `paymeAffiliationRequest`: with information from Affiliation.
+  </Accordion>
+</AccordionGroup>
+
+## Example of initiation
+
+```kotlin theme={"system"}
+val beneficiary = PAYMEAddressData(
+    firstName = "Producto",
+    lastName = "Alignet",
+    email = "producto@alignet.com",
+    phone = "51-999999999",
+    identityDocument = PAYMEIdentityDocument(
+        type = "DNI",
+        identifier = "77777777",
+        country = "PE"
+    ),
+    addressLine1 = "Av casimiro Ulloa 333",
+    addressLine2 = null,
+    city = "Lima",
+    state = "Lima",
+    country = "PE"
+)
+
+val additionalFields = hashMapOf(
+    "FACTURACION_ID" to "LEV_72661927",
+    "reserved1" to "Reservado 1"
+)
+
+val affiliation = PAYMEAffiliationData(
+    type = PAYMEAffiliationType.MANUAL,
+    amount = null,
+    currency = "604",
+    additionalFields = additionalFields,
+    beneficiary = beneficiary
+)
+
+val paymeAffiliationRequest = PAYMEAffiliationRequest(
+    action = PAYMEAffiliationAction.CREATE,
+    affiliationCode = "AFFILIATION_CODE",
+    affiliation = affiliation,
+    setting = PAYMESettingData(
+        locale = "es_PE",
+        walletUserID = "WALLET_USER_CODE"
+    )
+)
+
+val paymeClient = PaymeClient(
+    delegate = this,
+    merchantCode = "MERCHANT_CODE"
+)
+
+paymeClient.setEnvironment(
+    environment = PaymeEnvironment.DEVELOPMENT
+)
+
+paymeClient.invokeAffiliationForm(
+    from = this,
+    sessionToken = "TOKEN_GENERADO_PARA_ESTA_SOLICITUD",
+    paymeAffiliationRequest = paymeAffiliationRequest
+)
+```
+
+<Warning>
+  The `sessionToken` should be generated from backend for the application. Do not include credentials or secrets inside the app.
+</Warning>
+
+## Implement delegate
+
+To complete integration, `Activity` have to implement `PaymeClientDelegate` and process Affiliation response.
+
+```kotlin theme={"system"}
+class MainActivity : AppCompatActivity(), PaymeClientDelegate {
+    override fun onAffiliationResponse(response: PAYMEAffiliationResponse) {
+        // Procesa el resultado final de la afiliación.
+    }
+}
+```
+
+## Next step
+
+<Card title="Affiliation parameters" icon="arrow-right" href="/en/virtual-payments/sdk-mobile/android/affiliations/sdk-android-parameters">
+  Check the complete details of objects sent and received by Affiliation flow.
+</Card>

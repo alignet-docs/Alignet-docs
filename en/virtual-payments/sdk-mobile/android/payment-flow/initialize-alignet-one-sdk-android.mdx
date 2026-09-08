@@ -1,0 +1,221 @@
+---
+title: "Initialize Alignet One SDK for Android"
+description: "It creates the instance of PaymeClient, sets up the environment and starts the collection flow at Android."
+---
+The collection function can be invoked Alignet One SDK from your app Android to display the payment form and get the result of the operation.
+
+<Info>
+  Before starting SDKcomplete [Installation SDK Android](/en/virtual-payments/sdk-mobile/android/installation) and generates an `Access Token` from your backend using [Authentication](https://docs.pay-me.com/api-de-pagos/autenticacion).
+</Info>
+
+## Methods available
+
+<CardGroup cols={3}>
+  <Card title="CARD" icon="credit-card">
+    Credit and debit cards.
+  </Card>
+
+  <Card title="YAPE" icon="mobile">
+    Recovery with wallet Yape.
+  </Card>
+
+  <Card title="QR" icon="qrcode">
+    Recovery with mobile bills by QR.
+  </Card>
+
+  <Card title="BANK_TRANSFER" icon="building-columns">
+    Loan by Bank Transfer.
+  </Card>
+
+  <Card title="CUOTEALO" icon="receipt">
+    Payment financed with Cuotéalo.
+  </Card>
+
+  <Card title="PAGO_EFECTIVO" icon="money-bill">
+    Payment with code or channel PagoEfectivo.
+  </Card>
+</CardGroup>
+
+## Integration Flow
+
+<Steps>
+  <Step title="The SDK">
+    Add necessary classes at `Activity` or controller where you will start the flow.
+  </Step>
+
+  <Step title="Build the request">
+    Crea `PAYMEChargesRequest` with transaction data, buyer, billing and configuration.
+  </Step>
+
+  <Step title="PaymeClient Configure">
+    Initiates `PaymeClient` with `delegate`, `merchantCode` and atmosphere.
+  </Step>
+
+  <Step title="Invoked form">
+    Send `sessionToken` and `paymeChargesRequest` in `invokeCaptureForm`.
+  </Step>
+
+  <Step title="That's a quiet procedure.">
+    Implement `onRespondsPayme` and `onPaymeEvents` To close the flow into your app.
+  </Step>
+</Steps>
+
+## Import PaymeSDK
+
+```kotlin theme={"system"}
+import com.alignet.payme.PaymeClient
+import com.alignet.payme.PaymeClientDelegate
+import com.alignet.payme.model.*
+import com.alignet.payme.util.PaymeEnvironment
+```
+
+## Main parameters
+
+<AccordionGroup>
+  <Accordion title="PaymeClient" icon="code" defaultOpen>
+    * `delegate`: Activity that implements methods of `PaymeClientDelegate`.
+    * `merchantCode`: Merchant code delivered by Alignet.
+  </Accordion>
+
+  <Accordion title="SetEnvironment" icon="globe">
+    * `PaymeEnvironment.DEVELOPMENT`: Test environment.
+    * `PaymeEnvironment.PRODUCTION`: production environment.
+  </Accordion>
+
+  <Accordion title="invokeCaptureForm" icon="credit-card">
+    * `from`: Activities from where the SDK.
+    * `sessionToken`: token generated from backend for this request.
+    * `paymeChargesRequest`: with information about the transaction.
+  </Accordion>
+</AccordionGroup>
+
+## Example of initiation
+
+```kotlin theme={"system"}
+val customer = PAYMEAddressData(
+    firstName = "Levis",
+    lastName = "Silvestre",
+    email = "levis.silvestre@alignet.com",
+    phone = "51-958435685",
+    identityDocument = PAYMEDocumentIdentity(
+        type = "DNI",
+        identifier = "72661927",
+        country = "PE"
+    ),
+    addressLine1 = "Av casimiro Ulloa 333",
+    addressLine2 = null,
+    city = "Lima",
+    state = "Lima",
+    country = "PE"
+)
+
+val billingShipping = PAYMEAddressData(
+    firstName = "Levis",
+    lastName = "Silvestre",
+    email = "levis.silvestre@alignet.com",
+    phone = "51-958435685",
+    addressLine1 = "Av casimiro Ulloa 333",
+    addressLine2 = null,
+    city = "Lima",
+    state = "Lima",
+    country = "PE"
+)
+
+val reservedData = hashMapOf(
+    "reserved1" to "Reservado 1",
+    "reserved2" to "Reservado 2",
+    "reserved30" to "Reservado 30"
+)
+
+val paymeChargesRequest = PAYMEChargesRequest(
+    transaction = PAYMETransactionData(
+        operationNumber = "0000001",
+        amount = "1000",
+        currency = "604",
+        additionalFields = reservedData,
+        customer = customer,
+        billing = billingShipping,
+        shipping = billingShipping
+    ),
+    setting = PAYMESettingData(
+        locale = "es_PE",
+        paymentMethods = listOf("CARD", "YAPE", "CUOTEALO"),
+        walletUserID = null
+    )
+)
+
+val paymeClient = PaymeClient(
+    delegate = this,
+    merchantCode = "MERCHANT_CODE"
+)
+
+paymeClient.setEnvironment(
+    environment = PaymeEnvironment.DEVELOPMENT
+)
+
+paymeClient.invokeCaptureForm(
+    from = this,
+    sessionToken = "TOKEN_GENERADO_PARA_ESTA_SOLICITUD",
+    paymeChargesRequest = paymeChargesRequest
+)
+```
+
+<Warning>
+  The `sessionToken` should be generated from backend for the application. Do not include credentials or secrets inside the app.
+</Warning>
+
+## Implement delegates
+
+To complete integration, `Activity` have to implement `PaymeClientDelegate`.
+
+```kotlin theme={"system"}
+class MainActivity : AppCompatActivity(), PaymeClientDelegate {
+    override fun onRespondsPayme(response: PAYMEChargesResponse) {
+        // Procesa el resultado final del flujo.
+    }
+
+    override fun onPaymeEvents(event: PaymeEvent) {
+        // Registra eventos de navegación o interacción del SDK.
+    }
+}
+```
+
+## Events available
+
+<CardGroup cols={2}>
+  <Card title="BUILD_FORM" icon="list-check">
+    It indicates what methods were shown to the user.
+  </Card>
+
+  <Card title="CHOOSE_PAYMENT_METHOD" icon="hand-pointer">
+    It indicates the payment method chosen by the user.
+  </Card>
+
+  <Card title="RETURN_LIST_PAYMENT_METHODS" icon="arrow-left">
+    He indicates that his user returned to his list of methods.
+  </Card>
+
+  <Card title="CANCEL_PAYMENT_METHOD" icon="ban">
+    He indicates that the user cancelled a payment method.
+  </Card>
+
+  <Card title="PRESS_PAY_BUTTON" icon="mouse-pointer-click">
+    It indicates that the user pressed the payment button.
+  </Card>
+
+  <Card title="CLOSE_PAYME" icon="xmark">
+    indicates that the user closed the SDK.
+  </Card>
+</CardGroup>
+
+## Validation of result
+
+<Note>
+  Use `onRespondsPayme` to update the user experience but confirms the final status from backend as required by the flow or payment method.
+</Note>
+
+## Next step
+
+<Card title="Input and exit parameters" icon="arrow-right" href="/en/virtual-payments/sdk-mobile/android/payment-flow/alignet-one-sdk-android-parameters">
+  Check the complete details of objects sent and received by SDK.
+</Card>
