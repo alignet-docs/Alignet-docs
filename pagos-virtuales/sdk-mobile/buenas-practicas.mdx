@@ -1,0 +1,54 @@
+---
+title: "Buenas prácticas"
+description: "Recomendaciones para integrar Alignet One SDK Mobile en Android e iOS de forma segura y estable."
+---
+Aplica estas recomendaciones cuando integres Alignet One mediante **SDK Android** o **SDK iOS**.
+
+## Arquitectura recomendada
+
+<CardGroup cols={2}>
+  <Card title="App móvil" icon="mobile-screen-button">
+    Invoca el SDK, presenta el flujo de pago o afiliación y muestra respuestas amigables.
+  </Card>
+
+  <Card title="Backend" icon="server">
+    Genera tokens, protege credenciales, registra operaciones y confirma resultados finales.
+  </Card>
+</CardGroup>
+
+<Warning>
+  No incluyas credenciales, secretos o lógica sensible dentro de la app. Todo lo crítico debe vivir en backend.
+</Warning>
+
+## Seguridad móvil
+
+<AccordionGroup>
+  <Accordion title="Tokens" icon="key" defaultOpen>
+    * Genera `Access Token` desde backend.
+    * No persistir tokens sensibles en almacenamiento inseguro.
+    * Evita imprimir tokens o payloads completos en logs.
+  </Accordion>
+
+  <Accordion title="SDKs privados" icon="box">
+    * No subas `.aar`, `.xcframework` o ZIPs privados a repositorios públicos.
+    * Usa la versión entregada o aprobada por el equipo de integraciones.
+    * Valida compatibilidad antes de actualizar dependencias.
+  </Accordion>
+
+  <Accordion title="Respuesta del SDK" icon="shield-check">
+    * Usa callbacks/delegates para actualizar la experiencia de usuario.
+    * Confirma estados desde backend cuando el método lo requiera.
+    * Maneja cancelación, error, timeout y retorno de la app.
+  </Accordion>
+</AccordionGroup>
+
+## Validación recomendada
+
+* Probar Android e iOS por separado.
+* Validar aprobado, denegado y errores controlados.
+* Revisar comportamiento con mala conectividad.
+* Conservar número de operación y logs mínimos para soporte.
+
+<Card title="Checklist de integración" icon="clipboard-check" href="/pagos-virtuales/sdk-mobile/checklist-de-integracion">
+  Revisa el checklist específico para SDK Mobile.
+</Card>

@@ -1,0 +1,63 @@
+---
+title: "Experiencia del Cliente"
+description: "Configura cómo tus clientes visualizan y completan sus pagos en el checkout de PrestaShop."
+---
+El módulo de Alignet One se integra de forma nativa con el sistema de checkout de PrestaShop, adaptándose visualmente a tu plantilla y garantizando una experiencia segura.
+
+## 1. Modos de Visualización de Métodos
+
+Puedes decidir cómo se agrupan las opciones de pago en tu formulario de finalización de compra.
+
+### Modo Separado (Recomendado)
+
+Este modo desglosa cada método de pago (Visa, Mastercard, Yape, PagoEfectivo) como una opción individual con su respectivo icono oficial.
+
+* **Beneficio:** Mayor confianza del cliente al reconocer logos familiares desde el inicio.
+* **Flujo:**
+  1. El cliente selecciona su método preferido (ej: **Yape**).
+  2. Se carga el formulario seguro de Alignet One.
+  3. El cliente confirma el pago.
+  4. Redirección automática a la página de éxito de la tienda.
+
+### Modo "Junto"
+
+Agrupa todos los métodos bajo un solo selector genérico de Alignet One. Al seleccionarlo, se despliega el SDK de Alignet One con todas las opciones dentro de un mismo bloque.
+
+***
+
+## 2. Página de Confirmación de Pedido
+
+Tras procesar la transacción, el cliente recibe feedback visual inmediato en la página de confirmación de PrestaShop:
+
+| Resultado del Pago | Indicador Visual | Significado                                                             |
+| :----------------- | :--------------- | :---------------------------------------------------------------------- |
+| **Exitoso**        | **Verde**        | "¡Pedido Confirmado!". Transacción aprobada por el emisor.              |
+| **Pendiente**      | **Amarillo**     | "Pedido Pendiente". Esperando confirmación (ej: depósito PagoEfectivo). |
+| **Denegado**       | **Rojo**         | "Pago Denegado". La transacción fue rechazada; se sugiere otro medio.   |
+
+**La página de éxito incluye:**
+
+* Resumen del pedido y número de referencia.
+* Detalle de productos y montos.
+* Botón de retorno seguro a la tienda.
+
+***
+
+## 3. Compatibilidad con Checkouts
+
+El módulo está optimizado para funcionar con los estándares de PrestaShop:
+
+* **Standard Checkout:** El flujo nativo de 5 pasos o 1 paso (OPC).
+* **Temas Personalizados:** Compatible con la mayoría de plantillas de *PrestaShop Addons* que respetan los hooks de pago oficiales.
+
+<Tip>
+  Si utilizas un módulo de "One Page Checkout" de terceros, asegúrate de que esté configurado para refrescar los métodos de pago cuando el cliente cambie su dirección de envío.
+</Tip>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Gestión de pedidos" icon="clipboard-check" href="/pagos-virtuales/prestashop/gestion-de-pedidos-y-transacciones">
+    Administra estados y realiza extornos desde el Back Office.
+  </Card>
+</CardGroup>

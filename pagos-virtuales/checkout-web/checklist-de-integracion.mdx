@@ -1,0 +1,128 @@
+---
+title: "Checklist de integración"
+description: "Validaciones recomendadas para completar una integración Checkout Web con Flex."
+---
+Usa este checklist como una guía rápida antes de pedir validación final del flujo **Checkout Web**.
+
+<Info>
+  Esta guía está orientada a implementaciones con **Flex**, incluyendo frontend, generación de `nonce`, respuesta del pago y validación final del resultado.
+</Info>
+
+## Panorama general
+
+<CardGroup cols={2}>
+  <Card title="Preparación" icon="key">
+    Requisitos de negocio, credenciales, ambiente sandbox y dominios listos para comenzar.
+  </Card>
+
+  <Card title="Integración técnica" icon="gear">
+    Nonce operativo, librerías cargadas y parámetros enviados con el formato correcto.
+  </Card>
+
+  <Card title="Validación funcional" icon="cart-shopping">
+    Compra aprobada, rechazada y comportamiento post-pago revisados de extremo a extremo.
+  </Card>
+
+  <Card title="Salida a producción" icon="rocket">
+    Configuración productiva revisada y evidencias mínimas listas para validación final.
+  </Card>
+</CardGroup>
+
+## Ruta sugerida
+
+<Steps>
+  <Step title="Prepara el entorno">
+    Confirma requisitos de negocio, credenciales activas para sandbox y URLs de retorno o callbacks definidas.
+  </Step>
+
+  <Step title="Conecta frontend y backend">
+    Verifica que la autenticación para generar `nonce` funcione correctamente y que Flex cargue sin errores en tu checkout.
+  </Step>
+
+  <Step title="Prueba el flujo de compra">
+    Ejecuta una compra aprobada y una rechazada, validando mensajes, respuesta visual y continuidad del usuario.
+  </Step>
+
+  <Step title="Confirma el resultado final">
+    Revisa la respuesta en frontend y confirma el estado final desde backend para evitar cerrar la orden con un resultado preliminar.
+  </Step>
+
+  <Step title="Solicita revisión final">
+    Cuando el flujo esté estable en sandbox, prepara evidencias y coordina la validación con el equipo de integraciones.
+  </Step>
+</Steps>
+
+## Checklist base
+
+<AccordionGroup>
+  <Accordion title="1. Preparación" icon="key" defaultOpen>
+    * Requisitos de negocio y técnicos revisados.
+    * Credenciales y ambiente de pruebas disponibles.
+    * Dominio, páginas de retorno y callbacks definidos.
+    * Flujo de Checkout Web confirmado para el comercio.
+  </Accordion>
+
+  <Accordion title="2. Configuración técnica" icon="gear">
+    * Autenticación operativa para generar `token` o `nonce`.
+    * Librerías o componentes frontend cargados correctamente.
+    * Parámetros obligatorios enviados con formato correcto.
+    * Estilos y experiencia visual revisados dentro del checkout.
+  </Accordion>
+
+  <Accordion title="3. Validación del flujo" icon="cart-shopping">
+    * Transacción aprobada completada correctamente.
+    * Transacción rechazada validada con manejo de errores.
+    * Respuesta de autorización procesada en frontend.
+    * Métodos asíncronos probados si están habilitados.
+  </Accordion>
+
+  <Accordion title="4. Confirmación y consistencia" icon="database">
+    * Estado final confirmado desde backend o mediante consulta.
+    * Duplicados y reintentos manejados de forma segura.
+    * Orden o pago actualizado correctamente en tu sistema.
+    * Logs mínimos disponibles para soporte y diagnóstico.
+  </Accordion>
+
+  <Accordion title="5. Producción" icon="rocket">
+    * Sandbox completado con evidencia mínima de pruebas.
+    * Configuración productiva revisada por ambiente.
+    * Flujos críticos probados con el equipo de integraciones.
+    * Integración lista para salida a vivo.
+  </Accordion>
+</AccordionGroup>
+
+## Criterio mínimo de aprobación
+
+<CardGroup cols={3}>
+  <Card title="Compra aprobada" icon="check">
+    Al menos un flujo aprobado validado de extremo a extremo.
+  </Card>
+
+  <Card title="Compra rechazada" icon="x">
+    Validación completa del manejo de rechazo y mensaje para el usuario.
+  </Card>
+
+  <Card title="Resultado consistente" icon="shield-check">
+    Confirmación entre frontend, backend y estado final del pago antes de salir a producción.
+  </Card>
+</CardGroup>
+
+## Guías relacionadas
+
+<CardGroup cols={2}>
+  <Card title="Introducción Flex" icon="credit-card-front" href="/pagos-virtuales/checkout-web/flex/introduccion">
+    Revisa el flujo principal de Checkout Web con Flex.
+  </Card>
+
+  <Card title="API Nonce" icon="shield-check" href="/pagos-virtuales/checkout-web/flex/api-nonce">
+    Genera el `nonce` desde backend para inicializar el formulario.
+  </Card>
+
+  <Card title="Datos de prueba" icon="flask" href="/pagos-virtuales/pagos/datos-de-prueba">
+    Usa tarjetas y escenarios sandbox para validar tu integración.
+  </Card>
+
+  <Card title="API de Consulta" icon="magnifying-glass" href="https://docs.pay-me.com/payin/consulta">
+    Confirma desde backend el estado final de la operación.
+  </Card>
+</CardGroup>

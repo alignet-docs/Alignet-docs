@@ -1,0 +1,77 @@
+---
+title: "Pruebas y Troubleshooting"
+description: "Valida tu integración en VTEX y resuelve problemas comunes."
+---
+## Pruebas de integración
+
+Antes de pasar a producción, valida el funcionamiento en entorno de pruebas.
+
+***
+
+## Validaciones básicas
+
+* Realizar una compra en el checkout
+* Validar pago aprobado
+* Validar pago rechazado
+* Verificar que el pedido se genere correctamente
+* Confirmar visibilidad del método de pago
+
+***
+
+## Checklist de validación
+
+* Credenciales correctas (App Key / Token / Merchant Code)
+* Modo test activado
+* Métodos de pago habilitados
+* Provider correctamente configurado
+* Payment Condition activa
+
+***
+
+## Problemas comunes
+
+### No aparece Alignet One en checkout
+
+* Verificar Payment Condition activa
+* Revisar que el provider esté configurado
+* Esperar propagación (5–10 min)
+
+***
+
+### Error de credenciales
+
+* Validar App Key y App Token
+* Confirmar entorno correcto (test vs producción)
+
+***
+
+### Métodos de pago no visibles
+
+* Revisar configuración en Provider Fields
+* Confirmar que estén habilitados para el comercio
+
+***
+
+### Cambios no se reflejan
+
+* Esperar tiempo de propagación
+* Refrescar checkout
+* Validar caché del navegador
+
+***
+
+## Paso a producción
+
+Antes de pasar a producción:
+
+* Desactivar **Enable test mode**
+* Usar credenciales productivas
+* Validar flujo completo nuevamente
+
+***
+
+## Soporte
+
+Si el problema persiste, contactar:
+
+[postventa.autenticacion@alignet.com](mailto:postventa.autenticacion@alignet.com)

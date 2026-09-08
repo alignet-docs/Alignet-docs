@@ -1,0 +1,203 @@
+---
+title: "Construcción del payload"
+description: "Arma el payload que Alignet One Flex utilizará para iniciar el flujo de autorización."
+---
+El `payload` de Flex reutiliza la estructura del **API de Autorización - ecommerce**, con una diferencia importante: debes enviar `payment_method` en el objeto raíz, pero como un objeto vacío `{}`, porque el cliente elegirá el método dentro del formulario.
+
+<Info>
+  Piensa este paso como la preparación del request de `POST /charges` para Flex. Lo que construyes aquí será la base de la operación que luego terminarás leyendo en `responseCallback(response)`.
+</Info>
+
+## Qué se conserva y qué cambia
+
+<CardGroup cols={2}>
+  <Card title="Misma base de PayIn" icon="database">
+    Mantienes `action`, `channel`, `merchant_code`, `merchant_operation_number`, `payment_method` y `payment_details`.
+  </Card>
+
+  <Card title="Cambio en Flex" icon="wand-magic-sparkles">
+    En Flex, `payment_method` viaja como `{}` vacío porque el método real se resuelve en el frontend según lo que el usuario seleccione.
+  </Card>
+</CardGroup>
+
+## Estructura del payload
+
+Expande cada bloque para revisar qué campos pertenecen a cada nivel del objeto que enviarás a Flex.
+
+<AccordionGroup>
+  <Accordion title="Objeto raíz" icon="table" defaultOpen>
+    Contiene la información general de la operación y enlaza con `payment_details`, donde viaja el detalle del cobro.
+
+    | Campo                       | Descripción                                     | Ejemplo                              | Tipo   | Obligatorio |
+    | :-------------------------- | :---------------------------------------------- | :----------------------------------- | :----- | :---------- |
+    | `action`                    | Acción a ejecutar                               | `authorize`                          | String | SI          |
+    | `channel`                   | Canal donde se ejecutará la transacción         | `ecommerce`                          | String | SI          |
+    | `merchant_code`             | Identificador del comercio                      | Cadena alfanumérica                  | String | SI          |
+    | `merchant_operation_number` | Número de pedido de la operación                | Cadena numérica entre 6 y 12 dígitos | String | SI          |
+    | `payment_method`            | Objeto reservado para Flex. Debe enviarse vacío | `{}`                                 | Object | SI          |
+    | `payment_details`           | Objeto con información de la transacción        | Object                               | Object | SI          |
+  </Accordion>
+
+  <Accordion title="Objeto payment_details" icon="receipt">
+    Agrupa el monto, moneda y subobjetos operativos del comprador, facturación y envío.
+
+    | Campo                               | Descripción                                                                                      | Ejemplo               | Tipo       | Obligatorio |
+    | :---------------------------------- | :----------------------------------------------------------------------------------------------- | :-------------------- | :--------- | :---------- |
+    | `payment_details.amount`            | Monto en centavos de la operación                                                                | `1050`                | String     | SI          |
+    | `payment_details.currency`          | Código [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) de la moneda de la operación | `604`                 | String     | SI          |
+    | `payment_details.additional_fields` | Diccionario para enviar campos y valores personalizados según `key:value`                        | `external_id:5468724` | Dictionary | NO          |
+    | `payment_details.customer`          | Objeto con información del cliente que realiza la compra                                         | Object                | Object     | NO          |
+    | `payment_details.billing`           | Objeto con información de facturación                                                            | Object                | Object     | SI          |
+    | `payment_details.shipping`          | Objeto con información de envío                                                                  | Object                | Object     | NO          |
+  </Accordion>
+
+  <Accordion title="Objeto payment_details.customer" icon="address-book">
+    Define los datos opcionales del cliente que realiza la compra, útiles para identificación y contexto de riesgo.
+
+    | Campo                                                   | Descripción                                       | Tipo   | Obligatorio |
+    | :------------------------------------------------------ | :------------------------------------------------ | :----- | :---------- |
+    | `payment_details.customer.first_name`                   | Nombres                                           | String | NO          |
+    | `payment_details.customer.last_name`                    | Apellidos                                         | String | NO          |
+    | `payment_details.customer.email`                        | Correo electrónico                                | String | NO          |
+    | `payment_details.customer.phone`                        | Objeto con información del teléfono               | Object | NO          |
+    | `payment_details.customer.phone.country_code`           | Código del país del teléfono                      | String | NO          |
+    | `payment_details.customer.phone.subscriber`             | Número del teléfono                               | String | NO          |
+    | `payment_details.customer.identity_document`            | Objeto con información del documento de identidad | Object | NO          |
+    | `payment_details.customer.identity_document.country`    | País del documento                                | String | NO          |
+    | `payment_details.customer.identity_document.type`       | Tipo de documento                                 | String | NO          |
+    | `payment_details.customer.identity_document.identifier` | Número de documento                               | String | NO          |
+    | `payment_details.customer.location`                     | Objeto con información de ubicación               | Object | NO          |
+    | `payment_details.customer.location.line_1`              | Dirección 1                                       | String | NO          |
+    | `payment_details.customer.location.line_2`              | Dirección 2                                       | String | NO          |
+    | `payment_details.customer.location.city`                | Ciudad                                            | String | NO          |
+    | `payment_details.customer.location.state`               | Estado                                            | String | NO          |
+    | `payment_details.customer.location.country`             | País                                              | String | NO          |
+  </Accordion>
+
+  <Accordion title="Objeto payment_details.billing" icon="file-text">
+    Contiene los datos obligatorios de facturación que Flex necesita para procesar la operación.
+
+    | Campo                                        | Descripción                         | Tipo   | Obligatorio |
+    | :------------------------------------------- | :---------------------------------- | :----- | :---------- |
+    | `payment_details.billing.first_name`         | Nombres                             | String | SI          |
+    | `payment_details.billing.last_name`          | Apellidos                           | String | SI          |
+    | `payment_details.billing.email`              | Correo electrónico                  | String | SI          |
+    | `payment_details.billing.phone`              | Objeto con información del teléfono | Object | SI          |
+    | `payment_details.billing.phone.country_code` | Código del país del teléfono        | String | SI          |
+    | `payment_details.billing.phone.subscriber`   | Número del teléfono                 | String | SI          |
+    | `payment_details.billing.location`           | Objeto con información de ubicación | Object | SI          |
+    | `payment_details.billing.location.line_1`    | Dirección 1                         | String | SI          |
+    | `payment_details.billing.location.line_2`    | Dirección 2                         | String | NO          |
+    | `payment_details.billing.location.city`      | Ciudad                              | String | SI          |
+    | `payment_details.billing.location.state`     | Estado                              | String | SI          |
+    | `payment_details.billing.location.country`   | País                                | String | SI          |
+  </Accordion>
+
+  <Accordion title="Objeto payment_details.shipping" icon="location-dot">
+    Incluye la información de envío cuando tu flujo de negocio la necesite para complementar la operación.
+
+    | Campo                                         | Descripción                         | Tipo   | Obligatorio |
+    | :-------------------------------------------- | :---------------------------------- | :----- | :---------- |
+    | `payment_details.shipping.first_name`         | Nombres                             | String | NO          |
+    | `payment_details.shipping.last_name`          | Apellidos                           | String | NO          |
+    | `payment_details.shipping.email`              | Correo electrónico                  | String | NO          |
+    | `payment_details.shipping.phone`              | Objeto con información del teléfono | Object | NO          |
+    | `payment_details.shipping.phone.country_code` | Código del país del teléfono        | String | NO          |
+    | `payment_details.shipping.phone.subscriber`   | Número del teléfono                 | String | NO          |
+    | `payment_details.shipping.location`           | Objeto con información de ubicación | Object | NO          |
+    | `payment_details.shipping.location.line_1`    | Dirección 1                         | String | NO          |
+    | `payment_details.shipping.location.line_2`    | Dirección 2                         | String | NO          |
+    | `payment_details.shipping.location.city`      | Ciudad                              | String | NO          |
+    | `payment_details.shipping.location.state`     | Estado                              | String | NO          |
+    | `payment_details.shipping.location.country`   | País                                | String | NO          |
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Para S/. 10.50 se debe enviar `1050` y en `currency` el valor `604` para Soles.
+</Note>
+
+<Note>
+  En Flex, el objeto raíz debe incluir explícitamente `payment_method: {}` aunque el método final todavía no haya sido seleccionado por el usuario.
+</Note>
+
+## Ejemplo completo
+
+```javascript theme={"system"}
+var payload = {
+    "action": "authorize",
+    "channel": "ecommerce",
+    "merchant_code": "b0deb6f3-e51a-48a7-9268-f1441d46f7bd",
+    "merchant_operation_number": "221354",
+    "payment_method": {},
+    "payment_details": {
+        "amount": "7000",
+        "currency": "604",
+        "billing": {
+            "first_name": "Levis",
+            "last_name": "Silvestre",
+            "email": "levis.silvestre@alignet.com",
+            "phone": {
+                "country_code": "+51",
+                "subscriber": "958435685"
+            },
+            "location": {
+                "line_1": "Av. San Borja Norte 1743",
+                "line_2": "",
+                "city": "Lima",
+                "state": "Lima",
+                "country": "PE"
+            }
+        },
+        "shipping": {
+            "first_name": "Levis",
+            "last_name": "Silvestre",
+            "email": "levis.silvestre@alignet.com",
+            "phone": {
+                "country_code": "+51",
+                "subscriber": "958435685"
+            },
+            "location": {
+                "line_1": "Av. San Borja Norte 1743",
+                "line_2": "",
+                "city": "Lima",
+                "state": "Lima",
+                "country": "PE"
+            }
+        },
+        "customer": {
+            "first_name": "Levis",
+            "last_name": "Silvestre",
+            "email": "levis.silvestre@alignet.com",
+            "phone": {
+                "country_code": "+51",
+                "subscriber": "958435685"
+            },
+            "identity_document": {
+                "country": "PER",
+                "type": "DNI",
+                "identifier": "72661927"
+            },
+            "location": {
+                "line_1": "Av. San Borja Norte 1743",
+                "line_2": "",
+                "city": "Lima",
+                "state": "Lima",
+                "country": "PE"
+            }
+        }
+    }
+}
+```
+
+## Siguiente paso
+
+<CardGroup cols={2}>
+  <Card title="Inicializar el componente" icon="arrow-right" href="/pagos-virtuales/checkout-web/flex/inicializar-el-componente">
+    Usa este `payload` junto con tu `nonce` para crear la instancia de `FlexPaymentForms`.
+  </Card>
+
+  <Card title="API de Autorización - ecommerce" icon="book" href="https://docs.pay-me.com/payin/autorizacion">
+    Toma esta referencia como contrato base del request que estás reutilizando en Flex.
+  </Card>
+</CardGroup>

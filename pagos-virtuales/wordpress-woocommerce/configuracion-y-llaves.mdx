@@ -1,0 +1,91 @@
+---
+title: "Configuración y Llaves"
+description: "Aprende a conectar tu tienda con la pasarela Alignet One utilizando tus credenciales y llaves de seguridad."
+---
+Una vez instalado el plugin, el siguiente paso es la vinculación técnica. Alignet One utiliza un sistema de identificadores y llaves criptográficas para garantizar que cada transacción sea auténtica y segura.
+
+## Acceso al Panel de Configuración
+
+Para comenzar, dirígete en tu administrador de WordPress a: **WooCommerce** > **Ajustes** > **Pagos** > **Alignet One Checkout** > **Finalizar configuración**.
+
+***
+
+## 1. Identificadores del Comercio
+
+Estos datos son proporcionados por el equipo de Alignet One tras tu afiliación. Son esenciales para el enrutamiento de los pagos.
+
+| Campo                              | Descripción                                                 |
+| :--------------------------------- | :---------------------------------------------------------- |
+| **ID de Comercio (Merchant ID)**   | Identificador único de tu tienda en la plataforma Alignet One.   |
+| **ID de Adquirente (Acquirer ID)** | Identificador del procesador de pagos asignado a tu cuenta. |
+| **ID de Terminal**                 | Número de terminal lógico para tus operaciones.             |
+
+***
+
+## 2. Gestión de Llaves de Seguridad
+
+Para cifrar la comunicación, el plugin requiere dos llaves. Puedes generarlas o recuperarlas desde el **Portal de Administración de Alignet One**.
+
+<AccordionGroup>
+  <Accordion title="Llave Pública (Public Key)" icon="key">
+    Se utiliza para cifrar los datos que viajan desde el navegador del cliente hacia Alignet One.
+
+    * **Formato:** Cadena alfanumérica larga.
+    * **Ubicación:** Copia el valor exacto desde tu panel de comercio en la sección "Configuración de Seguridad".
+  </Accordion>
+
+  <Accordion title="Llave Privada (Private Key)" icon="lock">
+    Se utiliza para la firma de mensajes S2S (Server to Server) y validación de webhooks.
+
+    * **Seguridad:** ¡Nunca compartas esta llave! Solo debe estar configurada en tu servidor.
+  </Accordion>
+</AccordionGroup>
+
+***
+
+## 3. Ambientes de Ejecución
+
+El plugin permite alternar entre dos entornos. Es fundamental validar todo en Sandbox antes de procesar dinero real.
+
+<Tabs>
+  <Tab title="Modo Sandbox (Pruebas)">
+    <Warning>
+      Asegúrate de marcar la casilla **"Habilitar modo de prueba"**. En este modo, se utilizarán credenciales de prueba y no se realizarán cargos reales a las tarjetas.
+    </Warning>
+
+    * **URL de Pruebas:** Configurada automáticamente por el plugin.
+    * **Datos de prueba:** [Ver referencia unificada](/pagos-virtuales/pagos/datos-de-prueba).
+  </Tab>
+
+  <Tab title="Modo Producción">
+    <Check>
+      Cuando estés listo para vender, desmarca el modo de prueba e ingresa las credenciales definitivas enviadas por el equipo de Soporte.
+    </Check>
+
+    * **Validación SSL:** En producción, es obligatorio que tu sitio web cuente con un certificado HTTPS activo.
+  </Tab>
+</Tabs>
+
+***
+
+## 4. Configuración de URL de Notificación (S2S)
+
+Para que Alignet One avise a tu tienda cuando un pago ha sido exitoso (especialmente en métodos asíncronos), debes configurar la URL de respuesta en tu panel de Alignet One:
+
+**[https://tudominio.com/?wc-api=WC\\\_Gateway\\\_Payme](https://tudominio.com/?wc-api=WC\\_Gateway\\_Payme)**
+
+<Info>
+  Sustituye **tudominio.com** por la URL real de tu tienda. Esta URL debe ser pública y no estar protegida por firewalls que bloqueen conexiones externas.
+</Info>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Experiencia del checkout" icon="cart-shopping" href="/pagos-virtuales/wordpress-woocommerce/experiencia-del-checkout">
+    Configura cómo verán tus clientes los métodos de pago en el carrito.
+  </Card>
+
+  <Card title="Pruebas" icon="vial" href="/pagos-virtuales/wordpress-woocommerce/pruebas-y-certificacion">
+    Usa nuestras tarjetas de prueba para validar tu integración.
+  </Card>
+</CardGroup>

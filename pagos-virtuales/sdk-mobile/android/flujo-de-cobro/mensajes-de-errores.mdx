@@ -1,0 +1,27 @@
+---
+title: "Mensajes de errores de SDK"
+---
+## **Códigos de Error**
+
+Alignet One SDK maneja distintos errores que interrumpen el flujo de autorización, estos errores son entregados al comercio y se pueden identificar por el código de error que se encuentra en el parámetro `success`,`resultCode` y` resultMessage` del objeto `PaymeResponse`.
+
+Abre tabla en pantalla completaAbrir
+
+| **success** | **resultCode** | **resultMessage**                                              | **Descripción**                                                                                                           |
+| :---------- | :------------- | :------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| **true**    | **00**         | Se procesó correctamente la petición                           | La autorización se realizó con éxito o la transacción esta en Pendiente.                                                  |
+| **true**    | **01**         | Peticion rechazada por el Procesador                           | La autorización fue denegada.                                                                                             |
+| **true**    | **02**         | Se expiro la transaccion                                       | Notificacion al comercio que expiró la transacción.                                                                       |
+| **false**   | **03**         | Ocurrió un error                                               | Petición invalida por error del sistema.                                                                                  |
+| **false**   | **04**         | No se pudo procesar la petición                                | Petición inválida por error de la procesadora.                                                                            |
+| **false**   | **05**         | No se encontró el pedido                                       | Consulta o extorno de un número de operación inexistente.                                                                 |
+| **false**   | **06**         | Algunos datos no fueron enviados correctamente                 | El comercio envió uno o más parámetros inválidos al momento de invocar al SDK de Alignet One..                                  |
+| **false**   | **07**         | Comercio no existente                                          | El merchantCode enviado no existe.                                                                                        |
+| **false**   | **08**         | Comercio requiere configuracion de procesamiento               | El Comercio no tiene habilitado los métodos de pago.                                                                      |
+| **false**   | **09**         | Metodo de pago no soportado por el sistema                     | El método de pago enviado no es soportado por el sistema.                                                                 |
+| **false**   | **10**         | Se requiere un token de acceso                                 | El access token no fue enviado.                                                                                           |
+| **false**   | **11**         | Token de acceso inválido                                       | El access token es inválido o ya venció.                                                                                  |
+| **false**   | **12**         | La Operación se encuentra finalizada                           | El número de Operación enviada ya existe con un estado Autorizado o Liquidado.                                            |
+| **false**   | **13**         | La Operación se encuentra en proceso                           | El número de Operación enviada ya existe con un estado Pendiente.                                                         |
+| **false**   | **14**         | Usuario regresó al comercio sin seleccionar un método de pago  | El usuario ingreso al SDK y regreso al comercio sin iniciar un pago con algún método de pago.                             |
+| **false**   | **15**         | Usuario canceló la transacción pendiente y regresó al comercio | El usuario ingreso al SDK, inicio el proceso de pago y decidión regresar al comercio cancelando la transacción pendiente. |

@@ -1,0 +1,64 @@
+---
+title: "Operaciones Inteligentes"
+description: "Entiende la arquitectura de Alignet One: Cómo maximizamos tu conversión mediante Operaciones Inteligentes."
+---
+Para integrar Alignet One con éxito, es fundamental entender la diferencia entre una **Operación** (la intención de compra) y una **Transacción** (el intento técnico).
+
+### El Modelo de Operación Inteligente
+
+A diferencia de otras pasarelas que cierran la sesión ante el primer error, Alignet One utiliza un modelo **resiliente**. Esto permite que un cliente intente pagar con distintos métodos sin que tú pierdas la venta.
+
+#### 1. La Operación (OP)
+
+Es el **contenedor maestro** de una venta. Se inicia cuando el cliente abre el formulario de pago.
+
+* **ID de Operación:** Ejemplo `OP-12345`.
+* **Persistencia:** La operación permanece "viva" mientras el cliente esté en el checkout.
+* **Propósito:** Agrupar todos los intentos bajo un mismo número de pedido para facilitar tu conciliación.
+
+#### 2. La Transacción (TX)
+
+Es cada **intento individual** de cobro que ocurre dentro de esa operación.
+
+* Una operación puede contener **múltiples transacciones**.
+* Permite al cliente saltar entre métodos (ej: de Tarjeta a Yape) sin reiniciar el proceso.
+
+***
+
+### Ejemplo Real 1: Recuperación de Venta
+
+Imagina un cliente con un carrito de **S/. 50.00**. Gracias a nuestra arquitectura, el flujo se ve así:
+
+| Acción del Cliente       | Estado Transacción  | Estado Operación | Resultado para el Comercio         |
+| :----------------------- | :------------------ | :--------------- | :--------------------------------- |
+| Intenta con Tarjeta Visa | ❌ Denegado (Saldo)  | **Pendiente**    | El cliente sigue en el checkout.   |
+| Intenta con Mastercard   | ❌ Denegado (Límite) | **Pendiente**    | El sistema le ofrece otros medios. |
+| Paga con **Yape**        | ✅ Aprobado          | **Exitosa**      | **¡Venta Cobrada!**                |
+
+> **Valor de Negocio:** En una pasarela tradicional, habrías tenido 2 ventas fallidas y 1 cliente frustrado. En Alignet One, tienes **1 Venta Exitosa** y una base de datos limpia.
+
+> **Omnicanalidad en un solo flujo:** Alignet One no solo permite reintentar con otra tarjeta, sino que permite al cliente **cambiar radicalmente de método de pago** (de plástico a billetera digital) sin que el comercio tenga que anular el pedido original o el cliente tenga que rellenar sus datos. Esto elimina la fricción y rescata una venta que, en otras pasarelas, se habría perdido al primer rechazo bancario.
+
+***
+
+### Beneficios para tu Integración
+
+<CardGroup cols={3}>
+  <Card title="Alta Conversión" icon="chart-line">
+    Reduce el abandono al permitir reintentos inmediatos.
+  </Card>
+
+  <Card title="Conciliación 1:1" icon="file-invoice-dollar">
+    Un pedido en tu tienda suele equivaler a una sola Operación.
+  </Card>
+
+  <Card title="UX Fluida" icon="mobile-screen-button">
+    El cliente no tiene que volver a llenar sus datos si una tarjeta falla.
+  </Card>
+</CardGroup>
+
+***
+
+<Card title="Estados de Transacción" icon="arrow-right" href="/pagos-virtuales/pagos/estados-de-transaccion">
+  Aprende a interpretar los estados (Registrado, Autorizado, Denegado) de cada intento.
+</Card>

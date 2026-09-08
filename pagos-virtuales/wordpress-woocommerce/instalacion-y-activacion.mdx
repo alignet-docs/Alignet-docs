@@ -1,0 +1,74 @@
+---
+title: "Instalación y Activación"
+description: "Guía paso a paso para instalar el plugin de Alignet One en tu tienda WooCommerce."
+---
+Antes de comenzar, asegúrate de haber completado la fase de [Acceso a la Plataforma](/pagos-virtuales/wordpress-woocommerce/introduccion) y contar con el archivo **.zip** del plugin Alignet One para WooCommerce.
+
+<Card title="Descargar plugin Alignet One para WooCommerce" icon="download" href="https://github.com/alignet-docs/alignet-payme-woocommerce/archive/refs/tags/v1.4.0.zip">
+  Descarga la versión más reciente del plugin desde el repositorio oficial de GitHub Releases.
+</Card>
+
+## Requisitos Previos
+
+Para un funcionamiento óptimo, tu entorno debe cumplir con lo siguiente:
+
+* **WordPress:** Versión 3.3 o superior.
+* **WooCommerce:** Instalado y activo en tu CMS.
+* **PHP:** Versión 5.2.4 o superior (se recomienda 7.4+ por seguridad).
+* **Seguridad:** Certificado SSL instalado (navegación obligatoria por **HTTPS**).
+
+***
+
+## Proceso de Instalación
+
+Sigue estos pasos para cargar el plugin en tu servidor de WordPress:
+
+<Steps>
+  <Step title="Acceder al Panel de Administración">
+    Inicia sesión en tu CMS de WordPress como administrador. En el menú lateral izquierdo, dirígete a **Plugins** > **Añadir nuevo**.
+
+    <img src="https://mintcdn.com/alignet/bioEn_3ECyRgIDsO/images/image-33.png?fit=max&auto=format&n=bioEn_3ECyRgIDsO&q=85&s=fcbcbe36e57589580d91a43e0fd284ff" alt="Image" width="1151" height="846" data-path="images/image-33.png" />
+  </Step>
+
+  <Step title="Cargar el Plugin">
+    Haz clic en el botón **Subir plugin** ubicado en la parte superior de la pantalla. Se abrirá un selector de archivos.
+
+    <img src="https://mintcdn.com/alignet/bioEn_3ECyRgIDsO/images/image-32.png?fit=max&auto=format&n=bioEn_3ECyRgIDsO&q=85&s=3be3d88055015357871c98232eac3480" alt="Image" width="1172" height="844" data-path="images/image-32.png" />
+  </Step>
+
+  <Step title="Seleccionar Archivo">
+    Haz clic en **Seleccionar archivo**, busca en tu computadora el archivo comprimido del plugin (ej: Plugin\_Payme\_Wordpress\_vX.zip) y selecciónalo.
+  </Step>
+
+  <Step title="Instalar ahora">
+    Haz clic en el botón **Instalar ahora**. WordPress se encargará de descomprimir y mover los archivos a la carpeta correspondiente (wp-content/plugins/).
+
+    <img src="https://mintcdn.com/alignet/bioEn_3ECyRgIDsO/images/image-36.png?fit=max&auto=format&n=bioEn_3ECyRgIDsO&q=85&s=0f5c38dfb29eefcba132b5bc282c4ed9" alt="Image" width="1130" height="837" data-path="images/image-36.png" />
+  </Step>
+
+  <Step title="Activar">
+    Una vez finalizada la instalación, haz clic en el botón **Activar plugin**.
+
+    <img src="https://mintcdn.com/alignet/bioEn_3ECyRgIDsO/images/image-37.png?fit=max&auto=format&n=bioEn_3ECyRgIDsO&q=85&s=4ebfc8c752aff6f3fb21819220a6621e" alt="Image" width="1130" height="829" data-path="images/image-37.png" />
+  </Step>
+</Steps>
+
+***
+
+## Verificación de la Instalación
+
+Tras la activación, podrás confirmar que el plugin está listo para ser configurado:
+
+1. Ve a **WooCommerce** > **Ajustes** en el menú de WordPress.
+2. Selecciona la pestaña **Pagos** (o *Finalizar compra* en versiones antiguas).
+3. Deberías visualizar el método de pago **Alignet One - Checkout** en el listado oficial de pasarelas.
+
+<Info>
+  **¿No aparece el plugin?** Asegúrate de que WooCommerce esté correctamente activado. Si el problema persiste, verifica que tu servidor tenga habilitada la extensión `fsockopen` de PHP, requerida por algunas pasarelas para la comunicación de red.
+</Info>
+
+***
+
+<Card title="Siguiente paso: Configuración" icon="gear-code" href="/pagos-virtuales/wordpress-woocommerce/configuracion-y-llaves">
+  Aprende a ingresar tus credenciales (Merchant ID, Acquirer ID y llaves) para habilitar el ambiente de pruebas.
+</Card>

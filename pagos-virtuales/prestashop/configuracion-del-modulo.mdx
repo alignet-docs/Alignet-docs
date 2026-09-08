@@ -1,0 +1,77 @@
+---
+title: "Configuración del Módulo"
+description: "Vincula tu tienda con Alignet One configurando tus credenciales API y preferencias de visualización."
+---
+Para acceder a estos ajustes, dirígete a **Módulos** > **Module Manager** > **Alignet One** y haz clic en el botón **Configurar**.
+
+## 1. Ajustes Básicos
+
+Configura la identidad de la pasarela en tu checkout:
+
+| Parámetro       | Acción                                           | Recomendación                      |
+| :-------------- | :----------------------------------------------- | :--------------------------------- |
+| **Habilitar**   | Activa o desactiva la pasarela globalmente.      | Mantener en **Activado**.          |
+| **Título**      | El nombre que verá el cliente al elegir el pago. | "Pagar con Alignet One"                  |
+| **Descripción** | Texto secundario de ayuda.                       | "Paga con tarjeta, Yape, QR y más" |
+| **País**        | Define la región de operación.                   | Seleccionar **Perú**.              |
+
+***
+
+## 2. Credenciales API
+
+Estos datos son el "pasaporte" de tu tienda hacia Alignet One. Solicítalos a tu ejecutivo de cuenta.
+
+<Info>
+  Nunca compartas el **Client Secret** con terceros ni lo publiques en repositorios abiertos de código.
+</Info>
+
+* **Client ID:** Identificador público de tu comercio.
+* **Client Secret:** Clave privada de autenticación.
+* **Merchant Code:** Código único asignado por Alignet One.
+
+***
+
+## 3. Entorno y Visualización
+
+Personaliza cómo se comporta la pasarela y en qué ambiente opera.
+
+### Ambiente de Ejecución
+
+<Tabs>
+  <Tab title="Sandbox (Pruebas)">
+    Utiliza este modo para realizar transacciones ficticias con tarjetas de prueba. Es ideal para validar que tu servidor reciba las notificaciones correctamente.
+  </Tab>
+
+  <Tab title="Producción">
+    Activa este modo únicamente cuando hayas completado las pruebas y tengas las credenciales reales para procesar dinero de clientes.
+  </Tab>
+</Tabs>
+
+### Modo de Visualización del Formulario
+
+Puedes elegir entre dos tipos de experiencia de usuario:
+
+* **Embebido:** El formulario de pago aparece integrado directamente dentro de la página de checkout de PrestaShop.
+* **Modal (Popup):** Se abre una ventana emergente segura sobre tu tienda para capturar los datos del pago.
+
+***
+
+## 4. Opciones Avanzadas y S2S
+
+Para garantizar el éxito de los métodos asíncronos (QR, PagoEfectivo), debes configurar la comunicación entre servidores.
+
+| Opción         | Descripción                                                                                                                   |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| **URL S2S**    | Es la URL de notificación. **Debes enviarla al equipo de Alignet One** para que puedan avisar a tu tienda sobre pagos confirmados. |
+| **Modo Debug** | Actívalo para generar registros técnicos detallados en caso de errores durante la integración.                                |
+| **Moneda**     | Selecciona la moneda base de tu tienda: **PEN** (Soles) o **USD** (Dólares).                                                  |
+
+<Tip>
+  En PrestaShop, la URL de redirección post-pago se genera automáticamente, pero asegúrate de que el **Modo Debug** esté desactivado en producción para optimizar el rendimiento.
+</Tip>
+
+***
+
+<Card title="Experiencia del cliente" icon="cart-circle-check" href="/pagos-virtuales/prestashop/experiencia-del-cliente">
+  Configura el Modo Separado para mejorar la conversión en tu checkout.
+</Card>

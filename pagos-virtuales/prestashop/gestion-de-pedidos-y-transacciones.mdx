@@ -1,0 +1,81 @@
+---
+title: "Gestión de Pedidos y Transacciones"
+description: "Administra estados de pago, realiza reembolsos y consulta logs técnicos desde el Back Office de PrestaShop."
+---
+El módulo de Alignet One centraliza la administración financiera directamente en tu panel de control, permitiéndote gestionar el ciclo de vida de cada orden sin herramientas externas.
+
+## 1. Panel de Administración del Módulo
+
+Para visualizar el estado de tu configuración y los registros, dirígete a:
+**Módulos** > **Module Manager** > **Alignet One** > **Configurar**.
+
+Desde este panel podrás monitorear:
+
+* **Estado de Configuración:** Verificación visual de que tus credenciales están activas.
+* **Indicadores de Ambiente:** Confirmación en tiempo real de si estás operando en **Sandbox** o **Producción**.
+* **Logs Técnicos:** Acceso a la tabla de base de datos `payme_logs` donde se registran las peticiones y respuestas de la pasarela.
+
+***
+
+## 2. Gestión de Extornos (Anulaciones)
+
+Puedes procesar devoluciones de dinero de forma segura y directa desde el detalle de cada pedido en PrestaShop.
+
+### ¿Cómo realizar un extorno?
+
+1. Ve a **Pedidos** > **Pedidos** y selecciona la orden que deseas reembolsar.
+2. Localiza el botón **"Extornar con Alignet One"**.
+3. El sistema enviará la solicitud a la pasarela y actualizará el pedido automáticamente.
+
+<Check>
+  **Prevención de Duplicados:** El sistema cuenta con una validación lógica que impide realizar extornos duplicados sobre la misma transacción, protegiendo tus fondos.
+</Check>
+
+***
+
+## 3. Sincronización de Estados de Pedido
+
+El módulo actualiza el estado de la orden en PrestaShop basándose en la respuesta de Alignet One, automatizando tu flujo de trabajo:
+
+| Evento de Pago      | Estado en PrestaShop  | Descripción                                                                        |
+| :------------------ | :-------------------- | :--------------------------------------------------------------------------------- |
+| **Pago Exitoso**    | **Pago aceptado**     | La transacción fue aprobada y los fondos están confirmados.                        |
+| **Pago Pendiente**  | **En espera de pago** | El pedido se reserva hasta recibir la confirmación (típico de métodos asíncronos). |
+| **Pago Denegado**   | **Error en el pago**  | La transacción fue rechazada por el emisor o el cliente canceló.                   |
+| **Extorno Exitoso** | **Reembolsado**       | Se confirma la devolución del dinero al cliente.                                   |
+
+***
+
+## 4. Métodos Asíncronos (QR, PagoEfectivo)
+
+Para métodos que no se confirman al instante, el flujo opera bajo la lógica de **notificación diferida**:
+
+<Steps>
+  <Step title="Creación del Pedido">
+    El pedido se genera en estado **"En espera de pago"**.
+  </Step>
+
+  <Step title="Notificación S2S">
+    Una vez que el cliente realiza el depósito o escaneo, Alignet One envía una señal a tu **URL S2S**.
+  </Step>
+
+  <Step title="Actualización Automática">
+    El módulo recibe la señal y cambia el estado a **"Pago aceptado"** automáticamente.
+  </Step>
+</Steps>
+
+<Warning>
+  Si notas que los pedidos asíncronos no cambian de estado, verifica que tu servidor permita notificaciones externas y que la **URL S2S** haya sido enviada al equipo de integraciones de Alignet One.
+</Warning>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Pruebas y Certificación" icon="vial-circle-check" href="/pagos-virtuales/prestashop/pruebas-y-certificacion">
+    Valida tus flujos con datos de prueba antes de vender.
+  </Card>
+
+  <Card title="Solución de Problemas" icon="wrench" href="/pagos-virtuales/prestashop/solucion-de-problemas">
+    Consulta soluciones a errores de conexión o credenciales.
+  </Card>
+</CardGroup>

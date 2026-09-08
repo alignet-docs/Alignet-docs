@@ -52,6 +52,188 @@
         },
         "products": [
           {
+            "product": "Pagos Virtuales",
+            "icon": "credit-card",
+            "tabs": [
+              {
+                "tab": "Guía",
+                "groups": [
+                  {
+                    "group": "Primeros pasos",
+                    "icon": "shoe-prints",
+                    "pages": [
+                      "pagos-virtuales/introduccion",
+                      "pagos-virtuales/tipos-de-integracion",
+                      "pagos-virtuales/inicio-rapido",
+                      "pagos-virtuales/buenas-practicas-generales",
+                      "pagos-virtuales/checklist-de-certificacion"
+                    ]
+                  },
+                  {
+                    "group": "Integración",
+                    "icon": "wrench",
+                    "pages": [
+                      {
+                        "group": "E-commerce",
+                        "icon": "store",
+                        "pages": [
+                          "pagos-virtuales/e-commerce/introduccion",
+                          "pagos-virtuales/e-commerce/checklist-de-integracion",
+                          "pagos-virtuales/e-commerce/buenas-practicas",
+                          {
+                            "group": "WooCommerce",
+                            "icon": "wordpress",
+                            "pages": [
+                              "pagos-virtuales/wordpress-woocommerce/introduccion",
+                              "pagos-virtuales/wordpress-woocommerce/instalacion-y-activacion",
+                              "pagos-virtuales/wordpress-woocommerce/configuracion-y-llaves",
+                              "pagos-virtuales/wordpress-woocommerce/experiencia-del-checkout",
+                              "pagos-virtuales/wordpress-woocommerce/gestion-de-pedidos-y-transacciones",
+                              "pagos-virtuales/wordpress-woocommerce/pruebas-y-certificacion",
+                              "pagos-virtuales/wordpress-woocommerce/solucion-de-problemas"
+                            ]
+                          },
+                          {
+                            "group": "PrestaShop",
+                            "icon": "store",
+                            "pages": [
+                              "pagos-virtuales/prestashop/introduccion",
+                              "pagos-virtuales/prestashop/instalacion-y-activacion",
+                              "pagos-virtuales/prestashop/configuracion-del-modulo",
+                              "pagos-virtuales/prestashop/experiencia-del-cliente",
+                              "pagos-virtuales/prestashop/gestion-de-pedidos-y-transacciones",
+                              "pagos-virtuales/prestashop/pruebas-y-certificacion",
+                              "pagos-virtuales/prestashop/solucion-de-problemas"
+                            ]
+                          },
+                          {
+                            "group": "VTEX",
+                            "icon": "shopping-cart",
+                            "pages": [
+                              "pagos-virtuales/vtex/introduccion",
+                              "pagos-virtuales/vtex/instalacion",
+                              "pagos-virtuales/vtex/configuracion",
+                              "pagos-virtuales/vtex/configuracion-de-credenciales-y-metodos-de-pago",
+                              "pagos-virtuales/vtex/configuracion-de-condiciones-de-pago",
+                              "pagos-virtuales/vtex/flujo-de-pago",
+                              "pagos-virtuales/vtex/pruebas-y-troubleshooting"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Checkout Web",
+                        "icon": "globe",
+                        "pages": [
+                          "pagos-virtuales/checkout-web/introduccion",
+                          "pagos-virtuales/checkout-web/checklist-de-integracion",
+                          "pagos-virtuales/checkout-web/buenas-practicas",
+                          "pagos-virtuales/checkout-web/requisitos-de-negocio",
+                          {
+                            "group": "Flex",
+                            "icon": "window-maximize",
+                            "pages": [
+                              "pagos-virtuales/checkout-web/flex/introduccion",
+                              "pagos-virtuales/checkout-web/flex/ultimas-mejoras",
+                              "pagos-virtuales/checkout-web/flex/api-nonce",
+                              "pagos-virtuales/checkout-web/flex/libreria-y-estilos-basicos",
+                              "pagos-virtuales/checkout-web/flex/funcionalidad-de-cobros",
+                              "pagos-virtuales/checkout-web/flex/construccion-del-payload",
+                              "pagos-virtuales/checkout-web/flex/inicializar-el-componente",
+                              "pagos-virtuales/checkout-web/flex/capturar-funciones-callback",
+                              "pagos-virtuales/checkout-web/flex/funcionalidad-debito-automatica"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "SDK Mobile",
+                        "icon": "mobile-screen-button",
+                        "pages": [
+                          "pagos-virtuales/sdk-mobile/introduccion",
+                          "pagos-virtuales/sdk-mobile/checklist-de-integracion",
+                          "pagos-virtuales/sdk-mobile/buenas-practicas",
+                          {
+                            "group": "Android",
+                            "icon": "android",
+                            "pages": [
+                              "pagos-virtuales/sdk-mobile/android/introduccion",
+                              "pagos-virtuales/sdk-mobile/android/requisitos",
+                              "pagos-virtuales/sdk-mobile/android/instalacion",
+                              {
+                                "group": "Flujo de cobro",
+                                "pages": [
+                                  "pagos-virtuales/sdk-mobile/android/flujo-de-cobro/inicializar-alignet-one-sdk-android",
+                                  "pagos-virtuales/sdk-mobile/android/flujo-de-cobro/parametros-de-alignet-one-sdk-android",
+                                  "pagos-virtuales/sdk-mobile/android/flujo-de-cobro/mensajes-de-errores"
+                                ]
+                              },
+                              {
+                                "group": "Afiliaciones",
+                                "pages": [
+                                  "pagos-virtuales/sdk-mobile/android/afiliaciones/inicializar-sdk-android",
+                                  "pagos-virtuales/sdk-mobile/android/afiliaciones/parametros-de-sdk-android",
+                                  "pagos-virtuales/sdk-mobile/android/afiliaciones/mensajes-de-errores"
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "group": "iOS",
+                            "icon": "apple",
+                            "pages": [
+                              "pagos-virtuales/sdk-mobile/ios/introduccion",
+                              "pagos-virtuales/sdk-mobile/ios/requisitos",
+                              "pagos-virtuales/sdk-mobile/ios/instalacion",
+                              {
+                                "group": "Flujo de cobro",
+                                "pages": [
+                                  "pagos-virtuales/sdk-mobile/ios/flujo-de-cobro/inicializar-alignet-one-sdk-ios",
+                                  "pagos-virtuales/sdk-mobile/ios/flujo-de-cobro/parametros-de-alignet-one-sdk-ios",
+                                  "pagos-virtuales/sdk-mobile/ios/flujo-de-cobro/mensajes-de-errores"
+                                ]
+                              },
+                              {
+                                "group": "Afiliaciones",
+                                "pages": [
+                                  "pagos-virtuales/sdk-mobile/ios/afiliaciones/inicializar-sdk-ios",
+                                  "pagos-virtuales/sdk-mobile/ios/afiliaciones/parametros-de-sdk-ios",
+                                  "pagos-virtuales/sdk-mobile/ios/afiliaciones/mensajes-de-errores"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Pagos",
+                    "icon": "credit-card",
+                    "pages": [
+                      {
+                        "group": "Conceptos fundamentales",
+                        "icon": "lightbulb",
+                        "pages": [
+                          "pagos-virtuales/pagos/operaciones-inteligentes",
+                          "pagos-virtuales/pagos/estados-de-transaccion",
+                          "pagos-virtuales/pagos/codigos-de-retorno"
+                        ]
+                      },
+                      {
+                        "group": "Sandbox y pruebas",
+                        "icon": "flask",
+                        "pages": [
+                          "pagos-virtuales/pagos/datos-de-prueba"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "product": "Procesamiento Adquirente",
             "icon": "credit-card-alt",
             "tabs": [
@@ -62,7 +244,7 @@
                     "group": "Primeros pasos",
                     "icon": "shoe-prints",
                     "pages": [
-                      "index",
+                      "procesamiento-adquirente/introduccion",
                       "prerequisites",
                       {
                         "group": "Guía de Integración",
@@ -250,28 +432,6 @@
                 ]
               }
             ]
-          },
-          {
-            "product": "Pagos Virtuales",
-            "icon": "credit-card",
-            "tabs": [
-              {
-                "tab": "Guía",
-                "groups": [
-                  {
-                    "group": "Primeros pasos",
-                    "icon": "shoe-prints",
-                    "pages": [
-                      "pagos-virtuales/introduccion",
-                      "pagos-virtuales/tipos-de-integracion",
-                      "pagos-virtuales/inicio-rapido",
-                      "pagos-virtuales/buenas-practicas-generales",
-                      "pagos-virtuales/checklist-de-certificacion"
-                    ]
-                  }
-                ]
-              }
-            ]
           }
         ]
       },
@@ -287,6 +447,28 @@
         },
         "products": [
           {
+            "product": "Virtual Payments",
+            "icon": "credit-card",
+            "tabs": [
+              {
+                "tab": "Guide",
+                "groups": [
+                  {
+                    "group": "Getting started",
+                    "icon": "shoe-prints",
+                    "pages": [
+                      "en/virtual-payments/introduction",
+                      "en/virtual-payments/integration-types",
+                      "en/virtual-payments/quickstart",
+                      "en/virtual-payments/general-best-practices",
+                      "en/virtual-payments/certification-checklist"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "product": "Acquiring Processing",
             "icon": "credit-card-alt",
             "tabs": [
@@ -297,7 +479,7 @@
                     "group": "Getting started",
                     "icon": "shoe-prints",
                     "pages": [
-                      "en/index",
+                      "en/acquiring-processing/introduction",
                       "en/prerequisites",
                       {
                         "group": "Integration guide",
@@ -485,33 +667,21 @@
                 ]
               }
             ]
-          },
-          {
-            "product": "Virtual Payments",
-            "icon": "credit-card",
-            "tabs": [
-              {
-                "tab": "Guide",
-                "groups": [
-                  {
-                    "group": "Getting started",
-                    "icon": "shoe-prints",
-                    "pages": [
-                      "en/virtual-payments/introduction",
-                      "en/virtual-payments/integration-types",
-                      "en/virtual-payments/quickstart",
-                      "en/virtual-payments/general-best-practices",
-                      "en/virtual-payments/certification-checklist"
-                    ]
-                  }
-                ]
-              }
-            ]
           }
         ]
       }
     ]
   },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/pagos-virtuales/introduccion"
+    },
+    {
+      "source": "/en",
+      "destination": "/en/virtual-payments/introduction"
+    }
+  ],
   "api": {
     "playground": {
       "display": "interactive"

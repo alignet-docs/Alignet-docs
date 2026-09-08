@@ -1,0 +1,99 @@
+---
+title: "Parámetros de Entrada y Salida de SDK iOS"
+---
+A continuación, se detallan los parámetros de entrada y salida de Alignet One SDK para el flujo de afiliaciones:
+
+## Parámetros de Entrada
+
+El objeto `PMEAffiliationRequest` está compuesto por los siguientes atributos:
+
+### Objeto PMEAffiliationRequest
+
+| **Parámetro**   | **Tipo**                                                    | **Descripción**                                                                                                    | **Obligatorio** |
+| :-------------- | :---------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- | :-------------- |
+| action          | `PAYMEAffiliationAction`                                    | La acción a ejecutar. Puede ser CREATE o UPDATE: `PAYMEAffiliationAction.CREATE` / `PAYMEAffiliationAction.UPDATE` | SI              |
+| affiliationCode | String                                                      | Código de afiliación generado por el comercio                                                                      | SI              |
+| affiliation     | [Objeto PAYMEAffiliationData](#objeto-paymeaffiliationdata) | Contiene información de la afiliación. Es obligatorio cuando la acción es CREATE                                   | NO              |
+| setting         | [Objeto PAYMESettingData](#objeto-paymeSettingdata)         | Contiene información de ajuste del comportamiento del formulario de afiliación                                     | NO              |
+
+#### Objeto PAYMEAffiliationData
+
+| **Parámetro**    | **Tipo**                                            | **Long.** | **Descripción**                                                                                  | **Obligatorio** |
+| :--------------- | :-------------------------------------------------- | :-------- | :----------------------------------------------------------------------------------------------- | :-------------- |
+| type             | `PAYMEAffiliationType`                              | -         | Tipo de afiliación: `FIXED` → NO DISPONIBLE / `VARIABLE` → NO DISPONIBLE / `MANUAL` → DISPONIBLE | SI              |
+| frequency        | String                                              | -         | Frecuencia de los cobros de la afiliación                                                        | NO              |
+| amount           | String                                              | 11        | Monto en centavos a cobrar. Ejemplo: 0.50 → Enviar 50 / 10.00 → Enviar 1000                      | NO              |
+| maxAmount        | String                                              | 11        | Monto máximo para pagos recurrentes, expresado en centavos                                       | NO              |
+| currency         | String                                              | -         | Código de moneda ISO-4217                                                                        | SI              |
+| additionalFields | Diccionario                                         | -         | Contiene información adicional proporcionada por el comercio                                     | NO              |
+| beneficiary      | [Objeto PAYMEAddressData](#objeto-paymeaddressdata) | -         | Información del afiliado                                                                         | SI              |
+
+#### Objeto PAYMEAddressData
+
+| **Parámetro**    | **Tipo**                                                      | **Long.** | **Descripción**                                           | **Obligatorio** |
+| :--------------- | :------------------------------------------------------------ | :-------- | :-------------------------------------------------------- | :-------------- |
+| firstName        | String                                                        | 30        | Nombres                                                   | SI              |
+| lastName         | String                                                        | 50        | Apellidos                                                 | SI              |
+| email            | String                                                        | 50        | Correo electrónico                                        | SI              |
+| phone            | String                                                        | 15        | Código del país y número de celular (51-958435685)        | SI              |
+| identityDocument | [Objeto PAYMEIdentityDocument](#objeto-paymeidentitydocument) | -         | Objeto que contiene información de documento de identidad | NO              |
+| line1            | String                                                        | 50        | Dirección                                                 | SI              |
+| line2            | String                                                        | 50        | Dirección complementaria                                  | NO              |
+| city             | String                                                        | 50        | Ciudad/Provincia                                          | SI              |
+| state            | String                                                        | 15        | Estado/Departamento                                       | SI              |
+| country          | String                                                        | 2         | Código del País en letra. ISO-3166                        | SI              |
+
+#### Objeto PAYMEIdentityDocument
+
+| **Parámetro** | **Tipo** | **Long.** | **Descripción**                                                  | **Obligatorio** |
+| :------------ | :------- | :-------- | :--------------------------------------------------------------- | :-------------- |
+| country       | String   | 2         | Código del País en letra. ISO-3166. Ejm: Perú → PE               | SI              |
+| type          | String   | 20        | Tipo de documento: DNI / CARNET\_EXTRANJERIA / PASAPORTE / OTROS | SI              |
+| identifier    | String   | 20        | Número de documento de identidad                                 | SI              |
+
+#### Objeto PAYMESettingData
+
+| **Parámetro** | **Tipo** | **Long.** | **Descripción**                                                       | **Obligatorio** |
+| :------------ | :------- | :-------- | :-------------------------------------------------------------------- | :-------------- |
+| locale        | String   | 5         | Localización del idioma del formulario. Valor: `es_PE` (Español Perú) | SI              |
+| walletUserId  | String   | 15        | Valor para identificar el wallet de un usuario                        | NO              |
+
+***
+
+## Parámetros de Salida
+
+El objeto `PMEAffiliationResponse` está compuesto por los siguientes atributos:
+
+### Objeto PMEAffiliationResponse
+
+| **Parámetro** | **Tipo**                                                        | **Long.** | **Descripción**                                                 | **Obligatorio** |
+| :------------ | :-------------------------------------------------------------- | :-------- | :-------------------------------------------------------------- | :-------------- |
+| success       | Boolean                                                         | -         | `true` si el proceso fue correcto, `false` si ocurrió un error. | SI              |
+| resultCode    | String                                                          | 2         | Código de resultado del procesamiento.                          | SI              |
+| resultMessage | String                                                          | 30        | Texto que describe el resultado del procesamiento.              | SI              |
+| result        | [Objeto PAYMEAffiliationResult](#objeto-paymeaffiliationresult) | -         | Detalle del resultado de la transacción.                        | NO              |
+
+#### Objeto PAYMEAffiliationResult
+
+| **Parámetro**    | **Tipo**                                                    | **Long.** | **Descripción**                                                                                  | **Obligatorio** |
+| :--------------- | :---------------------------------------------------------- | :-------- | :----------------------------------------------------------------------------------------------- | :-------------- |
+| affiliationId    | String                                                      | 36        | Identificador único de la transacción generado por Alignet One                                        | SI              |
+| affiliationCode  | String                                                      | 36        | Número de operación enviado por el Comercio                                                      | SI              |
+| type             | String                                                      | -         | Tipo de afiliación: `FIXED` → NO DISPONIBLE / `VARIABLE` → NO DISPONIBLE / `MANUAL` → DISPONIBLE | SI              |
+| state            | String                                                      | -         | Estado actual de la afiliación: `ACTIVE` / `INACTIVE`                                            | SI              |
+| frequency        | String                                                      | -         | Frecuencia de los cobros de la afiliación                                                        | NO              |
+| amount           | String                                                      | 11        | Monto en centavos. Ejemplo: 0.50 → Enviar 50 / 10.00 → Enviar 1000                               | NO              |
+| maxAmount        | String                                                      | 11        | Monto máximo para pagos recurrentes, expresado en centavos                                       | NO              |
+| currency         | String                                                      | -         | Código de moneda ISO-4217                                                                        | SI              |
+| additionalFields | Diccionario                                                 | -         | Información adicional proporcionada por el comercio                                              | NO              |
+| card             | [Objeto PAYMEAffiliationCard](#objeto-paymeaffiliationcard) | -         | Información de la tarjeta usada en la afiliación                                                 | SI              |
+
+#### Objeto PAYMEAffiliationCard
+
+| **Parámetro**  | **Tipo** | **Long.** | **Descripción**                                        | **Obligatorio** |
+| :------------- | :------- | :-------- | :----------------------------------------------------- | :-------------- |
+| brand          | String   | 4         | Marca de la tarjeta: `VISA` / `MSCD` / `AMEX` / `DINC` | SI              |
+| bin            | String   | 6         | Bin de la tarjeta                                      | SI              |
+| lastPan        | String   | 4         | Cuatro últimos dígitos de la tarjeta                   | SI              |
+| issuerName     | String   | 50        | Nombre del emisor de la tarjeta                        | NO              |
+| cardholderName | String   | 50        | Nombre y Apellidos del titular de la tarjeta           | SI              |

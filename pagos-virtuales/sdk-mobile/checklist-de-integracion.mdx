@@ -1,0 +1,166 @@
+---
+title: "Checklist de integración"
+description: "Validaciones recomendadas para completar una integración SDK Mobile en Android o iOS."
+---
+Usa este checklist como una guía rápida antes de pedir validación final del flujo **SDK Mobile**.
+
+<Info>
+  Esta guía aplica para implementaciones nativas en **Android** e **iOS**, tanto para flujos de cobro como para afiliaciones.
+</Info>
+
+## Panorama general
+
+<CardGroup cols={2}>
+  <Card title="Preparación" icon="key">
+    Plataforma, requisitos técnicos, credenciales y caso de uso definidos antes de integrar.
+  </Card>
+
+  <Card title="Instalación" icon="mobile-screen-button">
+    SDK agregado al proyecto, dependencias resueltas y permisos configurados por plataforma.
+  </Card>
+
+  <Card title="Validación funcional" icon="credit-card">
+    Cobro aprobado, rechazo, afiliación y manejo de errores revisados desde la app.
+  </Card>
+
+  <Card title="Salida a producción" icon="rocket">
+    Evidencias listas, ambiente productivo revisado y flujo validado con integraciones.
+  </Card>
+</CardGroup>
+
+## Ruta sugerida
+
+<Steps>
+  <Step title="Prepara el entorno">
+    Confirma plataforma objetivo, credenciales, ambiente sandbox y caso de uso: cobro, afiliación o ambos.
+  </Step>
+
+  <Step title="Instala el SDK">
+    Agrega la librería a tu proyecto móvil y valida dependencias, permisos y configuración inicial.
+  </Step>
+
+  <Step title="Implementa el flujo">
+    Configura parámetros obligatorios, callbacks, manejo de respuesta y experiencia del usuario.
+  </Step>
+
+  <Step title="Prueba en sandbox">
+    Ejecuta escenarios aprobados, rechazados y errores controlados con datos de prueba.
+  </Step>
+
+  <Step title="Solicita validación final">
+    Cuando el flujo esté estable, prepara evidencias y coordina la revisión con el equipo de integraciones.
+  </Step>
+</Steps>
+
+## Checklist base
+
+<AccordionGroup>
+  <Accordion title="1. Preparación" icon="key" defaultOpen>
+    * Plataforma objetivo definida: **Android**, **iOS** o ambas.
+    * Requisitos técnicos revisados por plataforma.
+    * Credenciales y ambiente de pruebas disponibles.
+    * Caso de uso definido: cobro, afiliación o ambos.
+  </Accordion>
+
+  <Accordion title="2. Instalación y configuración" icon="gear">
+    * SDK instalado correctamente en el proyecto.
+    * Dependencias y versiones compatibles validadas.
+    * Permisos, configuración de red y entorno sandbox revisados.
+    * Inicialización completada sin errores en la app.
+  </Accordion>
+
+  <Accordion title="3. Implementación del flujo" icon="code">
+    * Parámetros obligatorios enviados con formato correcto.
+    * Callbacks o listeners implementados para éxito, rechazo y error.
+    * Manejo de navegación y retorno al flujo de la app validado.
+    * Datos sensibles no expuestos en cliente, logs o pantallas.
+  </Accordion>
+
+  <Accordion title="4. Validación funcional" icon="cart-shopping">
+    * Flujo de cobro aprobado probado correctamente.
+    * Flujo rechazado o error controlado validado.
+    * Flujo de afiliación probado si aplica.
+    * Mensajes y experiencia del usuario revisados.
+  </Accordion>
+
+  <Accordion title="5. Producción" icon="rocket">
+    * Sandbox completado con evidencia mínima de pruebas.
+    * Build final revisada para el ambiente productivo.
+    * Logs mínimos disponibles para soporte y diagnóstico.
+    * Integración lista para salida a vivo.
+  </Accordion>
+</AccordionGroup>
+
+## Puntos por plataforma
+
+<Tabs>
+  <Tab title="Android">
+    <CardGroup cols={2}>
+      <Card title="Dependencias Gradle" icon="code">
+        Confirma que las dependencias, repositorios y versiones requeridas estén configuradas.
+      </Card>
+
+      <Card title="Ciclo de actividad" icon="mobile-screen-button">
+        Verifica que el SDK maneje correctamente navegación, retorno y estados de la app.
+      </Card>
+    </CardGroup>
+
+    * Revisar [Requisitos SDK Android](/pagos-virtuales/sdk-mobile/android/requisitos).
+    * Validar instalación desde [Instalación Android](/pagos-virtuales/sdk-mobile/android/instalacion).
+    * Probar cobro desde [Inicializar Alignet One SDK Android](/pagos-virtuales/sdk-mobile/android/flujo-de-cobro/inicializar-alignet-one-sdk-android).
+    * Probar afiliaciones si están dentro del alcance del comercio.
+  </Tab>
+
+  <Tab title="iOS">
+    <CardGroup cols={2}>
+      <Card title="Dependencias iOS" icon="code">
+        Confirma que la instalación, targets y configuración del proyecto estén alineados con la guía.
+      </Card>
+
+      <Card title="Experiencia nativa" icon="mobile-screen-button">
+        Verifica permisos, navegación, callbacks y continuidad del usuario dentro de la app.
+      </Card>
+    </CardGroup>
+
+    * Revisar [Requisitos SDK iOS](/pagos-virtuales/sdk-mobile/ios/requisitos).
+    * Validar instalación desde [Instalación iOS](/pagos-virtuales/sdk-mobile/ios/instalacion).
+    * Probar cobro desde [Inicializar Alignet One SDK iOS](/pagos-virtuales/sdk-mobile/ios/flujo-de-cobro/inicializar-alignet-one-sdk-ios).
+    * Probar afiliaciones si están dentro del alcance del comercio.
+  </Tab>
+</Tabs>
+
+## Criterio mínimo de aprobación
+
+<CardGroup cols={3}>
+  <Card title="Cobro validado" icon="check">
+    Al menos un flujo aprobado y uno rechazado revisados correctamente en sandbox.
+  </Card>
+
+  <Card title="Respuesta controlada" icon="shield-check">
+    La app maneja éxito, rechazo, cancelación y errores sin romper la experiencia del usuario.
+  </Card>
+
+  <Card title="Listo para certificar" icon="clipboard-check">
+    Evidencias, logs y build final disponibles para revisión con el equipo de integraciones.
+  </Card>
+</CardGroup>
+
+## Guías relacionadas
+
+<CardGroup cols={2}>
+  <Card title="Android" icon="mobile-screen-button" href="/pagos-virtuales/sdk-mobile/android/introduccion">
+    Revisa el flujo completo para Android.
+  </Card>
+
+  <Card title="iOS" icon="mobile-screen-button" href="/pagos-virtuales/sdk-mobile/ios/introduccion">
+    Revisa el flujo completo para iOS.
+  </Card>
+
+  <Card title="Datos de prueba" icon="flask" href="/pagos-virtuales/pagos/datos-de-prueba">
+    Usa escenarios sandbox para validar SDK Mobile y otros flujos de pago.
+  </Card>
+
+  <Card title="Instalación iOS" icon="download" href="/pagos-virtuales/sdk-mobile/ios/instalacion">
+    Descarga y configura el SDK iOS en tu proyecto Xcode.
+  </Card>
+</CardGroup>

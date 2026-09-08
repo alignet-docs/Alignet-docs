@@ -1,0 +1,66 @@
+---
+title: "Solución de Problemas"
+description: "Guía rápida para identificar y resolver los errores más comunes en la integración con WooCommerce."
+---
+Si experimentas dificultades durante la integración o el procesamiento de pagos, consulta esta guía antes de contactar al soporte técnico. La mayoría de los problemas se resuelven revisando la configuración de red y las credenciales.
+
+## 1. Tabla de Errores Comunes
+
+Identifica el síntoma y aplica la solución recomendada:
+
+| Problema                          | Causa Probable                                  | Solución Sugerida                                                                                                                 |
+| :-------------------------------- | :---------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+| **Formulario no carga**           | Credenciales inválidas o ambiente incorrecto.   | Verifica que el Merchant ID y las Llaves coincidan con el modo (Sandbox/Producción).                                              |
+| **Pago exitoso sin pedido**       | El Webhook (S2S) no pudo notificar a tu tienda. | Valida que tu URL S2S sea pública y revisa si un Firewall o Plugin de seguridad bloquea la IP de Alignet One.                          |
+| **Error en datos de facturación** | Faltan campos obligatorios en el checkout.      | Asegúrate de que el cliente complete nombre, apellido, correo y teléfono.                                                         |
+| **Extorno no funciona**           | La transacción no permite devoluciones aún.     | Verifica que la transacción original esté en estado **Liquidado**. Los pagos del mismo día no siempre permiten extorno inmediato. |
+| **Botón de pago no aparece**      | Conflicto de JavaScript o SSL ausente.          | Revisa la consola del navegador (F12) y asegúrate de navegar por **HTTPS**.                                                       |
+
+***
+
+## 2. Diagnóstico Técnico (Logs)
+
+El plugin registra cada interacción relevante. Si un pago falla "silenciosamente", los logs te dirán por qué.
+
+1. Ve a **WooCommerce** > **Estado** > **Logs**.
+2. En el desplegable de la derecha, busca el archivo que comience por **payme-checkout-...** y dale a **Ver**.
+3. Busca líneas que contengan **ERROR** o **RESPONSE**. Allí verás el código de respuesta del procesador (Visa/Mastercard).
+
+<Tip>
+  Puedes comparar los códigos de error encontrados en los logs con nuestra [Guía de Códigos de Respuesta](https://docs.pay-me.com/referencias/codigos-visa-mastercard).
+</Tip>
+
+***
+
+## 3. Verificación del Servidor
+
+Para que el plugin se comunique correctamente con la pasarela Alignet One, tu servidor debe permitir:
+
+* **Salida de datos:** Conexiones hacia las URLs de la API de Alignet One (Puerto 443).
+* **Entrada de datos (S2S):** Tu servidor debe aceptar peticiones **POST** externas.
+* **Extensiones PHP:** Verifica que **curl** y **openssl** estén activos en tu configuración de PHP.
+
+***
+
+## 4. ¿Aún necesitas ayuda?
+
+Si el problema persiste tras revisar los puntos anteriores, prepara la siguiente información para nuestro equipo de soporte:
+
+<Card title="Kit de Soporte" icon="briefcase">
+  1. **Merchant ID** de tu comercio.
+  2. **URL de tu tienda**.
+  3. **Captura de pantalla** del error o el mensaje exacto.
+  4. **Archivo de Log** de la transacción fallida.
+</Card>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Contacto de soporte" icon="envelope" href="mailto:postventa.autenticacion@alignet.com">
+    Envíanos un correo con tu kit de soporte.
+  </Card>
+
+  <Card title="Volver al Inicio" icon="house" href="/pagos-virtuales/wordpress-woocommerce/introduccion">
+    Regresar a la guía principal.
+  </Card>
+</CardGroup>

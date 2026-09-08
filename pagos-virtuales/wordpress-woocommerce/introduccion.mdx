@@ -1,0 +1,64 @@
+---
+title: "WooCommerce"
+description: "Integra la pasarela de pagos Alignet One en tu tienda WordPress de forma rápida y segura."
+---
+<Frame>
+  <img src="https://mintcdn.com/alignet/1doMEpheovLEa4uV/images/image-65.png?fit=max&auto=format&n=1doMEpheovLEa4uV&q=85&s=164e4c6a5f07e36b083b93f31818a7b8" alt="Image" title="Image" className="mx-auto" style={{ width:"45%" }} width="451" height="120" data-path="images/image-65.png" />
+</Frame>
+
+Alignet One WooCommerce es el plugin oficial para **cobrar en tu tienda WordPress** con los métodos de pago más importantes del mercado local (Perú y región) desde una sola integración.
+
+### Métodos de Pago Disponibles
+
+Dependiendo de tu configuración, podrás habilitar:
+
+* **Tarjetas:** Visa, Mastercard, American Express, Diners.
+* **Billeteras:** Yape, Plin.
+* **Pagos con QR.**
+* **Transferencias y Efectivo:** PagoEfectivo, Cuotéalo BCP.
+
+### Flujo General de Pago
+
+Comprender cómo viaja la información es clave para una integración exitosa. El plugin gestiona todo el ciclo de vida de la transacción automáticamente.
+
+<img src="https://mintcdn.com/alignet/fCvWdFCrErAZptgq/images/image-53.png?fit=max&auto=format&n=fCvWdFCrErAZptgq&q=85&s=9028928f578629851375894b5063d4db" alt="Image" width="1564" height="672" data-path="images/image-53.png" />
+
+### ¿Cómo funciona?
+
+1. **Selección:** El cliente elige Alignet One como método de pago en el checkout de WooCommerce.
+2. **Envío:** El plugin envía de forma cifrada la información de la transacción a la pasarela Alignet One.
+3. **Validación:** Alignet One valida el pago con los emisores y procesadores bajo estándares de seguridad PCI-DSS.
+4. **Respuesta:** - **Síncrona:** El cliente recibe una confirmación inmediata en pantalla.
+   * **Asíncrona (Webhook):** Alignet One notifica a tu tienda mediante un webhook para actualizar el estado del pedido automáticamente.
+
+***
+
+## Ciclo de Vida del Pedido
+
+Para que tu logística sea eficiente, el plugin mapea los estados de la pasarela con los estados nativos de WooCommerce:
+
+<Steps>
+  <Step title="Registro y Pendiente">
+    El pedido se crea en WooCommerce como **"Pendiente de pago"**.
+  </Step>
+
+  <Step title="Autorización">
+    Si el pago es exitoso, el estado cambia a **"Procesando"** (o "Completado" según tu configuración), notificando al cliente por correo.
+  </Step>
+
+  <Step title="Fallo o Abandono">
+    Si el pago es rechazado o el cliente cierra la ventana, el pedido se marca como **"Fallido"** o **"Cancelado"**.
+  </Step>
+</Steps>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Instalación" icon="download" href="/pagos-virtuales/wordpress-woocommerce/instalacion-y-activacion">
+    Descarga el plugin y sigue los pasos para subirlo a tu WordPress.
+  </Card>
+
+  <Card title="Configuración" icon="gear" href="/pagos-virtuales/wordpress-woocommerce/configuracion-y-llaves">
+    Ingresa tus credenciales de producción y activa los métodos de pago.
+  </Card>
+</CardGroup>

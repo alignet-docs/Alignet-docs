@@ -1,0 +1,95 @@
+---
+title: "Introducción"
+description: "Integra fácilmente un formulario de pago en tu aplicación web con Alignet One Flex."
+---
+Alignet One Flex permite integrar un formulario de pago en aplicaciones web usando una sola interfaz para múltiples métodos de pago. El flujo recomendado combina autenticación, generación de `nonce`, construcción del `payload`, inicialización del componente y captura del resultado desde `responseCallback`.
+
+<Card title="Últimas mejoras" icon="wand-magic-sparkles" href="/pagos-virtuales/checkout-web/flex/ultimas-mejoras">
+  Revisa las mejoras recientes de visualización, multidioma, cierre del checkout, Yape UX y número de operación.
+</Card>
+
+***
+
+## Flujo inicial
+
+<CardGroup cols={3}>
+  <Card title="1. Autenticación" icon="key" href="https://docs.pay-me.com/api-de-pagos/autenticacion">
+    Primero genera el `Access Token` desde el API de Seguridad. Sin ese token no podrás solicitar el `nonce`.
+  </Card>
+
+  <Card title="2. API Nonce" icon="shield-check" href="/pagos-virtuales/checkout-web/flex/api-nonce">
+    Con el `Access Token` vigente solicita el `nonce` que se usará para inicializar Flex.
+  </Card>
+
+  <Card title="3. Librería Flex" icon="code" href="/pagos-virtuales/checkout-web/flex/libreria-y-estilos-basicos">
+    Después de obtener el `nonce`, incluye el CSS y JS del ambiente y continúa con la inicialización del formulario.
+  </Card>
+</CardGroup>
+
+<Note>
+  En Flex, el orden correcto es `Autenticación` → `API Nonce` → inclusión de librería y luego la inicialización del componente.
+</Note>
+
+## Implementación del cobro
+
+<CardGroup cols={3}>
+  <Card title="Construcción del payload" icon="receipt" href="/pagos-virtuales/checkout-web/flex/construccion-del-payload">
+    Arma el `payload` reutilizando la estructura del API de autorización y enviando `payment_method: {}` en el objeto raíz.
+  </Card>
+
+  <Card title="Inicializar el componente" icon="gear" href="/pagos-virtuales/checkout-web/flex/inicializar-el-componente">
+    Crea la instancia de `FlexPaymentForms`, define métodos visibles y monta el formulario en tu DOM.
+  </Card>
+
+  <Card title="Capturar callbacks" icon="bolt" href="/pagos-virtuales/checkout-web/flex/capturar-funciones-callback">
+    Procesa `responseCallback`, `trackingCallback` y `onErrorCallback` según el método de pago seleccionado.
+  </Card>
+</CardGroup>
+
+<Info>
+  En Flex, el resultado visible para el frontend entra por `responseCallback(response)`, y ese `response` reutiliza el contrato del API de PayIn correspondiente al método de pago usado.
+</Info>
+
+## ¿Por qué Alignet One Flex?
+
+<CardGroup cols={3}>
+  <Card title="Una sola integración" icon="plug">
+    Una misma interfaz de captura para todos los métodos de pago disponibles.
+  </Card>
+
+  <Card title="Fácil de usar" icon="wand-magic-sparkles">
+    Elimina la complejidad de administrar flujos de pago independientes.
+  </Card>
+
+  <Card title="Seguro" icon="shield-halved">
+    Autenticación 3DS integrada y transmisión segura de datos.
+  </Card>
+</CardGroup>
+
+## Métodos de pago disponibles
+
+<CardGroup cols={3}>
+  <Card title="Tarjeta con 3DS" icon="credit-card">
+    Visa, Mastercard, Amex y Diners con autenticación 3D Secure.
+  </Card>
+
+  <Card title="Yape" icon="mobile-screen">
+    Billetera digital con el número de teléfono del cliente.
+  </Card>
+
+  <Card title="QR" icon="qrcode">
+    Pago escaneando un código QR desde cualquier app bancaria.
+  </Card>
+
+  <Card title="Transferencia Bancaria" icon="building-columns">
+    Pago directo desde banca en línea.
+  </Card>
+
+  <Card title="Cuotéalo" icon="receipt">
+    Pago en cuotas sin necesidad de tarjeta de crédito.
+  </Card>
+
+  <Card title="Próximamente" icon="clock">
+    PagoEfectivo y Powerpay en camino.
+  </Card>
+</CardGroup>

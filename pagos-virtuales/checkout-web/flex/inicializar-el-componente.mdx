@@ -1,0 +1,499 @@
+---
+title: "Inicializar el componente"
+description: "Crea la instancia de Alignet One Flex, monta el formulario y adáptalo a celular y web."
+---
+Con el `payload` construido y un `nonce` vigente, crea la instancia de `FlexPaymentForms` y monta el formulario en tu DOM.
+
+<Note>
+  Necesitas un `nonce` vigente del [API Nonce](/pagos-virtuales/checkout-web/flex/api-nonce) y el `payload` de [Construcción del payload](/pagos-virtuales/checkout-web/flex/construccion-del-payload) antes de continuar.
+</Note>
+
+## Parámetros del constructor
+
+Expande cada bloque para revisar los campos que puedes enviar al constructor.
+
+<AccordionGroup>
+  <Accordion title="Datos obligatorios" icon="key" defaultOpen>
+    | Campo     | Tipo         | Descripción                                                                                                                  |
+    | :-------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------- |
+    | `nonce`   | Alfanumérico | Código encriptado generado en backend mediante el [API Nonce](/pagos-virtuales/checkout-web/flex/api-nonce).                                 |
+    | `payload` | Objeto JSON  | Detalles de la compra y del comprador preparados en [Construcción del payload](/pagos-virtuales/checkout-web/flex/construccion-del-payload). |
+  </Accordion>
+
+  <Accordion title="Objeto settings" icon="gear">
+    Controla el comportamiento visual general del componente.
+
+    | Campo                            | Tipo    | Descripción                                               |
+    | :------------------------------- | :------ | :-------------------------------------------------------- |
+    | `settings.display_result_screen` | Boolean | Muestra la pantalla de resultado al finalizar el proceso. |
+    | `settings.show_close_button`     | Boolean | Muestra el botón para cerrar el componente.               |
+    | `settings.show_border`           | Boolean | Activa o desactiva el borde visual del componente.        |
+    | `settings.show_operation_number` | Boolean | Muestra el número de operación dentro del flujo.          |
+  </Accordion>
+
+  <Accordion title="Objeto display_settings" icon="list-check">
+    Define los medios de pago que Flex mostrará al comprador.
+
+    | Campo                      | Tipo            | Descripción                                                                                                       |
+    | :------------------------- | :-------------- | :---------------------------------------------------------------------------------------------------------------- |
+    | `display_settings.methods` | Array de String | Lista necesaria para la visualización. Acepta `CARD`, `YAPE`, `QR`, `BANK_TRANSFER`, `CUOTEALO` o `PAGOEFECTIVO`. |
+
+    Debes enviar `display_settings.methods` con los métodos de pago que necesitas visualizar en Flex.
+  </Accordion>
+
+  <Accordion title="Objeto i18n" icon="language">
+    Configura los idiomas disponibles dentro del formulario.
+
+    | Campo                   | Tipo            | Descripción                                                        |
+    | :---------------------- | :-------------- | :----------------------------------------------------------------- |
+    | `i18n.mode`             | String          | Modo de idiomas. Para este flujo se usa `multi`.                   |
+    | `i18n.default_language` | String          | Idioma predeterminado: `es` o `en`.                                |
+    | `i18n.languages`        | Array de String | Lista de idiomas habilitados. Actualmente se soportan `es` y `en`. |
+  </Accordion>
+</AccordionGroup>
+
+## Inicializar y montar Flex
+
+<Steps>
+  <Step title="Crea la instancia">
+    Envía el `nonce`, el `payload` y la configuración que necesite tu integración.
+
+    ```javascript theme={"system"}
+    const paymentForm = new FlexPaymentForms({
+      nonce,
+      payload,
+      settings: {
+        display_result_screen: true,
+        show_close_button: true,
+        show_border: false,
+        show_operation_number: true
+      },
+      display_settings: {
+        methods: ["QR", "BANK_TRANSFER", "CARD"]
+      },
+      i18n: {
+        mode: "multi",
+        default_language: "es",
+        languages: ["es", "en"]
+      }
+    });
+    ```
+  </Step>
+
+  <Step title="Crea el contenedor">
+    Agrega al HTML el elemento donde Flex generará su DOM.
+
+    ```html theme={"system"}
+    <div id="flex-container"></div>
+    ```
+  </Step>
+
+  <Step title="Renderiza el formulario">
+    Monta la instancia y entrega las funciones que procesarán la respuesta, el seguimiento y los errores.
+
+    ```javascript theme={"system"}
+    paymentForm.init(
+      document.querySelector("#flex-container"),
+      responseCallback,
+      trackingCallback,
+      onErrorCallback
+    );
+    ```
+  </Step>
+</Steps>
+
+<Note>
+  Si defines `i18n.default_language`, utiliza uno de los idiomas incluidos en `i18n.languages`.
+</Note>
+
+<Info>
+  `#flex-container` es solo un ejemplo. Puedes usar otro selector, siempre que el elemento exista antes de ejecutar `paymentForm.init(...)`.
+</Info>
+
+## Comportamiento responsive
+
+Flex conserva su estructura interna mientras el contenedor externo calcula una escala adecuada para el viewport.
+
+<CardGroup cols={3}>
+  <Card title="Web" icon="desktop">
+    Mantiene la escala original cuando el formulario cabe en la ventana.
+  </Card>
+
+  <Card title="Celular" icon="mobile-screen">
+    Reduce el formulario proporcionalmente para evitar cortes horizontales.
+  </Card>
+
+  <Card title="Contenido dinámico" icon="arrows-up-down">
+    Recalcula la altura cuando Flex cambia de paso o método de pago.
+  </Card>
+</CardGroup>
+
+### Ejemplo de implementación
+
+<Info>
+  Este ejemplo visual usa una presentación popup. La inicialización, los callbacks y el desmontaje descritos más adelante también aplican a las presentaciones embebida y expandida.
+</Info>
+
+<Tabs>
+  <Tab title="Estructura HTML">
+    ```html theme={"system"}
+    <div id="payment-modal" class="flex-modal" role="dialog" aria-hidden="true">
+      <div class="flex-modal__content">
+        <div id="flex-container"></div>
+      </div>
+    </div>
+    ```
+  </Tab>
+
+  <Tab title="Estilos base">
+    ```css theme={"system"}
+    :root {
+      --flex-responsive-scale: 1;
+      --flex-natural-width: 415px;
+      --flex-natural-height: 656px;
+    }
+
+    .flex-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      padding: 15px 20px;
+      overflow: hidden;
+      background: rgb(0 18 37 / 48%);
+    }
+
+    .flex-modal.is-open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flex-modal__content {
+      width: var(--flex-natural-width);
+      height: var(--flex-natural-height);
+      max-width: calc(100vw - 40px);
+      max-height: calc(100vh - 30px);
+      max-height: calc(100dvh - 30px);
+      transform: scale(var(--flex-responsive-scale));
+      transform-origin: center;
+    }
+
+    #flex-container {
+      width: 100%;
+      height: 100%;
+    }
+    ```
+  </Tab>
+
+  <Tab title="Lógica responsive">
+    ```javascript theme={"system"}
+    const FLEX_RESPONSIVE_LAYOUT = {
+      naturalWidth: 415,
+      naturalHeight: 656,
+      viewportPaddingHorizontal: 40, // 20 px a cada lado
+      viewportPaddingVertical: 30,   // 15 px arriba y abajo
+      minimumScale: 0.25
+    };
+
+    function calculateResponsiveScale() {
+      const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
+      const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+      const availableWidth =
+        viewportWidth - FLEX_RESPONSIVE_LAYOUT.viewportPaddingHorizontal;
+      const availableHeight =
+        viewportHeight - FLEX_RESPONSIVE_LAYOUT.viewportPaddingVertical;
+
+      return Math.max(
+        FLEX_RESPONSIVE_LAYOUT.minimumScale,
+        Math.min(
+          1,
+          availableWidth / FLEX_RESPONSIVE_LAYOUT.naturalWidth,
+          availableHeight / FLEX_RESPONSIVE_LAYOUT.naturalHeight
+        )
+      );
+    }
+
+    function updateResponsiveScale() {
+      const responsiveScale = calculateResponsiveScale();
+      document.documentElement.style.setProperty(
+        "--flex-responsive-scale",
+        String(responsiveScale)
+      );
+    }
+
+    // Aplica la escala inicial y la recalcula cuando cambia el viewport.
+    updateResponsiveScale();
+    window.addEventListener("resize", updateResponsiveScale);
+    window.visualViewport?.addEventListener("resize", updateResponsiveScale);
+
+    // Muestra el modal.
+    const paymentModal = document.querySelector("#payment-modal");
+    paymentModal.classList.add("is-open");
+    paymentModal.setAttribute("aria-hidden", "false");
+
+    // Inicializa Flex.
+    paymentForm.init(
+      document.querySelector("#flex-container"),
+      responseCallback,
+      trackingCallback,
+      onErrorCallback
+    );
+    ```
+  </Tab>
+
+  <Tab title="Desmontar Flex">
+    ```javascript theme={"system"}
+    function unmountFlex() {
+      window.removeEventListener("resize", updateResponsiveScale);
+      window.visualViewport?.removeEventListener("resize", updateResponsiveScale);
+
+      paymentForm.terminate?.();
+
+      const flexContainer = document.querySelector("#flex-container");
+      flexContainer.innerHTML = "";
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Ciclo de vida de la instancia
+
+`paymentForm.terminate?.()` finaliza los procesos internos, listeners y recursos que mantiene la instancia de Flex. Esta operación es diferente de eliminar el formulario del DOM (`flexContainer.innerHTML = ""`) y aplica a cualquier tipo de presentación.
+
+<Info>
+  El operador `?.` ejecuta `terminate()` solo cuando el método existe. Esto evita un error si la versión cargada de Flex no implementa ese método.
+</Info>
+
+### Cuándo desmontar según la presentación
+
+| Presentación  | Cuándo desmontar                                                          | Acción visual posterior                                       |
+| :------------ | :------------------------------------------------------------------------ | :------------------------------------------------------------ |
+| Embebida      | Cuando ocultas el checkout, cambias de sección o navegas a otra pantalla. | Retira o reemplaza el contenido donde estaba Flex.            |
+| Popup (modal) | Cuando el comprador cierra el popup o termina el flujo.                   | Oculta el overlay y devuelve el foco a la interfaz principal. |
+| Expandida     | Cuando contraes el checkout o abandonas la vista expandida.               | Contrae el panel o restaura el layout anterior.               |
+
+En los tres casos, primero procesa cualquier resultado pendiente y luego ejecuta `unmountFlex()` antes de actualizar la presentación visual.
+
+<Warning>
+  No modifiques los estilos internos de Flex. Ejecuta `unmountFlex()` cuando retires el formulario, sin importar si está embebido, dentro de un popup o en una vista expandida.
+</Warning>
+
+### Pantalla de resultado propia
+
+Cuando configuras `settings.display_result_screen: false`, Flex no presenta su pantalla final. Tu aplicación debe recibir el `response`, evaluar el estado de la transacción y mostrar una pantalla de resultado propia.
+
+<Steps>
+  <Step title="Monta el formulario">
+    `paymentForm.init(...)` renderiza Flex dentro del contenedor.
+  </Step>
+
+  <Step title="Recibe el resultado">
+    Flex ejecuta `responseCallback(response)`. Lee el resultado desde `response.transaction.state` y realiza las validaciones de negocio correspondientes.
+  </Step>
+
+  <Step title="Muestra tu pantalla">
+    Guarda el `response` en el estado de tu aplicación y navega o renderiza la pantalla de resultado del comercio.
+  </Step>
+
+  <Step title="Desmonta Flex">
+    Cuando el resultado ya fue procesado, ejecuta `terminate()`, limpia el contenedor y actualiza la presentación embebida, popup o expandida.
+  </Step>
+</Steps>
+
+```javascript theme={"system"}
+const paymentForm = new FlexPaymentForms({
+  nonce,
+  payload,
+  settings: {
+    display_result_screen: false
+  }
+});
+
+const flexContainer = document.querySelector("#flex-container");
+
+paymentForm.init(
+  flexContainer,
+  (response) => {
+    const transactionState = response.transaction?.state;
+
+    // Procesa y conserva la respuesta antes de desmontar Flex.
+    showMerchantResultScreen({ transactionState, response });
+    unmountFlex();
+  },
+  (tracking) => {
+    console.log("Evento de seguimiento", tracking);
+  },
+  (error) => {
+    console.error("Error de Flex", error);
+  }
+);
+```
+
+<Warning>
+  No ejecutes `terminate()` antes de recibir y procesar `responseCallback(response)`. Si finalizas la instancia antes, puedes interrumpir el flujo y perder el resultado que Flex todavía no ha entregado.
+</Warning>
+
+### Limpieza reutilizable
+
+Encapsula la inicialización y el desmontaje en un controlador independiente del framework. Puedes usarlo desde JavaScript puro o conectarlo al ciclo de vida de React, Vue, Angular u otra tecnología.
+
+```javascript theme={"system"}
+function createFlexController({
+  container,
+  configuration,
+  onResult,
+  onTracking,
+  onError
+}) {
+  let instance = null;
+
+  function mount() {
+    // Evita conservar una instancia anterior al volver a abrir Flex.
+    destroy();
+
+    instance = new FlexPaymentForms(configuration);
+    instance.init(container, onResult, onTracking, onError);
+  }
+
+  function destroy() {
+    instance?.terminate?.();
+    instance = null;
+    container.replaceChildren();
+  }
+
+  return { mount, destroy };
+}
+
+const flexController = createFlexController({
+  container: document.querySelector("#flex-container"),
+  configuration: {
+    nonce,
+    payload,
+    settings: {
+      display_result_screen: false
+    }
+  },
+  onResult: responseCallback,
+  onTracking: trackingCallback,
+  onError: onErrorCallback
+});
+
+// Abre o vuelve a crear el formulario.
+flexController.mount();
+
+// Finaliza la instancia al cerrar, navegar o retirar la presentación.
+// flexController.destroy();
+```
+
+<CardGroup cols={3}>
+  <Card title="JavaScript" icon="code">
+    Ejecuta `destroy()` antes de retirar el contenedor de la página.
+  </Card>
+
+  <Card title="Aplicación SPA" icon="arrows-rotate">
+    Conecta `destroy()` al cambio de ruta o al desmontaje de la vista.
+  </Card>
+
+  <Card title="Presentación dinámica" icon="window-restore">
+    Ejecútalo al ocultar el bloque embebido, cerrar el popup o contraer la vista expandida.
+  </Card>
+</CardGroup>
+
+`container.replaceChildren()` vacía el contenido de forma equivalente a `container.innerHTML = ""`, sin depender de un framework específico.
+
+<Note>
+  `terminate()` no devuelve la respuesta del pago. El resultado siempre llega mediante el primer callback de `paymentForm.init(...)`. Revisa [Capturar funciones callback](/pagos-virtuales/checkout-web/flex/capturar-funciones-callback) para interpretar y confirmar la operación.
+</Note>
+
+### Gestionar el cierre con show\_close\_button
+
+Configura `settings.show_close_button: true` para mostrar el botón de cierre nativo de Flex. Esta opción funciona en las presentaciones embebida, popup y expandida.
+
+```javascript theme={"system"}
+const paymentForm = new FlexPaymentForms({
+  nonce,
+  payload,
+  settings: {
+    show_close_button: true
+  }
+});
+```
+
+Cuando el comprador pulsa el botón, Flex envía el mensaje `cerro el carrito` mediante `onErrorCallback`. Aunque utiliza el callback de error, este mensaje representa una acción voluntaria del comprador y no un fallo técnico.
+
+<CardGroup cols={3}>
+  <Card title="Mostrar el botón" icon="circle-xmark">
+    Activa `show_close_button` dentro de `settings`.
+  </Card>
+
+  <Card title="Interpretar el evento" icon="code-branch">
+    Identifica el mensaje exacto `cerro el carrito` en `onErrorCallback`.
+  </Card>
+
+  <Card title="Cerrar la presentación" icon="power-off">
+    Ejecuta `onClose()` para desmontar Flex y actualizar la interfaz.
+  </Card>
+</CardGroup>
+
+Implementa una rama exclusiva para el cierre voluntario y conserva los demás mensajes como errores técnicos:
+
+```javascript theme={"system"}
+function getFlexErrorMessage(error) {
+  if (typeof error === "string") return error;
+  return error?.message ?? "";
+}
+
+function onErrorCallback(error) {
+  const errorMessage = getFlexErrorMessage(error).trim();
+
+  if (errorMessage === "cerro el carrito") {
+    onClose();
+    return;
+  }
+
+  // Los demás mensajes se procesan como errores técnicos.
+  handleFlexError(error);
+}
+
+function onClose() {
+  unmountFlex();
+
+  // Oculta el popup, retira el bloque embebido o contrae la vista expandida.
+  hideFlexPresentation();
+}
+```
+
+El flujo de cierre es `show_close_button` → `onErrorCallback` → `onClose()` → `unmountFlex()`. `hideFlexPresentation()` representa la lógica visual de tu aplicación: retirar el bloque embebido, ocultar el popup o contraer la vista expandida.
+
+<Warning>
+  Ejecuta `onClose()` solo cuando el mensaje completo sea `cerro el carrito`. Cualquier otro valor recibido en `onErrorCallback` debe continuar por el manejo de errores técnicos.
+</Warning>
+
+## Antes de publicar
+
+Comprueba el componente en estos escenarios:
+
+| Escenario                     | Resultado esperado                                     |
+| :---------------------------- | :----------------------------------------------------- |
+| Web con viewport amplio       | El formulario conserva la escala `1` y queda centrado. |
+| Celular vertical y horizontal | No aparece scroll horizontal ni contenido cortado.     |
+| Cambio de orientación         | La escala se recalcula sin reinicializar Flex.         |
+| Cambio de paso o método       | La nueva altura permanece dentro del viewport.         |
+| Teclado virtual abierto       | Los campos activos continúan visibles y utilizables.   |
+
+<Warning>
+  Los callbacks no reemplazan la confirmación del pago desde backend. Continúa con la guía de callbacks para interpretar el resultado.
+</Warning>
+
+## Siguiente paso
+
+<CardGroup cols={2}>
+  <Card title="Capturar funciones callback" icon="arrow-right" href="/pagos-virtuales/checkout-web/flex/capturar-funciones-callback">
+    Define `responseCallback`, `trackingCallback` y `onErrorCallback` para reaccionar correctamente al flujo.
+  </Card>
+
+  <Card title="Construcción del payload" icon="arrow-left" href="/pagos-virtuales/checkout-web/flex/construccion-del-payload">
+    Si todavía no armaste el objeto de la operación, vuelve a la guía del `payload`.
+  </Card>
+</CardGroup>

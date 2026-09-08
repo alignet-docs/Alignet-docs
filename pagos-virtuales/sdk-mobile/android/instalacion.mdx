@@ -1,0 +1,167 @@
+---
+title: "Instalación SDK Android"
+description: "Configura librerías, permisos y dependencias necesarias para integrar Alignet One SDK en Android."
+---
+Esta guía describe cómo incorporar Alignet One SDK en tu proyecto Android antes de implementar cobros o afiliaciones.
+
+<Info>
+  Utiliza siempre la versión de SDK entregada o confirmada por el equipo de integraciones para tu comercio.
+</Info>
+
+<Card title="Descargar SDK Alignet One Android v3.3" icon="download" href="https://docs.pay-me.com/sdk-mobile/librerias/SDK_Payme_Android_v3.3.zip">
+  Descarga el paquete `.zip` con las librerías necesarias para integrar el SDK Android.
+</Card>
+
+## Artefactos requeridos
+
+El paquete de integración debe incluir las librerías necesarias para ejecutar el flujo de pago.
+
+<CardGroup cols={2}>
+  <Card title="Alignet One.aar" icon="credit-card">
+    Librería principal del SDK.
+  </Card>
+
+  <Card title="SecureKey3DS.aar" icon="shield-check">
+    Librería para autenticación 3DS.
+  </Card>
+
+  <Card title="VisaSensoryBranding.aar" icon="sparkles">
+    Librería de experiencia Visa.
+  </Card>
+
+  <Card title="MastercardSonic.aar" icon="music">
+    Librería de experiencia Mastercard.
+  </Card>
+</CardGroup>
+
+<Warning>
+  No subas los artefactos del SDK a repositorios públicos. Trata los archivos entregados como dependencias privadas del comercio.
+</Warning>
+
+## Estructura recomendada
+
+Crea una carpeta `libs` dentro del proyecto y coloca ahí los artefactos entregados.
+
+```text theme={"system"}
+app/
+  libs/
+    Alignet One.aar
+    SecureKey3DS.aar
+    VisaSensoryBranding.aar
+    MastercardSonic.aar
+```
+
+## Configuración Gradle
+
+Agrega los `.aar` como dependencias locales del módulo Android.
+
+```kotlin theme={"system"}
+dependencies {
+    implementation(files("libs/SecureKey3DS.aar"))
+    implementation(files("libs/Alignet One.aar"))
+    implementation(files("libs/VisaSensoryBranding.aar"))
+    implementation(files("libs/MastercardSonic.aar"))
+}
+```
+
+Si tu proyecto usa `build.gradle` con Groovy, puedes declararlo así:
+
+```groovy theme={"system"}
+dependencies {
+    implementation files('libs/SecureKey3DS.aar')
+    implementation files('libs/Alignet One.aar')
+    implementation files('libs/VisaSensoryBranding.aar')
+    implementation files('libs/MastercardSonic.aar')
+}
+```
+
+## Plugins y configuración Android
+
+Confirma que el módulo tenga Kotlin y `viewBinding` habilitados.
+
+```kotlin theme={"system"}
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+}
+
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+```
+
+## Permisos
+
+Declara los permisos requeridos en `AndroidManifest.xml`.
+
+```xml theme={"system"}
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+```
+
+## Dependencias base
+
+El SDK requiere dependencias Android, networking, serialización y seguridad. Usa como referencia las versiones mínimas indicadas por el equipo de integraciones y mantén compatibilidad con tu proyecto.
+
+```kotlin theme={"system"}
+dependencies {
+    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.3.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.3.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.5.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.10.0")
+    implementation("com.squareup.okhttp3:okhttp:3.10.0")
+    implementation("com.google.code.gson:gson:2.8.8")
+
+    implementation("com.madgag.spongycastle:core:1.50.0.0")
+    implementation("com.madgag.spongycastle:pg:1.50.0.0")
+    implementation("org.bouncycastle:bcprov-jdk15on:1.56")
+    implementation("com.nimbusds:nimbus-jose-jwt:7.0.1")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.30.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.1")
+}
+```
+
+<Note>
+  Si tu proyecto ya usa versiones superiores de estas dependencias, valida compatibilidad antes de degradarlas. Evita duplicar librerías con versiones incompatibles.
+</Note>
+
+## Validación rápida
+
+<AccordionGroup>
+  <Accordion title="Compilación" icon="hammer" defaultOpen>
+    * El proyecto sincroniza Gradle sin errores.
+    * Los `.aar` se resuelven desde la carpeta `libs`.
+    * No existen conflictos de versiones en dependencias compartidas.
+  </Accordion>
+
+  <Accordion title="Configuración" icon="gear">
+    * Los permisos están declarados en `AndroidManifest.xml`.
+    * `viewBinding` está habilitado si el proyecto lo requiere.
+    * El ambiente sandbox está identificado para las primeras pruebas.
+  </Accordion>
+
+  <Accordion title="Seguridad" icon="lock">
+    * Las credenciales se generan y protegen desde backend.
+    * No se exponen tokens ni secretos dentro de la app.
+    * Los logs de prueba no imprimen información sensible.
+  </Accordion>
+</AccordionGroup>
+
+## Siguiente paso
+
+<Card title="Inicializar Alignet One SDK Android" icon="arrow-right" href="/pagos-virtuales/sdk-mobile/android/flujo-de-cobro/inicializar-alignet-one-sdk-android">
+  Crea la instancia de `PaymeClient` e inicia tu primer flujo de cobro.
+</Card>

@@ -1,0 +1,88 @@
+---
+title: "Pruebas y Certificación"
+description: "Valida tu integración en Sandbox antes de pasar al ambiente de producción."
+---
+Antes de habilitar los pagos reales, es obligatorio realizar pruebas de extremo a extremo para asegurar que los pedidos se creen correctamente y que tu servidor reciba las notificaciones de pago (S2S).
+
+## 1. Datos de prueba para Sandbox
+
+Para evitar duplicidad, los escenarios de prueba se consultan desde una sola página compartida:
+
+<CardGroup cols={2}>
+  <Card title="Abrir datos de prueba" icon="credit-card" href="/pagos-virtuales/pagos/datos-de-prueba">
+    Revisa tarjetas, Yape, transferencias y otros escenarios sandbox desde una referencia central.
+  </Card>
+
+  <Card title="Usar solo en Sandbox" icon="flask">
+    Ejecuta estas validaciones con el plugin en modo prueba y credenciales sandbox activas.
+  </Card>
+</CardGroup>
+
+<Note>
+  En WooCommerce, utiliza esa referencia para cubrir aprobaciones, rechazos y métodos alternativos sin repetir aquí los mismos datos.
+</Note>
+
+<Tip>
+  Para métodos como **PagoEfectivo** o flujos que requieran confirmación diferida, puedes apoyarte con el equipo de soporte si necesitas validar la aprobación manual del escenario.
+</Tip>
+
+***
+
+## 2. Casos de Prueba Obligatorios
+
+Ejecuta este checklist para garantizar una nota **10/10** en tu implementación:
+
+<Steps>
+  <Step title="Flujo Completo de Pago">
+    Realiza una compra real, completa el formulario y verifica que seas redirigido a la página de **"Pedido Confirmado"**.
+  </Step>
+
+  <Step title="Validación S2S (Webhooks)">
+    Verifica en el admin de WordPress que el pedido cambió de **Pendiente** a **Procesando** automáticamente sin intervención manual.
+  </Step>
+
+  <Step title="Gestión de Abandono">
+    Cierra la ventana de pago a la mitad y confirma que el pedido en WooCommerce se marque como **Cancelado** tras el tiempo de expiración.
+  </Step>
+
+  <Step title="Prueba de Extorno">
+    Desde el panel de transacciones del plugin, realiza un reembolso parcial y valida que el monto se refleje en el historial del pedido.
+  </Step>
+</Steps>
+
+***
+
+## 3. Checklist para Paso a Producción
+
+¿Todo listo? Antes de solicitar tus llaves definitivas, asegúrate de cumplir con:
+
+* **Certificado SSL:** Tu sitio debe cargar obligatoriamente bajo **https\://**.
+* **Credenciales Finales:** Tienes tu Merchant ID y llaves de producción a la mano.
+* **URL S2S:** Tu servidor es accesible desde IPs externas (Alignet One).
+* **Ambiente:** Has desmarcado la casilla "Modo de Prueba" en los ajustes del plugin.
+
+***
+
+## 4. Obtener Soporte Técnico
+
+Si encuentras comportamientos inesperados durante tus pruebas, nuestro equipo de integraciones está listo para ayudarte:
+
+<CardGroup cols={3}>
+  <Card title="Soporte técnico" icon="envelope" href="mailto:postventa.autenticacion@alignet.com">
+    [postventa.autenticacion@alignet.com](mailto:postventa.autenticacion@alignet.com)
+  </Card>
+
+  <Card title="WhatsApp Business" icon="whatsapp" href="https://wa.me/51940133391">
+    +51 940 133 391
+  </Card>
+
+  <Card title="Central" icon="phone">
+    (01) 700-8377
+  </Card>
+</CardGroup>
+
+***
+
+<Card title="Solución de Problemas" icon="circle-question" href="/pagos-virtuales/wordpress-woocommerce/solucion-de-problemas">
+  ¿Recibes un error específico? Consulta nuestra guía de errores comunes.
+</Card>

@@ -1,0 +1,78 @@
+---
+title: "Experiencia del Checkout"
+description: "Configura cómo tus clientes visualizan y completan sus pagos en WooCommerce."
+---
+El plugin de Alignet One ofrece una integración nativa que se adapta al diseño de tu tienda, garantizando un flujo de pago fluido y seguro.
+
+## 1. Modos de Visualización
+
+Puedes elegir cómo presentar los métodos de pago en tu formulario de finalización de compra.
+
+### Modo Separado (Recomendado)
+
+Este modo desglosa cada marca de tarjeta y método de pago (Yape, Plin, PagoEfectivo) como opciones individuales con su propio icono oficial.
+
+* **Ventaja:** Transmite mayor confianza al cliente al ver los logos familiares desde el primer clic.
+* **Flujo:**
+  1. El cliente completa sus **Datos de Facturación**.
+  2. Selecciona el método específico (ej: Tarjeta Visa).
+  3. Al dar clic en "Pagar", se abre el **Formulario Seguro de Alignet One**.
+  4. Tras la confirmación, el cliente es redirigido a la página de éxito.
+
+***
+
+## 2. Compatibilidad con WooCommerce Blocks
+
+El plugin es totalmente compatible con el **Checkout Moderno de WooCommerce** (basado en React/Blocks).
+
+<CardGroup cols={2}>
+  <Card title="Checkout Clásico" icon="wpforms">
+    Soporte total para temas basados en shortcodes **(\[woocommerce\_checkout])**.
+  </Card>
+
+  <Card title="Checkout Blocks" icon="cubes">
+    Integración optimizada para el bloque de Pago de WooCommerce de alto rendimiento.
+  </Card>
+</CardGroup>
+
+***
+
+## 3. Validación de Datos en Tiempo Real
+
+Para evitar transacciones fallidas, el plugin realiza una validación previa antes de invocar a la pasarela. Los siguientes campos son obligatorios:
+
+* **Nombre y Apellidos:** Requeridos para la validación del tarjetahabiente.
+* **Correo Electrónico:** Donde el cliente recibirá su comprobante.
+* **Dirección y Ciudad:** Datos críticos para el análisis de riesgo.
+* **Teléfono:** Contacto para validaciones de seguridad.
+
+<Tip>
+  Si un campo falta o está mal formateado, el plugin mostrará una advertencia nativa de WooCommerce resaltando el error antes de intentar procesar el pago.
+</Tip>
+
+***
+
+## 4. Pantalla de Confirmación (Feedback Visual)
+
+La experiencia post-pago es vital. El plugin personaliza la página de "Orden Recibida" con mensajes claros según el resultado:
+
+| Estado del Pago | Significado                                                                  |
+| :-------------- | :--------------------------------------------------------------------------- |
+| **Exitoso**     | "¡Pedido Confirmado!". Transacción aprobada y lista para despacho.           |
+| **Pendiente**   | "Pedido Pendiente". Típico en métodos asíncronos (QR o PagoEfectivo).        |
+| **Denegado**    | "Pago Denegado". Transacción rechazada; se invita a intentar con otro medio. |
+
+**La página incluye automáticamente:**
+
+* Resumen completo del pedido.
+* Detalle de productos adquiridos.
+* Datos de facturación ingresados.
+* Botón directo para "Volver a la tienda".
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Gestión de pedidos" icon="clipboard-list" href="/pagos-virtuales/wordpress-woocommerce/gestion-de-pedidos-y-transacciones">
+    Aprende a gestionar reembolsos y ver logs desde el admin de WordPress.
+  </Card>
+</CardGroup>

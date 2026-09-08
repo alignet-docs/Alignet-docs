@@ -1,0 +1,218 @@
+---
+title: "Inicializar Alignet One SDK iOS"
+description: "Crea la instancia de PaymeClient, configura el ambiente e inicia el flujo de cobro en iOS."
+---
+La función de cobro permite invocar Alignet One SDK desde tu app iOS para mostrar el formulario de pago y recibir el resultado de la operación.
+
+<Info>
+  Antes de inicializar el SDK, completa [Instalación SDK iOS](/pagos-virtuales/sdk-mobile/ios/instalacion) y genera un `Access Token` desde tu backend usando [Autenticación](https://docs.pay-me.com/api-de-pagos/autenticacion).
+</Info>
+
+## Métodos disponibles
+
+<CardGroup cols={3}>
+  <Card title="CARD" icon="credit-card">
+    Tarjetas de crédito y débito.
+  </Card>
+
+  <Card title="YAPE" icon="mobile">
+    Pago con billetera Yape.
+  </Card>
+
+  <Card title="QR" icon="qrcode">
+    Pago con billeteras móviles mediante QR.
+  </Card>
+
+  <Card title="BANK_TRANSFER" icon="building-columns">
+    Pago mediante transferencia bancaria.
+  </Card>
+
+  <Card title="CUOTEALO" icon="receipt">
+    Pago financiado con Cuotéalo.
+  </Card>
+
+  <Card title="PAGO_EFECTIVO" icon="money-bill">
+    Pago con código o canal PagoEfectivo.
+  </Card>
+</CardGroup>
+
+## Flujo de integración
+
+<Steps>
+  <Step title="Importa el SDK">
+    Agrega `UIKit` y `Alignet One` en el `ViewController` desde donde iniciarás el flujo.
+  </Step>
+
+  <Step title="Construye el request">
+    Crea `PAYMEChargesRequest` con datos de transacción, comprador, facturación y configuración.
+  </Step>
+
+  <Step title="Configura PaymeClient">
+    Inicializa `PaymeClient` con `delegate`, `merchantCode` y ambiente.
+  </Step>
+
+  <Step title="Invoca el formulario">
+    Envía `accessToken` y `paymeChargesRequest` en `invokeCaptureForm`.
+  </Step>
+
+  <Step title="Procesa callbacks">
+    Implementa `onRespondsPayme` y `onPaymeEvents` para cerrar el flujo en tu app.
+  </Step>
+</Steps>
+
+## Importar PaymeSDK
+
+```swift theme={"system"}
+import UIKit
+import Alignet One
+```
+
+## Parámetros principales
+
+<AccordionGroup>
+  <Accordion title="PaymeClient" icon="code" defaultOpen>
+    * `delegate`: instancia que implementa los métodos de `PaymeClientDelegate`.
+    * `merchantCode`: código del comercio entregado por Alignet.
+  </Accordion>
+
+  <Accordion title="setEnvironment" icon="globe">
+    * `PaymeEnviroment.development`: ambiente de pruebas.
+    * `PaymeEnviroment.production`: ambiente productivo.
+  </Accordion>
+
+  <Accordion title="invokeCaptureForm" icon="credit-card">
+    * `from`: `UINavigationController` o controlador desde donde se invoca el SDK.
+    * `accessToken`: token generado desde backend para esta solicitud.
+    * `paymeChargesRequest`: objeto con información de la transacción.
+  </Accordion>
+</AccordionGroup>
+
+## Ejemplo de inicialización
+
+```swift theme={"system"}
+let customer = PAYMEAddressData(
+    firstName: "Levis Antonio",
+    lastName: "Silvestre Maylle",
+    email: "levis.silvestre@alignet.com",
+    phone: "51-958435685",
+    identityDocument: PAYMEIdentityDocument(
+        type: "DNI",
+        identifier: "72111111",
+        country: "PE"
+    ),
+    addressLine1: "Av casimiro Ulloa 333",
+    addressLine2: nil,
+    city: "Lima",
+    state: "Lima",
+    country: "PE"
+)
+
+let billingShipping = PAYMEAddressData(
+    firstName: "Levis Antonio",
+    lastName: "Silvestre Maylle",
+    email: "levis.silvestre@alignet.com",
+    phone: "51-958435685",
+    addressLine1: "Av casimiro Ulloa 333",
+    addressLine2: nil,
+    city: "Lima",
+    state: "Lima",
+    country: "PE"
+)
+
+var additionalFields = [String: String]()
+additionalFields["reserved1"] = "1"
+additionalFields["reserved2"] = "2"
+additionalFields["reserved3"] = "3"
+
+let paymeChargesRequest = PAYMEChargesRequest(
+    transaction: PAYMETransactionData(
+        operationNumber: "0000001",
+        amount: "1000",
+        currency: "604",
+        additionalFields: additionalFields,
+        customer: customer,
+        billing: billingShipping,
+        shipping: billingShipping
+    ),
+    setting: PAYMESettingData(
+        locale: "es_PE",
+        paymentMethods: ["CARD", "YAPE", "CUOTEALO"],
+        walletUserID: nil
+    )
+)
+
+let paymeClient = PaymeClient(
+    delegate: self,
+    merchantCode: "MERCHANT_CODE"
+)
+
+paymeClient.setEnvironment(
+    environment: PaymeEnviroment.development
+)
+
+paymeClient.invokeCaptureForm(
+    from: self.navigationController!,
+    accessToken: "TOKEN_GENERADO_PARA_ESTA_SOLICITUD",
+    paymeChargesRequest: paymeChargesRequest
+)
+```
+
+<Warning>
+  El `accessToken` debe generarse desde backend para la solicitud. No incluyas credenciales ni secretos dentro de la app.
+</Warning>
+
+## Implementar delegates
+
+Para completar la integración, la clase debe implementar `PaymeClientDelegate`.
+
+```swift theme={"system"}
+extension MainController: PaymeClientDelegate {
+    func onRespondsPayme(response: PAYMEChargesResponse) {
+        // Procesa el resultado final del flujo.
+    }
+
+    func onPaymeEvents(event: PaymeEvent) {
+        // Registra eventos de navegación o interacción del SDK.
+    }
+}
+```
+
+## Eventos disponibles
+
+<CardGroup cols={2}>
+  <Card title="BUILD_FORM" icon="list-check">
+    Indica qué métodos se mostraron al usuario.
+  </Card>
+
+  <Card title="CHOOSE_PAYMENT_METHOD" icon="hand-pointer">
+    Indica el método de pago elegido por el usuario.
+  </Card>
+
+  <Card title="RETURN_LIST_PAYMENT_METHODS" icon="arrow-left">
+    Indica que el usuario regresó al listado de métodos.
+  </Card>
+
+  <Card title="CANCEL_PAYMENT_METHOD" icon="ban">
+    Indica que el usuario canceló un método de pago.
+  </Card>
+
+  <Card title="PRESS_PAY_BUTTON" icon="mouse-pointer-click">
+    Indica que el usuario presionó el botón de pago.
+  </Card>
+
+  <Card title="CLOSE_PAYME" icon="xmark">
+    Indica que el usuario cerró el SDK.
+  </Card>
+</CardGroup>
+
+## Validación del resultado
+
+<Note>
+  Usa `onRespondsPayme` para actualizar la experiencia de usuario, pero confirma el estado final desde backend cuando el flujo o método de pago lo requiera.
+</Note>
+
+## Siguiente paso
+
+<Card title="Parámetros de entrada y salida" icon="arrow-right" href="/pagos-virtuales/sdk-mobile/ios/flujo-de-cobro/parametros-de-alignet-one-sdk-ios">
+  Revisa el detalle completo de los objetos enviados y recibidos por el SDK.
+</Card>

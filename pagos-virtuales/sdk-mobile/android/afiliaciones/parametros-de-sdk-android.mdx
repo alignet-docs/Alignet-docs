@@ -1,0 +1,115 @@
+---
+title: "Parámetros de Entrada y Salida de SDK Android"
+---
+A continuación, se detallan los parámetros de entrada y salida de Alignet One SDK para el flujo de afiliaciones:
+
+## Parámetros de Entrada
+
+El objeto `PMEAffiliationRequest` está compuesto por los siguientes atributos:
+
+### **Objeto PMEAffiliationRequest**
+
+Abre tabla en pantalla completaAbrir
+
+| **Parámetro**   | **Tipo**                                                                                                                                           | **Descripción**                                                                                                                           | **Obligatorio** |
+| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| action          | `PAYMEAffiliationAction`                                                                                                                           | La acción a ejecutar. Puede ser CREATE o UPDATE <ul><li>`PAYMEAffiliationAction.CREATE`</li><li>`PAYMEAffiliationAction.UPDATE`</li></ul> | SI              |
+| affiliationCode | String                                                                                                                                             | Código de afiliación generado por el comercio                                                                                             | SI              |
+| affiliation     | [Objeto PAYMEAffiliationData](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEAffiliationData) | Contiene información de la afiliación. Es obligatorio cuando la acción es CREATE                                                          | NO              |
+| setting         | [Objeto PAYMESettingData](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMESettingData)         | Contiene información de ajuste del comportamiento del formulario de afiliacion                                                            | NO              |
+
+#### **Objeto PAYMEAffiliationData**
+
+Abre tabla en pantalla completaAbrir
+
+| **Parámetro**    | **Tipo**                                                                                                                                   | **Long.** | **Descripción**                                                                                                                                                                                                  | **Obligatorio** |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| type             | `PAYMEAffiliationType`                                                                                                                     | -         | Tipo de afiliación. Valores: <ul><li>`FIXED` → NO DISPONIBLE</li><li>`VARIABLE` → NO DISPONIBLE</li><li>`MANUAL` → DISPONIBLE</li></ul>                                                                          | SI              |
+| frequency        | String                                                                                                                                     | -         | Frecuencia de los cobros de la afiliación                                                                                                                                                                        | NO              |
+| amount           | String                                                                                                                                     | 11        | Monto en centavos cobrar por la pasarela de pago. La pasarela se encargar de aplicar el separador decimal. Ejemplo: <ul><li>Si el monto es 0.50 → Enviar 50</li><li>Si el monto es 10.00 → Enviar 1000</li></ul> | NO              |
+| maxAmount        | String                                                                                                                                     | 11        | Monto máximo que se aplica al monto de hacer los pagos recurrentes. El monto debe expresarse como un entero en centavos                                                                                          | NO              |
+| currency         | String                                                                                                                                     | -         | Código de moneda ISO-4217.                                                                                                                                                                                       | SI              |
+| additionalFields | Diccionario                                                                                                                                | -         | Contiene información adicional proporcionado por el comercio.                                                                                                                                                    | NO              |
+| beneficiary      | [Objeto PAYMEAddressData](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEAddressData) | -         | Información del afiliado                                                                                                                                                                                         | SI              |
+
+##### **Objeto PAYMEAddressData**
+
+Abre tabla en pantalla completaAbrir
+
+| **Parámetro**    | **Tipo**                                                                                                                                             | **Long.** | **Descripción**                                                              | **Obligatorio** |
+| :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------- | :-------------- |
+| firstName        | String                                                                                                                                               | 30        | Nombres                                                                      | SI              |
+| lastName         | String                                                                                                                                               | 50        | Apellidos                                                                    | SI              |
+| email            | String                                                                                                                                               | 50        | Correo electrónico                                                           | SI              |
+| phone            | String                                                                                                                                               | 15        | Código del país y número de celular del titular de la tarjeta (51-958435685) | SI              |
+| identityDocument | [Objeto PAYMEIdentityDocument](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEIdentityDocument) | -         | Objeto que contiene información de documento de identidad                    | NO              |
+| line1            | String                                                                                                                                               | 50        | Dirección                                                                    | SI              |
+| line2            | String                                                                                                                                               | 50        | Dirección                                                                    | NO              |
+| city             | String                                                                                                                                               | 50        | Ciudad/Provincia                                                             | SI              |
+| state            | String                                                                                                                                               | 15        | Estado/Departamento                                                          | SI              |
+| country          | String                                                                                                                                               | 2         | Código del País en letra. ISO-3166                                           | SI              |
+
+###### **Objeto PAYMEIdentityDocument**
+
+Abre tabla en pantalla completaAbrir
+
+| **Parámetro** | **Tipo** | **Long.** | **Descripción**                                                                                                   | **Obligatorio** |
+| :------------ | :------- | :-------- | :---------------------------------------------------------------------------------------------------------------- | :-------------- |
+| country       | String   | 2         | Código del País en letra. ISO-3166. Ejm: <ul><li>Perú → PE</li></ul>                                              | SI              |
+| type          | String   | 20        | Tipo de documento de identidad: <ul><li>DNI</li><li>CARNET\_EXTRANJERIA</li><li>PASAPORTE</li><li>OTROS</li></ul> | SI              |
+| identifier    | String   | 20        | Número de documento de identidad                                                                                  | SI              |
+
+#### **Objeto PAYMESettingData**
+
+Abre tabla en pantalla completaAbrir
+
+| **Parámetro**           | **Tipo** | **Long.** | **Descripción**                                                     | **Obligatorio** |
+| :---------------------- | :------- | :-------- | :------------------------------------------------------------------ | :-------------- |
+| locale                  | String   | 5         | Localización del idioma que utilizará el formulario para mostrarse. | SI              |
+| **Valor - Descripción** |          |           |                                                                     |                 |
+| es\_PE Español Perú     |          |           |                                                                     |                 |
+| walletUserId            | String   | 15        | Valor para identificar el wallet de un usuario.                     | NO              |
+
+## **Parámetros de Salida**
+
+El objeto `PMEAffiliationResponse` está compuesto por los siguientes atributos:
+
+### Objeto PMEAffiliationResponse
+
+Abre tabla en pantalla completaAbrir
+
+| **Parámetro** | **Tipo**                                                                                                                                               | **Long.** | **Descripción**                                                                                                                          | **Obligatorio** |
+| :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| success       | Boolean                                                                                                                                                | -         | Tiene valor \*\*true \*\*si se realizó el proceso correctamente, \*\*false \*\*si ocurrió algún error durante el procesamiento del pago. | SI              |
+| resultCode    | String                                                                                                                                                 | 2         | Código de resultado del procesamiento.                                                                                                   | SI              |
+| resultMessage | String                                                                                                                                                 | 30        | Texto que describe el resultado del procesamiento.                                                                                       | SI              |
+| result        | [Objeto PAYMEAffiliationResult](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEAffiliationResult) | -         | Detalle del resultado de la transacción.                                                                                                 | NO              |
+
+#### Objeto PAYMEAffiliationResult
+
+Abre tabla en pantalla completaAbrir
+
+| **Parámetro**    | **Tipo**                                                                                                                                           | **Long.** | **Descripción**                                                                                                                                                                                                  | **Obligatorio** |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| affiliationId    | String                                                                                                                                             | 36        | Identificar único de la transacción generado por Alignet One                                                                                                                                                          | SI              |
+| affiliationCode  | String                                                                                                                                             | 36        | Número de operación enviado por el Comercio                                                                                                                                                                      | SI              |
+| type             | String                                                                                                                                             | -         | Tipo de afiliación. Valores: <ul><li>`FIXED` → NO DISPONIBLE</li><li>`VARIABLE` → NO DISPONIBLE</li><li>`MANUAL` → DISPONIBLE</li></ul>                                                                          | SI              |
+| state            | String                                                                                                                                             | -         | Estado actual de la afiliación, valores: <ul><li>ACTIVE</li><li>INACTIVE</li></ul>                                                                                                                               | SI              |
+| frequency        | String                                                                                                                                             | -         | Frecuencia de los cobros de la afiliación                                                                                                                                                                        | NO              |
+| amount           | String                                                                                                                                             | 11        | Monto en centavos cobrar por la pasarela de pago. La pasarela se encargar de aplicar el separador decimal. Ejemplo: <ul><li>Si el monto es 0.50 → Enviar 50</li><li>Si el monto es 10.00 → Enviar 1000</li></ul> | NO              |
+| maxAmount        | String                                                                                                                                             | 11        | Monto máximo que se aplica al monto de hacer los pagos recurrentes. El monto debe expresarse como un entero en centavos                                                                                          | NO              |
+| currency         | String                                                                                                                                             | -         | Código de moneda ISO-4217.                                                                                                                                                                                       | SI              |
+| additionalFields | Diccionario                                                                                                                                        | -         | Contiene información adicional proporcionado por el comercio.                                                                                                                                                    | NO              |
+| card             | [Objeto PAYMEAffiliationCard](https://docs.pay-me.com/es/sdk/v3.2/Android/afiliaciones-parametros-de-entrada-y-salida-de-pay#PAYMEAffiliationCard) | -         | Información de la tarjeta usada en la afiliación                                                                                                                                                                 | SI              |
+
+##### Objeto PAYMEAffiliationCard
+
+Abre tabla en pantalla completaAbrir
+
+| **Parámetro**  | **Tipo** | **Long.** | **Descripción**                                                                                     | **Obligatorio** |
+| :------------- | :------- | :-------- | :-------------------------------------------------------------------------------------------------- | :-------------- |
+| brand          | String   | 4         | Marca de la tarjeta. Los valores son: <ul><li>VISA</li><li>MSCD</li><li>AMEX</li><li>DINC</li></ul> | SI              |
+| bin            | String   | 6         | Bin de la tarjeta                                                                                   | SI              |
+| lastPan        | String   | 4         | Cuatro últimos dígitos de la tarjeta                                                                | SI              |
+| issuerName     | String   | 50        | Nombre del emisor de la tarjeta                                                                     | NO              |
+| cardholderName | String   | 50        | Nombre y Apellidos del titular de la tarjeta                                                        | SI              |

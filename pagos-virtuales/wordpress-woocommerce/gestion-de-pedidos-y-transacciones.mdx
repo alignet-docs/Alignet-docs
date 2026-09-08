@@ -1,0 +1,88 @@
+---
+title: "Gestión de Pedidos y Transacciones"
+description: "Administra cobros, reembolsos y estadísticas directamente desde tu panel de WordPress."
+---
+El plugin de Alignet One centraliza la operación financiera en un solo lugar, permitiéndote tomar decisiones basadas en datos y gestionar el flujo de dinero de forma eficiente.
+
+## 1. Panel de Administración Alignet One
+
+Para acceder al centro de control de tus pagos, dirígete a: **WooCommerce** > **Alignet One Transacciones**.
+
+Este panel se divide en tres herramientas fundamentales:
+
+<Tabs>
+  <Tab title="Transacciones">
+    Visualiza el historial detallado de todos los intentos de pago.
+
+    * **Filtros avanzados:** Busca por estado (Aprobado, Denegado) y rangos de fechas.
+    * **Detalle Individual:** Accede a los IDs de transacción de la pasarela para conciliaciones bancarias.
+  </Tab>
+
+  <Tab title="Logs de Eventos">
+    Registro técnico de la comunicación entre tu servidor y Alignet One.
+
+    * **Auditoría:** Rastrea errores de conexión o respuestas del emisor.
+    * **Mantenimiento:** Opción para limpiar registros antiguos y optimizar la base de datos.
+  </Tab>
+
+  <Tab title="Estadísticas">
+    Visualización gráfica del rendimiento de tu tienda en los últimos 30 días:
+
+    * **Tasa de Conversión:** Porcentaje de transacciones exitosas vs. fallidas.
+    * **Métricas:** Monto total procesado, ticket promedio y volumen de ventas.
+  </Tab>
+</Tabs>
+
+***
+
+## 2. Gestión de Extornos (Reembolsos)
+
+Ya no necesitas ingresar al portal externo de Alignet One para devolver dinero. Puedes realizar **reembolsos totales o parciales** directamente desde la orden de WooCommerce.
+
+### ¿Cómo realizar un extorno?
+
+1. Ve a **WooCommerce** > **Pedidos** y selecciona la orden deseada.
+2. Haz clic en el botón **"Extornar con Alignet One"**.
+3. El sistema procesará la solicitud S2S (Server-to-Server) con la pasarela.
+
+<Check>
+  **Seguridad Inteligente:** El plugin cuenta con una validación interna que previene extornos duplicados de forma automática, protegiendo tu flujo de caja.
+</Check>
+
+***
+
+## 3. Mapeo Automático de Estados
+
+El plugin sincroniza el estado del pedido en WooCommerce según el resultado en Alignet One, automatizando tu logística:
+
+| Evento en Alignet One    | Estado en WooCommerce                                   | Acción Automática                                            |
+| :------------------ | :------------------------------------------------------ | :----------------------------------------------------------- |
+| **Pago Exitoso**    | <span style={{color: '#2ecc71'}}>**Procesando**</span>  | Se reduce el stock y se envía correo de confirmación.        |
+| **Pago Pendiente**  | <span style={{color: '#f1c40f'}}>**En espera**</span>   | El stock se reserva (on-hold) hasta la confirmación S2S.     |
+| **Pago Fallido**    | <span style={{color: '#e74c3c'}}>**Fallido**</span>     | Se notifica al cliente para que reintente el pago.           |
+| **Extorno Exitoso** | <span style={{color: '#3498db'}}>**Reembolsado**</span> | El estado cambia automáticamente al confirmar la devolución. |
+
+## 4. Métodos Asíncronos (QR / PagoEfectivo)
+
+Para los métodos que no son instantáneos, el flujo sigue una lógica de **confirmación diferida**:
+
+1. El pedido se crea como **En espera (on-hold)**.
+2. El cliente realiza el pago en su app bancaria o agente.
+3. Alignet One envía una notificación **S2S** a tu tienda.
+4. El plugin recibe la señal y cambia el estado a **Procesando** automáticamente.
+
+<Warning>
+  **Importante:** Si tu servidor está en mantenimiento o bajo un firewall que bloquee la IP de Alignet One, el estado del pedido no se actualizará automáticamente. Revisa siempre los **Logs** si esto ocurre.
+</Warning>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Pruebas y Certificación" icon="vial-circle-check" href="/pagos-virtuales/wordpress-woocommerce/pruebas-y-certificacion">
+    Valida que los estados cambien correctamente con nuestras tarjetas de prueba.
+  </Card>
+
+  <Card title="Solución de Problemas" icon="life-ring" href="/pagos-virtuales/wordpress-woocommerce/solucion-de-problemas">
+    ¿El pedido no cambia de estado? Revisa las soluciones comunes aquí.
+  </Card>
+</CardGroup>

@@ -1,0 +1,52 @@
+---
+title: "Buenas prácticas"
+description: "Recomendaciones para operar plugins y módulos e-commerce de Alignet One de forma segura y consistente."
+---
+Aplica estas recomendaciones cuando integres Alignet One mediante **WooCommerce**, **PrestaShop** o **VTEX**.
+
+## Seguridad y credenciales
+
+<AccordionGroup>
+  <Accordion title="Credenciales por ambiente" icon="key" defaultOpen>
+    * Usa credenciales sandbox solo para pruebas.
+    * No mezcles credenciales de Pre-Producción y Producción.
+    * Restringe el acceso administrativo al panel donde se configuran llaves.
+  </Accordion>
+
+  <Accordion title="Backoffice seguro" icon="lock">
+    * Mantén actualizado el CMS, plugin, módulo y dependencias.
+    * Usa usuarios administrativos individuales, no cuentas compartidas.
+    * Revisa logs sin exponer datos sensibles del comprador.
+  </Accordion>
+</AccordionGroup>
+
+## Operación del pedido
+
+<CardGroup cols={2}>
+  <Card title="Estados consistentes" icon="database">
+    El estado del pedido debe reflejar el estado real del pago, no solo la pantalla que vio el cliente.
+  </Card>
+
+  <Card title="Métodos asíncronos" icon="clock">
+    Para QR, transferencia, Cuotéalo o PagoEfectivo, espera confirmación final antes de liberar el pedido.
+  </Card>
+
+  <Card title="Logs de soporte" icon="file-lines">
+    Conserva número de operación, estado y fecha para trazabilidad con el equipo de integraciones.
+  </Card>
+
+  <Card title="Pruebas controladas" icon="flask">
+    Valida aprobados, rechazados y pendientes en sandbox antes de pasar a producción.
+  </Card>
+</CardGroup>
+
+## Antes de salir a vivo
+
+* Revisa que el plugin o módulo esté en modo productivo solo cuando corresponda.
+* Confirma que los métodos habilitados coincidan con lo afiliado para el comercio.
+* Valida correos, páginas de retorno, mensajes al comprador y estados del pedido.
+* Prepara evidencia mínima de pruebas para revisión final.
+
+<Card title="Checklist de integración" icon="clipboard-check" href="/pagos-virtuales/e-commerce/checklist-de-integracion">
+  Revisa el checklist específico para integraciones e-commerce.
+</Card>

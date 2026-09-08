@@ -1,0 +1,146 @@
+---
+title: "Alignet acquiring processing"
+description: "Connect Ecommerce and POS channels to Alignet's authorization and processing services."
+icon: "book-open-reader"
+---
+
+Integrate digital and in-person channels with the authorization and processing services available on the platform.
+
+<Frame caption="Processing transactions from digital and in-person channels through the Alignet platform.">
+  <img
+    className="processing-hero processing-hero-light"
+    src="/images/image-18.avif"
+    alt="Secure, fast, and reliable transactions"
+  />
+  <img
+    className="processing-hero processing-hero-dark"
+    src="/images/procesamiento-adquirente-dark.png"
+    alt="Secure, fast, and reliable transactions in dark mode"
+  />
+</Frame>
+
+<div className="home-card-spacer" aria-hidden="true" />
+
+<CardGroup cols={3}>
+  <Card title="Prerequisites" icon="clipboard-check" href="/en/prerequisites">
+    Review the technical, operational, and card-brand requirements before starting the integration.
+  </Card>
+
+  <Card title="Ecommerce" icon="cart-shopping" href="/en/ecommerce">
+    View the authorization flow for ecommerce payments.
+  </Card>
+
+  <Card title="POS" icon="credit-card" href="/en/pos">
+    View the authorization flow for in-person payments.
+  </Card>
+</CardGroup>
+
+## Transaction processing
+
+Alignet's processing platform enables acquiring institutions and payment facilitators to submit, manage, and query transactions from different payment channels.
+
+Through a centralized integration, institutions can connect their digital and in-person channels to the authorization and processing services available on the platform.
+
+Supported channels may include:
+
+* Websites and checkout pages.
+* Mobile applications.
+* POS terminals and PinPads.
+* Proprietary ecommerce platforms.
+* Acquiring and payment facilitation systems.
+
+## Service models
+
+Alignet can participate under different models according to the scope defined for each institution.
+
+### Alignet as a processor
+
+The institution maintains its role as an acquirer or payment facilitator, while Alignet provides the technology infrastructure required to process transactions.
+
+The service may include:
+
+* Transaction reception.
+* Technical and business validations.
+* Routing to the corresponding networks or institutions.
+* Transaction authorization and response.
+* Reversals, voids, and queries.
+* Operation monitoring and traceability.
+
+### Acquiring processing
+
+When an institution needs to operate as an acquirer for a card brand, the corresponding project with that brand must be completed beforehand.
+
+This process may include certifications, identifier enablement, connection setup, and operational validations before production begins.
+
+## Brands and networks
+
+Depending on the contracted model, country, service availability, and applicable enablements, Alignet may act as a processor for different payment brands and networks, including:
+
+* Visa.
+* Mastercard.
+* American Express.
+* Diners Club.
+* UnionPay.
+* Other networks enabled for the project.
+
+<Note>
+  The availability of each brand must be confirmed during the evaluation and scope definition stage.
+</Note>
+
+## API integration
+
+Communication with the platform takes place through API services, allowing the institution to manage the transaction lifecycle from its own systems.
+
+The general flow is as follows:
+
+<Steps>
+  <Step title="Transaction initiation">
+    The transaction originates from the institution's, merchant's, or payment facilitator's channel.
+  </Step>
+
+  <Step title="Submission to Alignet">
+    The institution submits the request through the processing API.
+  </Step>
+
+  <Step title="Validation and routing">
+    Alignet validates the information and determines the applicable processing route.
+  </Step>
+
+  <Step title="Processing">
+    The operation is sent to the corresponding network, brand, or institution.
+  </Step>
+
+  <Step title="Response">
+    Alignet returns the transaction result to the source system.
+  </Step>
+</Steps>
+
+## Available operations
+
+Depending on the contracted scope, the integration may include the following operations:
+
+<CardGroup>
+  <Card title="Authorization" icon="circle-check">
+    Process a new payment transaction.
+  </Card>
+
+  <Card title="Query" icon="magnifying-glass">
+    Query the status and result of an operation.
+  </Card>
+
+  <Card title="Reversal" icon="rotate-left">
+    Reverse a previously processed transaction.
+  </Card>
+
+  <Card title="Void or refund" icon="arrow-rotate-left">
+    Manage voids or refunds according to the enabled model.
+  </Card>
+</CardGroup>
+
+## Next steps
+
+Before starting the integration, the institution should review the technical, operational, and brand requirements that apply to the project.
+
+<Card title="Review the prerequisites" icon="clipboard-check" href="/en/prerequisites">
+  View the requirements for starting the integration project.
+</Card>

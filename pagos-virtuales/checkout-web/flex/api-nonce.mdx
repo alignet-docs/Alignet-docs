@@ -1,0 +1,243 @@
+---
+title: "API Nonce"
+description: "Genera el Nonce necesario para inicializar Alignet One Flex después de autenticarte."
+---
+Genera un **Nonce** temporal para inicializar Alignet One Flex en el frontend.\
+Este valor debe solicitarse desde backend usando un `Bearer Token` vigente.
+
+***
+
+## Endpoint
+
+<ParamField path="POST /token" type="endpoint" />
+
+<CardGroup cols={2}>
+  <Card title="Pre-Producción" icon="flask">
+    <code>[https://auth.preprod.alignet.io/nonce](https://auth.preprod.alignet.io/nonce)</code>
+  </Card>
+
+  <Card title="Producción" icon="rocket">
+    <code>[https://auth.alignet.io/nonce](https://auth.alignet.io/nonce)</code>
+  </Card>
+</CardGroup>
+
+<Note>
+  Antes de llamar a este endpoint, genera un `Access Token` con [Autenticación](https://docs.pay-me.com/api-de-pagos/autenticacion). El token debe enviarse en el header `Authorization`.
+</Note>
+
+***
+
+## Scope requerido
+
+Define el permiso asociado al `nonce`.
+
+<CardGroup cols={2}>
+  <Card title="post:charges" icon="plus">
+    Permite inicializar Flex para crear cargos y autorizaciones.
+  </Card>
+
+  <Card title="Bearer Token" icon="key">
+    El token enviado en `Authorization` debe estar vigente y habilitado para solicitar este permiso.
+  </Card>
+</CardGroup>
+
+***
+
+## Request
+
+### Headers
+
+| Campo             | Descripción            | Valor                   | Tipo   | Obligatorio |
+| :---------------- | :--------------------- | :---------------------- | :----- | :---------- |
+| `Content-Type`    | Formato del request    | `application/json`      | String | SI          |
+| `ALG-API-VERSION` | Versión del API        | `1709847567`            | String | SI          |
+| `Authorization`   | Token de autenticación | `Bearer {access_token}` | String | SI          |
+
+```bash theme={"system"}
+Content-Type: application/json
+ALG-API-VERSION: 1709847567
+Authorization: Bearer {access_token}
+```
+
+***
+
+### Body
+
+| Campo       | Descripción                        | Ejemplo                           | Tipo   | Obligatorio |
+| :---------- | :--------------------------------- | :-------------------------------- | :----- | :---------- |
+| `action`    | Acción a ejecutar                  | `create.nonce`                    | String | SI          |
+| `audience`  | URL base del API según ambiente    | `https://api.preprod.alignet.io/` | String | SI          |
+| `client_id` | Identificador público del comercio | `your_client_id`                  | String | SI          |
+| `scope`     | Permiso solicitado para el nonce   | `post:charges`                    | String | SI          |
+
+<Note>
+  El valor de `audience` debe coincidir con el ambiente que usarás para autorizar el pago: `https://api.preprod.alignet.io/` para Pre-Producción o `https://api.alignet.io/` para Producción.
+</Note>
+
+***
+
+### Ejemplo (JSON)
+
+```json theme={"system"}
+{
+  "action": "create.nonce",
+  "audience": "https://api.preprod.alignet.io/",
+  "client_id": "your_client_id",
+  "scope": "post:charges"
+}
+```
+
+***
+
+### Ejemplo (cURL)
+
+```bash theme={"system"}
+curl --request POST 'https://auth.preprod.alignet.io/nonce' \
+  --header 'Content-Type: application/json' \
+  --header 'ALG-API-VERSION: 1709847567' \
+  --header 'Authorization: Bearer {access_token}' \
+  --data '{
+    "action": "create.nonce",
+    "audience": "https://api.preprod.alignet.io/",
+    "client_id": "your_client_id",
+    "scope": "post:charges"
+  }'
+```
+
+***
+
+## Response
+
+### Body
+
+| Campo                                              | Descripción                           | Tipo    |
+| :------------------------------------------------- | :------------------------------------ | :------ |
+| `action`                                           | Acción ejecutada                      | String  |
+| `success`                                          | Resultado de la operación             | Boolean |
+| `nonce`                                            | Código temporal para inicializar Flex | String  |
+| `scope`                                            | Permiso asociado al nonce             | String  |
+| `expires_in`                                       | Tiempo de vigencia en segundos        | Integer |
+| `nonce_creation`                                   | Metadata del resultado                | Object  |
+| `nonce_creation.meta.status.code`                  | Código interno del resultado          | String  |
+| `nonce_creation.meta.status.message_ilgn[].locale` | Idioma del mensaje                    | String  |
+| `nonce_creation.meta.status.message_ilgn[].value`  | Mensaje del resultado                 | String  |
+
+***
+
+### Ejemplo (JSON)
+
+```json theme={"system"}
+{
+  "action": "create.nonce",
+  "success": true,
+  "nonce": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "scope": "post:charges",
+  "expires_in": 30,
+  "nonce_creation": {
+    "meta": {
+      "status": {
+        "code": "00",
+        "message_ilgn": [
+          {
+            "locale": "es_PE",
+            "value": "Código Nonce creado"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+***
+
+## Usar el Nonce en Flex
+
+Después de recibir el `nonce`, envíalo al frontend e inclúyelo en la inicialización del componente junto con el `payload`.
+
+```js theme={"system"}
+var paymentForm = new FlexPaymentForms({
+    nonce,
+    payload,
+    settings: {
+        display_result_screen: true,
+        show_close_button: true,
+        show_border: false,
+        show_operation_number: true
+    },
+    display_settings: {
+        methods: ["QR", "BANK_TRANSFER", "CARD"]
+    },
+    i18n: {
+        mode: "multi",
+        default_language: "es",
+        languages: ["es", "en"]
+    }
+});
+```
+
+***
+
+## Flujo recomendado
+
+<Steps>
+  <Step title="Genera el Access Token">
+    Consume el API de Seguridad desde backend.
+  </Step>
+
+  <Step title="Solicita el Nonce">
+    Envía `action`, `audience`, `client_id` y `scope` al endpoint `POST /nonce`.
+  </Step>
+
+  <Step title="Inicializa Flex">
+    Usa el `nonce` en `FlexPaymentForms` junto con el `payload` de pago.
+  </Step>
+
+  <Step title="Valida el resultado">
+    Confirma la operación desde backend usando notificaciones o API de consulta.
+  </Step>
+</Steps>
+
+***
+
+## Buenas prácticas
+
+* Solicita el `nonce` desde backend.
+* Usa el mismo ambiente para `auth`, `audience`, librerías Flex y APIs de pago.
+* No expongas `client_id`, tokens ni metadata sensible en logs públicos.
+* Genera un nuevo `nonce` si el anterior expiró antes de inicializar Flex.
+* Controla reintentos para evitar múltiples solicitudes innecesarias.
+
+***
+
+## Errores comunes
+
+<CardGroup cols={2}>
+  <Card title="400 Bad Request" icon="triangle-exclamation">
+    El body está incompleto, el `action` no es válido o el `audience` no corresponde al ambiente.
+  </Card>
+
+  <Card title="401 Unauthorized" icon="lock">
+    El `Bearer Token` no fue enviado, expiró o tiene un formato incorrecto.
+  </Card>
+
+  <Card title="403 Forbidden" icon="ban">
+    El token no cuenta con el scope necesario para solicitar el `nonce`.
+  </Card>
+
+  <Card title="5xx Error" icon="server">
+    Ocurrió un error temporal en el servicio. Reintenta de forma controlada desde backend.
+  </Card>
+</CardGroup>
+
+<Warning>
+  El `nonce` no reemplaza la validación backend del resultado. Después de la respuesta de Flex, confirma el estado de la operación con tu backend.
+</Warning>
+
+***
+
+## Siguiente paso
+
+<Card title="Incluir librería y estilos básicos" icon="arrow-right" href="/pagos-virtuales/checkout-web/flex/libreria-y-estilos-basicos">
+  Continúa con la inclusión del CSS y JS del ambiente antes de inicializar el formulario.
+</Card>

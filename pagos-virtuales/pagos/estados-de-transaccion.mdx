@@ -1,0 +1,61 @@
+---
+title: "Estados de Transacción"
+description: "Comprende el ciclo de vida de un pago y los diferentes estados por los que transita."
+---
+### Flujo de Vida del Pago
+
+Este es el camino estándar que sigue una transacción exitosa versus una que no se completa.
+
+<Steps>
+  <Step title="Pendiente (PENDING)" icon="hourglass-half">
+    La transacción ha sido iniciada. En métodos como transferencias o billeteras, estamos a la espera de la confirmación del usuario.
+  </Step>
+
+  <Step title="Autorizado (AUTHORIZED)" icon="shield-check">
+    El emisor ha aprobado el pago. Los fondos están reservados en la cuenta del cliente pero aún no han sido transferidos a tu cuenta.
+  </Step>
+
+  <Step title="Liquidado (SETTLED)" icon="money-bill-transfer">
+    ¡Éxito! El dinero ha sido procesado e incluido en el ciclo de liquidación para ser depositado en tu cuenta bancaria.
+  </Step>
+</Steps>
+
+***
+
+### Glosario de Estados
+
+Utiliza estos estados para mapear la lógica en tus webhooks y base de datos.
+
+#### Estados de Éxito
+
+| Estado         | Etiqueta                                                                              | Descripción                                   |
+| :------------- | :------------------------------------------------------------------------------------ | :-------------------------------------------- |
+| **AUTHORIZED** | <ResponseField name="Autorizado" type="success">                     </ResponseField> | Aprobada por la marca. Fondos retenidos.      |
+| **SETTLED**    | <ResponseField name="Liquidado" type="success">                     </ResponseField>  | Transacción completada y procesada para pago. |
+
+### Estados Finales de Error
+
+| Estado        | Etiqueta                                                                             | Descripción                                                                                                                   |
+| :------------ | :----------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| **DECLINED**  | <ResponseField name="Denegado" type="error">                     </ResponseField>    | Rechazada por el banco emisor o reglas del sistema.                                                                           |
+| **INVALID**   | <ResponseField name="Inválido" type="error">                     </ResponseField>    | Error de procesamiento, fallo de autenticación o bloqueo por prevención de fraude. **Siempre muestra el detalle del motivo.** |
+| **EXPIRED**   | <ResponseField name="Expirado" type="warning">                     </ResponseField>  | El tiempo límite de pago (TTL) ha caducado.                                                                                   |
+| **CANCELLED** | <ResponseField name="Cancelado" type="neutral">                     </ResponseField> | El usuario o el sistema decidieron cancelar la operación.                                                                     |
+
+### Estados Post-Venta
+
+| Estado       | Etiqueta                                                                          | Descripción                                                  |
+| :----------- | :-------------------------------------------------------------------------------- | :----------------------------------------------------------- |
+| **VOIDED**   | <ResponseField name="Extornado" type="info">                     </ResponseField> | Anulación de una transacción autorizada (antes de liquidar). |
+| **REFUNDED** | <ResponseField name="Devuelto" type="info">                     </ResponseField>  | Devolución total o parcial de una transacción ya liquidada.  |
+
+### Flujo de estados
+
+Este es el flujo de estados que recorre una transacción en la plataforma:
+
+* **Inicio**: Toda operación comienza como **Registrado** y pasa a **Pendiente** mientras se procesa.
+* **Resolución**: Desde pendiente, el pago puede ser **Autorizado** (éxito), **Denegado** (rechazo), **Cancelado/Expirado**(abandono) o **Invalido** (error de datos).
+* **Cierre**: Una vez autorizado, el flujo avanza a **Liquidado** (captura de fondos) y finaliza en **Abonado**.
+* **Post-venta**: Permite aplicar un **Extornado** (anulación antes de liquidar) o **Devuelto** (reembolso tras la liquidación).
+
+<img src="https://mintcdn.com/alignet/HjFoZLv28Up5F2DM/images/image-25.png?fit=max&auto=format&n=HjFoZLv28Up5F2DM&q=85&s=213a4e6316181d4e2c5f37df22e5a43c" alt="Image" title="Image" className="mx-auto" style={{ width:"80%" }} width="1056" height="992" data-path="images/image-25.png" />

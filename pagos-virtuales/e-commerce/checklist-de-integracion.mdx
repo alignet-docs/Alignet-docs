@@ -1,0 +1,179 @@
+---
+title: "Checklist de integración"
+description: "Validaciones recomendadas para completar una integración E-commerce con WooCommerce, PrestaShop o VTEX."
+---
+Usa este checklist como una guía rápida antes de pedir validación final al equipo de integraciones.
+
+<Info>
+  Esta guía aplica para implementaciones CMS con **WooCommerce**, **PrestaShop** y **VTEX**.
+</Info>
+
+## Panorama general
+
+<CardGroup cols={2}>
+  <Card title="Preparación" icon="key">
+    Credenciales, accesos administrativos y métodos de pago correctamente habilitados.
+  </Card>
+
+  <Card title="Configuración" icon="gear">
+    Plugin o módulo instalado, llaves configuradas y ambiente sandbox activo.
+  </Card>
+
+  <Card title="Validación funcional" icon="cart-shopping">
+    Compra aprobada, rechazada y flujo post-pago revisados de extremo a extremo.
+  </Card>
+
+  <Card title="Salida a producción" icon="rocket">
+    Flujo validado con el equipo y listo para pasar a credenciales productivas.
+  </Card>
+</CardGroup>
+
+## Ruta sugerida
+
+<Steps>
+  <Step title="Prepara el entorno">
+    Confirma que ya recibiste credenciales, accesos al backoffice y afiliación de métodos de pago.
+  </Step>
+
+  <Step title="Configura tu CMS">
+    Instala el plugin o módulo correcto y carga las credenciales del ambiente de pruebas.
+  </Step>
+
+  <Step title="Prueba el flujo de compra">
+    Valida escenarios aprobados, rechazados y asíncronos según los medios habilitados.
+  </Step>
+
+  <Step title="Revisa operación y estados">
+    Verifica estados del pedido, logs, notificaciones y consistencia entre tienda y pasarela.
+  </Step>
+
+  <Step title="Solicita validación final">
+    Una vez completadas las pruebas, coordina la revisión final con el equipo de integraciones.
+  </Step>
+</Steps>
+
+## Checklist base
+
+<AccordionGroup>
+  <Accordion title="1. Preparación" icon="key" defaultOpen>
+    * Credenciales recibidas para el ambiente que usarás.
+    * Comercio configurado con los métodos de pago habilitados.
+    * Acceso administrativo a tu plataforma CMS.
+    * Plugin o módulo correcto disponible para instalar.
+  </Accordion>
+
+  <Accordion title="2. Configuración funcional" icon="gear">
+    * Llaves y credenciales ingresadas sin errores.
+    * URLs de retorno y páginas de confirmación revisadas.
+    * Moneda, país y medios de pago configurados correctamente.
+    * Modo sandbox activo antes de validar compras.
+  </Accordion>
+
+  <Accordion title="3. Flujo de compra" icon="cart-shopping">
+    * Compra aprobada validada de extremo a extremo.
+    * Compra rechazada validada con mensaje visible para el cliente.
+    * Métodos asíncronos probados si están habilitados.
+    * Confirmación de pedido alineada con el estado real del pago.
+  </Accordion>
+
+  <Accordion title="4. Operación y backoffice" icon="table-columns">
+    * Estados del pedido revisados desde el panel administrativo.
+    * Logs o registros del plugin disponibles para soporte.
+    * Reversas, extornos o devoluciones revisados si aplican.
+    * Correos, mensajes o páginas post-pago revisados.
+  </Accordion>
+
+  <Accordion title="5. Producción" icon="rocket">
+    * Sandbox validado antes de usar credenciales productivas.
+    * Flujo productivo controlado revisado con el equipo.
+    * Medios de pago habilitados coinciden con lo afiliado.
+    * Integración lista para salida a vivo.
+  </Accordion>
+</AccordionGroup>
+
+## Puntos por plataforma
+
+<Tabs>
+  <Tab title="WooCommerce">
+    <CardGroup cols={2}>
+      <Card title="Plugin y credenciales" icon="wordpress">
+        Verifica instalación, activación del plugin y configuración correcta de llaves.
+      </Card>
+
+      <Card title="Checkout y pedido" icon="credit-card">
+        Revisa que el checkout muestre medios válidos y que el pedido cambie de estado correctamente.
+      </Card>
+    </CardGroup>
+
+    * Validar compra aprobada con redirección o confirmación final correcta.
+    * Validar compra rechazada con mensaje claro para el cliente.
+    * Confirmar logs del plugin disponibles para soporte.
+    * Revisar comportamiento de métodos asíncronos si están activos.
+  </Tab>
+
+  <Tab title="PrestaShop">
+    <CardGroup cols={2}>
+      <Card title="Módulo y hooks" icon="store">
+        Confirma que el módulo esté activo y disponible en el checkout correcto.
+      </Card>
+
+      <Card title="Estados del pedido" icon="clipboard-check">
+        Revisa que el pedido refleje el estado del pago luego de la respuesta o notificación.
+      </Card>
+    </CardGroup>
+
+    * Validar instalación y configuración del módulo desde Back Office.
+    * Confirmar experiencia del cliente en pago aprobado, pendiente y rechazado.
+    * Revisar actualización automática de estados y registros del módulo.
+    * Probar extorno o validación operativa si el flujo lo contempla.
+  </Tab>
+
+  <Tab title="VTEX">
+    <CardGroup cols={2}>
+      <Card title="Configuración comercial" icon="shopping-cart">
+        Revisa credenciales, condiciones de pago y configuración del conector por ambiente.
+      </Card>
+
+      <Card title="Flujo de pago" icon="arrow-right-arrow-left">
+        Verifica que el checkout de VTEX complete el pago y refleje correctamente el resultado.
+      </Card>
+    </CardGroup>
+
+    * Validar configuración de métodos de pago y condiciones en VTEX.
+    * Revisar compra aprobada y comportamiento de reintentos o rechazos.
+    * Confirmar consistencia entre orden, pago y respuesta de la pasarela.
+    * Completar pruebas funcionales antes de homologación final.
+  </Tab>
+</Tabs>
+
+## Criterio mínimo de aprobación
+
+<CardGroup cols={3}>
+  <Card title="Compra validada" icon="check">
+    Al menos un flujo aprobado y uno rechazado revisados correctamente.
+  </Card>
+
+  <Card title="Consistencia operativa" icon="database">
+    Estados del pedido, mensajes y registros alineados entre tienda y pasarela.
+  </Card>
+
+  <Card title="Listo para certificar" icon="shield-check">
+    El comercio puede pasar a revisión final y programación de salida a producción.
+  </Card>
+</CardGroup>
+
+## Guías relacionadas
+
+<CardGroup cols={3}>
+  <Card title="WooCommerce" icon="wordpress" href="/pagos-virtuales/wordpress-woocommerce/introduccion">
+    Revisa el flujo completo para WordPress.
+  </Card>
+
+  <Card title="PrestaShop" icon="store" href="/pagos-virtuales/prestashop/introduccion">
+    Revisa el flujo completo para PrestaShop.
+  </Card>
+
+  <Card title="VTEX" icon="shopping-cart" href="/pagos-virtuales/vtex/introduccion">
+    Revisa el flujo completo para VTEX.
+  </Card>
+</CardGroup>

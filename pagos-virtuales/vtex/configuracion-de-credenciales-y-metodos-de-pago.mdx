@@ -1,0 +1,84 @@
+---
+title: "Configuración de credenciales y métodos de pago"
+---
+Una vez seleccionado el proveedor **Alignet One**, configura la autorización y parámetros de integración.
+
+<Note>
+  Las credenciales **App key**, **App token** y **Merchant Code** se entregan por correo de Alignet One, y cada una tiene un propósito.
+</Note>
+
+### Campos de credenciales
+
+Abre tabla en pantalla completaAbrir
+
+| Campo             | Descripción                            | Ejemplo                                                            |
+| ----------------- | -------------------------------------- | ------------------------------------------------------------------ |
+| **App key**       | Llave pública del comercio             | `Ri54Xh2CREY8OiMnmDnok2tYUxSLnft57Oum83hbVeyUAlCY6RMrx4jVFWmzA0i1` |
+| **App token**     | Token secreto de autenticación         | `Ri54Xh2CREY8OiMnmDnok2tYUxSLnft57Oum83hbVeyUAlCY6RMrx4jVFWmzA0i1` |
+| **Merchant Code** | Identificador único (NSL) del comercio | `e899a9f-c899-4563-aeeb-6345d437e25a`                              |
+
+### 1) Provider Authorization
+
+Ingresa las credenciales compartidas por el equipo de Alignet One:
+
+* **App key** → Llave pública del comercio.
+* **App token** → Token secreto de autenticación.
+
+Abre imagen en pantalla completaAbrir
+
+<Frame>
+  <img src="https://mintcdn.com/alignet/rK9j2XTEKg2v8ZME/images/image-49.png?fit=max&auto=format&n=rK9j2XTEKg2v8ZME&q=85&s=4e5d01bf8fb58217a5ee04fe4dd95632" alt="Image" width="1496" height="665" data-path="images/image-49.png" />
+</Frame>
+
+<Info>
+  Nota: Estos valores son únicos por comercio. No se pueden volver a visualizar una vez guardados, por lo que debes copiarlos y almacenarlos de forma segura.
+</Info>
+
+### 2) Payment Control
+
+Configura los parámetros de control:
+
+* **Enable test mode**
+  * Si el comercio está en **pruebas**, mantener **activado**.
+  * Si el comercio está en **producción**, **desactivar**.
+* **Automatic settlement**: Selecciona la opción recomendada por el procesador.
+* **Enable payout split**: Mantener **deshabilitado**, salvo que el comercio lo requiera explícitamente.
+
+Abre imagen en pantalla completaAbrir
+
+<Frame>
+  <img src="https://mintcdn.com/alignet/rK9j2XTEKg2v8ZME/images/image-50.png?fit=max&auto=format&n=rK9j2XTEKg2v8ZME&q=85&s=bce7d9d732d324b970212e794cd53df7" alt="Image" width="1138" height="539" data-path="images/image-50.png" />
+</Frame>
+
+### 3) Provider Fields
+
+Registra los datos específicos del comercio:
+
+* **Merchant Code**: Código único del comercio (enviado al correo junto con la App Key y App Token).
+* **Aceptar pagos con Tarjetas**: Selecciona **Sí** si el comercio tiene habilitado este método.
+* **Aceptar pagos con Billeteras Móviles (QR)**: Selecciona **Sí** si aplica.
+* **Aceptar pagos con Yape**: Selecciona **Sí** si está habilitado.
+* **Aceptar pagos con Cuotéalo**: Selecciona **Sí** si corresponde.
+* **Aceptar pagos con Transferencia Bancaria / PagoEfectivo**: Selecciona según el caso.
+
+Abre imagen en pantalla completaAbrir
+
+> <Frame>
+>   <img src="https://mintcdn.com/alignet/rK9j2XTEKg2v8ZME/images/image-51.png?fit=max&auto=format&n=rK9j2XTEKg2v8ZME&q=85&s=3fd9abe9ac7c25f40f32f903f5676100" alt="Image" width="1128" height="552" data-path="images/image-51.png" />
+> </Frame>
+>
+> Solo deben habilitarse los métodos de pago **previamente contratados** con Alignet One.
+
+### 4) Confirmación
+
+Una vez completados los campos:
+
+1. Haz clic en **Save**.
+2. VTEX mostrará una pantalla de confirmación con todos los parámetros cargados.
+3. El nuevo proveedor **Alignet One** quedará visible en el listado de **Providers**.
+
+Abre imagen en pantalla completaAbrir
+
+<Frame>
+  <img src="https://mintcdn.com/alignet/rK9j2XTEKg2v8ZME/images/image-55.png?fit=max&auto=format&n=rK9j2XTEKg2v8ZME&q=85&s=ffef0c9688da49dd638324fc8637aea5" alt="Image" width="1162" height="575" data-path="images/image-55.png" />
+</Frame>

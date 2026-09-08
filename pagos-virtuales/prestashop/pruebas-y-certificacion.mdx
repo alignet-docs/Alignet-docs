@@ -1,0 +1,83 @@
+---
+title: "Pruebas y Certificación"
+description: "Valida tu integración en el ambiente Sandbox antes de procesar pagos reales en PrestaShop."
+---
+Antes de habilitar el modo de producción, es fundamental realizar un ciclo de pruebas completo para asegurar que los estados de los pedidos en el **Back Office** se actualicen correctamente.
+
+## 1. Datos de prueba para Sandbox
+
+Los datos de prueba se mantienen en una página central para que puedas reutilizarlos sin duplicar información dentro de esta guía:
+
+<CardGroup cols={2}>
+  <Card title="Abrir datos de prueba" icon="credit-card" href="/pagos-virtuales/pagos/datos-de-prueba">
+    Consulta tarjetas, Yape, transferencias y otros escenarios sandbox desde una sola referencia.
+  </Card>
+
+  <Card title="Validar en modo prueba" icon="flask">
+    Asegúrate de que el módulo siga en Sandbox antes de ejecutar tus compras de validación.
+  </Card>
+</CardGroup>
+
+<Note>
+  En PrestaShop, esta guía se enfoca en el comportamiento del pedido, los estados y la certificación; los datos concretos viven en la referencia compartida.
+</Note>
+
+<Tip>
+  Para probar métodos asíncronos como **PagoEfectivo** o **QR** en Sandbox, contacta a nuestro equipo de soporte si necesitas simular la confirmación del pago.
+</Tip>
+
+***
+
+## 2. Ciclo de Certificación
+
+Para garantizar una nota **10/10** en tu implementación, verifica estos 4 puntos clave:
+
+<Steps>
+  <Step title="Flujo de Compra">
+    Realiza un pedido completo y verifica que seas redirigido a la página de **"¡Pedido Confirmado!"** en PrestaShop.
+  </Step>
+
+  <Step title="Cambio de Estado Automático">
+    Confirma que el pedido pase de **"En espera de pago"** a **"Pago aceptado"** tras una transacción exitosa (vía S2S).
+  </Step>
+
+  <Step title="Prueba de Extorno">
+    Ejecuta una anulación desde el detalle del pedido y valida que el estado cambie a **"Reembolsado"**.
+  </Step>
+
+  <Step title="Revisión de Logs">
+    Verifica que la tabla `payme_logs` registre correctamente la entrada y salida de datos sin errores de timeout.
+  </Step>
+</Steps>
+
+***
+
+## 3. Consideraciones de Soporte
+
+Nuestro equipo de integradores está disponible para revisar tus resultados y apoyarte en el paso a producción.
+
+* **Disponibilidad:** El ambiente de Sandbox está activo **24/7**.
+* **Horario de Soporte:** Lunes a viernes, de **09:00 AM a 06:00 PM** (Días laborables).
+* **Zona Horaria:** Todos los registros y soportes se rigen por la hora **Perú (GMT -5)**.
+
+***
+
+## 4. Canales de Contacto
+
+Una vez finalizadas tus pruebas, envía los resultados a los responsables de integración:
+
+<CardGroup cols={2}>
+  <Card title="Integraciones" icon="envelope-open-text" href="mailto:postventa.autenticacion@alignet.com">
+    [postventa.autenticacion@alignet.com](mailto:postventa.autenticacion@alignet.com)
+  </Card>
+
+  <Card title="Atención al Cliente" icon="headset" href="tel:+5117008377">
+    (01) 700-8377
+  </Card>
+</CardGroup>
+
+***
+
+<Card title="Solución de Problemas" icon="bug" href="/pagos-virtuales/prestashop/solucion-de-problemas">
+  ¿Algo no funciona como esperabas? Revisa nuestra guía de errores comunes en PrestaShop.
+</Card>

@@ -1,0 +1,109 @@
+---
+title: "Parámetros de Entrada y Salida de Alignet One SDK iOS"
+---
+# Cobros: Parámetros de Entrada y Salida de Alignet One SDK iOS
+
+A continuación, se detallan los parámetros de entrada y salida de Alignet One SDK para el flujo de autorización.
+
+## Parámetros de Entrada
+
+### Objeto PAYMEChargesRequest
+
+| **Parámetro** | **Tipo**                                                    | **Descripción**                                                           | **Obligatorio** |
+| :------------ | :---------------------------------------------------------- | :------------------------------------------------------------------------ | :-------------- |
+| transaction   | [Objeto PAYMETransactionData](#objeto-paymetransactiondata) | Contiene información de la transacción                                    | SI              |
+| setting       | [Objeto PAYMESettingData](#objeto-paymeSettingdata)         | Contiene información de ajuste del comportamiento del formulario de pago. | NO              |
+
+#### Objeto PAYMETransactionData
+
+| **Parámetro**    | **Tipo**                                            | **Long.** | **Descripción**                                                                                                                                                                           | **Obligatorio** |
+| :--------------- | :-------------------------------------------------- | :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| operationNumber  | String                                              | 12        | Número de operación único en la pasarela, el cual será utilizado para realizar la transacción. (Cadena numérica entre 6 y 12 dígitos).                                                    | SI              |
+| amount           | String                                              | 11        | Monto en centavos a cobrar por la pasarela de pago. La pasarela se encarga de aplicar el separador decimal. Ejemplo: Si el monto es 0.50 → Enviar 50 / Si el monto es 10.00 → Enviar 1000 | SI              |
+| currency         | String                                              | -         | Código de moneda ISO-4217.                                                                                                                                                                | SI              |
+| additionalFields | Diccionario                                         | -         | Contiene información adicional proporcionada por el comercio.                                                                                                                             | NO              |
+| billing          | [Objeto PAYMEAddressData](#objeto-paymeaddressdata) | -         | Información de facturación de la orden de compra.                                                                                                                                         | SI              |
+| shipping         | [Objeto PAYMEAddressData](#objeto-paymeaddressdata) | -         | Información de envío de la orden de compra.                                                                                                                                               | NO              |
+| customer         | [Objeto PAYMEAddressData](#objeto-paymeaddressdata) | -         | Información del comprador.                                                                                                                                                                | NO              |
+
+#### Objeto PAYMEAddressData
+
+| **Parámetro**    | **Tipo**                                                      | **Long.** | **Descripción**                                                                                             | **Obligatorio** |
+| :--------------- | :------------------------------------------------------------ | :-------- | :---------------------------------------------------------------------------------------------------------- | :-------------- |
+| firstName        | String                                                        | 30        | Nombres                                                                                                     | SI              |
+| lastName         | String                                                        | 50        | Apellidos                                                                                                   | SI              |
+| email            | String                                                        | 50        | Correo electrónico                                                                                          | SI              |
+| phone            | String                                                        | 15        | Código del país y número de celular del titular de la tarjeta (51-958435685)                                | SI              |
+| identityDocument | [Objeto PAYMEIdentityDocument](#objeto-paymeidentitydocument) | -         | Objeto que contiene información de documento de identidad del comprador. Solo disponible para **CUSTOMER.** | NO              |
+| line1            | String                                                        | 50        | Dirección                                                                                                   | SI              |
+| line2            | String                                                        | 50        | Dirección complementaria                                                                                    | NO              |
+| city             | String                                                        | 50        | Ciudad/Provincia                                                                                            | SI              |
+| state            | String                                                        | 15        | Estado/Departamento                                                                                         | SI              |
+| country          | String                                                        | 2         | Código del País en letra. ISO-3166. Ejm: Perú → PE                                                          | SI              |
+
+#### Objeto PAYMEIdentityDocument
+
+| **Parámetro** | **Tipo** | **Long.** | **Descripción**                                                               | **Obligatorio** |
+| :------------ | :------- | :-------- | :---------------------------------------------------------------------------- | :-------------- |
+| country       | String   | 2         | Código del País en letra. ISO-3166. Ejm: Perú → PE                            | SI              |
+| type          | String   | 20        | Tipo de documento de identidad: DNI / CARNET\_EXTRANJERIA / PASAPORTE / OTROS | SI              |
+| identifier    | String   | 20        | Número de documento de identidad                                              | SI              |
+
+#### Objeto PAYMESettingData
+
+| **Parámetro**   | **Tipo**       | **Long.** | **Descripción**                                                                                                                                                                    | **Obligatorio** |
+| :-------------- | :------------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
+| locale          | String         | 5         | Localización del idioma del formulario. Valor: `es_PE` (Español Perú)                                                                                                              | SI              |
+| walletUserId    | String         | 15        | Valor para identificar el wallet de un usuario.                                                                                                                                    | NO              |
+| paymentMethods  | Array\[String] | -         | Listado de métodos de pago que cargará el SDK. Si no se envía, se usará la configuración del comercio. Valores: `CARD`, `YAPE`, `CUOTEALO`, `QR`, `BANK_TRANSFER`, `PAGO_EFECTIVO` | NO              |
+| urlNotification | String         | 200       | URL donde se realizará la notificación luego de autorizar la transacción. Opcional si se configura por back.                                                                       | NO              |
+
+***
+
+## Parámetros de Salida
+
+### Objeto PaymeEvents
+
+| **Parámetro** | **Tipo** | **Descripción**                                                                                                                                                                                                                                           | **Req.** |
+| :------------ | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
+| PaymeEvents   | Enum     | Indicador de acción interna del SDK. Valores posibles: `BUILD_FORM(methods:[String])`, `CHOOSE_PAYMENT_METHOD(method: String)`, `RETURN_LIST_PAYMENT_METHODS`, `CANCEL_PAYMENT_METHOD(method: String)`, `PRESS_PAY_BUTTON(method: String)`, `CLOSE_PAYME` | SI       |
+
+### Objeto PAYMEChargesResponse
+
+| **Parámetro** | **Tipo**                                                        | **Long.** | **Descripción**                                                 | **Obligatorio** |
+| :------------ | :-------------------------------------------------------------- | :-------- | :-------------------------------------------------------------- | :-------------- |
+| success       | Boolean                                                         | -         | `true` si el proceso fue correcto, `false` si ocurrió un error. | SI              |
+| resultCode    | String                                                          | 2         | Código de resultado del procesamiento.                          | SI              |
+| resultMessage | String                                                          | 30        | Texto que describe el resultado del procesamiento.              | SI              |
+| result        | [Objeto PAYMETransactionResult](#objeto-paymetransactionresult) | -         | Detalle del resultado de la transacción.                        | NO              |
+
+#### Objeto PAYMETransactionResult
+
+| **Parámetro**     | **Tipo**                                                             | **Long.** | **Descripción**                                                                                   | **Obligatorio** |
+| :---------------- | :------------------------------------------------------------------- | :-------- | :------------------------------------------------------------------------------------------------ | :-------------- |
+| transactionId     | String                                                               | 25        | Identificador único de la transacción generado por Alignet One                                         | SI              |
+| operationNumber   | String                                                               | 12        | Número de operación enviado por el Comercio                                                       | SI              |
+| state             | String                                                               | -         | Estado de la transacción: `PENDIENTE`, `INVALIDO`, `AUTORIZADO`, `DENEGADO`                       | SI              |
+| stateReason       | String                                                               | 100       | Razón por la cual se quedó en aquel estado.                                                       | SI              |
+| amount            | String                                                               | 11        | Monto de la autorización                                                                          | SI              |
+| currency          | String                                                               | 3         | Moneda usada en la autorización                                                                   | SI              |
+| additionalFields  | Diccionario                                                          | -         | Información adicional proporcionada por el comercio.                                              | NO              |
+| paymentMethod     | [Objeto PAYMEPaymentMethod](#objeto-paymepaymentmethod)              | -         | Objeto del método de pago.                                                                        | SI              |
+| expirationDate    | String                                                               | -         | Fecha en formato **UNIX** en la que la transacción expirará. Disponible para QR y PAGO\_EFECTIVO. | NO              |
+| processorResponse | String                                                               | 500       | JSON String con la respuesta de la procesadora.                                                   | NO              |
+| lifecycle         | [Array PAYMETransactionLifecycle](#objeto-paymetransactionlifecycle) | -         | Array de tiempos y estados por los que pasó la transacción.                                       | SI              |
+
+#### Objeto PAYMEPaymentMethod
+
+| **Parámetro** | **Tipo** | **Long.** | **Descripción**                                                                          | **Obligatorio** |
+| :------------ | :------- | :-------- | :--------------------------------------------------------------------------------------- | :-------------- |
+| name          | String   | -         | Método de pago usado: `CARD`, `YAPE`, `QR`, `CUOTEALO`, `BANK_TRANSFER`, `PAGO_EFECTIVO` | SI              |
+| methodDetail  | String   | 500       | JSON String con datos de la tarjeta usada. Disponible para CARD, YAPE y QR.              | NO              |
+
+#### Objeto PAYMETransactionLifecycle
+
+| **Parámetro** | **Tipo** | **Long.** | **Descripción**                                                                           | **Obligatorio** |
+| :------------ | :------- | :-------- | :---------------------------------------------------------------------------------------- | :-------------- |
+| state         | String   | -         | Estado de la transacción: `REGISTRADO`, `PENDIENTE`, `INVALIDO`, `AUTORIZADO`, `DENEGADO` | SI              |
+| utcTime       | String   | -         | Fecha en formato UTC en la que la transacción cambió de estado.                           | SI              |
+| unixTime      | String   | -         | Fecha en formato UNIX en la que la transacción cambió de estado.                          | SI              |

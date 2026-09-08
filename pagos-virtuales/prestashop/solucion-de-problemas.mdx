@@ -1,0 +1,74 @@
+---
+title: "Solución de Problemas"
+description: "Guía rápida para resolver errores técnicos y de configuración en PrestaShop."
+---
+Si encuentras dificultades durante la integración o el procesamiento de pagos, consulta esta tabla de diagnóstico. La mayoría de las incidencias en PrestaShop se deben a restricciones de red o credenciales mal configuradas.
+
+## 1. Tabla de Diagnóstico Rápido
+
+| Problema                      | Causa Probable                                  | Solución Sugerida                                                                                                            |
+| :---------------------------- | :---------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Formulario no carga**       | Credenciales inválidas o desajuste de ambiente. | Verifica que el **Client ID** y **Client Secret** correspondan al modo seleccionado (Sandbox/Producción).                    |
+| **Pago exitoso sin pedido**   | Falla en la notificación **S2S**.               | Valida que tu URL S2S sea accesible externamente y no esté bloqueada por un firewall o módulo de seguridad.                  |
+| **No cambian los estados**    | Bloqueo de notificaciones externas.             | Confirma con tu proveedor de hosting que se permitan peticiones `POST` desde las IPs de Alignet One.                               |
+| **Extorno no funciona**       | Permisos de usuario o estado de transacción.    | Verifica que el usuario del Back Office tenga permisos para editar pedidos y que la transacción original esté **Liquidada**. |
+| **Error de moneda (PEN/USD)** | Desajuste entre tienda y pasarela.              | Asegúrate de que la moneda seleccionada en el módulo coincida con la moneda activa en el carrito de PrestaShop.              |
+
+***
+
+## 2. Depuración Técnica (Debug Mode)
+
+Para obtener detalles específicos de un error, el módulo de Alignet One cuenta con un sistema de registro interno.
+
+<Steps>
+  <Step title="Activar Modo Debug">
+    En la configuración del módulo, marca la casilla **"Modo Debug"** y guarda los cambios.
+  </Step>
+
+  <Step title="Consultar la Base de Datos">
+    Accede a tu gestor de base de datos (phpMyAdmin) y revisa la tabla `payme_logs`. Allí verás el JSON completo de envío y respuesta de la API.
+  </Step>
+
+  <Step title="Revisar Logs de PrestaShop">
+    También puedes consultar en el Back Office: **Parámetros Avanzados** > **Registros/Logs** para ver errores de sistema.
+  </Step>
+</Steps>
+
+<Warning>
+  **Importante:** Desactiva el Modo Debug una vez resuelto el problema para evitar el crecimiento excesivo de la base de datos en producción.
+</Warning>
+
+***
+
+## 3. Requisitos de Comunicación
+
+Asegúrate de que tu servidor cumpla con estas reglas de red:
+
+* **Puertos:** El puerto **443** debe estar abierto para comunicación saliente y entrante.
+* **Extensiones PHP:** Verifica que `cURL` y `OpenSSL` estén actualizados.
+* **Protocolo:** El sitio debe operar bajo **TLS 1.2** o superior para cumplir con estándares de seguridad PCI.
+
+***
+
+## 4. Canales de Soporte
+
+Si el problema persiste después de seguir esta guía, envíanos un correo con el **Kit de Soporte**:
+
+<Card title="Kit de Soporte para Prestashop" icon="briefcase">
+  1. **Merchant Code** y URL del sitio.
+  2. Versión exacta de **PrestaShop** y **PHP**.
+  3. Captura de pantalla del error.
+  4. Contenido de la tabla `payme_logs` relacionado a la transacción fallida.
+</Card>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Enviar correo" icon="envelope" href="mailto:postventa.autenticacion@alignet.com">
+    [postventa.autenticacion@alignet.com](mailto:postventa.autenticacion@alignet.com)
+  </Card>
+
+  <Card title="Volver al Inicio" icon="house" href="/pagos-virtuales/prestashop/introduccion">
+    Regresar a la guía principal.
+  </Card>
+</CardGroup>

@@ -1,0 +1,95 @@
+---
+title: "Requisitos SDK Android"
+description: "Requisitos de negocio, plataforma y seguridad para integrar Alignet One SDK en Android."
+---
+Antes de iniciar la integración, confirma que el comercio y el proyecto Android cumplen las condiciones mínimas para usar Alignet One SDK.
+
+<Info>
+  Solicita al equipo de integraciones las credenciales, SDKs, métodos de pago habilitados y ambiente asignado para tus pruebas.
+</Info>
+
+## Requisitos de negocio
+
+<CardGroup cols={2}>
+  <Card title="Entidad legal" icon="building">
+    Razón social registrada, RUC activo y datos comerciales validados.
+  </Card>
+
+  <Card title="Presencia digital" icon="globe">
+    Aplicación, web o canal digital asociado al comercio.
+  </Card>
+
+  <Card title="Seguridad" icon="lock">
+    Canales protegidos y manejo seguro de credenciales, tokens y respuestas de pago.
+  </Card>
+
+  <Card title="Cuenta bancaria" icon="banknote">
+    Cuenta bancaria a nombre de la razón social del comercio.
+  </Card>
+</CardGroup>
+
+## Requisitos técnicos Android
+
+<AccordionGroup>
+  <Accordion title="Plataforma" icon="mobile-screen-button" defaultOpen>
+    * Android 5.0 (**API Level 21**) o superior.
+    * Android Studio Jellyfish o superior.
+    * Gradle 8.6 o superior.
+    * Proyecto Android con soporte Kotlin.
+  </Accordion>
+
+  <Accordion title="Conectividad y permisos" icon="wifi">
+    * Conectividad a internet disponible durante el flujo.
+    * Permisos de red declarados en `AndroidManifest.xml`.
+    * Validación de estado de red antes de iniciar el SDK.
+  </Accordion>
+
+  <Accordion title="Backend del comercio" icon="server">
+    * Consumo del API de Seguridad para generar `Access Token`.
+    * Manejo seguro de credenciales fuera de la app.
+    * Registro de operación único por intento de pago.
+    * Confirmación final del resultado desde backend cuando aplique.
+  </Accordion>
+</AccordionGroup>
+
+## Librerías necesarias
+
+El equipo de integraciones entregará las librerías que deben incorporarse al proyecto Android.
+
+<CardGroup cols={2}>
+  <Card title="Alignet One SDK" icon="credit-card">
+    Librería principal para inicializar cobros y afiliaciones.
+  </Card>
+
+  <Card title="SecureKey3DS" icon="shield-check">
+    Soporte de autenticación 3DS 2.2.
+  </Card>
+
+  <Card title="VisaSensoryBranding" icon="sparkles">
+    Experiencia y branding para pagos Visa.
+  </Card>
+
+  <Card title="MastercardSonic" icon="music">
+    Experiencia y branding para pagos Mastercard.
+  </Card>
+</CardGroup>
+
+## Consideraciones de entorno
+
+<Note>
+  El ambiente sandbox está disponible para pruebas controladas. Para pruebas con simuladoras o métodos específicos, coordina la disponibilidad con el equipo de integraciones.
+</Note>
+
+<Note>
+  Todas las horas operativas indicadas para soporte o coordinación se consideran en GMT-5 (Perú).
+</Note>
+
+<Warning>
+  No expongas credenciales, tokens ni información sensible en la app móvil, repositorios, logs o herramientas de analítica.
+</Warning>
+
+## Siguiente paso
+
+<Card title="Instalar SDK" icon="arrow-right" href="/pagos-virtuales/sdk-mobile/android/instalacion">
+  Configura las librerías, permisos y dependencias necesarias en tu proyecto Android.
+</Card>

@@ -1,0 +1,65 @@
+---
+title: "PrestaShop"
+description: "Integra la pasarela de pagos Alignet One en tu tienda PrestaShop de forma rápida y segura."
+---
+<Frame>
+  <img src="https://mintcdn.com/alignet/1doMEpheovLEa4uV/images/image-64.png?fit=max&auto=format&n=1doMEpheovLEa4uV&q=85&s=2451c3d78dd1b8fe89ee1fba78829e3f" alt="Image" title="Image" className="mx-auto" style={{ width:"58%" }} width="440" height="180" data-path="images/image-64.png" />
+</Frame>
+
+Alignet One PrestaShop es el módulo oficial para **cobrar en tu tienda PrestaShop** con los métodos de pago más importantes del mercado local (Perú y región) desde una sola integración.
+
+### Métodos de Pago Disponibles
+
+Dependiendo de tu configuración, podrás habilitar
+
+* **Tarjetas:** Visa, Mastercard, American Express, Diners.
+* **Billeteras:** Yape, Plin.
+* **Pagos con QR.**
+* **Transferencias y Efectivo:** PagoEfectivo, Cuotéalo BCP.
+
+### Flujo General de Pago
+
+Comprender cómo viaja la información es clave para una integración exitosa. El módulo gestiona todo el ciclo de vida de la transacción automáticamente.
+
+<img src="https://mintcdn.com/alignet/o_w6plaWwLfsBKjg/images/image-66.png?fit=max&auto=format&n=o_w6plaWwLfsBKjg&q=85&s=3dd1e78c664bb3710f45ce45e7efa9fa" alt="Image" width="1595" height="672" data-path="images/image-66.png" />
+
+### ¿Cómo funciona?
+
+1. **Selección:** El cliente elige Alignet One como método de pago en el checkout de PrestaShop.
+2. **Envío:** El módulo envía de forma cifrada la información de la transacción a la pasarela Alignet One.
+3. **Validación:** Alignet One valida el pago con los emisores y procesadores bajo estándares de seguridad PCI-DSS.
+4. **Respuesta:**
+   * **Síncrona:** El cliente recibe una confirmación inmediata en pantalla.
+   * **Asíncrona (Webhook):** Alignet One notifica a tu tienda mediante un webhook para actualizar el estado del pedido automáticamente.
+
+***
+
+## Ciclo de Vida del Pedido
+
+Para que tu operación sea consistente, el módulo mapea los estados de la pasarela con los estados nativos de PrestaShop:
+
+<Steps>
+  <Step title="Registro y Pendiente">
+    El pedido se crea en PrestaShop como **"Esperando pago"** o **"Pendiente"**.
+  </Step>
+
+  <Step title="Pago Aprobado">
+    Si el pago es exitoso, el estado cambia a **"Pago aceptado"**, permitiendo iniciar la preparación del pedido.
+  </Step>
+
+  <Step title="Fallo o Cancelación">
+    Si el pago es rechazado o el cliente abandona el flujo, el pedido se marca como **"Error de pago"** o **"Cancelado"**.
+  </Step>
+</Steps>
+
+***
+
+<CardGroup cols={2}>
+  <Card title="Instalación" icon="download" href="/pagos-virtuales/prestashop/instalacion-y-activacion">
+    Descarga el módulo y súbelo desde el panel de administración de PrestaShop.
+  </Card>
+
+  <Card title="Configuración" icon="gear" href="/pagos-virtuales/prestashop/configuracion-del-modulo">
+    Configura tus credenciales y habilita los métodos de pago según tu negocio.
+  </Card>
+</CardGroup>

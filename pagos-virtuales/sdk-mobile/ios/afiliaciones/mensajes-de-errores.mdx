@@ -1,0 +1,21 @@
+---
+title: "Mensajes de errores de SDK"
+---
+## **Códigos de Error**
+
+Alignet One SDK maneja distintos errores que interrumpen el flujo de afiliacion, estos errores son entregados al comercio y se pueden identificar por el código de error que se encuentra en el parámetro `success`,`resultCode` y` resultMessage` del objeto `PaymeResponse`.
+
+Abre tabla en pantalla completaAbrir
+
+| **success** | **resultCode** | **resultMessage**                              | **Descripción**                                                                                  |
+| :---------- | :------------- | :--------------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| **true**    | **00**         | Se procesó correctamente la petición           | La afiliación se realizó o se actualizó con éxito.                                               |
+| **false**   | **01**         | Ocurrió un error                               | Petición invalida por error del sistema.                                                         |
+| **false**   | **02**         | Algunos datos no fueron enviados correctamente | El comercio envió uno o más parámetros inválidos al momento de invocar al SDK de Alignet One.          |
+| **false**   | **03**         | Comercio no existente                          | El merchantCode enviado no existe.                                                               |
+| **false**   | **04**         | Comercio requiere configuracion                | El Comercio no tiene habilitado los métodos de pago.                                             |
+| **false**   | **05**         | La afiliacion se encuentra registrada          | Al momento de crear la afiliación, esta ya se encuentra registrada.                              |
+| **false**   | **06**         | La afiliación no se encuentra registrada       | Al momento de actualizar la afiliación, esta no se encuentra registrada.                         |
+| **false**   | **07**         | Afiliación requiere activación                 | La afiliación esta desactivada, y requiere activar primero.                                      |
+| **false**   | **08**         | Usuario abandonó la afiliación                 | El usuario decidió volver al comercio y no realizo el registro o actualización de la afiliación. |
+| **false**   | **09**         | Token de la tarjeta está vencida               | La fecha de token ya venció                                                                      |

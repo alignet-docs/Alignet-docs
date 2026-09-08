@@ -1,0 +1,79 @@
+---
+title: "SDK iOS"
+description: "Integra Alignet One SDK en iOS para ejecutar cobros y afiliaciones desde aplicaciones móviles nativas."
+---
+Alignet One SDK iOS permite integrar flujos de **cobro** y **afiliación** directamente en tu aplicación móvil, manteniendo una experiencia nativa para el usuario final.
+
+<Info>
+  La integración debe coordinarse con el equipo de integraciones para recibir SDKs, credenciales, ambiente y métodos de pago habilitados para tu comercio.
+</Info>
+
+## ¿Qué puedes integrar?
+
+<CardGroup cols={2}>
+  <Card title="Cobros móviles" icon="credit-card">
+    Inicializa el SDK para procesar pagos con los métodos habilitados para el comercio.
+  </Card>
+
+  <Card title="Afiliaciones" icon="user-plus">
+    Registra o actualiza datos asociados a flujos de afiliación cuando aplique al negocio.
+  </Card>
+
+  <Card title="Métodos de pago" icon="wallet">
+    Tarjetas, Yape, QR, transferencia bancaria, Cuotéalo y PagoEfectivo según configuración.
+  </Card>
+
+  <Card title="Sandbox" icon="flask">
+    Valida escenarios controlados antes de solicitar salida a producción.
+  </Card>
+</CardGroup>
+
+## Ruta sugerida
+
+<Steps>
+  <Step title="Revisa requisitos">
+    Confirma versiones, frameworks, permisos y prerequisitos de negocio en [Requisitos SDK iOS](/pagos-virtuales/sdk-mobile/ios/requisitos).
+  </Step>
+
+  <Step title="Instala el SDK">
+    Agrega los frameworks entregados por Alignet One, configura Xcode y valida embedding desde [Instalación](/pagos-virtuales/sdk-mobile/ios/instalacion).
+  </Step>
+
+  <Step title="Implementa el flujo">
+    Inicializa `PaymeClient`, configura el ambiente y envía el objeto de request para cobro o afiliación.
+  </Step>
+
+  <Step title="Captura la respuesta">
+    Implementa los delegates del SDK para procesar resultado final, eventos, cancelaciones y errores.
+  </Step>
+
+  <Step title="Valida en sandbox">
+    Ejecuta pruebas con [Datos de prueba](/pagos-virtuales/pagos/datos-de-prueba) antes de pedir validación final.
+  </Step>
+</Steps>
+
+## Guías de integración
+
+<CardGroup cols={2}>
+  <Card title="Requisitos" icon="key" href="/pagos-virtuales/sdk-mobile/ios/requisitos">
+    Revisa condiciones técnicas y de negocio antes de iniciar.
+  </Card>
+
+  <Card title="Instalación" icon="download" href="/pagos-virtuales/sdk-mobile/ios/instalacion">
+    Configura SDKs, frameworks y dependencias iOS.
+  </Card>
+
+  <Card title="Flujo de cobro" icon="credit-card-front" href="/pagos-virtuales/sdk-mobile/ios/flujo-de-cobro/inicializar-alignet-one-sdk-ios">
+    Inicializa el SDK para iniciar un cobro desde tu app.
+  </Card>
+
+  <Card title="Afiliaciones" icon="user-plus" href="/pagos-virtuales/sdk-mobile/ios/afiliaciones/inicializar-sdk-ios">
+    Implementa los flujos de afiliación cuando apliquen.
+  </Card>
+</CardGroup>
+
+## Antes de producción
+
+<Warning>
+  No uses credenciales, SDKs ni datos de prueba en ambiente productivo. Coordina la validación final con el equipo de integraciones antes de salir a vivo.
+</Warning>

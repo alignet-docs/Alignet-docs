@@ -1,0 +1,119 @@
+---
+title: "Capturar funciones callback"
+description: "Procesa los callbacks de Alignet One Flex y relaciona responseCallback con la respuesta de PayIn según el método usado."
+---
+Cuando llamas `paymentForm.init(...)`, Flex te permite capturar tres funciones callback. La más importante para el resultado del frontend es `responseCallback(response)`.
+
+<Info>
+  Toma `responseCallback(response)` como la entrada principal del resultado en frontend. El JSON que recibes ahí reutiliza la misma estructura del **API de Autorización - ecommerce** para el método de pago elegido dentro de Flex.
+</Info>
+
+## Callbacks disponibles
+
+<CardGroup cols={3}>
+  <Card title="responseCallback" icon="circle-check">
+    Se ejecuta cuando el proceso llega a un resultado de negocio y te entrega el JSON de respuesta.
+  </Card>
+
+  <Card title="trackingCallback" icon="chart-line">
+    Se ejecuta por cada evento del flujo, como cambio de método, clics o avance del usuario dentro del formulario.
+  </Card>
+
+  <Card title="onErrorCallback" icon="circle-xmark">
+    Se ejecuta cuando ocurre un error técnico durante la carga o ejecución del componente.
+  </Card>
+</CardGroup>
+
+## Ejemplo de implementación
+
+```javascript theme={"system"}
+function responseCallback(response) {
+    console.log("-------Respuesta-------");
+    console.log({response});
+}
+
+function trackingCallback(trackdata) {
+    console.log("-------Tracking de Eventos-------");
+    console.log({trackdata});
+}
+
+function onErrorCallback(error) {
+    console.log("-------Error en el proceso-------");
+    console.log({error});
+}
+
+paymentForm.init(
+    document.querySelector("#demo"),
+    responseCallback,
+    trackingCallback,
+    onErrorCallback
+);
+```
+
+## Cómo interpretar responseCallback
+
+<Note>
+  El campo `response.payment_method` te indica qué referencia de PayIn debes usar para interpretar el JSON de respuesta devuelto por Flex.
+</Note>
+
+<Warning>
+  No uses `response.meta.status.code` como validador de pago aprobado o denegado. Este código solo indica el resultado del procesamiento del servicio o si la respuesta fue generada correctamente. Para validar el resultado del pago, revisa `response.transaction.state` y confirma desde backend con [Consulta](https://docs.pay-me.com/payin/consulta) o [Notificaciones](https://docs.pay-me.com/payin/notificaciones), según el método de pago.
+</Warning>
+
+<Tabs>
+  <Tab title="CARD">
+    El objeto `response` sigue el contrato del [API de Autorización con Tarjeta](https://docs.pay-me.com/payin/autorizacion-tarjeta).
+
+    Si tu flujo usa redirect o autenticación 3DS fuera de la misma pantalla, complementa esta lectura con [Consideraciones para métodos con Redirect](https://docs.pay-me.com/payin/autorizacion-metodos-con-redirect).
+  </Tab>
+
+  <Tab title="YAPE">
+    El objeto `response` sigue el contrato del [API de Autorización con Yape](https://docs.pay-me.com/payin/autorizacion-yape).
+
+    Aunque el resultado llegue por `responseCallback`, valida también la consistencia operativa desde backend antes de confirmar el pedido.
+  </Tab>
+
+  <Tab title="BANK_TRANSFER">
+    El objeto `response` sigue el contrato del [API de Autorización con Transferencia Bancaria](https://docs.pay-me.com/payin/autorizacion-transferencia-bancaria).
+
+    Este método puede requerir confirmación posterior. No tomes el frontend como única fuente de verdad: apóyate en [Consulta](https://docs.pay-me.com/payin/consulta-transferencia-bancaria) o [Notificaciones](https://docs.pay-me.com/payin/notificaciones).
+  </Tab>
+
+  <Tab title="QR">
+    El objeto `response` sigue el contrato del [API de Autorización con QR](https://docs.pay-me.com/payin/autorizacion-qr).
+
+    Generar el QR o mostrar una respuesta inicial no equivale a un pago final confirmado. Usa [Consulta](https://docs.pay-me.com/payin/consulta-qr) o [Notificaciones](https://docs.pay-me.com/payin/notificaciones) para cerrar la lógica de negocio.
+  </Tab>
+
+  <Tab title="CUOTEALO">
+    El objeto `response` sigue el contrato del [API de Autorización con Cuotéalo](https://docs.pay-me.com/payin/autorizacion-cuotealo).
+
+    Por tratarse de un flujo con redirección o seguimiento, confirma el estado final con [Consulta](https://docs.pay-me.com/payin/consulta-cuotealo) o [Notificaciones](https://docs.pay-me.com/payin/notificaciones).
+  </Tab>
+
+  <Tab title="PAGOEFECTIVO">
+    El objeto `response` sigue el contrato del [API de Autorización con PagoEfectivo](https://docs.pay-me.com/payin/autorizacion-pagoefectivo).
+
+    La generación del CIP o del enlace de pago no significa que el dinero ya fue recibido. Confirma el resultado con [Consulta](https://docs.pay-me.com/payin/consulta-pagoefectivo) o [Notificaciones](https://docs.pay-me.com/payin/notificaciones).
+  </Tab>
+</Tabs>
+
+<Warning>
+  `trackingCallback` sirve para observabilidad y `onErrorCallback` para fallos técnicos. Ninguno reemplaza la lógica de negocio que debes construir sobre `responseCallback` y la confirmación backend.
+</Warning>
+
+## Referencias relacionadas
+
+<CardGroup cols={3}>
+  <Card title="API de Autorización - ecommerce" icon="book" href="https://docs.pay-me.com/payin/autorizacion">
+    Referencia principal del contrato de respuesta que Flex reutiliza en `responseCallback`.
+  </Card>
+
+  <Card title="API de Consulta" icon="magnifying-glass" href="https://docs.pay-me.com/payin/consulta">
+    Valida desde backend el estado final de la operación antes de cerrar la orden.
+  </Card>
+
+  <Card title="Notificaciones S2S" icon="bell" href="https://docs.pay-me.com/payin/notificaciones">
+    Usa este canal si tu integración también confirma resultados desde backend mediante notificaciones.
+  </Card>
+</CardGroup>

@@ -1,0 +1,121 @@
+---
+title: "Instalación SDK iOS"
+description: "Configura frameworks, embedding y ajustes necesarios para integrar Alignet One SDK en iOS."
+---
+Esta guía describe cómo incorporar Alignet One SDK en tu proyecto iOS antes de implementar cobros o afiliaciones.
+
+<Info>
+  Utiliza siempre la versión de SDK entregada o confirmada por el equipo de integraciones para tu comercio.
+</Info>
+
+<Card title="Descargar SDK Alignet One iOS v3.3" icon="download" href="https://docs.pay-me.com/sdk-mobile/librerias/SDK_Payme_iOS_v3.3.zip">
+  Descarga el paquete `.zip` con los frameworks necesarios para integrar el SDK iOS.
+</Card>
+
+## Artefactos requeridos
+
+El paquete de integración debe incluir los frameworks necesarios para ejecutar el flujo de pago.
+
+<CardGroup cols={2}>
+  <Card title="Alignet One.xcframework" icon="credit-card">
+    Framework principal del SDK.
+  </Card>
+
+  <Card title="SecureKey3DS.xcframework" icon="shield-check">
+    Framework para autenticación 3DS.
+  </Card>
+
+  <Card title="VisaSensoryBranding.xcframework" icon="sparkles">
+    Framework de experiencia Visa.
+  </Card>
+
+  <Card title="MastercardSonic.xcframework" icon="music">
+    Framework de experiencia Mastercard.
+  </Card>
+</CardGroup>
+
+<Warning>
+  No subas los artefactos del SDK a repositorios públicos. Trata los archivos entregados como dependencias privadas del comercio.
+</Warning>
+
+## Estructura recomendada
+
+Crea una carpeta para frameworks dentro del proyecto y coloca ahí los artefactos entregados.
+
+```text theme={"system"}
+App/
+  Frameworks/
+    Alignet One.xcframework
+    SecureKey3DS.xcframework
+    VisaSensoryBranding.xcframework
+    MastercardSonic.xcframework
+```
+
+## Agregar frameworks en Xcode
+
+En Xcode, agrega los frameworks al proyecto usando:
+
+* **Copy items if needed**
+* **Create groups**
+* Target correcto de la aplicación
+
+<Note>
+  Después de agregarlos, revisa que cada framework aparezca en el target de la app dentro de **Frameworks, Libraries, and Embedded Content**.
+</Note>
+
+## Embedding
+
+Configura cada framework con la opción **Embed Without Signing** dentro del target iOS.
+
+<AccordionGroup>
+  <Accordion title="Target de la app" icon="mobile-screen-button" defaultOpen>
+    * Abre el target principal de la aplicación.
+    * Ingresa a **General**.
+    * Ubica **Frameworks, Libraries, and Embedded Content**.
+    * Agrega los frameworks del SDK si no aparecen en la lista.
+  </Accordion>
+
+  <Accordion title="Embed" icon="box">
+    * Configura `Alignet One.xcframework` como **Embed Without Signing**.
+    * Configura `SecureKey3DS.xcframework` como **Embed Without Signing**.
+    * Configura `VisaSensoryBranding.xcframework` como **Embed Without Signing**.
+    * Configura `MastercardSonic.xcframework` como **Embed Without Signing**.
+  </Accordion>
+</AccordionGroup>
+
+## Configuración Swift
+
+Importa `Alignet One` en el `ViewController` o clase desde donde invocarás el SDK.
+
+```swift theme={"system"}
+import UIKit
+import Alignet One
+```
+
+## Validación rápida
+
+<AccordionGroup>
+  <Accordion title="Compilación" icon="hammer" defaultOpen>
+    * El proyecto compila sin errores de frameworks faltantes.
+    * Los `.xcframework` están asociados al target correcto.
+    * No existen conflictos con arquitecturas o versiones de Swift.
+  </Accordion>
+
+  <Accordion title="Configuración" icon="gear">
+    * Los frameworks están configurados como **Embed Without Signing**.
+    * El ambiente sandbox está identificado para las primeras pruebas.
+    * La app puede importar `Alignet One` correctamente.
+  </Accordion>
+
+  <Accordion title="Seguridad" icon="lock">
+    * Las credenciales se generan y protegen desde backend.
+    * No se exponen tokens ni secretos dentro de la app.
+    * Los logs de prueba no imprimen información sensible.
+  </Accordion>
+</AccordionGroup>
+
+## Siguiente paso
+
+<Card title="Inicializar Alignet One SDK iOS" icon="arrow-right" href="/pagos-virtuales/sdk-mobile/ios/flujo-de-cobro/inicializar-alignet-one-sdk-ios">
+  Crea la instancia de `PaymeClient` e inicia tu primer flujo de cobro.
+</Card>

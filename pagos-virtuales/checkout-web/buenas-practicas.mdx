@@ -1,0 +1,54 @@
+---
+title: "Buenas prácticas"
+description: "Recomendaciones para integrar Checkout Web y Alignet One Flex de forma segura, clara y trazable."
+---
+Aplica estas recomendaciones cuando integres **Checkout Web** con Alignet One Flex.
+
+## Responsabilidades del flujo
+
+<CardGroup cols={2}>
+  <Card title="Backend" icon="server">
+    Genera tokens, solicita el `nonce`, valida estados finales y actualiza pedidos.
+  </Card>
+
+  <Card title="Frontend" icon="table-layout">
+    Inicializa Flex, muestra el checkout y captura callbacks para mejorar la experiencia del usuario.
+  </Card>
+</CardGroup>
+
+<Warning>
+  No cierres una orden solo con la respuesta visual del navegador. Confirma el estado final desde backend, especialmente en métodos asíncronos.
+</Warning>
+
+## Seguridad
+
+<AccordionGroup>
+  <Accordion title="Nonce y tokens" icon="shield-check" defaultOpen>
+    * Genera el `Access Token` y el `nonce` desde backend.
+    * No expongas credenciales ni tokens en JavaScript, HTML, logs o analítica.
+    * Renueva credenciales temporales cuando expiren.
+  </Accordion>
+
+  <Accordion title="Callbacks" icon="bolt">
+    * Usa `responseCallback` para experiencia de usuario.
+    * Usa `trackingCallback` para trazabilidad del flujo.
+    * Usa `onErrorCallback` para mensajes controlados y soporte.
+  </Accordion>
+
+  <Accordion title="Métodos asíncronos" icon="clock">
+    * Para QR, transferencia, Cuotéalo o PagoEfectivo, confirma por consulta o notificación.
+    * Maneja estados pendientes, expirados y denegados.
+    * Evita duplicar órdenes ante reintentos del usuario.
+  </Accordion>
+</AccordionGroup>
+
+## UX recomendada
+
+* Muestra mensajes claros para pago aprobado, rechazado, pendiente o cancelado.
+* Conserva el número de operación para soporte.
+* Valida Flex en desktop y mobile.
+* Prueba idioma, botón de cierre y métodos visibles antes de producción.
+
+<Card title="Checklist de integración" icon="clipboard-check" href="/pagos-virtuales/checkout-web/checklist-de-integracion">
+  Revisa el checklist específico para Checkout Web.
+</Card>
