@@ -1,0 +1,104 @@
+---
+title: "Steps to follow for a migration"
+description: "Procedure for installing Alignet Gateway, removing the previous version, and preparing the gateway to process payments."
+icon: "route"
+---
+
+Follow these four stages to migrate to **Alignet One** in an orderly manner.
+
+<Steps>
+  <Step title="Prepare the update">
+    Confirm the following before making changes to the store:
+
+    <CardGroup cols={2}>
+      <Card title="New gateway file" icon="file-zipper">
+        Have the `.zip` file provided by Alignet ready. Do not unzip it.
+      </Card>
+      <Card title="Site backup" icon="database">
+        Include the files and database, or at least `wp-content/plugins/`.
+      </Card>
+      <Card title="Administrator access" icon="user-shield">
+        The user must be able to install and remove WordPress plugins.
+      </Card>
+      <Card title="Low-traffic window" icon="clock">
+        Avoid peak sales periods while making the change.
+      </Card>
+      <Card title="Merchant registration data" icon="key">
+        Request the merchant data, keys, and other credentials from the Alignet team. Keep your response URLs available.
+      </Card>
+    </CardGroup>
+
+    <Warning>
+      **Do not continue without a backup.** You must be able to recover the site if the installation does not finish correctly.
+    </Warning>
+  </Step>
+
+  <Step title="Install the new plugin">
+    1. Go to **Plugins → Add Plugin → Upload Plugin**.
+    2. Select the `.zip` file and click **Install Now**.
+    3. Activate **Alignet Gateway** and confirm that it appears as active.
+    4. Only then, deactivate and remove the **previous WooCommerce plugin**.
+
+    <Warning>
+      **The order is important.** Do not remove the previous version until you verify that **Alignet Gateway** is installed and active.
+    </Warning>
+
+    <Frame>
+      <img src="/images/migracion/versiones-plugin.png" alt="Alignet Gateway active and the previous plugin ready to be removed" />
+    </Frame>
+
+    *Alignet Gateway is active; the previous version is deactivated and ready to be removed.*
+  </Step>
+
+  <Step title="Enter the credentials">
+    1. Open **Payments** in the WordPress sidebar.
+    2. Find **Alignet Gateway**, confirm that it is active, and select **Manage**.
+    3. Complete the configuration using the information provided by the Integrations team.
+    4. Review the environment, currency, and display mode. Then click **Save changes**.
+
+    Configure the following values for each enabled currency:
+
+    <CardGroup cols={3}>
+      <Card title="Client ID" icon="id-card" />
+      <Card title="Client Secret" icon="key" />
+      <Card title="Merchant Code" icon="store" />
+    </CardGroup>
+
+    <Info>
+      **Credential delivery.** Initially, the Integrations team will share these values manually. Later, they will be obtained automatically from Command Center.
+    </Info>
+
+    <Frame>
+      <img src="/images/migracion/menu-payments.png" alt="Payments option in the WordPress sidebar" />
+    </Frame>
+
+    *1. Open Payments.*
+
+    <Frame>
+      <img src="/images/migracion/administrar-gateway.png" alt="Manage option for Alignet Gateway" />
+    </Frame>
+
+    *2. Select Manage in Alignet Gateway.*
+
+    <Frame>
+      <img src="/images/migracion/configuracion-gateway-1.png" alt="General Alignet Gateway configuration" />
+    </Frame>
+
+    *3. Review the country, environment, and display mode.*
+
+    <Frame>
+      <img src="/images/migracion/configuracion-gateway-2.png" alt="Credential fields by currency in Alignet Gateway" />
+    </Frame>
+
+    *4. Complete the credentials for each currency and save the changes.*
+  </Step>
+
+  <Step title="Validate before finishing">
+    The migration is complete when the configuration and payment flow work correctly.
+
+    - **Configuration status:** Client ID, Client Secret, and Merchant Code appear as configured.
+    - **Assisted test:** perform a test or sandbox checkout with support from the bank and Alignet.
+    - **Error log:** open **WooCommerce → Status → Logs** and confirm there are no Alignet errors.
+    - **Change control:** record the date, versions, and person responsible.
+  </Step>
+</Steps>

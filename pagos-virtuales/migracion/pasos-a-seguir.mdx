@@ -1,0 +1,104 @@
+---
+title: "Pasos a seguir para una migración"
+description: "Procedimiento para instalar Alignet Gateway, retirar la versión anterior y dejar la pasarela lista para procesar pagos."
+icon: "route"
+---
+
+Sigue estas cuatro etapas para migrar a **Alignet One** de forma ordenada.
+
+<Steps>
+  <Step title="Prepara la actualización">
+    Confirma estos puntos antes de hacer cambios en la tienda:
+
+    <CardGroup cols={2}>
+      <Card title="Archivo del nuevo gateway" icon="file-zipper">
+        Ten listo el archivo `.zip` entregado por Alignet. No lo descomprimas.
+      </Card>
+      <Card title="Respaldo del sitio" icon="database">
+        Incluye archivos y base de datos, o al menos `wp-content/plugins/`.
+      </Card>
+      <Card title="Acceso administrador" icon="user-shield">
+        El usuario debe poder instalar y eliminar plugins en WordPress.
+      </Card>
+      <Card title="Horario de bajo tráfico" icon="clock">
+        Evita momentos de venta alta mientras realizas el cambio.
+      </Card>
+      <Card title="Datos de registro del comercio" icon="key">
+        Solicita al equipo de Alignet los datos del comercio, llaves y demás credenciales. Ten a la mano tus URL de respuesta.
+      </Card>
+    </CardGroup>
+
+    <Warning>
+      **No continúes sin respaldo.** Debes poder recuperar el sitio si la instalación no termina correctamente.
+    </Warning>
+  </Step>
+
+  <Step title="Instala el nuevo plugin">
+    1. Ve a **Plugins → Añadir plugin → Subir plugin**.
+    2. Selecciona el archivo `.zip` y haz clic en **Instalar ahora**.
+    3. Activa **Alignet Gateway** y confirma que aparezca como activo.
+    4. Sólo después, desactiva y elimina el **plugin anterior de WooCommerce**.
+
+    <Warning>
+      **Orden importante.** No elimines la versión anterior hasta verificar que **Alignet Gateway** esté instalado y activo.
+    </Warning>
+
+    <Frame>
+      <img src="/images/migracion/versiones-plugin.png" alt="Alignet Gateway activo y plugin anterior listo para eliminar" />
+    </Frame>
+
+    *Alignet Gateway activo; la versión anterior aparece desactivada y lista para eliminar.*
+  </Step>
+
+  <Step title="Ingresa las credenciales">
+    1. Abre **Payments** en la barra lateral de WordPress.
+    2. Localiza **Alignet Gateway**, confirma que esté activo y selecciona **Manage**.
+    3. Completa la configuración con los datos entregados por el equipo de Integraciones.
+    4. Revisa el ambiente, la moneda y el modo de visualización. Luego pulsa **Save changes**.
+
+    Debes configurar los siguientes datos por cada moneda habilitada:
+
+    <CardGroup cols={3}>
+      <Card title="Client ID" icon="id-card" />
+      <Card title="Client Secret" icon="key" />
+      <Card title="Merchant Code" icon="store" />
+    </CardGroup>
+
+    <Info>
+      **Entrega de credenciales.** Al inicio, el equipo de Integraciones compartirá estos datos manualmente. Más adelante, se obtendrán automáticamente desde Command Center.
+    </Info>
+
+    <Frame>
+      <img src="/images/migracion/menu-payments.png" alt="Opción Payments en la barra lateral de WordPress" />
+    </Frame>
+
+    *1. Ingresa a Payments.*
+
+    <Frame>
+      <img src="/images/migracion/administrar-gateway.png" alt="Opción Manage de Alignet Gateway" />
+    </Frame>
+
+    *2. En Alignet Gateway, selecciona Manage.*
+
+    <Frame>
+      <img src="/images/migracion/configuracion-gateway-1.png" alt="Configuración general de Alignet Gateway" />
+    </Frame>
+
+    *3. Revisa país, ambiente y modo de visualización.*
+
+    <Frame>
+      <img src="/images/migracion/configuracion-gateway-2.png" alt="Campos de credenciales por moneda de Alignet Gateway" />
+    </Frame>
+
+    *4. Completa las credenciales por moneda y guarda.*
+  </Step>
+
+  <Step title="Valida antes de terminar">
+    La migración está completa cuando la configuración y el flujo de pago funcionan correctamente.
+
+    - **Estado de configuración:** Client ID, Client Secret y Merchant Code aparecen configurados.
+    - **Prueba acompañada:** realiza un checkout de prueba o sandbox con el soporte del banco y de Alignet.
+    - **Registro de errores:** revisa **WooCommerce → Estado → Registros** y descarta errores de Alignet.
+    - **Control del cambio:** anota la fecha, las versiones y la persona responsable.
+  </Step>
+</Steps>
