@@ -136,6 +136,26 @@ img[alt="dark logo"] {
   display: block;
 }
 
+.theme-aware-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.theme-aware-image-dark {
+  display: none;
+}
+
+.dark .theme-aware-image-light,
+[data-theme="dark"] .theme-aware-image-light {
+  display: none;
+}
+
+.dark .theme-aware-image-dark,
+[data-theme="dark"] .theme-aware-image-dark {
+  display: block;
+}
+
 /* Draw attention to the migration walkthrough without replacing the active-page state. */
 #sidebar a[href$="/pagos-virtuales/migracion/pasos-a-seguir"]::after,
 #sidebar a[href$="/en/virtual-payments/migration/steps-to-follow"]::after {
