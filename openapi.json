@@ -1,0 +1,4400 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Alignet API",
+    "version": "1.0.0",
+    "description": "Referencia OpenAPI para autenticacion, autorizacion, consulta, cancelacion, devoluciones y notificaciones de pagos ecommerce en PayIn."
+  },
+  "servers": [
+    {
+      "url": "https://auth.preprod.alignet.io",
+      "description": "Pre-Produccion"
+    },
+    {
+      "url": "https://auth.alignet.io",
+      "description": "Produccion"
+    }
+  ],
+  "paths": {
+    "/token": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Generar Access Token",
+        "description": "Genera un Bearer Token usando credenciales del comercio y el flujo client_credentials.",
+        "operationId": "generateAccessToken",
+        "parameters": [
+          {
+            "name": "ALG-API-VERSION",
+            "in": "header",
+            "required": true,
+            "description": "Version del API a usar.",
+            "schema": {
+              "type": "string",
+              "default": "1709847567"
+            },
+            "example": "1709847567"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "default": {
+                  "action": "authorize",
+                  "grant_type": "client_credentials",
+                  "audience": "https://api.preprod.alignet.io/",
+                  "client_id": "your_client_id",
+                  "client_secret": "your_client_secret",
+                  "scope": "create:token post:charges get:charges delete:charges"
+                },
+                "additionalProperties": false,
+                "required": [
+                  "action",
+                  "grant_type",
+                  "audience",
+                  "client_id",
+                  "client_secret",
+                  "scope"
+                ],
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "description": "Accion a ejecutar.",
+                    "default": "authorize",
+                    "example": "authorize"
+                  },
+                  "grant_type": {
+                    "type": "string",
+                    "description": "Metodo de autorizacion.",
+                    "default": "client_credentials",
+                    "example": "client_credentials"
+                  },
+                  "audience": {
+                    "type": "string",
+                    "description": "URL base del API Orquestador segun el ambiente configurado.",
+                    "enum": [
+                      "https://api.preprod.alignet.io/",
+                      "https://api.alignet.io/"
+                    ],
+                    "default": "https://api.preprod.alignet.io/",
+                    "example": "https://api.preprod.alignet.io/"
+                  },
+                  "client_id": {
+                    "type": "string",
+                    "description": "Identificacion del cliente.",
+                    "default": "your_client_id",
+                    "example": "your_client_id"
+                  },
+                  "client_secret": {
+                    "type": "string",
+                    "description": "Secreto del cliente.",
+                    "default": "your_client_secret",
+                    "example": "your_client_secret"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "Permisos a solicitar, separados por espacios.",
+                    "default": "create:token post:charges get:charges delete:charges",
+                    "example": "create:token post:charges get:charges delete:charges"
+                  }
+                }
+              },
+              "example": {
+                "action": "authorize",
+                "grant_type": "client_credentials",
+                "audience": "https://api.preprod.alignet.io/",
+                "client_id": "your_client_id",
+                "client_secret": "your_client_secret",
+                "scope": "create:token post:charges get:charges delete:charges"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token generado correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "action",
+                    "success",
+                    "authorization"
+                  ],
+                  "properties": {
+                    "action": {
+                      "type": "string",
+                      "description": "Accion a ejecutar.",
+                      "example": "authorize"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indica si el proceso se realizo correctamente.",
+                      "example": true
+                    },
+                    "access_token": {
+                      "type": "string",
+                      "description": "Token para usar en los endpoints protegidos del API.",
+                      "example": "eyJhbGciOiJIUzI1NiIs..."
+                    },
+                    "scope": {
+                      "type": "string",
+                      "description": "Permisos asociados al token generado.",
+                      "example": "create:token api-test:create:token"
+                    },
+                    "expires_in": {
+                      "type": "integer",
+                      "description": "Tiempo de expiracion del token en segundos.",
+                      "example": 8600
+                    },
+                    "token_type": {
+                      "type": "string",
+                      "description": "Tipo de token.",
+                      "example": "Bearer"
+                    },
+                    "authorization": {
+                      "type": "object",
+                      "description": "Objeto que contiene metadatos del flujo ejecutado.",
+                      "required": [
+                        "meta"
+                      ],
+                      "properties": {
+                        "meta": {
+                          "type": "object",
+                          "description": "Objeto que contiene metadatos del flujo ejecutado.",
+                          "required": [
+                            "status"
+                          ],
+                          "properties": {
+                            "status": {
+                              "type": "object",
+                              "description": "Objeto que contiene el resultado del flujo ejecutado.",
+                              "required": [
+                                "code",
+                                "message_ilgn"
+                              ],
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Codigo del resultado tecnico del servicio o request. No valida si un pago fue autorizado o denegado.",
+                                  "example": "00"
+                                },
+                                "message_ilgn": {
+                                  "type": "array",
+                                  "description": "Lista de mensajes resultantes del flujo.",
+                                  "items": {
+                                    "type": "object",
+                                    "required": [
+                                      "locale",
+                                      "value"
+                                    ],
+                                    "properties": {
+                                      "locale": {
+                                        "type": "string",
+                                        "description": "Localidad a nivel de lenguaje para el mensaje del flujo ejecutado.",
+                                        "example": "es_PE"
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "description": "Mensaje resultante del flujo ejecutado.",
+                                        "example": "Access Token creado"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "action": "authorize",
+                  "success": true,
+                  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+                  "scope": "create:token api-test:create:token",
+                  "expires_in": 8600,
+                  "token_type": "Bearer",
+                  "authorization": {
+                    "meta": {
+                      "status": {
+                        "code": "00",
+                        "message_ilgn": [
+                          {
+                            "locale": "es_PE",
+                            "value": "Access Token creado"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request invalido."
+          },
+          "401": {
+            "description": "Credenciales invalidas o scope no permitido."
+          }
+        }
+      }
+    },
+    "/nonce": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Generar Nonce",
+        "description": "Genera el Nonce temporal necesario para inicializar Alignet One Flex. Este endpoint debe consumirse desde backend usando un Bearer Token vigente. Consulta también [API Nonce](/pagos-virtuales/checkout-web/flex/api-nonce).",
+        "operationId": "generateNonce",
+        "parameters": [
+          {
+            "name": "ALG-API-VERSION",
+            "in": "header",
+            "required": true,
+            "description": "Version del API a usar.",
+            "schema": {
+              "type": "string",
+              "default": "1709847567"
+            },
+            "example": "1709847567"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bearer Token vigente generado previamente desde /token.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer eyJhbGciOiJSUzI1NiIs..."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "action",
+                  "audience",
+                  "client_id",
+                  "scope"
+                ],
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "description": "Accion a ejecutar.",
+                    "default": "create.nonce",
+                    "example": "create.nonce"
+                  },
+                  "audience": {
+                    "type": "string",
+                    "description": "URL base del API Orquestador segun el ambiente configurado.",
+                    "enum": [
+                      "https://api.preprod.alignet.io/",
+                      "https://api.alignet.io/"
+                    ],
+                    "default": "https://api.preprod.alignet.io/",
+                    "example": "https://api.preprod.alignet.io/"
+                  },
+                  "client_id": {
+                    "type": "string",
+                    "description": "Identificacion del cliente.",
+                    "default": "your_client_id",
+                    "example": "your_client_id"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "Permisos a solicitar.",
+                    "default": "post:charges",
+                    "example": "post:charges"
+                  }
+                }
+              },
+              "example": {
+                "action": "create.nonce",
+                "audience": "https://api.preprod.alignet.io/",
+                "client_id": "your_client_id",
+                "scope": "post:charges"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Nonce generado correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "action",
+                    "success",
+                    "nonce_creation"
+                  ],
+                  "properties": {
+                    "action": {
+                      "type": "string",
+                      "description": "Accion ejecutada.",
+                      "example": "create.nonce"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indica si el proceso se realizo correctamente.",
+                      "example": true
+                    },
+                    "nonce": {
+                      "type": "string",
+                      "description": "Token temporal a usar en la inicializacion de Alignet One Flex.",
+                      "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                    },
+                    "scope": {
+                      "type": "string",
+                      "description": "Permisos solicitados.",
+                      "example": "post:charges"
+                    },
+                    "expires_in": {
+                      "type": "integer",
+                      "description": "Tiempo de expiracion del nonce en segundos.",
+                      "example": 30
+                    },
+                    "nonce_creation": {
+                      "type": "object",
+                      "description": "Objeto que contiene metadatos del flujo ejecutado.",
+                      "required": [
+                        "meta"
+                      ],
+                      "properties": {
+                        "meta": {
+                          "type": "object",
+                          "description": "Objeto que contiene metadatos del flujo ejecutado.",
+                          "required": [
+                            "status"
+                          ],
+                          "properties": {
+                            "status": {
+                              "type": "object",
+                              "description": "Objeto que contiene el resultado del flujo ejecutado.",
+                              "required": [
+                                "code",
+                                "message_ilgn"
+                              ],
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Codigo del resultado tecnico del servicio o request. No valida si un pago fue autorizado o denegado.",
+                                  "example": "00"
+                                },
+                                "message_ilgn": {
+                                  "type": "array",
+                                  "description": "Lista de mensajes resultantes del flujo.",
+                                  "items": {
+                                    "type": "object",
+                                    "required": [
+                                      "locale",
+                                      "value"
+                                    ],
+                                    "properties": {
+                                      "locale": {
+                                        "type": "string",
+                                        "description": "Localidad a nivel de lenguaje para el mensaje del flujo ejecutado.",
+                                        "example": "es_PE"
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "description": "Mensaje resultante del flujo ejecutado.",
+                                        "example": "Codigo Nonce creado"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "action": "create.nonce",
+                  "success": true,
+                  "nonce": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.........",
+                  "scope": "post:charges",
+                  "expires_in": 30,
+                  "nonce_creation": {
+                    "meta": {
+                      "status": {
+                        "code": "00",
+                        "message_ilgn": [
+                          {
+                            "locale": "es_PE",
+                            "value": "Codigo Nonce creado"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request invalido."
+          },
+          "401": {
+            "description": "Token invalido o expirado."
+          },
+          "403": {
+            "description": "El token no cuenta con el scope necesario para solicitar el nonce."
+          },
+          "500": {
+            "description": "Error temporal del servicio."
+          }
+        }
+      }
+    },
+    "/charges": {
+      "post": {
+        "tags": [
+          "PayIn"
+        ],
+        "summary": "Autorizar pago ecommerce",
+        "description": "Procesa un pago ecommerce usando el API de autorizacion. Este endpoint soporta flujos con Tarjeta, Yape, Transferencia Bancaria, QR, Cuotéalo y PagoEfectivo.",
+        "operationId": "authorizeEcommercePayment",
+        "servers": [
+          {
+            "url": "https://api.preprod.alignet.io",
+            "description": "Pre-Produccion"
+          },
+          {
+            "url": "https://api.alignet.io",
+            "description": "Produccion"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Token Bearer obtenido desde autenticacion.",
+            "schema": {
+              "type": "string",
+              "default": "Bearer {{access_token}}"
+            },
+            "example": "Bearer {{access_token}}"
+          },
+          {
+            "name": "ALG-API-VERSION",
+            "in": "header",
+            "required": true,
+            "description": "Version del API a usar.",
+            "schema": {
+              "type": "string",
+              "default": "1709847567"
+            },
+            "example": "1709847567"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChargeAuthorizeRequest"
+              },
+              "examples": {
+                "card": {
+                  "summary": "Pago con tarjeta",
+                  "value": {
+                    "action": "authorize",
+                    "channel": "ecommerce",
+                    "merchant_code": "your_merchant_code",
+                    "merchant_operation_number": "2391645",
+                    "payment_method": {
+                      "method_name": "CARD",
+                      "method_details": {
+                        "pan": "4051420006041115",
+                        "expiry_date": "1231",
+                        "security_code": "123",
+                        "card_holder": {
+                          "first_name": "Pedro",
+                          "last_name": "Miranda",
+                          "email": "pedro@example.com",
+                          "phone": {
+                            "prefix": "51",
+                            "number": "999835685"
+                          }
+                        },
+                        "installments": {
+                          "plan": "01",
+                          "number": "3"
+                        }
+                      }
+                    },
+                    "payment_details": {
+                      "amount": "15000",
+                      "currency": "604",
+                      "billing": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "shipping": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "customer": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "product_details": []
+                    }
+                  }
+                },
+                "yape": {
+                  "summary": "Pago con Yape",
+                  "value": {
+                    "action": "authorize",
+                    "channel": "ecommerce",
+                    "merchant_code": "b0deb6f3-e51a-48a7-9268-f1441d46f7bd",
+                    "merchant_operation_number": "5974484",
+                    "payment_method": {
+                      "method_name": "YAPE",
+                      "method_details": {
+                        "callback_url": "https://example.com/callback",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "969929157"
+                        },
+                        "otp": "557454"
+                      }
+                    },
+                    "payment_details": {
+                      "amount": "15000",
+                      "currency": "604",
+                      "billing": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "shipping": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "customer": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "product_details": []
+                    }
+                  }
+                },
+                "bank_transfer": {
+                  "summary": "Pago con transferencia bancaria",
+                  "value": {
+                    "action": "authorize",
+                    "channel": "ecommerce",
+                    "merchant_code": "your_merchant_code",
+                    "merchant_operation_number": "5974483",
+                    "payment_method": {
+                      "method_name": "BANK_TRANSFER",
+                      "method_details": {
+                        "redirect_url": "https://example.com",
+                        "callback_url": "https://example.com/callback"
+                      }
+                    },
+                    "payment_details": {
+                      "amount": "15000",
+                      "currency": "604",
+                      "billing": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "shipping": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "customer": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "product_details": []
+                    }
+                  }
+                },
+                "cuotealo": {
+                  "summary": "Pago con Cuotealo",
+                  "value": {
+                    "action": "authorize",
+                    "channel": "ecommerce",
+                    "merchant_code": "your_merchant_code",
+                    "merchant_operation_number": "5974483",
+                    "payment_method": {
+                      "method_name": "CUOTEALO",
+                      "method_details": {
+                        "redirect_url": "https://example.com",
+                        "callback_url": "https://example.com/callback"
+                      }
+                    },
+                    "payment_details": {
+                      "amount": "15000",
+                      "currency": "604",
+                      "billing": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "shipping": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "customer": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "product_details": []
+                    }
+                  }
+                },
+                "pagoefectivo": {
+                  "summary": "Pago con PagoEfectivo",
+                  "value": {
+                    "action": "authorize",
+                    "channel": "ecommerce",
+                    "merchant_code": "your_merchant_code",
+                    "merchant_operation_number": "5974483",
+                    "payment_method": {
+                      "method_name": "PAGOEFECTIVO",
+                      "method_details": {
+                        "redirect_url": "https://example.com",
+                        "callback_url": "https://example.com/callback"
+                      }
+                    },
+                    "payment_details": {
+                      "amount": "15000",
+                      "currency": "604",
+                      "billing": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "shipping": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "customer": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "product_details": []
+                    }
+                  }
+                },
+                "qr": {
+                  "summary": "Pago con QR",
+                  "value": {
+                    "action": "authorize",
+                    "channel": "ecommerce",
+                    "merchant_code": "your_merchant_code",
+                    "merchant_operation_number": "5733813",
+                    "payment_method": {
+                      "method_name": "QR",
+                      "method_details": {
+                        "callback_url": "https://example.com/callback"
+                      }
+                    },
+                    "payment_details": {
+                      "amount": "15000",
+                      "currency": "604",
+                      "billing": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "shipping": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "customer": {
+                        "first_name": "Pedro",
+                        "last_name": "Miranda",
+                        "email": "pedro@example.com",
+                        "phone": {
+                          "country_code": "+51",
+                          "subscriber": "999835685"
+                        },
+                        "location": {
+                          "line_1": "Av. Casimiro Ulloa 333",
+                          "line_2": "Miraflores",
+                          "city": "Lima",
+                          "state": "Lima",
+                          "country": "Peru"
+                        }
+                      },
+                      "product_details": []
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaccion procesada correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChargeAuthorizeResponse"
+                },
+                "examples": {
+                  "card": {
+                    "summary": "Respuesta de pago con tarjeta",
+                    "value": {
+                      "success": "true",
+                      "action": "authorize",
+                      "merchant_code": "your_merchant_code",
+                      "merchant_operation_number": "2391645",
+                      "transaction": {
+                        "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                        "channel": "ecommerce",
+                        "state": "AUTORIZADO",
+                        "state_reason": "Approval and completed successfully",
+                        "amount": "15000",
+                        "currency": "604",
+                        "payment_method": {
+                          "method_name": "CARD",
+                          "method_details": {
+                            "masked_pan": "411111********1111",
+                            "brand": "VISA",
+                            "bin": "411111",
+                            "last_pan": "9268",
+                            "card_type": "DEBIT",
+                            "card_country": "PE",
+                            "issuer": "BANCO DE CREDITO DEL PERU - BCP",
+                            "installments": {
+                              "plan": "NORMAL",
+                              "installment_number": "2"
+                            }
+                          }
+                        },
+                        "processor_response": {
+                          "authorization_code": "055552",
+                          "brand_transaction_id": "100B",
+                          "result_message": {
+                            "code": "00",
+                            "description": "Approval and completed successfully"
+                          }
+                        },
+                        "additional_fields": null,
+                        "lifecycle": [
+                          {
+                            "state": "REGISTRADO",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          },
+                          {
+                            "state": "PENDIENTE",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          },
+                          {
+                            "state": "AUTORIZADO",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "yape": {
+                    "summary": "Respuesta de pago con Yape",
+                    "value": {
+                      "success": "true",
+                      "action": "authorize",
+                      "merchant_code": "b0deb6f3-e51a-48a7-9268-f1441d46f7bd",
+                      "merchant_operation_number": "2391645",
+                      "transaction": {
+                        "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                        "channel": "ecommerce",
+                        "state": "AUTORIZADO",
+                        "state_reason": "Pago exitoso con Yape",
+                        "amount": "15000",
+                        "currency": "604",
+                        "payment_method": {
+                          "method_name": "YAPE",
+                          "method_details": {
+                            "phone": {
+                              "country_code": "+51",
+                              "subscriber": "969929157"
+                            },
+                            "masked_pan": "411111********1111",
+                            "brand": "VISA",
+                            "bin": "411111",
+                            "last_pan": "9268",
+                            "card_type": "DEBIT",
+                            "card_country": "PE",
+                            "issuer": "BANCO DE CREDITO DEL PERU - BCP"
+                          }
+                        },
+                        "processor_response": {
+                          "authorization_code": "055552",
+                          "brand_transaction_id": "100B",
+                          "result_message": {
+                            "code": "00",
+                            "description": "Approval and completed successfully"
+                          }
+                        },
+                        "additional_fields": null,
+                        "lifecycle": [
+                          {
+                            "state": "REGISTRADO",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          },
+                          {
+                            "state": "PENDIENTE",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          },
+                          {
+                            "state": "AUTORIZADO",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "bank_transfer": {
+                    "summary": "Respuesta de pago con transferencia bancaria",
+                    "value": {
+                      "success": "true",
+                      "action": "authorize",
+                      "merchant_code": "your_merchant_code",
+                      "merchant_operation_number": "2391645",
+                      "transaction": {
+                        "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                        "channel": "ecommerce",
+                        "state": "PENDIENTE",
+                        "state_reason": "Url generada para continuar con el pago",
+                        "continue_url": "https://api.dev.alignet.io/payment/continue/card/81vrxn30vja1gwcfsdng4i5g5",
+                        "amount": "15000",
+                        "currency": "604",
+                        "payment_method": {
+                          "method_name": "BANK_TRANSFER",
+                          "method_details": {
+                            "redirect_url": "https://example.com",
+                            "callback_url": "https://example.com/callback"
+                          }
+                        },
+                        "expiration_date": {
+                          "utc_time": "2024-03-12T22:49:36.018Z",
+                          "unix_time": 1711585037
+                        },
+                        "processor_response": null,
+                        "additional_fields": null,
+                        "lifecycle": [
+                          {
+                            "state": "REGISTRADO",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          },
+                          {
+                            "state": "PENDIENTE",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "cuotealo": {
+                    "summary": "Respuesta de pago con Cuotealo",
+                    "value": {
+                      "success": "true",
+                      "action": "authorize",
+                      "merchant_code": "your_merchant_code",
+                      "merchant_operation_number": "2391645",
+                      "transaction": {
+                        "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                        "channel": "ecommerce",
+                        "state": "PENDIENTE",
+                        "state_reason": "Url generada para continuar con el pago",
+                        "continue_url": "https://api.dev.alignet.io/payment/continue/card/81vrxn30vja1gwcfsdng4i5g5",
+                        "amount": "15000",
+                        "currency": "604",
+                        "payment_method": {
+                          "method_name": "CUOTEALO",
+                          "method_details": {
+                            "redirect_url": "https://example.com",
+                            "callback_url": "https://example.com/callback"
+                          }
+                        },
+                        "expiration_date": {
+                          "utc_time": "2024-03-12T22:49:36.018Z",
+                          "unix_time": 1711585037
+                        },
+                        "processor_response": null,
+                        "additional_fields": null,
+                        "lifecycle": [
+                          {
+                            "state": "REGISTRADO",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          },
+                          {
+                            "state": "PENDIENTE",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "pagoefectivo": {
+                    "summary": "Respuesta de pago con PagoEfectivo",
+                    "value": {
+                      "success": "true",
+                      "action": "authorize",
+                      "merchant_code": "your_merchant_code",
+                      "merchant_operation_number": "2391645",
+                      "transaction": {
+                        "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                        "channel": "ecommerce",
+                        "state": "PENDIENTE",
+                        "state_reason": "Codigo CIP generado exitosamente",
+                        "amount": "15000",
+                        "currency": "604",
+                        "payment_method": {
+                          "method_name": "PAGOEFECTIVO",
+                          "method_details": {
+                            "callback_url": "https://example.com/callback"
+                          }
+                        },
+                        "expiration_date": {
+                          "utc_time": "2024-03-12T22:49:36.018Z",
+                          "unix_time": 1711585037
+                        },
+                        "processor_response": {
+                          "cip": "1508405",
+                          "cip_url": "https://pre1a.payment.pagoefectivo.pe/72217FA5-4580-4B16-A345-24F028F53356.html",
+                          "result_message": {
+                            "code": "100",
+                            "description": "Solicitud exitosa."
+                          }
+                        },
+                        "additional_fields": null,
+                        "lifecycle": [
+                          {
+                            "state": "REGISTRADO",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          },
+                          {
+                            "state": "PENDIENTE",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "qr": {
+                    "summary": "Respuesta de pago con QR",
+                    "value": {
+                      "success": "true",
+                      "action": "authorize",
+                      "merchant_code": "your_merchant_code",
+                      "merchant_operation_number": "2391645",
+                      "transaction": {
+                        "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                        "channel": "ecommerce",
+                        "state": "PENDIENTE",
+                        "state_reason": "QR generado exitosamente",
+                        "amount": "15000",
+                        "currency": "604",
+                        "payment_method": {
+                          "method_name": "QR",
+                          "method_details": {
+                            "callback_url": "https://example.com/callback"
+                          }
+                        },
+                        "expiration_date": {
+                          "utc_time": "2024-03-12T22:49:36.018Z",
+                          "unix_time": 1711585037
+                        },
+                        "processor_response": {
+                          "date": "2024-03-26 19:17:19.599715",
+                          "qr_image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+                          "qr_id": "6d5d1ffc79234991b5592b825d6ec097",
+                          "result_message": {
+                            "code": "0",
+                            "description": "Exito"
+                          }
+                        },
+                        "additional_fields": null,
+                        "lifecycle": [
+                          {
+                            "state": "REGISTRADO",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          },
+                          {
+                            "state": "PENDIENTE",
+                            "date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            }
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request invalido."
+          },
+          "401": {
+            "description": "Token invalido o expirado."
+          }
+        }
+      }
+    },
+    "/charges/{merchant_code}/{merchant_operation_number}/{transaction_id}": {
+      "get": {
+        "tags": [
+          "PayIn"
+        ],
+        "summary": "Consultar transaccion ecommerce",
+        "description": "Consulta el estado de una transaccion generada previamente por el API de autorizacion. Este endpoint soporta flujos con Tarjeta, Yape, Transferencia Bancaria, QR, Cuotéalo y PagoEfectivo.",
+        "operationId": "getEcommercePaymentStatus",
+        "servers": [
+          {
+            "url": "https://api.preprod.alignet.io",
+            "description": "Pre-Produccion"
+          },
+          {
+            "url": "https://api.alignet.io",
+            "description": "Produccion"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Token Bearer obtenido desde autenticacion.",
+            "schema": {
+              "type": "string",
+              "default": "Bearer {{access_token}}"
+            },
+            "example": "Bearer {{access_token}}"
+          },
+          {
+            "name": "ALG-API-VERSION",
+            "in": "header",
+            "required": true,
+            "description": "Version del API a usar.",
+            "schema": {
+              "type": "string",
+              "default": "1709847567"
+            },
+            "example": "1709847567"
+          },
+          {
+            "name": "payment-facilitator-code",
+            "in": "header",
+            "required": false,
+            "description": "Identificador del Facilitador de Pago.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "your_pf_code"
+          },
+          {
+            "name": "merchant_code",
+            "in": "path",
+            "required": true,
+            "description": "Identificador del comercio.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "your_merchant_code"
+          },
+          {
+            "name": "merchant_operation_number",
+            "in": "path",
+            "required": true,
+            "description": "Numero de operacion registrado por el comercio.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "2391645"
+          },
+          {
+            "name": "transaction_id",
+            "in": "path",
+            "required": true,
+            "description": "Identificador unico de la transaccion consultada.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "5hk8rwa3h3cq9oyfs3a28v1ms"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaccion consultada correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChargeQueryResponse"
+                },
+                "examples": {
+                  "card": {
+                    "summary": "Consulta de tarjeta",
+                    "value": {
+                      "success": true,
+                      "merchant_code": "your_merchant_code",
+                      "operation": {
+                        "merchant_operation_number": "2391645",
+                        "state": "AUTORIZADO",
+                        "amount": "15000",
+                        "currency": "604",
+                        "transactions": [
+                          {
+                            "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                            "channel": "ecommerce",
+                            "state": "AUTORIZADO",
+                            "state_reason": "Approval and completed successfully",
+                            "amount": "15000",
+                            "currency": "604",
+                            "payment_method": {
+                              "method_name": "CARD",
+                              "method_details": {
+                                "masked_pan": "455788******9268",
+                                "brand": "VISA",
+                                "bin": "455788",
+                                "last_pan": "9268",
+                                "card_type": "DEBIT",
+                                "card_country": "PE",
+                                "issuer": "BANCO DE CREDITO DEL PERU - BCP",
+                                "installments": {
+                                  "plan": "NORMAL",
+                                  "installment_number": "2"
+                                },
+                                "redirect_url": "https://example.com",
+                                "callback_url": "https://example.com/callback"
+                              }
+                            },
+                            "processor_response": {
+                              "authorization_code": "055552",
+                              "brand_transaction_id": "A055552",
+                              "result_message": {
+                                "code": "00",
+                                "description": "Approval and completed successfully"
+                              }
+                            },
+                            "lifecycle": [
+                              {
+                                "state": "REGISTRADO",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              },
+                              {
+                                "state": "PENDIENTE",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              },
+                              {
+                                "state": "AUTORIZADO",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "yape": {
+                    "summary": "Consulta de Yape",
+                    "value": {
+                      "success": true,
+                      "merchant_code": "your_merchant_code",
+                      "operation": {
+                        "merchant_operation_number": "2391645",
+                        "state": "AUTORIZADO",
+                        "amount": "15000",
+                        "currency": "604",
+                        "transactions": [
+                          {
+                            "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                            "channel": "ecommerce",
+                            "state": "AUTORIZADO",
+                            "state_reason": "Approval and completed successfully",
+                            "amount": "15000",
+                            "currency": "604",
+                            "payment_method": {
+                              "method_name": "YAPE",
+                              "method_details": {
+                                "phone": {
+                                  "country_code": "+51",
+                                  "subscriber": "969929157"
+                                },
+                                "masked_pan": "455788******9268",
+                                "brand": "VISA",
+                                "bin": "455788",
+                                "last_pan": "9268",
+                                "card_type": "DEBIT",
+                                "card_country": "PE",
+                                "issuer": "BANCO DE CREDITO DEL PERU - BCP",
+                                "callback_url": "https://example.com/callback"
+                              }
+                            },
+                            "processor_response": {
+                              "authorization_code": "055552",
+                              "brand_transaction_id": "A055552",
+                              "result_message": {
+                                "code": "00",
+                                "description": "Approval and completed successfully"
+                              }
+                            },
+                            "lifecycle": [
+                              {
+                                "state": "REGISTRADO",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              },
+                              {
+                                "state": "PENDIENTE",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              },
+                              {
+                                "state": "AUTORIZADO",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "bank_transfer": {
+                    "summary": "Consulta de transferencia bancaria",
+                    "value": {
+                      "success": true,
+                      "merchant_code": "your_merchant_code",
+                      "operation": {
+                        "merchant_operation_number": "2391645",
+                        "created_at": {
+                          "utc_time": "2024-03-12T22:49:36.018Z",
+                          "unix_time": 1710282940
+                        },
+                        "state": "PENDIENTE",
+                        "amount": "15000",
+                        "currency": "604",
+                        "transactions": [
+                          {
+                            "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                            "channel": "ecommerce",
+                            "state": "PENDIENTE",
+                            "state_reason": "Url generada para continuar con el pago",
+                            "amount": "15000",
+                            "currency": "604",
+                            "payment_method": {
+                              "method_name": "BANK_TRANSFER",
+                              "method_details": {
+                                "redirect_url": "https://example.com",
+                                "callback_url": "https://example.com/callback"
+                              }
+                            },
+                            "continue_url": "https://api.dev.alignet.io/payment/continue/bank_transfer/c7dagnrwgxgh1b6kzwirheezv",
+                            "expiration_date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            },
+                            "processor_response": null,
+                            "additional_fields": null,
+                            "lifecycle": [
+                              {
+                                "state": "REGISTRADO",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              },
+                              {
+                                "state": "PENDIENTE",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "qr": {
+                    "summary": "Consulta de QR",
+                    "value": {
+                      "success": true,
+                      "merchant_code": "your_merchant_code",
+                      "operation": {
+                        "merchant_operation_number": "2391645",
+                        "created_at": {
+                          "utc_time": "2024-03-12T22:49:36.018Z",
+                          "unix_time": 1710282940
+                        },
+                        "state": "PENDIENTE",
+                        "amount": "15000",
+                        "currency": "604",
+                        "transactions": [
+                          {
+                            "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                            "channel": "ecommerce",
+                            "state": "PENDIENTE",
+                            "state_reason": "QR generado, pendiente de pago",
+                            "amount": "15000",
+                            "currency": "604",
+                            "payment_method": {
+                              "method_name": "QR",
+                              "method_details": {
+                                "callback_url": "https://example.com/callback"
+                              }
+                            },
+                            "expiration_date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            },
+                            "processor_response": {
+                              "date": "2024-03-21 14:53:15.096596",
+                              "qr_image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+                              "qr_id": "e5e36834a2294d83868d587af8ae8e13",
+                              "result_message": {
+                                "code": "0",
+                                "description": "Exito"
+                              }
+                            },
+                            "additional_fields": null,
+                            "lifecycle": [
+                              {
+                                "state": "REGISTRADO",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              },
+                              {
+                                "state": "PENDIENTE",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "cuotealo": {
+                    "summary": "Consulta de Cuotealo",
+                    "value": {
+                      "success": true,
+                      "merchant_code": "your_merchant_code",
+                      "operation": {
+                        "merchant_operation_number": "2391645",
+                        "created_at": {
+                          "utc_time": "2024-03-12T22:49:36.018Z",
+                          "unix_time": 1710282940
+                        },
+                        "state": "PENDIENTE",
+                        "amount": "15000",
+                        "currency": "604",
+                        "transactions": [
+                          {
+                            "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                            "channel": "ecommerce",
+                            "state": "PENDIENTE",
+                            "state_reason": "Url generada para continuar con el pago",
+                            "amount": "15000",
+                            "currency": "604",
+                            "payment_method": {
+                              "method_name": "CUOTEALO",
+                              "method_details": {
+                                "redirect_url": "https://example.com",
+                                "callback_url": "https://example.com/callback"
+                              }
+                            },
+                            "continue_url": "https://api.dev.alignet.io/payment/continue/cuotealo/c7dagnrwgxgh1b6kzwirheezv",
+                            "expiration_date": {
+                              "utc_time": "2024-03-12T22:49:36.018Z",
+                              "unix_time": 1710282940
+                            },
+                            "processor_response": null,
+                            "additional_fields": null,
+                            "lifecycle": [
+                              {
+                                "state": "REGISTRADO",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              },
+                              {
+                                "state": "PENDIENTE",
+                                "date": {
+                                  "utc_time": "2024-03-12T22:49:36.018Z",
+                                  "unix_time": 1710282940
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "pagoefectivo": {
+                    "summary": "Consulta de PagoEfectivo",
+                    "value": {
+                      "success": true,
+                      "merchant_code": "your_merchant_code",
+                      "operation": {
+                        "merchant_operation_number": "7649167",
+                        "state": "PENDIENTE",
+                        "amount": "121900",
+                        "currency": "604",
+                        "transactions": [
+                          {
+                            "transaction_id": "a9e9040spd17ba3tdw42u4uv3",
+                            "channel": "ecommerce",
+                            "state": "PENDIENTE",
+                            "state_reason": "Codigo CIP generado exitosamente",
+                            "amount": "121900",
+                            "currency": "604",
+                            "additional_fields": null,
+                            "payment_method": {
+                              "method_name": "PAGOEFECTIVO",
+                              "method_details": {
+                                "callback_url": "https://example.com/callback"
+                              }
+                            },
+                            "expiration_date": {
+                              "utc_time": "2024-07-06T16:20:16.345140+00:00",
+                              "unix_time": 1720282816
+                            },
+                            "processor_response": {
+                              "cip": "1508405",
+                              "cip_url": "https://pre1a.payment.pagoefectivo.pe/72217FA5-4580-4B16-A345-24F028F53356.html",
+                              "result_message": {
+                                "code": "100",
+                                "description": "Solicitud exitosa."
+                              }
+                            },
+                            "lifecycle": [
+                              {
+                                "state": "REGISTRADO",
+                                "date": {
+                                  "utc_time": "2024-07-05T16:20:16",
+                                  "unix_time": 1720196416
+                                }
+                              },
+                              {
+                                "state": "PENDIENTE",
+                                "date": {
+                                  "utc_time": "2024-07-05T16:20:16",
+                                  "unix_time": 1720196416
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Procesado correctamente"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request invalido."
+          },
+          "401": {
+            "description": "Token invalido o expirado."
+          }
+        }
+      }
+    },
+    "/charges/{merchant_code}/{merchant_operation_number}": {
+      "delete": {
+        "tags": [
+          "PayIn"
+        ],
+        "summary": "Cancelar o extornar operacion ecommerce",
+        "description": "Cancela o extorna una transaccion generada previamente por el API de autorizacion.\n\nCon el metodo DELETE del orquestador, las transacciones se podran cancelar o extornar segun el estado en el que se encuentran. Las transacciones en estado REGISTRADO o PENDIENTE pasan a CANCELADO para CARD cuando es por Redirect, CUOTEALO, QR, BANK_TRANSFER y PAGOEFECTIVO. Las transacciones en estado AUTORIZADO pasan a EXTORNADO para CARD y YAPE.",
+        "operationId": "cancelOrReverseEcommercePayment",
+        "servers": [
+          {
+            "url": "https://api.preprod.alignet.io",
+            "description": "Pre-Produccion"
+          },
+          {
+            "url": "https://api.alignet.io",
+            "description": "Produccion"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Token Bearer obtenido desde autenticacion.",
+            "schema": {
+              "type": "string",
+              "default": "Bearer {{access_token}}"
+            },
+            "example": "Bearer {{access_token}}"
+          },
+          {
+            "name": "ALG-API-VERSION",
+            "in": "header",
+            "required": true,
+            "description": "Version del API a usar.",
+            "schema": {
+              "type": "string",
+              "default": "1709847567"
+            },
+            "example": "1709847567"
+          },
+          {
+            "name": "payment-facilitator-code",
+            "in": "header",
+            "required": false,
+            "description": "Identificador del Facilitador de Pago.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "your_pf_code"
+          },
+          {
+            "name": "merchant_code",
+            "in": "path",
+            "required": true,
+            "description": "Identificador del comercio.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "your_merchant_code"
+          },
+          {
+            "name": "merchant_operation_number",
+            "in": "path",
+            "required": true,
+            "description": "Numero de operacion registrado por el comercio.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "2391645"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion cancelada o extornada correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChargeCancelResponse"
+                },
+                "examples": {
+                  "cancel_success": {
+                    "summary": "Cancelacion exitosa",
+                    "value": {
+                      "success": true,
+                      "merchant_code": "abc",
+                      "merchant_operation_number": "2836824",
+                      "operation": {
+                        "merchant_operation_number": "2836824",
+                        "amount": "1000",
+                        "currency": "604",
+                        "created_at": {
+                          "utc_time": "2024-07-05T16:46:12",
+                          "unix_time": 1720197972
+                        },
+                        "state": "CANCELADO",
+                        "transactions": [
+                          {
+                            "transaction_id": "9namjcnjvqzas2t33xyfrqr2h",
+                            "channel": "ecommerce",
+                            "state": "CANCELADO",
+                            "state_reason": "Usuario cancelo el metodo de pago",
+                            "amount": "1000",
+                            "currency": "604",
+                            "additional_fields": null,
+                            "payment_method": {
+                              "method_name": "PAGOEFECTIVO",
+                              "method_details": {
+                                "callback_url": "https://jjap9ekgee.execute-api.us-east-1.amazonaws.com/development/redirect/prueba/merchant_notification_response"
+                              }
+                            },
+                            "expiration_date": null,
+                            "processor_response": null,
+                            "lifecycle": [
+                              {
+                                "state": "REGISTRADO",
+                                "date": {
+                                  "utc_time": "2024-07-05T16:46:12",
+                                  "unix_time": 1720197972
+                                }
+                              },
+                              {
+                                "state": "PENDIENTE",
+                                "date": {
+                                  "utc_time": "2024-07-05T16:46:13",
+                                  "unix_time": 1720197973
+                                }
+                              },
+                              {
+                                "state": "CANCELADO",
+                                "date": {
+                                  "utc_time": "2024-07-05T16:47:22",
+                                  "unix_time": 1720198042
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Se proceso correctamente la peticion"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "reverse_success": {
+                    "summary": "Extorno exitoso",
+                    "value": {
+                      "success": true,
+                      "merchant_code": "abc",
+                      "merchant_operation_number": "8522366",
+                      "operation": {
+                        "merchant_operation_number": "8522366",
+                        "amount": "150",
+                        "currency": "604",
+                        "created_at": {
+                          "utc_time": "2024-07-05T20:34:18",
+                          "unix_time": 1720211658
+                        },
+                        "state": "EXTORNADO",
+                        "transactions": [
+                          {
+                            "transaction_id": "0fuwnd6miwsomisn0ikqivav9",
+                            "channel": "ecommerce",
+                            "state": "EXTORNADO",
+                            "state_reason": "Pago anulado",
+                            "amount": "150",
+                            "currency": "604",
+                            "additional_fields": null,
+                            "payment_method": {
+                              "method_name": "CARD",
+                              "method_details": {
+                                "redirect_url": null,
+                                "callback_url": null,
+                                "masked_pan": "545545******3401",
+                                "brand": "MASTERCARD",
+                                "bin": "545545",
+                                "last_pan": "3401",
+                                "card_type": "CIRRUS",
+                                "card_country": "PE",
+                                "issuer": "SCOTIABANK PERU S.A.A."
+                              }
+                            },
+                            "continue_url": null,
+                            "expiration_date": null,
+                            "risk_evaluation": null,
+                            "authentication_result": null,
+                            "processor_response": {
+                              "reverse_date": "05-07-2024 20:34:19",
+                              "reverse_code": "T90261",
+                              "brand_transaction_id": "0705203422939657",
+                              "result_message": {
+                                "code": "00",
+                                "description": "Aprobado"
+                              }
+                            },
+                            "lifecycle": [
+                              {
+                                "state": "REGISTRADO",
+                                "date": {
+                                  "utc_time": "2024-07-05T20:34:18",
+                                  "unix_time": 1720211658
+                                }
+                              },
+                              {
+                                "state": "PENDIENTE",
+                                "date": {
+                                  "utc_time": "2024-07-05T20:34:19",
+                                  "unix_time": 1720211659
+                                }
+                              },
+                              {
+                                "state": "AUTORIZADO",
+                                "date": {
+                                  "utc_time": "2024-07-05T20:34:24",
+                                  "unix_time": 1720211664
+                                }
+                              },
+                              {
+                                "state": "EXTORNADO",
+                                "date": {
+                                  "utc_time": "2024-07-05T21:34:24",
+                                  "unix_time": 1720211664
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "meta": {
+                        "status": {
+                          "code": "00",
+                          "message_ilgn": [
+                            {
+                              "locale": "es_PE",
+                              "value": "Se proceso correctamente la peticion"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request invalido."
+          },
+          "401": {
+            "description": "Token invalido o expirado."
+          }
+        }
+      }
+    },
+    "/refund": {
+      "get": {
+        "tags": [
+          "Refunds"
+        ],
+        "summary": "Consultar devoluciones con filtros",
+        "description": "El API de Consulta Masiva de Devolucion permite consultar mediante filtros una o mas solicitudes de devolucion generadas anteriormente por el API de Devoluciones.",
+        "operationId": "listRefunds",
+        "servers": [
+          {
+            "url": "https://api.preprod.alignet.io",
+            "description": "Pre-Produccion"
+          },
+          {
+            "url": "https://api.alignet.io",
+            "description": "Produccion"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Token Bearer obtenido desde autenticacion.",
+            "schema": {
+              "type": "string",
+              "default": "Bearer {{access_token}}"
+            },
+            "example": "Bearer {{access_token}}"
+          },
+          {
+            "name": "ALG-API-VERSION",
+            "in": "header",
+            "required": true,
+            "description": "Version del API a usar.",
+            "schema": {
+              "type": "string",
+              "default": "1709847567"
+            },
+            "example": "1709847567"
+          },
+          {
+            "name": "payment-facilitator-code",
+            "in": "header",
+            "required": false,
+            "description": "Identificador del Facilitador de Pago.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "your_pf_code"
+          },
+          {
+            "name": "date_start",
+            "in": "query",
+            "required": true,
+            "description": "Fecha inicial de cuando se realizo el refund en formato YYYY-MM-DD.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "2025-05-26"
+          },
+          {
+            "name": "date_end",
+            "in": "query",
+            "required": true,
+            "description": "Fecha final de cuando se realizo el refund en formato YYYY-MM-DD.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "2025-05-26"
+          },
+          {
+            "name": "merchant_code",
+            "in": "query",
+            "required": false,
+            "description": "Codigo unico del comercio.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "41bb301e-3c37-4332-accb-ed5ec19081e4"
+          },
+          {
+            "name": "merchant_operation_number",
+            "in": "query",
+            "required": false,
+            "description": "Numero de operacion de un pedido.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "239766"
+          },
+          {
+            "name": "transaction_id",
+            "in": "query",
+            "required": false,
+            "description": "UUID unico de una transaccion.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "bko66gpi8czns4tcde93q96vd"
+          },
+          {
+            "name": "refund_state",
+            "in": "query",
+            "required": false,
+            "description": "Estado del refund.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "REGISTERED",
+                "IN_PROCESS",
+                "RESOLVED",
+                "REJECTED"
+              ]
+            },
+            "example": "REGISTERED"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Consulta masiva de devoluciones obtenida correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefundQueryResponse"
+                },
+                "example": {
+                  "success": "true",
+                  "merchant_code": "41bb301e-3c37-4332-accb-ed5ec19081e4",
+                  "operations_count": "1",
+                  "operations": [
+                    {
+                      "refund_id": "922178aa-ce4c-4c5f-8190-82fa7e009425",
+                      "state": "REGISTERED",
+                      "refund_reason": "Solicitud recibida y validada",
+                      "type": "TOTAL",
+                      "merchant_operation_number": "239766",
+                      "transaction_id": "bko66gpi8czns4tcde93q96vd",
+                      "refund_amount": "1050",
+                      "transaction_amount": "1050",
+                      "currency": "604",
+                      "payment_method": {
+                        "name": "CARD",
+                        "brand": "VISA",
+                        "masked_pan": "447411******2240"
+                      },
+                      "additional_fields": {
+                        "canal": "WEB",
+                        "reason": "cliente no reconocio el consumo",
+                        "description": "solicitud por desconocimiento"
+                      },
+                      "lifecycle": [
+                        {
+                          "state": "REGISTERED",
+                          "date": {
+                            "utc_time": "2025-05-26T06:06:45",
+                            "unix_time": 1748239605
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "meta": {
+                    "status": {
+                      "code": "00",
+                      "message_ilgn": [
+                        {
+                          "locale": "es_PE",
+                          "value": "Se proceso correctamente la peticion"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request invalido."
+          },
+          "401": {
+            "description": "Token invalido o expirado."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Refunds"
+        ],
+        "summary": "Solicitar devolucion",
+        "description": "El API de Devoluciones permite enviar una o mas transacciones en estado LIQUIDADO a devolver. Solo esta disponible para los metodos CARD, YAPE y CUOTEALO. La devolucion se aplica despues de la autorizacion, cuando la transaccion ya fue liquidada.",
+        "operationId": "createRefund",
+        "servers": [
+          {
+            "url": "https://api.preprod.alignet.io",
+            "description": "Pre-Produccion"
+          },
+          {
+            "url": "https://api.alignet.io",
+            "description": "Produccion"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Token Bearer obtenido desde autenticacion.",
+            "schema": {
+              "type": "string",
+              "default": "Bearer {{access_token}}"
+            },
+            "example": "Bearer {{access_token}}"
+          },
+          {
+            "name": "ALG-API-VERSION",
+            "in": "header",
+            "required": true,
+            "description": "Version del API a usar.",
+            "schema": {
+              "type": "string",
+              "default": "1709847567"
+            },
+            "example": "1709847567"
+          },
+          {
+            "name": "payment-facilitator-code",
+            "in": "header",
+            "required": false,
+            "description": "Identificador del Facilitador de Pago.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "your_pf_code"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefundCreateRequest"
+              },
+              "example": {
+                "merchant_code": "41bb301e-3c37-4332-accb-ed5ec19081e4",
+                "operations": [
+                  {
+                    "type": "TOTAL",
+                    "merchant_operation_number": "239766",
+                    "transaction_id": null,
+                    "refund_amount": "1050",
+                    "additional_fields": {
+                      "canal": "WEB",
+                      "reason": "cliente no reconocio el consumo",
+                      "description": "solicitud por desconocimiento"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Solicitud de devolucion registrada correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefundCreateResponse"
+                },
+                "example": {
+                  "success": "true",
+                  "action": "refund",
+                  "merchant_code": "41bb301e-3c37-4332-accb-ed5ec19081e4",
+                  "operations": [
+                    {
+                      "refund_id": "922178aa-ce4c-4c5f-8190-82fa7e009425",
+                      "state": "REGISTERED",
+                      "refund_reason": "Solicitud recibida y validada",
+                      "type": "TOTAL",
+                      "merchant_operation_number": "239766",
+                      "transaction_id": "bko66gpi8czns4tcde93q96vd",
+                      "refund_amount": "1050",
+                      "transaction_amount": "1050",
+                      "currency": "604",
+                      "payment_method": {
+                        "name": "CARD",
+                        "brand": "VISA",
+                        "masked_pan": "447411******2240"
+                      },
+                      "additional_fields": {
+                        "canal": "WEB",
+                        "reason": "cliente no reconocio el consumo",
+                        "description": "solicitud por desconocimiento"
+                      },
+                      "lifecycle": [
+                        {
+                          "state": "REGISTERED",
+                          "date": {
+                            "utc_time": "2025-05-26T06:06:45",
+                            "unix_time": 1748239605
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "meta": {
+                    "status": {
+                      "code": "00",
+                      "message_ilgn": [
+                        {
+                          "locale": "es_PE",
+                          "value": "Se proceso correctamente la peticion"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request invalido."
+          },
+          "401": {
+            "description": "Token invalido o expirado."
+          }
+        }
+      }
+    },
+    "/refund/{merchant_code}/{merchant_operation_number}": {
+      "get": {
+        "tags": [
+          "Refunds"
+        ],
+        "summary": "Consultar devolucion unitaria",
+        "description": "El API de Consulta Unitaria de Devolucion permite consultar una devolucion generada anteriormente por el API de Devoluciones.",
+        "operationId": "getRefundByMerchantOperationNumber",
+        "servers": [
+          {
+            "url": "https://api.preprod.alignet.io",
+            "description": "Pre-Produccion"
+          },
+          {
+            "url": "https://api.alignet.io",
+            "description": "Produccion"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Token Bearer obtenido desde autenticacion.",
+            "schema": {
+              "type": "string",
+              "default": "Bearer {{access_token}}"
+            },
+            "example": "Bearer {{access_token}}"
+          },
+          {
+            "name": "ALG-API-VERSION",
+            "in": "header",
+            "required": true,
+            "description": "Version del API a usar.",
+            "schema": {
+              "type": "string",
+              "default": "1709847567"
+            },
+            "example": "1709847567"
+          },
+          {
+            "name": "payment-facilitator-code",
+            "in": "header",
+            "required": false,
+            "description": "Identificador del Facilitador de Pago.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "your_pf_code"
+          },
+          {
+            "name": "merchant_code",
+            "in": "path",
+            "required": true,
+            "description": "Identificador del comercio.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "41bb301e-3c37-4332-accb-ed5ec19081e4"
+          },
+          {
+            "name": "merchant_operation_number",
+            "in": "path",
+            "required": true,
+            "description": "Numero de operacion registrado por el comercio.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "239766"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Consulta unitaria de devolucion obtenida correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefundQueryResponse"
+                },
+                "example": {
+                  "success": "true",
+                  "merchant_code": "41bb301e-3c37-4332-accb-ed5ec19081e4",
+                  "operations_count": "1",
+                  "operations": [
+                    {
+                      "refund_id": "922178aa-ce4c-4c5f-8190-82fa7e009425",
+                      "state": "REGISTERED",
+                      "refund_reason": "Solicitud recibida y validada",
+                      "type": "TOTAL",
+                      "merchant_operation_number": "239766",
+                      "transaction_id": "bko66gpi8czns4tcde93q96vd",
+                      "refund_amount": "1050",
+                      "transaction_amount": "1050",
+                      "currency": "604",
+                      "payment_method": {
+                        "name": "CARD",
+                        "brand": "VISA",
+                        "masked_pan": "447411******2240"
+                      },
+                      "additional_fields": {
+                        "canal": "WEB",
+                        "reason": "cliente no reconocio el consumo",
+                        "description": "solicitud por desconocimiento"
+                      },
+                      "lifecycle": [
+                        {
+                          "state": "REGISTERED",
+                          "date": {
+                            "utc_time": "2025-05-26T06:06:45",
+                            "unix_time": 1748239605
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "meta": {
+                    "status": {
+                      "code": "00",
+                      "message_ilgn": [
+                        {
+                          "locale": "es_PE",
+                          "value": "Se proceso correctamente la peticion"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request invalido."
+          },
+          "401": {
+            "description": "Token invalido o expirado."
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {
+    "serverToServerNotification": {
+      "post": {
+        "summary": "Notificacion ServerToServer",
+        "description": "Alignet One envia una notificacion HTTP POST al callback del comercio con el resultado final de la autorizacion. El header `signature` debe validarse con la llave publica del ambiente usando el body crudo recibido.",
+        "operationId": "serverToServerNotification",
+        "parameters": [
+          {
+            "name": "signature",
+            "in": "header",
+            "required": true,
+            "description": "Firma digital en Base64 generada con SHA512withRSA sobre el body completo recibido. Considerar hasta una longitud de 512 caracteres.",
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            },
+            "example": "QmFzZTY0U2lnbmF0dXJlRXhhbXBsZQ=="
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServerToServerNotificationRequest"
+              },
+              "examples": {
+                "authorized": {
+                  "summary": "Notificacion de autorizacion exitosa",
+                  "value": {
+                    "success": "true",
+                    "action": "authorize",
+                    "merchant_code": "b0deb6f3-e51a-48a7-9268-f1441d46f7bd",
+                    "merchant_operation_number": "2391645",
+                    "transaction": {
+                      "transaction_id": "5hk8rwa3h3cq9oyfs3a28v1ms",
+                      "state": "AUTORIZADO",
+                      "amount": "15000",
+                      "currency": "604",
+                      "processor_response": {
+                        "date": "17-01-2024 12:27:46",
+                        "authorization_code": "055552",
+                        "result_message": {
+                          "code": "00",
+                          "description": "Approval and completed successfully"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "status": {
+                        "code": "00",
+                        "message_ilgn": [
+                          {
+                            "locale": "es_PE",
+                            "value": "Procesado correctamente"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "El comercio confirma la recepcion de la notificacion con HTTP 200 en un maximo de 10 segundos."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PhoneWithCountryCode": {
+        "type": "object",
+        "required": [
+          "country_code",
+          "subscriber"
+        ],
+        "properties": {
+          "country_code": {
+            "type": "string",
+            "example": "+51"
+          },
+          "subscriber": {
+            "type": "string",
+            "example": "999835685"
+          }
+        }
+      },
+      "PhoneWithPrefix": {
+        "type": "object",
+        "required": [
+          "prefix",
+          "number"
+        ],
+        "properties": {
+          "prefix": {
+            "type": "string",
+            "example": "51"
+          },
+          "number": {
+            "type": "string",
+            "example": "999835685"
+          }
+        }
+      },
+      "LocationDetails": {
+        "type": "object",
+        "required": [
+          "line_1",
+          "line_2",
+          "city",
+          "state",
+          "country"
+        ],
+        "properties": {
+          "line_1": {
+            "type": "string",
+            "example": "Av. Casimiro Ulloa 333"
+          },
+          "line_2": {
+            "type": "string",
+            "example": "Miraflores"
+          },
+          "city": {
+            "type": "string",
+            "example": "Lima"
+          },
+          "state": {
+            "type": "string",
+            "example": "Lima"
+          },
+          "country": {
+            "type": "string",
+            "example": "Peru"
+          }
+        }
+      },
+      "PersonDetails": {
+        "type": "object",
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "phone",
+          "location"
+        ],
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "example": "Pedro"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Miranda"
+          },
+          "email": {
+            "type": "string",
+            "example": "pedro@example.com"
+          },
+          "phone": {
+            "$ref": "#/components/schemas/PhoneWithCountryCode"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationDetails"
+          }
+        }
+      },
+      "CardHolderDetails": {
+        "type": "object",
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "phone"
+        ],
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "example": "Pedro"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Miranda"
+          },
+          "email": {
+            "type": "string",
+            "example": "pedro@example.com"
+          },
+          "phone": {
+            "$ref": "#/components/schemas/PhoneWithPrefix"
+          }
+        }
+      },
+      "CardAuthentication3dsSecure": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "example": "2.1.0"
+          },
+          "electronic_commerce_indicator": {
+            "type": "string",
+            "example": "05"
+          },
+          "cardholder_authentication_verification_value": {
+            "type": "string",
+            "example": "AJkBB5NBeQAAAD3MYENQdAAAAAA="
+          },
+          "ds_transaction_id": {
+            "type": "string",
+            "example": "ABC123"
+          },
+          "three_ds_server_transaction_id": {
+            "type": "string",
+            "example": "ABC123"
+          },
+          "trans_status": {
+            "type": "string",
+            "example": "Y"
+          }
+        }
+      },
+      "CardAuthenticationResult": {
+        "type": "object",
+        "description": "Resultado de autenticacion 3DS obtenido previamente.",
+        "properties": {
+          "3ds_secure": {
+            "$ref": "#/components/schemas/CardAuthentication3dsSecure"
+          }
+        }
+      },
+      "CardInstallmentsRequest": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "type": "string",
+            "description": "Plan de cuotas. 01 = Normal.",
+            "example": "01"
+          },
+          "number": {
+            "type": "string",
+            "example": "3"
+          }
+        }
+      },
+      "CardPaymentMethodDetails": {
+        "type": "object",
+        "required": [
+          "pan",
+          "expiry_date",
+          "security_code",
+          "card_holder"
+        ],
+        "properties": {
+          "pan": {
+            "type": "string",
+            "description": "Numero de tarjeta.",
+            "example": "4051420006041115"
+          },
+          "expiry_date": {
+            "type": "string",
+            "description": "Fecha de expiracion en formato MMYY.",
+            "example": "1231"
+          },
+          "security_code": {
+            "type": "string",
+            "description": "Codigo de seguridad CVV.",
+            "example": "123"
+          },
+          "card_holder": {
+            "$ref": "#/components/schemas/CardHolderDetails"
+          },
+          "redirect_url": {
+            "type": "string",
+            "description": "URL de retorno al finalizar la autenticacion 3DS.",
+            "example": "https://example.com"
+          },
+          "callback_url": {
+            "type": "string",
+            "description": "URL host to host para notificaciones.",
+            "example": "https://example.com/callback"
+          },
+          "authentication_result": {
+            "$ref": "#/components/schemas/CardAuthenticationResult"
+          },
+          "installments": {
+            "$ref": "#/components/schemas/CardInstallmentsRequest"
+          }
+        }
+      },
+      "CardPaymentMethod": {
+        "title": "Tarjeta",
+        "type": "object",
+        "required": [
+          "method_name",
+          "method_details"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "CARD"
+            ],
+            "example": "CARD"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/CardPaymentMethodDetails"
+          }
+        }
+      },
+      "YapePaymentMethodDetails": {
+        "type": "object",
+        "required": [
+          "phone",
+          "otp"
+        ],
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "description": "URL donde se realizara la notificacion host to host.",
+            "example": "https://example.com/callback"
+          },
+          "phone": {
+            "$ref": "#/components/schemas/PhoneWithCountryCode"
+          },
+          "otp": {
+            "type": "string",
+            "description": "Codigo OTP de la billetera Yape.",
+            "example": "557454"
+          }
+        }
+      },
+      "YapePaymentMethod": {
+        "title": "Yape",
+        "type": "object",
+        "required": [
+          "method_name",
+          "method_details"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "YAPE"
+            ],
+            "example": "YAPE"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/YapePaymentMethodDetails"
+          }
+        }
+      },
+      "BankTransferPaymentMethodDetails": {
+        "type": "object",
+        "required": [
+          "redirect_url"
+        ],
+        "properties": {
+          "redirect_url": {
+            "type": "string",
+            "description": "URL donde se realizara el redirect cuando finalice la autorizacion.",
+            "example": "https://example.com"
+          },
+          "callback_url": {
+            "type": "string",
+            "description": "URL donde se realizara la notificacion host to host.",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "BankTransferPaymentMethod": {
+        "title": "Transferencia bancaria",
+        "type": "object",
+        "required": [
+          "method_name",
+          "method_details"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "BANK_TRANSFER"
+            ],
+            "example": "BANK_TRANSFER"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/BankTransferPaymentMethodDetails"
+          }
+        }
+      },
+      "CuotealoPaymentMethodDetails": {
+        "type": "object",
+        "required": [
+          "redirect_url"
+        ],
+        "properties": {
+          "redirect_url": {
+            "type": "string",
+            "description": "URL donde se realizara el redirect cuando finalice la autorizacion.",
+            "example": "https://example.com"
+          },
+          "callback_url": {
+            "type": "string",
+            "description": "URL donde se realizara la notificacion host to host.",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "CuotealoPaymentMethod": {
+        "title": "Cuotealo",
+        "type": "object",
+        "required": [
+          "method_name",
+          "method_details"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "CUOTEALO"
+            ],
+            "example": "CUOTEALO"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/CuotealoPaymentMethodDetails"
+          }
+        }
+      },
+      "PagoEfectivoPaymentMethodDetails": {
+        "type": "object",
+        "required": [
+          "redirect_url"
+        ],
+        "properties": {
+          "redirect_url": {
+            "type": "string",
+            "description": "URL donde se realizara el redirect cuando finalice la autorizacion.",
+            "example": "https://example.com"
+          },
+          "callback_url": {
+            "type": "string",
+            "description": "URL donde se realizara la notificacion host to host.",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "PagoEfectivoPaymentMethod": {
+        "title": "PagoEfectivo",
+        "type": "object",
+        "required": [
+          "method_name",
+          "method_details"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "PAGOEFECTIVO"
+            ],
+            "example": "PAGOEFECTIVO"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/PagoEfectivoPaymentMethodDetails"
+          }
+        }
+      },
+      "QrPaymentMethodDetails": {
+        "type": "object",
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "description": "URL donde se realizara la notificacion host to host.",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "QrPaymentMethod": {
+        "title": "QR",
+        "type": "object",
+        "required": [
+          "method_name",
+          "method_details"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "QR"
+            ],
+            "example": "QR"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/QrPaymentMethodDetails"
+          }
+        }
+      },
+      "ChargePaymentDetails": {
+        "type": "object",
+        "required": [
+          "amount",
+          "currency",
+          "billing",
+          "shipping",
+          "customer",
+          "product_details"
+        ],
+        "properties": {
+          "amount": {
+            "type": "string",
+            "description": "Monto en centavos.",
+            "example": "15000"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Codigo de moneda.",
+            "example": "604"
+          },
+          "billing": {
+            "$ref": "#/components/schemas/PersonDetails"
+          },
+          "shipping": {
+            "$ref": "#/components/schemas/PersonDetails"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/PersonDetails"
+          },
+          "product_details": {
+            "type": "array",
+            "description": "Detalle de productos asociados a la operacion.",
+            "items": {
+              "type": "object"
+            },
+            "example": []
+          }
+        }
+      },
+      "ChargeAuthorizeRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "channel",
+          "merchant_code",
+          "merchant_operation_number",
+          "payment_method",
+          "payment_details"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "Accion a ejecutar.",
+            "example": "authorize"
+          },
+          "channel": {
+            "type": "string",
+            "description": "Canal de la transaccion.",
+            "enum": [
+              "ecommerce"
+            ],
+            "example": "ecommerce"
+          },
+          "merchant_code": {
+            "type": "string",
+            "description": "Codigo del comercio.",
+            "example": "your_merchant_code"
+          },
+          "merchant_operation_number": {
+            "type": "string",
+            "description": "Identificador unico de la operacion en el comercio.",
+            "example": "2391645"
+          },
+          "payment_method": {
+            "description": "Metodo de pago y detalle especifico segun el flujo.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CardPaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/YapePaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/BankTransferPaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/CuotealoPaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/PagoEfectivoPaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/QrPaymentMethod"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "method_name",
+              "mapping": {
+                "CARD": "#/components/schemas/CardPaymentMethod",
+                "YAPE": "#/components/schemas/YapePaymentMethod",
+                "BANK_TRANSFER": "#/components/schemas/BankTransferPaymentMethod",
+                "CUOTEALO": "#/components/schemas/CuotealoPaymentMethod",
+                "PAGOEFECTIVO": "#/components/schemas/PagoEfectivoPaymentMethod",
+                "QR": "#/components/schemas/QrPaymentMethod"
+              }
+            }
+          },
+          "payment_details": {
+            "$ref": "#/components/schemas/ChargePaymentDetails"
+          }
+        }
+      },
+      "CardInstallmentsResponse": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "type": "string",
+            "example": "NORMAL"
+          },
+          "installment_number": {
+            "type": "string",
+            "example": "2"
+          }
+        }
+      },
+      "TransactionCardMethodDetails": {
+        "type": "object",
+        "properties": {
+          "masked_pan": {
+            "type": "string",
+            "example": "411111********1111"
+          },
+          "brand": {
+            "type": "string",
+            "example": "VISA"
+          },
+          "bin": {
+            "type": "string",
+            "example": "411111"
+          },
+          "last_pan": {
+            "type": "string",
+            "example": "9268"
+          },
+          "card_type": {
+            "type": "string",
+            "example": "DEBIT"
+          },
+          "card_country": {
+            "type": "string",
+            "example": "PE"
+          },
+          "issuer": {
+            "type": "string",
+            "example": "BANCO DE CREDITO DEL PERU - BCP"
+          },
+          "installments": {
+            "$ref": "#/components/schemas/CardInstallmentsResponse"
+          },
+          "redirect_url": {
+            "type": "string",
+            "example": "https://example.com"
+          },
+          "callback_url": {
+            "type": "string",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "TransactionYapeMethodDetails": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "$ref": "#/components/schemas/PhoneWithCountryCode"
+          },
+          "masked_pan": {
+            "type": "string",
+            "example": "411111********1111"
+          },
+          "brand": {
+            "type": "string",
+            "example": "VISA"
+          },
+          "bin": {
+            "type": "string",
+            "example": "411111"
+          },
+          "last_pan": {
+            "type": "string",
+            "example": "9268"
+          },
+          "card_type": {
+            "type": "string",
+            "example": "DEBIT"
+          },
+          "card_country": {
+            "type": "string",
+            "example": "PE"
+          },
+          "issuer": {
+            "type": "string",
+            "example": "BANCO DE CREDITO DEL PERU - BCP"
+          },
+          "callback_url": {
+            "type": "string",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "CardTransactionPaymentMethod": {
+        "title": "Tarjeta",
+        "type": "object",
+        "required": [
+          "method_name"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "CARD"
+            ],
+            "example": "CARD"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/TransactionCardMethodDetails"
+          }
+        }
+      },
+      "YapeTransactionPaymentMethod": {
+        "title": "Yape",
+        "type": "object",
+        "required": [
+          "method_name"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "YAPE"
+            ],
+            "example": "YAPE"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/TransactionYapeMethodDetails"
+          }
+        }
+      },
+      "TransactionBankTransferMethodDetails": {
+        "type": "object",
+        "required": [
+          "redirect_url"
+        ],
+        "properties": {
+          "redirect_url": {
+            "type": "string",
+            "example": "https://example.com"
+          },
+          "callback_url": {
+            "type": "string",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "BankTransferTransactionPaymentMethod": {
+        "title": "Transferencia bancaria",
+        "type": "object",
+        "required": [
+          "method_name"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "BANK_TRANSFER"
+            ],
+            "example": "BANK_TRANSFER"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/TransactionBankTransferMethodDetails"
+          }
+        }
+      },
+      "TransactionCuotealoMethodDetails": {
+        "type": "object",
+        "required": [
+          "redirect_url"
+        ],
+        "properties": {
+          "redirect_url": {
+            "type": "string",
+            "example": "https://example.com"
+          },
+          "callback_url": {
+            "type": "string",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "CuotealoTransactionPaymentMethod": {
+        "title": "Cuotealo",
+        "type": "object",
+        "required": [
+          "method_name"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "CUOTEALO"
+            ],
+            "example": "CUOTEALO"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/TransactionCuotealoMethodDetails"
+          }
+        }
+      },
+      "TransactionPagoEfectivoMethodDetails": {
+        "type": "object",
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "PagoEfectivoTransactionPaymentMethod": {
+        "title": "PagoEfectivo",
+        "type": "object",
+        "required": [
+          "method_name"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "PAGOEFECTIVO"
+            ],
+            "example": "PAGOEFECTIVO"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/TransactionPagoEfectivoMethodDetails"
+          }
+        }
+      },
+      "TransactionQrMethodDetails": {
+        "type": "object",
+        "properties": {
+          "masked_pan": {
+            "type": "string",
+            "example": "411111********1111"
+          },
+          "brand": {
+            "type": "string",
+            "example": "VISA"
+          },
+          "bin": {
+            "type": "string",
+            "example": "411111"
+          },
+          "last_pan": {
+            "type": "string",
+            "example": "9268"
+          },
+          "card_type": {
+            "type": "string",
+            "example": "DEBIT"
+          },
+          "card_country": {
+            "type": "string",
+            "example": "PE"
+          },
+          "issuer": {
+            "type": "string",
+            "example": "BANCO DE CREDITO DEL PERU - BCP"
+          },
+          "callback_url": {
+            "type": "string",
+            "example": "https://example.com/callback"
+          }
+        }
+      },
+      "QrTransactionPaymentMethod": {
+        "title": "QR",
+        "type": "object",
+        "required": [
+          "method_name"
+        ],
+        "properties": {
+          "method_name": {
+            "type": "string",
+            "enum": [
+              "QR"
+            ],
+            "example": "QR"
+          },
+          "method_details": {
+            "$ref": "#/components/schemas/TransactionQrMethodDetails"
+          }
+        }
+      },
+      "ProcessorResultMessage": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "00"
+          },
+          "description": {
+            "type": "string",
+            "example": "Approval and completed successfully"
+          }
+        }
+      },
+      "ProcessorResponse": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "authorization_code": {
+            "type": "string",
+            "example": "055552"
+          },
+          "brand_transaction_id": {
+            "type": "string",
+            "example": "100B"
+          },
+          "date": {
+            "type": "string",
+            "example": "2024-03-26 19:17:19.599715"
+          },
+          "qr_image": {
+            "type": "string",
+            "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
+          },
+          "qr_id": {
+            "type": "string",
+            "example": "6d5d1ffc79234991b5592b825d6ec097"
+          },
+          "cip": {
+            "type": "string",
+            "example": "1508405"
+          },
+          "cip_url": {
+            "type": "string",
+            "example": "https://pre1a.payment.pagoefectivo.pe/72217FA5-4580-4B16-A345-24F028F53356.html"
+          },
+          "origin_account": {
+            "type": "string",
+            "example": "055552"
+          },
+          "request_id": {
+            "type": "string",
+            "example": "055552"
+          },
+          "operation_id": {
+            "type": "string",
+            "example": "055552"
+          },
+          "credit_status": {
+            "type": "string",
+            "example": "APPROVED"
+          },
+          "payment_date": {
+            "type": "string",
+            "example": "2024-06-24T11:01:20-05:00"
+          },
+          "operationNumber": {
+            "type": "string",
+            "example": "1057462"
+          },
+          "reverse_date": {
+            "type": "string",
+            "example": "05-07-2024 20:34:19"
+          },
+          "reverse_code": {
+            "type": "string",
+            "example": "T90261"
+          },
+          "result_message": {
+            "$ref": "#/components/schemas/ProcessorResultMessage"
+          }
+        }
+      },
+      "TransactionLifecycleDate": {
+        "type": "object",
+        "required": [
+          "utc_time",
+          "unix_time"
+        ],
+        "properties": {
+          "utc_time": {
+            "type": "string",
+            "example": "2024-03-12T22:49:36.018Z"
+          },
+          "unix_time": {
+            "type": "integer",
+            "example": 1710282940
+          }
+        }
+      },
+      "TransactionLifecycleEvent": {
+        "type": "object",
+        "required": [
+          "state",
+          "date"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "example": "AUTORIZADO"
+          },
+          "date": {
+            "$ref": "#/components/schemas/TransactionLifecycleDate"
+          }
+        }
+      },
+      "TransactionExpirationDate": {
+        "type": "object",
+        "properties": {
+          "utc_time": {
+            "type": "string",
+            "example": "2024-03-12T22:49:36.018Z"
+          },
+          "unix_time": {
+            "type": "integer",
+            "example": 1711585037
+          }
+        }
+      },
+      "TransactionAuthenticationResult": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "example": "2.1.0"
+          },
+          "eci": {
+            "type": "string",
+            "example": "05"
+          },
+          "vci": {
+            "type": "string",
+            "example": "TSYF"
+          },
+          "ds_transaction_id": {
+            "type": "string",
+            "example": "ABC123"
+          },
+          "3ds_transaction_id": {
+            "type": "string",
+            "example": "ABC123"
+          }
+        }
+      },
+      "ChargeStatusMessage": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "example": "es_PE"
+          },
+          "value": {
+            "type": "string",
+            "example": "Procesado correctamente"
+          }
+        }
+      },
+      "ChargeMetaStatus": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Codigo del resultado tecnico del servicio o request. No valida si un pago fue autorizado o denegado; para eso usa el estado de la transaccion.",
+            "example": "00"
+          },
+          "message_ilgn": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChargeStatusMessage"
+            }
+          }
+        }
+      },
+      "ChargeMeta": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ChargeMetaStatus"
+          }
+        }
+      },
+      "ServerToServerNotificationTransaction": {
+        "type": "object",
+        "required": [
+          "transaction_id",
+          "state",
+          "amount",
+          "currency"
+        ],
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "example": "5hk8rwa3h3cq9oyfs3a28v1ms"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "AUTORIZADO",
+              "DENEGADO",
+              "INVALIDO"
+            ],
+            "example": "AUTORIZADO"
+          },
+          "state_reason": {
+            "type": "string",
+            "example": "Approval and completed successfully"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Monto de la transaccion autorizado en centavos.",
+            "example": "15000"
+          },
+          "currency": {
+            "type": "string",
+            "example": "604"
+          },
+          "processor_response": {
+            "$ref": "#/components/schemas/ProcessorResponse"
+          }
+        }
+      },
+      "ServerToServerNotificationRequest": {
+        "type": "object",
+        "required": [
+          "success",
+          "action",
+          "merchant_code",
+          "merchant_operation_number",
+          "transaction",
+          "meta"
+        ],
+        "properties": {
+          "success": {
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "example": "true"
+          },
+          "action": {
+            "type": "string",
+            "example": "authorize"
+          },
+          "merchant_code": {
+            "type": "string",
+            "example": "b0deb6f3-e51a-48a7-9268-f1441d46f7bd"
+          },
+          "merchant_operation_number": {
+            "type": "string",
+            "example": "2391645"
+          },
+          "transaction": {
+            "$ref": "#/components/schemas/ServerToServerNotificationTransaction"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ChargeMeta"
+          }
+        }
+      },
+      "ChargeQueryOperation": {
+        "type": "object",
+        "required": [
+          "merchant_operation_number",
+          "state",
+          "amount",
+          "currency",
+          "transactions"
+        ],
+        "properties": {
+          "merchant_operation_number": {
+            "type": "string",
+            "example": "2391645"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/TransactionLifecycleDate"
+          },
+          "state": {
+            "type": "string",
+            "example": "AUTORIZADO"
+          },
+          "amount": {
+            "type": "string",
+            "example": "15000"
+          },
+          "currency": {
+            "type": "string",
+            "example": "604"
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChargeQueryTransaction"
+            }
+          }
+        }
+      },
+      "ChargeQueryTransaction": {
+        "type": "object",
+        "required": [
+          "transaction_id",
+          "channel",
+          "state",
+          "amount",
+          "currency",
+          "payment_method",
+          "lifecycle"
+        ],
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "example": "5hk8rwa3h3cq9oyfs3a28v1ms"
+          },
+          "channel": {
+            "type": "string",
+            "example": "ecommerce"
+          },
+          "state": {
+            "type": "string",
+            "example": "AUTORIZADO"
+          },
+          "state_reason": {
+            "type": "string",
+            "example": "Approval and completed successfully"
+          },
+          "continue_url": {
+            "type": "string",
+            "example": "https://api.dev.alignet.io/payment/continue/card/81vrxn30vja1gwcfsdng4i5g5"
+          },
+          "amount": {
+            "type": "string",
+            "example": "15000"
+          },
+          "currency": {
+            "type": "string",
+            "example": "604"
+          },
+          "payment_method": {
+            "description": "Metodo de pago utilizado y detalle disponible segun el flujo.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CardTransactionPaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/YapeTransactionPaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/BankTransferTransactionPaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/CuotealoTransactionPaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/PagoEfectivoTransactionPaymentMethod"
+              },
+              {
+                "$ref": "#/components/schemas/QrTransactionPaymentMethod"
+              }
+            ]
+          },
+          "expiration_date": {
+            "$ref": "#/components/schemas/TransactionExpirationDate"
+          },
+          "processor_response": {
+            "$ref": "#/components/schemas/ProcessorResponse"
+          },
+          "authentication_result": {
+            "$ref": "#/components/schemas/TransactionAuthenticationResult"
+          },
+          "risk_evaluation": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "example": null
+          },
+          "additional_fields": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "example": null
+          },
+          "lifecycle": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionLifecycleEvent"
+            }
+          }
+        }
+      },
+      "ChargeQueryResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "merchant_code",
+          "operation",
+          "meta"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "merchant_code": {
+            "type": "string",
+            "example": "your_merchant_code"
+          },
+          "operation": {
+            "$ref": "#/components/schemas/ChargeQueryOperation"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ChargeMeta"
+          }
+        }
+      },
+      "ChargeCancelResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "merchant_code",
+          "operation",
+          "meta"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "merchant_code": {
+            "type": "string",
+            "example": "your_merchant_code"
+          },
+          "merchant_operation_number": {
+            "type": "string",
+            "example": "2391645"
+          },
+          "operation": {
+            "$ref": "#/components/schemas/ChargeQueryOperation"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ChargeMeta"
+          }
+        }
+      },
+      "RefundOperationRequest": {
+        "type": "object",
+        "required": [
+          "type",
+          "merchant_operation_number",
+          "refund_amount"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "TOTAL",
+              "PARTIAL"
+            ],
+            "example": "TOTAL"
+          },
+          "merchant_operation_number": {
+            "type": "string",
+            "example": "239766"
+          },
+          "transaction_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": null
+          },
+          "refund_amount": {
+            "type": "string",
+            "example": "1050"
+          },
+          "additional_fields": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": true,
+            "example": {
+              "canal": "WEB",
+              "reason": "cliente no reconocio el consumo",
+              "description": "solicitud por desconocimiento"
+            }
+          }
+        }
+      },
+      "RefundCreateRequest": {
+        "type": "object",
+        "required": [
+          "merchant_code",
+          "operations"
+        ],
+        "properties": {
+          "merchant_code": {
+            "type": "string",
+            "example": "41bb301e-3c37-4332-accb-ed5ec19081e4"
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RefundOperationRequest"
+            }
+          }
+        }
+      },
+      "RefundPaymentMethod": {
+        "type": "object",
+        "required": [
+          "name",
+          "brand",
+          "masked_pan"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "CARD",
+              "YAPE",
+              "CUOTEALO"
+            ],
+            "example": "CARD"
+          },
+          "brand": {
+            "type": "string",
+            "example": "VISA"
+          },
+          "masked_pan": {
+            "type": "string",
+            "example": "447411******2240"
+          }
+        }
+      },
+      "RefundLifecycleEvent": {
+        "type": "object",
+        "required": [
+          "state",
+          "date"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "REGISTERED",
+              "IN_PROCESS",
+              "RESOLVED",
+              "REJECTED"
+            ],
+            "example": "REGISTERED"
+          },
+          "date": {
+            "$ref": "#/components/schemas/TransactionLifecycleDate"
+          }
+        }
+      },
+      "RefundOperationResponse": {
+        "type": "object",
+        "required": [
+          "refund_id",
+          "state",
+          "refund_reason",
+          "type",
+          "merchant_operation_number",
+          "transaction_id",
+          "refund_amount",
+          "transaction_amount",
+          "currency",
+          "payment_method",
+          "lifecycle"
+        ],
+        "properties": {
+          "refund_id": {
+            "type": "string",
+            "example": "922178aa-ce4c-4c5f-8190-82fa7e009425"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "REGISTERED",
+              "IN_PROCESS",
+              "RESOLVED",
+              "REJECTED"
+            ],
+            "example": "REGISTERED"
+          },
+          "refund_reason": {
+            "type": "string",
+            "example": "Solicitud recibida y validada"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "TOTAL",
+              "PARTIAL"
+            ],
+            "example": "TOTAL"
+          },
+          "merchant_operation_number": {
+            "type": "string",
+            "example": "239766"
+          },
+          "transaction_id": {
+            "type": "string",
+            "example": "bko66gpi8czns4tcde93q96vd"
+          },
+          "refund_amount": {
+            "type": "string",
+            "example": "1050"
+          },
+          "transaction_amount": {
+            "type": "string",
+            "example": "1050"
+          },
+          "currency": {
+            "type": "string",
+            "example": "604"
+          },
+          "additional_fields": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": true,
+            "example": {
+              "canal": "WEB",
+              "reason": "cliente no reconocio el consumo",
+              "description": "solicitud por desconocimiento"
+            }
+          },
+          "payment_method": {
+            "$ref": "#/components/schemas/RefundPaymentMethod"
+          },
+          "lifecycle": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RefundLifecycleEvent"
+            }
+          }
+        }
+      },
+      "RefundCreateResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "action",
+          "merchant_code",
+          "operations",
+          "meta"
+        ],
+        "properties": {
+          "success": {
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "example": "true"
+          },
+          "action": {
+            "type": "string",
+            "example": "refund"
+          },
+          "merchant_code": {
+            "type": "string",
+            "example": "41bb301e-3c37-4332-accb-ed5ec19081e4"
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RefundOperationResponse"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ChargeMeta"
+          }
+        }
+      },
+      "RefundQueryResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "merchant_code",
+          "operations_count",
+          "operations",
+          "meta"
+        ],
+        "properties": {
+          "success": {
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "example": "true"
+          },
+          "merchant_code": {
+            "type": "string",
+            "example": "41bb301e-3c37-4332-accb-ed5ec19081e4"
+          },
+          "operations_count": {
+            "type": "string",
+            "example": "1"
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RefundOperationResponse"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ChargeMeta"
+          }
+        }
+      },
+      "ChargeAuthorizeResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "action",
+          "merchant_code",
+          "merchant_operation_number",
+          "transaction"
+        ],
+        "properties": {
+          "success": {
+            "type": "string",
+            "example": "true"
+          },
+          "action": {
+            "type": "string",
+            "example": "authorize"
+          },
+          "merchant_code": {
+            "type": "string",
+            "example": "your_merchant_code"
+          },
+          "merchant_operation_number": {
+            "type": "string",
+            "example": "2391645"
+          },
+          "transaction": {
+            "type": "object",
+            "required": [
+              "transaction_id",
+              "channel",
+              "state",
+              "amount",
+              "currency",
+              "payment_method",
+              "lifecycle"
+            ],
+            "properties": {
+              "transaction_id": {
+                "type": "string",
+                "example": "5hk8rwa3h3cq9oyfs3a28v1ms"
+              },
+              "channel": {
+                "type": "string",
+                "example": "ecommerce"
+              },
+              "state": {
+                "type": "string",
+                "example": "AUTORIZADO"
+              },
+              "state_reason": {
+                "type": "string",
+                "example": "Approval and completed successfully"
+              },
+              "continue_url": {
+                "type": "string",
+                "example": "https://api.dev.alignet.io/payment/continue/card/81vrxn30vja1gwcfsdng4i5g5"
+              },
+              "amount": {
+                "type": "string",
+                "example": "15000"
+              },
+              "currency": {
+                "type": "string",
+                "example": "604"
+              },
+              "payment_method": {
+                "description": "Metodo de pago utilizado y detalle disponible segun el flujo.",
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CardTransactionPaymentMethod"
+                  },
+                  {
+                    "$ref": "#/components/schemas/YapeTransactionPaymentMethod"
+                  },
+                  {
+                    "$ref": "#/components/schemas/BankTransferTransactionPaymentMethod"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CuotealoTransactionPaymentMethod"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PagoEfectivoTransactionPaymentMethod"
+                  },
+                  {
+                    "$ref": "#/components/schemas/QrTransactionPaymentMethod"
+                  }
+                ]
+              },
+              "expiration_date": {
+                "$ref": "#/components/schemas/TransactionExpirationDate"
+              },
+              "processor_response": {
+                "$ref": "#/components/schemas/ProcessorResponse"
+              },
+              "additional_fields": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "example": null
+              },
+              "lifecycle": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TransactionLifecycleEvent"
+                }
+              }
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ChargeMeta"
+          }
+        }
+      }
+    }
+  }
+}

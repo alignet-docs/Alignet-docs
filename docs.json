@@ -237,6 +237,18 @@
                     ]
                   }
                 ]
+              },
+              {
+                "tab": "API Docs",
+                "groups": [
+                  {
+                    "group": "Referencia API",
+                    "openapi": {
+                      "source": "openapi.json",
+                      "directory": "api-reference"
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -639,6 +651,18 @@
                     ]
                   }
                 ]
+              },
+              {
+                "tab": "API Docs",
+                "groups": [
+                  {
+                    "group": "API reference",
+                    "openapi": {
+                      "source": "openapi-en.json",
+                      "directory": "en/api-reference"
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -857,6 +881,7 @@
     }
   ],
   "api": {
+    "openapi": "openapi.json",
     "playground": {
       "display": "interactive"
     }
