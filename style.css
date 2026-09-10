@@ -116,6 +116,26 @@ img[alt="dark logo"] {
   margin-top: 12px !important;
 }
 
+.virtual-payments-intro {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.virtual-payments-intro-dark {
+  display: none;
+}
+
+.dark .virtual-payments-intro-light,
+[data-theme="dark"] .virtual-payments-intro-light {
+  display: none;
+}
+
+.dark .virtual-payments-intro-dark,
+[data-theme="dark"] .virtual-payments-intro-dark {
+  display: block;
+}
+
 .vpos-cover {
   display: block;
   width: 100%;
