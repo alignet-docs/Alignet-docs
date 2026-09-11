@@ -4,7 +4,7 @@ description: "Procedure for installing Alignet Gateway, removing the previous ve
 icon: "route"
 ---
 
-Follow these four stages to migrate to **Alignet One** in an orderly manner.
+Follow these five stages to migrate to **Alignet One** in an orderly manner.
 
 <Steps>
   <Step title="Prepare the update">
@@ -24,12 +24,36 @@ Follow these four stages to migrate to **Alignet One** in an orderly manner.
         Avoid peak sales periods while making the change.
       </Card>
       <Card title="Merchant registration data" icon="key">
-        Request the merchant data, keys, and other credentials from the Alignet team. Keep your response URLs available.
+        Have the information required to register the merchant in Alignet Command Center available.
       </Card>
     </CardGroup>
 
     <Warning>
       **Do not continue without a backup.** You must be able to recover the site if the installation does not finish correctly.
+    </Warning>
+  </Step>
+
+  <Step title="Merchant registration data">
+    The plugin configuration values are generated when the merchant registration is completed in **Alignet Command Center**.
+
+    1. Sign in to **Alignet Command Center** with an authorized account.
+    2. Complete the merchant registration with the corresponding information.
+    3. When registration is complete, immediately save the three values shown in the confirmation.
+
+    <CardGroup cols={3}>
+      <Card title="Merchant code" icon="store">
+        The `code` identifier generated for the merchant. Enter it in the plugin's **Merchant Code** field.
+      </Card>
+      <Card title="Client ID" icon="id-card">
+        The OAuth client identifier. Enter it in the plugin's **Client ID** field.
+      </Card>
+      <Card title="Client Secret" icon="key">
+        The OAuth client secret. Enter it in the plugin's **Client Secret** field.
+      </Card>
+    </CardGroup>
+
+    <Warning>
+      **Save the credentials before continuing.** The `Client ID` and `Client Secret` are displayed when merchant registration is completed and will not be shown again. Store them securely and do not include them in screenshots, public documents, or support requests.
     </Warning>
   </Step>
 
@@ -53,7 +77,7 @@ Follow these four stages to migrate to **Alignet One** in an orderly manner.
   <Step title="Enter the credentials">
     1. Open **Payments** in the WordPress sidebar.
     2. Find **Alignet Gateway**, confirm that it is active, and select **Manage**.
-    3. Complete the configuration using the information provided by the Integrations team.
+    3. Complete the configuration using the values saved when the merchant was registered in Alignet Command Center.
     4. Review the environment, currency, and display mode. Then click **Save changes**.
 
     Configure the following values for each enabled currency:
@@ -65,7 +89,7 @@ Follow these four stages to migrate to **Alignet One** in an orderly manner.
     </CardGroup>
 
     <Info>
-      **Credential delivery.** Initially, the Integrations team will share these values manually. Later, they will be obtained automatically from Command Center.
+      **Field mapping.** Enter `code` as **Merchant Code**, then copy the **Client ID** and **Client Secret** into the fields with the same names. Complete the block for the currency you are configuring.
     </Info>
 
     <Frame>

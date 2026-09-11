@@ -4,7 +4,7 @@ description: "Procedimiento para instalar Alignet Gateway, retirar la versión a
 icon: "route"
 ---
 
-Sigue estas cuatro etapas para migrar a **Alignet One** de forma ordenada.
+Sigue estas cinco etapas para migrar a **Alignet One** de forma ordenada.
 
 <Steps>
   <Step title="Prepara la actualización">
@@ -24,12 +24,36 @@ Sigue estas cuatro etapas para migrar a **Alignet One** de forma ordenada.
         Evita momentos de venta alta mientras realizas el cambio.
       </Card>
       <Card title="Datos de registro del comercio" icon="key">
-        Solicita al equipo de Alignet los datos del comercio, llaves y demás credenciales. Ten a la mano tus URL de respuesta.
+        Ten disponible la información necesaria para registrar el comercio en Alignet Command Center.
       </Card>
     </CardGroup>
 
     <Warning>
       **No continúes sin respaldo.** Debes poder recuperar el sitio si la instalación no termina correctamente.
+    </Warning>
+  </Step>
+
+  <Step title="Datos de registro del comercio">
+    Los datos configurativos del plugin se generan al finalizar el registro del comercio en **Alignet Command Center**.
+
+    1. Ingresa a **Alignet Command Center** con una cuenta autorizada.
+    2. Completa el registro del comercio con la información correspondiente.
+    3. Al finalizar el registro, guarda inmediatamente los tres valores que muestra la confirmación.
+
+    <CardGroup cols={3}>
+      <Card title="Código del comercio" icon="store">
+        Identificador `code` generado para el comercio. Se registra en el campo **Merchant Code** del plugin.
+      </Card>
+      <Card title="Client ID" icon="id-card">
+        Identificador del cliente OAuth. Se registra en el campo **Client ID** del plugin.
+      </Card>
+      <Card title="Client Secret" icon="key">
+        Secreto del cliente OAuth. Se registra en el campo **Client Secret** del plugin.
+      </Card>
+    </CardGroup>
+
+    <Warning>
+      **Guarda las credenciales antes de continuar.** El `Client ID` y el `Client Secret` se muestran al final del registro del comercio y no volverán a mostrarse. Almacénalos de forma segura y no los incluyas en capturas, documentos públicos ni solicitudes de soporte.
     </Warning>
   </Step>
 
@@ -53,7 +77,7 @@ Sigue estas cuatro etapas para migrar a **Alignet One** de forma ordenada.
   <Step title="Ingresa las credenciales">
     1. Abre **Payments** en la barra lateral de WordPress.
     2. Localiza **Alignet Gateway**, confirma que esté activo y selecciona **Manage**.
-    3. Completa la configuración con los datos entregados por el equipo de Integraciones.
+    3. Completa la configuración con los datos guardados al registrar el comercio en Alignet Command Center.
     4. Revisa el ambiente, la moneda y el modo de visualización. Luego pulsa **Save changes**.
 
     Debes configurar los siguientes datos por cada moneda habilitada:
@@ -65,7 +89,7 @@ Sigue estas cuatro etapas para migrar a **Alignet One** de forma ordenada.
     </CardGroup>
 
     <Info>
-      **Entrega de credenciales.** Al inicio, el equipo de Integraciones compartirá estos datos manualmente. Más adelante, se obtendrán automáticamente desde Command Center.
+      **Correspondencia de campos.** Registra `code` como **Merchant Code** y copia el **Client ID** y el **Client Secret** en los campos del mismo nombre. Completa el bloque de la moneda que estés configurando.
     </Info>
 
     <Frame>
