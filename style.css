@@ -9,6 +9,16 @@ img[alt="dark logo"] {
   filter: none !important;
 }
 
+.prestashop-brand-logo {
+  transition: filter 180ms ease;
+}
+
+.dark .prestashop-brand-logo,
+[data-theme="dark"] .prestashop-brand-logo {
+  filter: brightness(1.72) saturate(1.22)
+    drop-shadow(0 0 14px rgba(94, 200, 226, 0.16));
+}
+
 .dark #navbar a[href="mailto:postventa.autenticacion@alignet.com"],
 [data-theme="dark"] #navbar a[href="mailto:postventa.autenticacion@alignet.com"] {
   display: inline-flex !important;
