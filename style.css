@@ -466,22 +466,24 @@ img[alt="dark logo"] {
 }
 
 /* Draw attention to the migration walkthrough without replacing the active-page state. */
-#sidebar a[href$="/pagos-virtuales/migracion/pasos-a-seguir"]::after,
-#sidebar a[href$="/en/virtual-payments/migration/steps-to-follow"]::after {
+#sidebar a[href$="/pagos-virtuales/migracion/pasos-a-seguir"] > div:last-child span::after,
+#sidebar a[href$="/en/virtual-payments/migration/steps-to-follow"] > div:last-child span::after {
   content: "";
-  flex: 0 0 auto;
-  width: 7px;
-  height: 7px;
-  margin-left: auto;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 9px;
+  vertical-align: middle;
+  transform: translateY(-1px);
   border-radius: 999px;
   background-color: #f97316;
   box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.14);
 }
 
-.dark #sidebar a[href$="/pagos-virtuales/migracion/pasos-a-seguir"]::after,
-.dark #sidebar a[href$="/en/virtual-payments/migration/steps-to-follow"]::after,
-[data-theme="dark"] #sidebar a[href$="/pagos-virtuales/migracion/pasos-a-seguir"]::after,
-[data-theme="dark"] #sidebar a[href$="/en/virtual-payments/migration/steps-to-follow"]::after {
+.dark #sidebar a[href$="/pagos-virtuales/migracion/pasos-a-seguir"] > div:last-child span::after,
+.dark #sidebar a[href$="/en/virtual-payments/migration/steps-to-follow"] > div:last-child span::after,
+[data-theme="dark"] #sidebar a[href$="/pagos-virtuales/migracion/pasos-a-seguir"] > div:last-child span::after,
+[data-theme="dark"] #sidebar a[href$="/en/virtual-payments/migration/steps-to-follow"] > div:last-child span::after {
   background-color: #fb923c;
   box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.18);
 }
