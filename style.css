@@ -68,10 +68,10 @@
 .mig-interactive .mig-shop > .mig-languages { display: flex; flex: none; gap: 2px; padding: 3px; }
 .mig-interactive .mig-languages button { border: 0; border-radius: 4px; background: transparent; color: #7a87a1; font-size: 9px; padding: 3px 5px; }
 .mig-interactive .mig-languages button[aria-pressed="true"] { background: white; color: #265fec; }
-.mig-interactive .mig-card-visa { color: #fff; background: linear-gradient(125deg,#1737a4,#2563eb 65%,#3485fc); }
-.dark .mig-interactive .mig-card-visa { color: #fff; background: linear-gradient(125deg,#132d88,#235bda 65%,#3175ea); }
-.mig-interactive .mig-card-visa .mig-card-top { color: #dce7ff; }
-.mig-visa-mark { font-size: 23px; font-style: italic; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+.mig-interactive .mig-card-amex { color: #fff; background: linear-gradient(125deg,#073b72,#0879bc 65%,#38a9d5); }
+.dark .mig-interactive .mig-card-amex { color: #fff; background: linear-gradient(125deg,#07315c,#08659f 65%,#218bad); }
+.mig-interactive .mig-card-amex .mig-card-top { color: #e0f3ff; }
+.mig-amex-mark { font-size: 13px; font-weight: 900; line-height: 1.05; letter-spacing: -.5px; text-align: center; }
 .mig-interactive .mig-bank-card { transition: background 180ms ease; }
 .mig-interactive .mig-card-bottom > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 77%; }
 .mig-interactive .mig-sample-button { display: block; border: 0; padding: 9px 0; width: 100%; background: transparent; font-size: 9px; color: #265fec; text-decoration: underline; }
