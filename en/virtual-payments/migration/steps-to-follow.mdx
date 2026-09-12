@@ -1,13 +1,28 @@
 ---
 title: "Steps to migrate"
-description: "Procedure for installing Alignet Gateway, removing the previous version, and preparing the gateway to process payments."
+description: "Migrate from the previous platform to Alignet One on WordPress / WooCommerce: backup, merchant registration, installation, credentials and validation."
 icon: "route"
+mode: "wide"
+hideFooterPagination: true
 ---
 
-Follow these five stages to migrate to **Alignet One** in an orderly manner.
+<div className="ao-cover mig-cover not-prose">
+<section className="ao-hero" aria-labelledby="ao-title">
+<div className="ao-hero-copy"><p className="ao-eyebrow"><span /> FOR OUR EXISTING CUSTOMERS</p><h1 id="ao-title">Your next chapter.<br /><em>Alignet One.</em></h1><p className="ao-lead">If you use our previous platform, this guide walks you through the change: prepare your store, configure the new gateway and validate your first payment.</p><div className="ao-actions"><a className="ao-button" href="#preparar">Start the migration <span aria-hidden="true">→</span></a><a className="ao-text-link" href="mailto:postventa.autenticacion@alignet.com">I need assistance ↗</a></div><p className="ao-backing">WordPress / WooCommerce · 5 guided stages</p><div className="mig-transition"><span>Your previous platform</span><span aria-hidden="true">→</span><strong>Alignet One</strong></div></div>
+<div className="mig-checkout-stage"><div className="mig-checkout"><div className="mig-shop"><span className="mig-shop-icon"><Icon icon="store" size={17} /></span><div><strong>Your store</strong><small>Complete your purchase</small></div><span className="mig-languages">ES <span>EN</span></span></div><div className="mig-checkout-body"><div className="mig-bank-card"><div className="mig-card-top"><span>CARD</span><Icon icon="credit-card" size={22} /></div><div className="mig-card-number">4474 1••• •••• ••••</div><div className="mig-card-bottom"><span>CARDHOLDER NAME</span><span>MM/AA</span></div></div><p className="mig-card-hint">Remember to enable online purchases</p><div className="mig-field">Card number</div><div className="mig-field-row"><div className="mig-field">MM/AA</div><div className="mig-field">CVV</div></div><div className="mig-field-row"><div className="mig-field">First name</div><div className="mig-field">Last name</div></div><div className="mig-field">Email address</div></div><div className="mig-checkout-total"><span>Total amount</span><strong>S/ 140.50</strong></div><div className="mig-pay">Pay</div><div className="mig-checkout-footer"><span>Alignet One</span><span><Icon icon="lock" size={10} /> Secure payment</span></div></div><p className="mig-demo-note">Illustration based on the checkout.<br />Sample data; this is not a payment form.</p></div>
+</section>
+<div className="mig-route" aria-label="Migration stages"><a href="#preparar"><span>01</span><strong>Prepare</strong><span aria-hidden="true">↗</span></a><a href="#registro"><span>02</span><strong>Register</strong><span aria-hidden="true">↗</span></a><a href="#instalar"><span>03</span><strong>Install</strong><span aria-hidden="true">↗</span></a><a href="#configurar"><span>04</span><strong>Configure</strong><span aria-hidden="true">↗</span></a><a href="#validar"><span>05</span><strong>Validate</strong><span aria-hidden="true">↗</span></a></div>
+<div className="mig-scope"><Icon icon="wordpress" size={23} /><p><strong>This path is for WordPress / WooCommerce.</strong>If you use PrestaShop, VTEX, Web Checkout or an SDK, coordinate the migration procedure for your channel with Alignet before applying these steps.</p></div>
+</div>
 
-<Steps>
-  <Step title="Prepare the update">
+<div className="mig-guide">
+
+<Warning>
+  **Plan the change with a backup and a low-traffic window.** Do not assume installation is instant or will not interrupt checkout. Coordinate validation with your team and Alignet.
+</Warning>
+
+<Steps titleSize="h2">
+  <Step id="preparar" title="Prepare the update">
     Confirm the following before making changes to the store:
 
     <CardGroup cols={2}>
@@ -15,7 +30,7 @@ Follow these five stages to migrate to **Alignet One** in an orderly manner.
         Have the `.zip` file provided by Alignet ready. Do not unzip it.
       </Card>
       <Card title="Site backup" icon="database">
-        Include the files and database, or at least `wp-content/plugins/`.
+        Include site files and the database. Also retain a copy of the previous plugin and its configuration so you can recover the installation.
       </Card>
       <Card title="Administrator access" icon="user-shield">
         The user must be able to install and remove WordPress plugins.
@@ -31,33 +46,31 @@ Follow these five stages to migrate to **Alignet One** in an orderly manner.
     <Warning>
       **Do not continue without a backup.** You must be able to recover the site if the installation does not finish correctly.
     </Warning>
+    <div className="mig-result not-prose"><span aria-hidden="true">✓</span><p><strong>Stage outcome</strong>Complete backup, ZIP and access ready.</p></div>
   </Step>
 
-  <Step title="Merchant registration data">
+  <Step id="registro" title="Merchant registration data">
     The plugin configuration values are generated when the merchant registration is completed in **Alignet Command Center**.
 
     1. Sign in to **Alignet Command Center** with an authorized account.
     2. Complete the merchant registration with the corresponding information.
     3. When registration is complete, immediately save the three values shown in the confirmation.
 
-    <CardGroup cols={3}>
-      <Card title="Merchant code" icon="store">
-        The `code` identifier generated for the merchant. Enter it in the plugin's **Merchant Code** field.
-      </Card>
-      <Card title="Client ID" icon="id-card">
-        The OAuth client identifier. Enter it in the plugin's **Client ID** field.
-      </Card>
-      <Card title="Client Secret" icon="key">
-        The OAuth client secret. Enter it in the plugin's **Client Secret** field.
-      </Card>
-    </CardGroup>
+    | In Command Center | Plugin field |
+    | --- | --- |
+    | Merchant code (`code`) | **Merchant Code** |
+    | Client ID | **Client ID** |
+    | Client Secret | **Client Secret** |
+
+    Use the values for the merchant and environment you are configuring. Do not assume credentials from the previous platform are valid on Alignet One.
 
     <Warning>
       **Save the credentials before continuing.** The `Client ID` and `Client Secret` are displayed when merchant registration is completed and will not be shown again. Store them securely and do not include them in screenshots, public documents, or support requests.
     </Warning>
+    <div className="mig-result not-prose"><span aria-hidden="true">✓</span><p><strong>Stage outcome</strong>Merchant code, Client ID and Client Secret stored securely.</p></div>
   </Step>
 
-  <Step title="Install the new plugin">
+  <Step id="instalar" title="Install the new plugin">
     1. Go to **Plugins → Add Plugin → Upload Plugin**.
     2. Select the `.zip` file and click **Install Now**.
     3. Activate **Alignet Gateway** and confirm that it appears as active.
@@ -67,14 +80,17 @@ Follow these five stages to migrate to **Alignet One** in an orderly manner.
       **The order is important.** Do not remove the previous version until you verify that **Alignet Gateway** is installed and active.
     </Warning>
 
+    <Accordion title="Confirm the plugin versions" icon="image">
     <Frame>
-      <img src="/images/migracion/versiones-plugin.png" alt="Alignet Gateway active and the previous plugin ready to be removed" />
+     <img src="/images/migracion/versiones-plugin.png" alt="Alignet Gateway active and the previous plugin ready to be removed" />
     </Frame>
 
     *Alignet Gateway is active; the previous version is deactivated and ready to be removed.*
+    </Accordion>
+    <div className="mig-result not-prose"><span aria-hidden="true">✓</span><p><strong>Stage outcome</strong>New gateway active and previous version removed during the change window.</p></div>
   </Step>
 
-  <Step title="Enter the credentials">
+  <Step id="configurar" title="Enter the credentials">
     1. Open **Payments** in the WordPress sidebar.
     2. Find **Alignet Gateway**, confirm that it is active, and select **Manage**.
     3. Complete the configuration using the values saved when the merchant was registered in Alignet Command Center.
@@ -82,47 +98,70 @@ Follow these five stages to migrate to **Alignet One** in an orderly manner.
 
     Configure the following values for each enabled currency:
 
-    <CardGroup cols={3}>
-      <Card title="Client ID" icon="id-card" />
-      <Card title="Client Secret" icon="key" />
-      <Card title="Merchant Code" icon="store" />
-    </CardGroup>
 
     <Info>
       **Field mapping.** Enter `code` as **Merchant Code**, then copy the **Client ID** and **Client Secret** into the fields with the same names. Complete the block for the currency you are configuring.
     </Info>
 
+    <Accordion title="Find Payments in WordPress" icon="image">
     <Frame>
-      <img src="/images/migracion/menu-payments.png" alt="Payments option in the WordPress sidebar" />
+     <img src="/images/migracion/menu-payments.png" alt="Payments option in the WordPress sidebar" />
     </Frame>
 
     *1. Open Payments.*
+    </Accordion>
 
+    <Accordion title="Open Manage for Alignet Gateway" icon="image">
     <Frame>
-      <img src="/images/migracion/administrar-gateway.png" alt="Manage option for Alignet Gateway" />
+     <img src="/images/migracion/administrar-gateway.png" alt="Manage option for Alignet Gateway" />
     </Frame>
 
     *2. Select Manage in Alignet Gateway.*
+    </Accordion>
 
+    <Accordion title="Review environment and display mode" icon="image">
     <Frame>
-      <img src="/images/migracion/configuracion-gateway-1.png" alt="General Alignet Gateway configuration" />
+     <img src="/images/migracion/configuracion-gateway-1.png" alt="General Alignet Gateway configuration" />
     </Frame>
 
     *3. Review the country, environment, and display mode.*
+    </Accordion>
 
+    <Accordion title="Enter credentials for each currency" icon="image">
     <Frame>
-      <img src="/images/migracion/configuracion-gateway-2.png" alt="Credential fields by currency in Alignet Gateway" />
+     <img src="/images/migracion/configuracion-gateway-2.png" alt="Credential fields by currency in Alignet Gateway" />
     </Frame>
 
     *4. Complete the credentials for each currency and save the changes.*
+    </Accordion>
+    <div className="mig-result not-prose"><span aria-hidden="true">✓</span><p><strong>Stage outcome</strong>Environment, currency and credentials saved.</p></div>
   </Step>
 
-  <Step title="Validate before finishing">
+  <Step id="validar" title="Validate before finishing">
     The migration is complete when the configuration and payment flow work correctly.
 
     - **Configuration status:** Client ID, Client Secret, and Merchant Code appear as configured.
     - **Assisted test:** perform a test or sandbox checkout with support from the bank and Alignet.
     - **Error log:** open **WooCommerce → Status → Logs** and confirm there are no Alignet errors.
     - **Change control:** record the date, versions, and person responsible.
+    <div className="mig-result not-prose"><span aria-hidden="true">✓</span><p><strong>Stage outcome</strong>Checkout tested, logs reviewed and change documented.</p></div>
   </Step>
 </Steps>
+
+
+## If something does not go as expected
+
+Do not mark the migration as complete or enable payments before validating the result. Keep the backup and change records; coordinate recovery with Alignet. Avoid restoring the database without reviewing orders or payments recorded after the backup.
+
+When requesting help, share the plugin version, environment, date, operation number and error message. **Do not send Client Secret, tokens or full card details.**
+
+<CardGroup cols={2}>
+  <Card title="Request assistance" icon="comments" href="mailto:postventa.autenticacion@alignet.com">
+    Coordinate registration, configuration and validation questions with our team.
+  </Card>
+  <Card title="WooCommerce guide" icon="wordpress" href="/en/virtual-payments/wordpress-woocommerce/introduction">
+    Review installation, configuration and transaction management in Alignet One.
+  </Card>
+</CardGroup>
+
+</div>
