@@ -1,63 +1,69 @@
 ---
-title: "Checklist de integración"
+title: "Preparación y pruebas"
 description: "Validaciones recomendadas para completar una integración SDK Mobile en Android o iOS."
 ---
 
+<div className="ao-cover not-prose"><p className="ao-eyebrow"><span /> SDK-MOBILE / PREPARA · PROTEGE · PRUEBA</p><h2>Una sola guía.<br /><em>De la configuración a las pruebas.</em></h2></div>
+
+
 <div className="ao-guide-rail ao-sdk-rail sdk-mobile not-prose"><a href="/pagos-virtuales/sdk-mobile/introduccion">← SDK Mobile</a><span>SDK MOBILE / VALIDA Y PROTEGE</span></div>
-<div className="sdk-guide-links not-prose"><a href="/pagos-virtuales/sdk-mobile/introduccion">Elegir plataforma</a><a href="/pagos-virtuales/sdk-mobile/checklist-de-integracion">Checklist de integración</a><a href="/pagos-virtuales/sdk-mobile/buenas-practicas">Seguridad y buenas prácticas</a></div>
 Usa este checklist como una guía rápida antes de pedir validación final del flujo **SDK Mobile**.
 
 <Info>
   Esta guía aplica para implementaciones nativas en **Android** e **iOS**, tanto para flujos de cobro como para afiliaciones.
 </Info>
 
-## Panorama general
+## Seguridad y buenas prácticas
+
+Aplica estas recomendaciones cuando integres Alignet One mediante **SDK Android** o **SDK iOS**.
+
+## Arquitectura recomendada
 
 <CardGroup cols={2}>
-  <Card title="Preparación" icon="key">
-    Plataforma, requisitos técnicos, credenciales y caso de uso definidos antes de integrar.
+  <Card title="App móvil" icon="mobile-screen-button">
+    Invoca el SDK, presenta el flujo de pago o afiliación y muestra respuestas amigables.
   </Card>
 
-  <Card title="Instalación" icon="mobile-screen-button">
-    SDK agregado al proyecto, dependencias resueltas y permisos configurados por plataforma.
-  </Card>
-
-  <Card title="Validación funcional" icon="credit-card">
-    Cobro aprobado, rechazo, afiliación y manejo de errores revisados desde la app.
-  </Card>
-
-  <Card title="Salida a producción" icon="rocket">
-    Evidencias listas, ambiente productivo revisado y flujo validado con integraciones.
+  <Card title="Backend" icon="server">
+    Genera tokens, protege credenciales, registra operaciones y confirma resultados finales.
   </Card>
 </CardGroup>
 
-<Card title="Checklist para producción" icon="clipboard-check" href="/pagos-virtuales/checklist-de-certificacion">
-  Completa la revisión común de seguridad, evidencias y operación antes de activar pagos reales.
-</Card>
+<Warning>
+  No incluyas credenciales, secretos o lógica sensible dentro de la app. Todo lo crítico debe vivir en backend.
+</Warning>
 
-## Ruta sugerida
+## Seguridad móvil
 
-<Steps>
-  <Step title="Prepara el entorno">
-    Confirma plataforma objetivo, credenciales, ambiente sandbox y caso de uso: cobro, afiliación o ambos.
-  </Step>
+<AccordionGroup>
+  <Accordion title="Tokens" icon="key" defaultOpen>
+    * Genera `Access Token` desde backend.
+    * No persistir tokens sensibles en almacenamiento inseguro.
+    * Evita imprimir tokens o payloads completos en logs.
+  </Accordion>
 
-  <Step title="Instala el SDK">
-    Agrega la librería a tu proyecto móvil y valida dependencias, permisos y configuración inicial.
-  </Step>
+  <Accordion title="SDKs privados" icon="box">
+    * No subas `.aar`, `.xcframework` o ZIPs privados a repositorios públicos.
+    * Usa la versión entregada o aprobada por el equipo de integraciones.
+    * Valida compatibilidad antes de actualizar dependencias.
+  </Accordion>
 
-  <Step title="Implementa el flujo">
-    Configura parámetros obligatorios, callbacks, manejo de respuesta y experiencia del usuario.
-  </Step>
+  <Accordion title="Respuesta del SDK" icon="shield-check">
+    * Usa callbacks/delegates para actualizar la experiencia de usuario.
+    * Confirma estados desde backend cuando el método lo requiera.
+    * Maneja cancelación, error, timeout y retorno de la app.
+  </Accordion>
+</AccordionGroup>
 
-  <Step title="Prueba en sandbox">
-    Ejecuta escenarios aprobados, rechazados y errores controlados con datos de prueba.
-  </Step>
+## Validación recomendada
 
-  <Step title="Solicita validación final">
-    Cuando el flujo esté estable, prepara evidencias y coordina la revisión con el equipo de integraciones.
-  </Step>
-</Steps>
+* Probar Android e iOS por separado.
+* Validar aprobado, denegado y errores controlados.
+* Revisar comportamiento con mala conectividad.
+* Conservar número de operación y logs mínimos para soporte.
+
+
+
 
 ## Checklist base
 
@@ -136,22 +142,6 @@ Usa este checklist como una guía rápida antes de pedir validación final del f
   </Tab>
 </Tabs>
 
-## Criterio mínimo de aprobación
-
-<CardGroup cols={3}>
-  <Card title="Cobro validado" icon="check">
-    Al menos un flujo aprobado y uno rechazado revisados correctamente en sandbox.
-  </Card>
-
-  <Card title="Respuesta controlada" icon="shield-check">
-    La app maneja éxito, rechazo, cancelación y errores sin romper la experiencia del usuario.
-  </Card>
-
-  <Card title="Listo para certificar" icon="clipboard-check">
-    Evidencias, logs y build final disponibles para revisión con el equipo de integraciones.
-  </Card>
-</CardGroup>
-
 ## Guías relacionadas
 
 <CardGroup cols={2}>
@@ -171,3 +161,8 @@ Usa este checklist como una guía rápida antes de pedir validación final del f
     Descarga y configura el SDK iOS en tu proyecto Xcode.
   </Card>
 </CardGroup>
+
+
+<Card title="Checklist para producción" icon="clipboard-check" href="/pagos-virtuales/checklist-de-certificacion">
+  Reúne las evidencias y coordina la validación final con Alignet antes de activar pagos reales.
+</Card>

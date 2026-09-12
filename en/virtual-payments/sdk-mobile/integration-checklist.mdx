@@ -1,10 +1,12 @@
 ---
-title: "Integration checklist"
+title: "Preparation and testing"
 description: "Recommended validations for completing a Mobile SDK integration on Android or iOS."
 ---
 
+<div className="ao-cover not-prose"><p className="ao-eyebrow"><span /> SDK-MOBILE / PREPARE · PROTECT · TEST</p><h2>One guide.<br /><em>From setup to testing.</em></h2></div>
+
+
 <div className="ao-guide-rail ao-sdk-rail sdk-mobile not-prose"><a href="/en/virtual-payments/sdk-mobile/introduction">← SDK Mobile</a><span>SDK MOBILE / VALIDATE & PROTECT</span></div>
-<div className="sdk-guide-links not-prose"><a href="/en/virtual-payments/sdk-mobile/introduction">Choose platform</a><a href="/en/virtual-payments/sdk-mobile/integration-checklist">Integration checklist</a><a href="/en/virtual-payments/sdk-mobile/best-practices">Security & best practices</a></div>
 Use this checklist as a quick guide before applying for final flow validation **SDK Mobile**.
 
 <Info>
@@ -167,3 +169,53 @@ Use this checklist as a quick guide before applying for final flow validation **
     Download and configure SDK iOS at your Xcode project.
   </Card>
 </CardGroup>
+
+
+## Security and operational practices
+
+Implement these recommendations as you integrate Alignet One with **SDK Android** or **SDK iOS**.
+
+## Recommended architecture
+
+<CardGroup cols={2}>
+  <Card title="Mobile App" icon="mobile-screen-button">
+    The SDKand shows friendly responses.
+  </Card>
+
+  <Card title="Backend" icon="server">
+    Genera tokens, protect credentials, register operations and confirm final results.
+  </Card>
+</CardGroup>
+
+<Warning>
+  Do not include credentials, secrets or sensible logic within the app. What's critical should be back up.
+</Warning>
+
+## Mobile Security
+
+<AccordionGroup>
+  <Accordion title="Tokens" icon="key" defaultOpen>
+    * Genera `Access Token` from backend.
+    * Do not persist sensitive tokens in unsafe storage.
+    * Avoid printing tokens or complete payloads on login.
+  </Accordion>
+
+  <Accordion title="Private SDKs" icon="box">
+    * Don't come up `.aar`, `.xcframework` or private ZIPS to public repositories.
+    * Use the version delivered or approved by the integration team.
+    * Valids compatibility before upgrading dependencies.
+  </Accordion>
+
+  <Accordion title="Reg. SDK" icon="shield-check">
+    * Use callbacks / delegates to update user experience.
+    * Confirm states from backend as required by the method.
+    * Drive cancellation, error, timeout and back of the app.
+  </Accordion>
+</AccordionGroup>
+
+## Recommended Validation
+
+* Test Android e iOS separately.
+* Validate approved, refused and controlled errors.
+* Review behavior with bad connectivity.
+* Keep operation number and minimum login for support.
