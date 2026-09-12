@@ -1,14 +1,69 @@
 ---
-title: "Construcción del payload"
-description: "Arma el payload que Alignet One Flex utilizará para iniciar el flujo de autorización."
+title: "2. Integra Flex"
+description: "Incluye las librerías, prepara el payload y monta tu primer formulario de pago."
 ---
+
+<div className="ao-guide-rail not-prose"><a href="/pagos-virtuales/checkout-web/introduccion">← Portada de Checkout Web</a><span>PASO 02 / 05</span></div>
+
+Con un nonce vigente, integra el formulario en tres etapas: carga la librería, construye el payload de pago y monta Flex.
+
+## 1. Incluye el CSS y JavaScript
+
+Para usar Alignet One Flex hay que incluir el siguiente código en el HTML de la página según el ambiente:
+
+<Tabs>
+  <Tab title="Pre-Producción">
+    ```html theme={"system"}
+        <!-- Estilos CSS -->
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://flex.dev.pay-me.cloud/main-flex-payment-forms.css"
+        />
+
+        <!-- Librería JS -->
+        <script src="https://flex.dev.pay-me.cloud/flex-payment-forms.min.js"></script>
+    ```
+  </Tab>
+
+  <Tab title="Producción">
+    ```html theme={"system"}
+        <!-- Estilos CSS -->
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://flex.alignet.io/main-flex-payment-forms.css"
+        />
+
+        <!-- Librería JS -->
+        <script src="https://flex.alignet.io/flex-payment-forms.min.js"></script>
+    ```
+  </Tab>
+</Tabs>
+
+<CardGroup cols={2}>
+  <Card title="CSS" icon="paintbrush">
+    Estilos predeterminados del formulario de pago. Incluir antes del cierre del `<head>`.
+  </Card>
+
+  <Card title="JS" icon="code">
+    Librería principal de Alignet One Flex. Incluir después del CSS en el `<head>`.
+  </Card>
+</CardGroup>
+
+<Note>
+  Asegúrate de incluir primero el CSS y luego el JS para garantizar que los estilos se apliquen correctamente antes de que el formulario se inicialice.
+</Note>
+
+## 2. Construye el payload de pago
+
 El `payload` de Flex reutiliza la estructura del **API de Autorización - ecommerce**, con una diferencia importante: debes enviar `payment_method` en el objeto raíz, pero como un objeto vacío `{}`, porque el cliente elegirá el método dentro del formulario.
 
 <Info>
   Piensa este paso como la preparación del request de `POST /charges` para Flex. Lo que construyes aquí será la base de la operación que luego terminarás leyendo en `responseCallback(response)`.
 </Info>
 
-## Qué se conserva y qué cambia
+### Qué se conserva y qué cambia
 
 <CardGroup cols={2}>
   <Card title="Misma base de PayIn" icon="database">
@@ -20,7 +75,7 @@ El `payload` de Flex reutiliza la estructura del **API de Autorización - ecomme
   </Card>
 </CardGroup>
 
-## Estructura del payload
+### Estructura del payload
 
 Expande cada bloque para revisar qué campos pertenecen a cada nivel del objeto que enviarás a Flex.
 
@@ -121,7 +176,7 @@ Expande cada bloque para revisar qué campos pertenecen a cada nivel del objeto 
   En Flex, el objeto raíz debe incluir explícitamente `payment_method: {}` aunque el método final todavía no haya sido seleccionado por el usuario.
 </Note>
 
-## Ejemplo completo
+### Ejemplo completo
 
 ```javascript theme={"system"}
 var payload = {
@@ -190,14 +245,114 @@ var payload = {
 }
 ```
 
-## Siguiente paso
+## 3. Monta el componente
 
-<CardGroup cols={2}>
-  <Card title="Inicializar el componente" icon="arrow-right" href="/pagos-virtuales/checkout-web/flex/inicializar-el-componente">
-    Usa este `payload` junto con tu `nonce` para crear la instancia de `FlexPaymentForms`.
-  </Card>
+Con el `payload` construido y un `nonce` vigente, crea la instancia de `FlexPaymentForms` y monta el formulario en tu DOM.
 
-  <Card title="API de Autorización - ecommerce" icon="book" href="https://docs.pay-me.com/payin/autorizacion">
-    Toma esta referencia como contrato base del request que estás reutilizando en Flex.
-  </Card>
-</CardGroup>
+<Note>
+  Necesitas un `nonce` vigente del [API Nonce](/pagos-virtuales/checkout-web/preparacion) y el `payload` de [Construcción del payload](/pagos-virtuales/checkout-web/integrar-flex) antes de continuar.
+</Note>
+
+### Parámetros del constructor
+
+Expande cada bloque para revisar los campos que puedes enviar al constructor.
+
+<AccordionGroup>
+  <Accordion title="Datos obligatorios" icon="key" defaultOpen>
+    | Campo     | Tipo         | Descripción                                                                                                                  |
+    | :-------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------- |
+    | `nonce`   | Alfanumérico | Código encriptado generado en backend mediante el [API Nonce](/pagos-virtuales/checkout-web/preparacion).                                 |
+    | `payload` | Objeto JSON  | Detalles de la compra y del comprador preparados en [Construcción del payload](/pagos-virtuales/checkout-web/integrar-flex). |
+  </Accordion>
+
+  <Accordion title="Objeto settings" icon="gear">
+    Controla el comportamiento visual general del componente.
+
+    | Campo                            | Tipo    | Descripción                                               |
+    | :------------------------------- | :------ | :-------------------------------------------------------- |
+    | `settings.display_result_screen` | Boolean | Muestra la pantalla de resultado al finalizar el proceso. |
+    | `settings.show_close_button`     | Boolean | Muestra el botón para cerrar el componente.               |
+    | `settings.show_border`           | Boolean | Activa o desactiva el borde visual del componente.        |
+    | `settings.show_operation_number` | Boolean | Muestra el número de operación dentro del flujo.          |
+  </Accordion>
+
+  <Accordion title="Objeto display_settings" icon="list-check">
+    Define los medios de pago que Flex mostrará al comprador.
+
+    | Campo                      | Tipo            | Descripción                                                                                                       |
+    | :------------------------- | :-------------- | :---------------------------------------------------------------------------------------------------------------- |
+    | `display_settings.methods` | Array de String | Lista necesaria para la visualización. Acepta `CARD`, `YAPE`, `QR`, `BANK_TRANSFER`, `CUOTEALO` o `PAGOEFECTIVO`. |
+
+    Debes enviar `display_settings.methods` con los métodos de pago que necesitas visualizar en Flex.
+  </Accordion>
+
+  <Accordion title="Objeto i18n" icon="language">
+    Configura los idiomas disponibles dentro del formulario.
+
+    | Campo                   | Tipo            | Descripción                                                        |
+    | :---------------------- | :-------------- | :----------------------------------------------------------------- |
+    | `i18n.mode`             | String          | Modo de idiomas. Para este flujo se usa `multi`.                   |
+    | `i18n.default_language` | String          | Idioma predeterminado: `es` o `en`.                                |
+    | `i18n.languages`        | Array de String | Lista de idiomas habilitados. Actualmente se soportan `es` y `en`. |
+  </Accordion>
+</AccordionGroup>
+
+### Inicializar y montar Flex
+
+<Steps>
+  <Step title="Crea la instancia">
+    Envía el `nonce`, el `payload` y la configuración que necesite tu integración.
+
+    ```javascript theme={"system"}
+    const paymentForm = new FlexPaymentForms({
+      nonce,
+      payload,
+      settings: {
+        display_result_screen: true,
+        show_close_button: true,
+        show_border: false,
+        show_operation_number: true
+      },
+      display_settings: {
+        methods: ["QR", "BANK_TRANSFER", "CARD"]
+      },
+      i18n: {
+        mode: "multi",
+        default_language: "es",
+        languages: ["es", "en"]
+      }
+    });
+    ```
+  </Step>
+
+  <Step title="Crea el contenedor">
+    Agrega al HTML el elemento donde Flex generará su DOM.
+
+    ```html theme={"system"}
+    <div id="flex-container"></div>
+    ```
+  </Step>
+
+  <Step title="Renderiza el formulario">
+    Monta la instancia y entrega las funciones que procesarán la respuesta, el seguimiento y los errores.
+
+    ```javascript theme={"system"}
+    paymentForm.init(
+      document.querySelector("#flex-container"),
+      responseCallback,
+      trackingCallback,
+      onErrorCallback
+    );
+    ```
+  </Step>
+</Steps>
+
+<Note>
+  Si defines `i18n.default_language`, utiliza uno de los idiomas incluidos en `i18n.languages`.
+</Note>
+
+<Info>
+  `#flex-container` es solo un ejemplo. Puedes usar otro selector, siempre que el elemento exista antes de ejecutar `paymentForm.init(...)`.
+</Info>
+
+<Card title="3. Personaliza el checkout" icon="arrow-right" href="/pagos-virtuales/checkout-web/personalizar-checkout">Configura la experiencia visual y adapta Flex a tu interfaz y a dispositivos móviles.</Card>

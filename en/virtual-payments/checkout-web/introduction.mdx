@@ -1,13 +1,46 @@
 ---
-title: "Introduction"
-description: "Guide to integrating Alignet One Web Checkout."
+title: "Web Checkout · Flex"
+sidebarTitle: "Introduction"
+description: "Integrate Alignet One Flex into your website: from nonce to confirmed payment, in a step-by-step guide."
+mode: "wide"
+hideFooterPagination: true
 ---
-Integrate with the V-POS Flex forms and APIs to perform tokenization and authorization processes.
 
-<Card title="Integration checklist" icon="clipboard-check" href="/en/virtual-payments/checkout-web/integration-checklist">
-  Review the recommended Flex validations before certifying your integration.
-</Card>
+<div className="ao-cover ao-plugin-cover not-prose">
+<section className="ao-hero" aria-labelledby="ao-title">
+<div className="ao-hero-copy">
+<p className="ao-eyebrow"><span /> ALIGNET ONE · CHECKOUT WEB</p>
+<h1 id="ao-title">Your experience.<br />A checkout<br /><em>that fits.</em></h1>
+<p className="ao-lead">Bring payments into your web application with Alignet One Flex. One interface for multiple payment methods, connected to your business logic.</p>
+<div className="ao-actions"><a className="ao-button" href="/en/virtual-payments/checkout-web/preparation">Start integrating <span aria-hidden="true">↗</span></a><a className="ao-text-link" href="/en/virtual-payments/checkout-web/integrate-flex">View implementation <span aria-hidden="true">→</span></a></div>
+<p className="ao-backing">Your frontend presents. Your backend confirms.</p>
+</div>
+<div className="ao-network ao-plugin-visual">
+<div className="ao-network-top"><span>FROM YOUR APP TO PAYMENT</span><span className="ao-mini-mark" aria-hidden="true">↗</span></div>
+<div className="ao-channels"><span>Your backend</span><span>Access Token → nonce</span></div>
+<div className="ao-line" />
+<div className="ao-checkout"><div className="ao-checkout-label"><span>ALIGNET ONE FLEX</span><Icon icon="lock" size={13} /></div><strong>Choose how to pay</strong><div className="ao-checkout-options"><span><Icon icon="credit-card" size={15} /> Cards</span><span><Icon icon="wallet" size={15} /> Yape</span><span><Icon icon="qrcode" size={15} /> QR</span></div><div className="ao-checkout-action">Continue to payment <span aria-hidden="true">→</span></div></div>
+<div className="ao-line ao-line-bottom" />
+<div className="ao-order-sync"><span className="ao-sync-check" aria-hidden="true">✓</span><div><strong>Response + confirmation</strong><span>callback · query · webhook</span></div></div>
+<div className="ao-network-bottom">Illustrative overview of responsibilities</div>
+</div>
+</section>
+<div className="ao-trust-strip"><span>One interface, multiple methods</span><strong>3-D Secure</strong><span className="ao-divider" /><strong>Web and mobile</strong><span className="ao-divider" /><strong>ES / EN</strong></div>
 
-<Card title="Best practices" icon="shield-check" href="/en/virtual-payments/checkout-web/best-practices">
-  Review security, backend, and final-confirmation recommendations for your integration.
-</Card>
+<section className="ao-section" aria-labelledby="ao-start-title">
+<div className="ao-section-heading"><div><p className="ao-eyebrow">01 / YOUR INTEGRATION PATH</p><h2 id="ao-start-title">From start to finish, in order.</h2></div><p>Five stages to integrate.<br />An advanced reference when you need it.</p></div>
+<div className="ao-paths"><a className="ao-path" href="/en/virtual-payments/checkout-web/preparation"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="key" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">STEP 01</span><h3>Prepare your integration</h3><p>Set up your business, environment, Access Token and nonce.</p></a>
+<a className="ao-path" href="/en/virtual-payments/checkout-web/integrate-flex"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="code" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">STEP 02</span><h3>Integrate Flex</h3><p>Load the library, build the payload and mount the form.</p></a>
+<a className="ao-path" href="/en/virtual-payments/checkout-web/customize-checkout"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="sliders" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">STEP 03</span><h3>Customize the checkout</h3><p>Set languages, visible methods and responsive presentation.</p></a>
+<a className="ao-path" href="/en/virtual-payments/checkout-web/results-and-cleanup"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="arrows-rotate" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">STEP 04</span><h3>Results and cleanup</h3><p>Handle callbacks, confirm the payment and clean up the instance.</p></a>
+<a className="ao-path" href="/en/virtual-payments/checkout-web/testing-and-production"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="circle-check" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">STEP 05</span><h3>Testing and production</h3><p>Validate security, retries and the complete payment lifecycle.</p></a>
+<a className="ao-path" href="/en/virtual-payments/checkout-web/automatic-debit"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="repeat" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">ADVANCED · IN DEVELOPMENT</span><h3>Automatic debit</h3><p>Explore subscription flows. This feature is in development.</p></a></div>
+</section>
+
+<section className="ao-foundation" aria-labelledby="ao-foundation-title">
+<div className="ao-foundation-copy"><p className="ao-eyebrow">02 / CLEAR RESPONSIBILITIES</p><h2 id="ao-foundation-title">Every part<br />has a purpose.</h2><p>Flex captures the payment method and returns a result to the browser. Your application manages the order and confirms its final status on the server.</p><a className="ao-text-link" href="/en/virtual-payments/checkout-web/results-and-cleanup">Understand payment results <span aria-hidden="true">→</span></a></div>
+<div className="ao-features"><div><span className="ao-feature-number">01</span><div><h3>Backend</h3><p>Authenticate, generate a nonce and prepare the payment data.</p></div></div><div><span className="ao-feature-number">02</span><div><h3>Frontend</h3><p>Mount Flex, display the form and handle callbacks.</p></div></div><div><span className="ao-feature-number">03</span><div><h3>Confirmation</h3><p>Query the payment or receive its notification before completing the order. A generated QR or CIP may still be pending.</p></div></div></div>
+</section>
+<section className="ao-section" aria-labelledby="ao-methods-title"><div className="ao-section-heading"><div><p className="ao-eyebrow">03 / PAYMENT METHODS</p><h2 id="ao-methods-title">Options for every customer.</h2></div><p>Availability depends on your business<br />and Flex version.</p></div><div className="ao-payment-grid"><div><Icon icon="credit-card" size={21} /><h3>Cards with 3DS</h3><p>Visa · Mastercard<br />Amex · Diners</p></div><div><Icon icon="wallet" size={21} /><h3>Yape</h3><p>Digital wallet.</p></div><div><Icon icon="qrcode" size={21} /><h3>QR</h3><p>Pay with a supported app.</p></div><div><Icon icon="building-columns" size={21} /><h3>Transfers and more</h3><p>Bank transfers and Cuotéalo, when enabled.</p></div></div><p className="ao-availability-note">Confirm availability of PagoEfectivo, Powerpay and other methods with the integration team before offering them to customers.</p></section>
+<div className="ao-bottom"><div><span className="ao-status-dot" /><p>Already using Flex?<a href="/en/virtual-payments/checkout-web/customize-checkout">Explore customization options <span aria-hidden="true">→</span></a></p></div><a href="mailto:postventa.autenticacion@alignet.com">Talk to our team <span aria-hidden="true">↗</span></a></div>
+</div>

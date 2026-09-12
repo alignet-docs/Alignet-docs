@@ -1,7 +1,28 @@
 ---
-title: "API Nonce"
-description: "Genera el Nonce necesario para inicializar Alignet One Flex después de autenticarte."
+title: "1. Prepara la integración"
+description: "Prepara tu comercio, el ambiente y la autenticación; genera el nonce desde backend."
 ---
+
+<div className="ao-guide-rail not-prose"><a href="/pagos-virtuales/checkout-web/introduccion">← Portada de Checkout Web</a><span>PASO 01 / 05</span></div>
+
+Empieza por el backend. Usa credenciales del mismo ambiente para autenticarte, generar el nonce y procesar pagos.
+
+## Requisitos del comercio
+
+Para la afiliación de comercios en Perú:
+
+- Razón social con RUC 10 o 20.
+- Sitio web disponible o en desarrollo; redes sociales activas si todavía no tienes web.
+- HTTPS en el sitio web.
+- Cuenta bancaria a nombre de la razón social.
+- Una persona responsable del desarrollo de la integración.
+
+## Autentica tu backend
+
+Genera un Access Token siguiendo la [referencia de autenticación](/api-reference/authentication/generar-access-token). Conserva las credenciales y el Access Token en backend. Envía al frontend únicamente el nonce temporal necesario para Flex.
+
+## Genera el nonce
+
 Genera un **Nonce** temporal para inicializar Alignet One Flex en el frontend.\
 Este valor debe solicitarse desde backend usando un `Bearer Token` vigente.
 
@@ -9,7 +30,7 @@ Este valor debe solicitarse desde backend usando un `Bearer Token` vigente.
 
 ## Endpoint
 
-<ParamField path="POST /token" type="endpoint" />
+<ParamField path="POST /nonce" type="endpoint" />
 
 <CardGroup cols={2}>
   <Card title="Pre-Producción" icon="flask">
@@ -22,7 +43,7 @@ Este valor debe solicitarse desde backend usando un `Bearer Token` vigente.
 </CardGroup>
 
 <Note>
-  Antes de llamar a este endpoint, genera un `Access Token` con [Autenticación](https://docs.pay-me.com/api-de-pagos/autenticacion). El token debe enviarse en el header `Authorization`.
+  Antes de llamar a este endpoint, genera un `Access Token` con [Autenticación](/api-reference/authentication/generar-access-token). El token debe enviarse en el header `Authorization`.
 </Note>
 
 ***
@@ -236,8 +257,4 @@ var paymentForm = new FlexPaymentForms({
 
 ***
 
-## Siguiente paso
-
-<Card title="Incluir librería y estilos básicos" icon="arrow-right" href="/pagos-virtuales/checkout-web/flex/libreria-y-estilos-basicos">
-  Continúa con la inclusión del CSS y JS del ambiente antes de inicializar el formulario.
-</Card>
+<Card title="2. Integra Flex" icon="arrow-right" href="/pagos-virtuales/checkout-web/integrar-flex">Incluye las librerías, prepara el payload y monta tu primer formulario de pago.</Card>

@@ -1,0 +1,248 @@
+---
+title: "3. Personaliza el checkout"
+description: "Configura la experiencia visual y adapta Flex a tu interfaz y a dispositivos móviles."
+---
+
+<div className="ao-guide-rail not-prose"><a href="/pagos-virtuales/checkout-web/introduccion">← Portada de Checkout Web</a><span>PASO 03 / 05</span></div>
+
+Adapta el checkout a tu marca y a los dispositivos de tus clientes. La disponibilidad depende de la versión de la librería y de las funciones habilitadas para tu comercio.
+
+## Dónde se configuran
+
+Estas mejoras se ven según la versión del componente y la configuración enviada al inicializar Flex. Si tu comercio ya tiene Flex activo, revisa esta tabla para saber qué debes añadir o validar en tu integración.
+
+| Mejora              | Qué debes revisar                                                                                                 | Parámetro o guía                                                                                                                                     |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Logo configurable   | El comercio debe compartir la URL pública del logo que desea mostrar en la parte superior izquierda del checkout. | Configuración habilitada por el equipo de integraciones                                                                                              |
+| Multidioma          | Añade la configuración de idiomas si quieres mostrar el selector `ES` / `EN`.                                     | [`i18n.mode`, `i18n.default_language`, `i18n.languages`](/pagos-virtuales/checkout-web/integrar-flex)                                               |
+| Botón de cerrar     | Activa el botón si necesitas que el comprador pueda salir del checkout desde la interfaz.                         | [`settings.show_close_button`](/pagos-virtuales/checkout-web/integrar-flex)                                                                         |
+| Tarjeta más visual  | Valida que el método `CARD` esté habilitado y que el payload envíe los datos de comprador requeridos.             | [`display_settings.methods`](/pagos-virtuales/checkout-web/integrar-flex) y [Construcción del payload](/pagos-virtuales/checkout-web/integrar-flex) |
+| Bordes y estilos    | Define si el contenedor se muestra con borde visual o si tu layout externo ya lo maneja.                          | [`settings.show_border`](/pagos-virtuales/checkout-web/integrar-flex)                                                                               |
+| Yape UX             | Asegura que `YAPE` esté disponible para el comercio y, si limitas métodos, inclúyelo en la lista visible.         | [`display_settings.methods`](/pagos-virtuales/checkout-web/integrar-flex) y [Datos de prueba](/pagos-virtuales/pagos/datos-de-prueba)                               |
+| Número de operación | Activa la visualización del número de operación cuando necesites trazabilidad para soporte.                       | [`settings.show_operation_number`](/pagos-virtuales/checkout-web/integrar-flex)                                                                     |
+
+<Note>
+  Envía explícitamente `display_settings.methods` con los métodos habilitados que quieras mostrar, por ejemplo `CARD` o `YAPE`, para mantener una configuración predecible.
+</Note>
+
+<Info>
+  El logo configurable no se envía dentro del objeto de inicialización. Para habilitarlo, el comercio debe compartir con el equipo de integraciones una URL pública HTTPS del logo que se mostrará en el checkout.
+</Info>
+
+## Detalle por mejora
+
+<AccordionGroup>
+  <Accordion title="Logo configurable" icon="image" defaultOpen>
+    * Permite personalizar el logo que aparece en la parte superior izquierda del checkout.
+    * El comercio debe compartir la URL pública HTTPS del logo que desea mostrar.
+    * La URL debe apuntar directamente al archivo de imagen y estar disponible sin autenticación.
+    * La activación se coordina con el equipo de integraciones; no se configura desde `settings`, `display_settings` ni `i18n`.
+  </Accordion>
+
+  <Accordion title="Multidioma" icon="language">
+    * Selector de idioma visible dentro del checkout.
+    * Soporte inicial para `ES` y `EN`.
+    * Ayuda a comercios con compradores que prefieren una experiencia bilingüe.
+    * Se configura en [Inicializar el componente](/pagos-virtuales/checkout-web/integrar-flex), dentro del objeto `i18n`.
+  </Accordion>
+
+  <Accordion title="Botón de cerrar" icon="circle-xmark">
+    * Botón de cierre más visible en la interfaz.
+    * Permite salir del checkout sin ambigüedad.
+    * Mejora el control del usuario durante el proceso de pago.
+    * Se activa con `settings.show_close_button` en [Inicializar el componente](/pagos-virtuales/checkout-web/integrar-flex).
+  </Accordion>
+
+  <Accordion title="Visualización de tarjeta" icon="credit-card-front">
+    * Tarjeta renderizada de forma más visual.
+    * Logos de marca visibles cuando corresponda.
+    * Campos principales organizados para facilitar la lectura.
+    * Revisa `CARD` en `display_settings.methods` y los datos enviados en [Construcción del payload](/pagos-virtuales/checkout-web/integrar-flex).
+  </Accordion>
+
+  <Accordion title="Bordes y consistencia visual" icon="object-group">
+    * Bordes redondeados en contenedores y campos.
+    * Separación visual más clara entre métodos de pago y formulario.
+    * Apariencia más limpia y consistente entre flujos.
+    * Se controla con `settings.show_border` en [Inicializar el componente](/pagos-virtuales/checkout-web/integrar-flex).
+  </Accordion>
+
+  <Accordion title="Yape UX" icon="mobile">
+    * Pantalla de Yape más directa.
+    * Campo de celular y código de aprobación mejor diferenciados.
+    * Mensajes de ayuda orientados a reducir errores del comprador.
+    * Revisa que `YAPE` esté habilitado en `display_settings.methods` y usa [Datos de prueba](/pagos-virtuales/pagos/datos-de-prueba) para validar el flujo.
+  </Accordion>
+
+  <Accordion title="Número de operación" icon="receipt">
+    * El checkout muestra el número de operación asociado al pago.
+    * Facilita trazabilidad para soporte, conciliación y revisión operativa.
+    * Ayuda al comercio y al comprador a identificar el intento de pago.
+    * Se activa con `settings.show_operation_number` en [Inicializar el componente](/pagos-virtuales/checkout-web/integrar-flex).
+  </Accordion>
+</AccordionGroup>
+
+## Comportamiento responsive
+
+Flex conserva su estructura interna mientras el contenedor externo calcula una escala adecuada para el viewport.
+
+<CardGroup cols={3}>
+  <Card title="Web" icon="desktop">
+    Mantiene la escala original cuando el formulario cabe en la ventana.
+  </Card>
+
+  <Card title="Celular" icon="mobile-screen">
+    Reduce el formulario proporcionalmente para evitar cortes horizontales.
+  </Card>
+
+  <Card title="Contenido dinámico" icon="arrows-up-down">
+    Recalcula la altura cuando Flex cambia de paso o método de pago.
+  </Card>
+</CardGroup>
+
+### Ejemplo de implementación
+
+<Info>
+  Este ejemplo visual usa una presentación popup. La inicialización, los callbacks y el desmontaje descritos más adelante también aplican a las presentaciones embebida y expandida.
+</Info>
+
+<Tabs>
+  <Tab title="Estructura HTML">
+    ```html theme={"system"}
+    <div id="payment-modal" class="flex-modal" role="dialog" aria-hidden="true">
+      <div class="flex-modal__content">
+        <div id="flex-container"></div>
+      </div>
+    </div>
+    ```
+  </Tab>
+
+  <Tab title="Estilos base">
+    ```css theme={"system"}
+    :root {
+      --flex-responsive-scale: 1;
+      --flex-natural-width: 415px;
+      --flex-natural-height: 656px;
+    }
+
+    .flex-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      padding: 15px 20px;
+      overflow: hidden;
+      background: rgb(0 18 37 / 48%);
+    }
+
+    .flex-modal.is-open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flex-modal__content {
+      width: var(--flex-natural-width);
+      height: var(--flex-natural-height);
+      max-width: calc(100vw - 40px);
+      max-height: calc(100vh - 30px);
+      max-height: calc(100dvh - 30px);
+      transform: scale(var(--flex-responsive-scale));
+      transform-origin: center;
+    }
+
+    #flex-container {
+      width: 100%;
+      height: 100%;
+    }
+    ```
+  </Tab>
+
+  <Tab title="Lógica responsive">
+    ```javascript theme={"system"}
+    const FLEX_RESPONSIVE_LAYOUT = {
+      naturalWidth: 415,
+      naturalHeight: 656,
+      viewportPaddingHorizontal: 40, // 20 px a cada lado
+      viewportPaddingVertical: 30,   // 15 px arriba y abajo
+      minimumScale: 0.25
+    };
+
+    function calculateResponsiveScale() {
+      const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
+      const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+      const availableWidth =
+        viewportWidth - FLEX_RESPONSIVE_LAYOUT.viewportPaddingHorizontal;
+      const availableHeight =
+        viewportHeight - FLEX_RESPONSIVE_LAYOUT.viewportPaddingVertical;
+
+      return Math.max(
+        FLEX_RESPONSIVE_LAYOUT.minimumScale,
+        Math.min(
+          1,
+          availableWidth / FLEX_RESPONSIVE_LAYOUT.naturalWidth,
+          availableHeight / FLEX_RESPONSIVE_LAYOUT.naturalHeight
+        )
+      );
+    }
+
+    function updateResponsiveScale() {
+      const responsiveScale = calculateResponsiveScale();
+      document.documentElement.style.setProperty(
+        "--flex-responsive-scale",
+        String(responsiveScale)
+      );
+    }
+
+    // Aplica la escala inicial y la recalcula cuando cambia el viewport.
+    updateResponsiveScale();
+    window.addEventListener("resize", updateResponsiveScale);
+    window.visualViewport?.addEventListener("resize", updateResponsiveScale);
+
+    // Muestra el modal.
+    const paymentModal = document.querySelector("#payment-modal");
+    paymentModal.classList.add("is-open");
+    paymentModal.setAttribute("aria-hidden", "false");
+
+    // Inicializa Flex.
+    paymentForm.init(
+      document.querySelector("#flex-container"),
+      responseCallback,
+      trackingCallback,
+      onErrorCallback
+    );
+    ```
+  </Tab>
+
+  <Tab title="Desmontar Flex">
+    ```javascript theme={"system"}
+    function unmountFlex() {
+      window.removeEventListener("resize", updateResponsiveScale);
+      window.visualViewport?.removeEventListener("resize", updateResponsiveScale);
+
+      paymentForm.terminate?.();
+
+      const flexContainer = document.querySelector("#flex-container");
+      flexContainer.innerHTML = "";
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Antes de publicar
+
+Comprueba el componente en estos escenarios:
+
+| Escenario                     | Resultado esperado                                     |
+| :---------------------------- | :----------------------------------------------------- |
+| Web con viewport amplio       | El formulario conserva la escala `1` y queda centrado. |
+| Celular vertical y horizontal | No aparece scroll horizontal ni contenido cortado.     |
+| Cambio de orientación         | La escala se recalcula sin reinicializar Flex.         |
+| Cambio de paso o método       | La nueva altura permanece dentro del viewport.         |
+| Teclado virtual abierto       | Los campos activos continúan visibles y utilizables.   |
+
+<Warning>
+  Los callbacks no reemplazan la confirmación del pago desde backend. Continúa con la guía de callbacks para interpretar el resultado.
+</Warning>
+
+<Card title="4. Resultados y cierre" icon="arrow-right" href="/pagos-virtuales/checkout-web/resultados-y-cierre">Interpreta callbacks, confirma el pago desde backend y desmonta el formulario.</Card>

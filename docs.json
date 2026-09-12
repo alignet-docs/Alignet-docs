@@ -126,24 +126,12 @@
                         "icon": "globe",
                         "pages": [
                           "pagos-virtuales/checkout-web/introduccion",
-                          "pagos-virtuales/checkout-web/checklist-de-integracion",
-                          "pagos-virtuales/checkout-web/buenas-practicas",
-                          "pagos-virtuales/checkout-web/requisitos-de-negocio",
-                          {
-                            "group": "Flex",
-                            "icon": "window-maximize",
-                            "pages": [
-                              "pagos-virtuales/checkout-web/flex/introduccion",
-                              "pagos-virtuales/checkout-web/flex/ultimas-mejoras",
-                              "pagos-virtuales/checkout-web/flex/api-nonce",
-                              "pagos-virtuales/checkout-web/flex/libreria-y-estilos-basicos",
-                              "pagos-virtuales/checkout-web/flex/funcionalidad-de-cobros",
-                              "pagos-virtuales/checkout-web/flex/construccion-del-payload",
-                              "pagos-virtuales/checkout-web/flex/inicializar-el-componente",
-                              "pagos-virtuales/checkout-web/flex/capturar-funciones-callback",
-                              "pagos-virtuales/checkout-web/flex/funcionalidad-debito-automatica"
-                            ]
-                          }
+                          "pagos-virtuales/checkout-web/preparacion",
+                          "pagos-virtuales/checkout-web/integrar-flex",
+                          "pagos-virtuales/checkout-web/personalizar-checkout",
+                          "pagos-virtuales/checkout-web/resultados-y-cierre",
+                          "pagos-virtuales/checkout-web/pruebas-y-produccion",
+                          "pagos-virtuales/checkout-web/debito-automatico"
                         ]
                       },
                       {
@@ -540,24 +528,12 @@
                         "icon": "globe",
                         "pages": [
                           "en/virtual-payments/checkout-web/introduction",
-                          "en/virtual-payments/checkout-web/integration-checklist",
-                          "en/virtual-payments/checkout-web/best-practices",
-                          "en/virtual-payments/checkout-web/business-requirements",
-                          {
-                            "group": "Flex",
-                            "icon": "window-maximize",
-                            "pages": [
-                              "en/virtual-payments/checkout-web/flex/introduction",
-                              "en/virtual-payments/checkout-web/flex/latest-improvements",
-                              "en/virtual-payments/checkout-web/flex/api-nonce",
-                              "en/virtual-payments/checkout-web/flex/library-and-basic-styles",
-                              "en/virtual-payments/checkout-web/flex/payment-functionality",
-                              "en/virtual-payments/checkout-web/flex/payload-construction",
-                              "en/virtual-payments/checkout-web/flex/component-initialization",
-                              "en/virtual-payments/checkout-web/flex/handling-callback-functions",
-                              "en/virtual-payments/checkout-web/flex/automatic-debit-functionality"
-                            ]
-                          }
+                          "en/virtual-payments/checkout-web/preparation",
+                          "en/virtual-payments/checkout-web/integrate-flex",
+                          "en/virtual-payments/checkout-web/customize-checkout",
+                          "en/virtual-payments/checkout-web/results-and-cleanup",
+                          "en/virtual-payments/checkout-web/testing-and-production",
+                          "en/virtual-payments/checkout-web/automatic-debit"
                         ]
                       },
                       {
@@ -878,6 +854,102 @@
     {
       "source": "/en",
       "destination": "/en/virtual-payments/introduction"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/requisitos-de-negocio",
+      "destination": "/pagos-virtuales/checkout-web/preparacion"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/flex/api-nonce",
+      "destination": "/pagos-virtuales/checkout-web/preparacion"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/flex/libreria-y-estilos-basicos",
+      "destination": "/pagos-virtuales/checkout-web/integrar-flex"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/flex/construccion-del-payload",
+      "destination": "/pagos-virtuales/checkout-web/integrar-flex"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/flex/inicializar-el-componente",
+      "destination": "/pagos-virtuales/checkout-web/integrar-flex"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/flex/ultimas-mejoras",
+      "destination": "/pagos-virtuales/checkout-web/personalizar-checkout"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/flex/capturar-funciones-callback",
+      "destination": "/pagos-virtuales/checkout-web/resultados-y-cierre"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/checklist-de-integracion",
+      "destination": "/pagos-virtuales/checkout-web/pruebas-y-produccion"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/buenas-practicas",
+      "destination": "/pagos-virtuales/checkout-web/pruebas-y-produccion"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/flex/funcionalidad-debito-automatica",
+      "destination": "/pagos-virtuales/checkout-web/debito-automatico"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/flex/funcionalidad-de-cobros",
+      "destination": "/pagos-virtuales/checkout-web/integrar-flex"
+    },
+    {
+      "source": "/pagos-virtuales/checkout-web/flex/introduccion",
+      "destination": "/pagos-virtuales/checkout-web/introduccion"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/business-requirements",
+      "destination": "/en/virtual-payments/checkout-web/preparation"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/flex/api-nonce",
+      "destination": "/en/virtual-payments/checkout-web/preparation"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/flex/library-and-basic-styles",
+      "destination": "/en/virtual-payments/checkout-web/integrate-flex"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/flex/payload-construction",
+      "destination": "/en/virtual-payments/checkout-web/integrate-flex"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/flex/component-initialization",
+      "destination": "/en/virtual-payments/checkout-web/integrate-flex"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/flex/latest-improvements",
+      "destination": "/en/virtual-payments/checkout-web/customize-checkout"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/flex/handling-callback-functions",
+      "destination": "/en/virtual-payments/checkout-web/results-and-cleanup"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/integration-checklist",
+      "destination": "/en/virtual-payments/checkout-web/testing-and-production"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/best-practices",
+      "destination": "/en/virtual-payments/checkout-web/testing-and-production"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/flex/automatic-debit-functionality",
+      "destination": "/en/virtual-payments/checkout-web/automatic-debit"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/flex/payment-functionality",
+      "destination": "/en/virtual-payments/checkout-web/integrate-flex"
+    },
+    {
+      "source": "/en/virtual-payments/checkout-web/flex/introduction",
+      "destination": "/en/virtual-payments/checkout-web/introduction"
     }
   ],
   "api": {
