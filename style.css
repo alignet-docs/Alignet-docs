@@ -95,7 +95,11 @@
 @keyframes mig-approve { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
 @media(prefers-reduced-motion:reduce) { .mig-demo-spinner, .mig-success-check { animation: none; } }
 /* Migration: an editorial entry point followed by a task-focused guide. */
-.mig-cover .ao-hero { grid-template-columns: 1.12fr 1fr; gap: 46px; }
+#content-area:has(.mig-cover) { padding-top: 24px !important; }
+.ao-cover.mig-cover { padding-top: 0; }
+.mig-cover .ao-hero { grid-template-columns: 1.12fr 1fr; gap: 46px; align-items: start; padding-top: 8px; padding-bottom: 32px; }
+.mig-cover .ao-hero-copy { padding-top: 24px; }
+@media (max-width: 700px) { #content-area:has(.mig-cover) { padding-top: 16px !important; } .mig-cover .ao-hero-copy { padding-top: 0; } }
 .mig-cover h1 { font-size: clamp(40px,3.8vw,59px); }
 .mig-transition { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; border-top: 1px solid var(--ao-line); margin-top: 29px; padding-top: 18px; font-size: 11px; color: var(--ao-muted); }
 .mig-transition strong { color: var(--ao-ink); font-weight: 500; }
