@@ -1,47 +1,23 @@
 ---
 title: "Mobile SDK"
-description: "Overview of the Alignet One mobile integration for Android and iOS."
+sidebarTitle: "Overview"
+description: "Integrate payments and affiliations on Android and iOS. Choose your platform and follow the guide from requirements to testing."
+mode: "wide"
+hideFooterPagination: true
 ---
-The SDK Mobile from Alignet One allows to integrate collection into native applications while maintaining a smooth experience for end users.
 
-You can choose the platform with your app:
-
-<CardGroup cols={2}>
-  <Card title="Android" icon="mobile-screen-button" href="/en/virtual-payments/sdk-mobile/android/introduction">
-    Implement mobile flow into applications Android.
-  </Card>
-
-  <Card title="iOS" icon="mobile-screen-button" href="/en/virtual-payments/sdk-mobile/ios/introduction">
-    Implement mobile flow into applications iOS.
-  </Card>
-</CardGroup>
-
-***
-
-## Recommended flow
-
-<Steps>
-  <Step title="Check requirements">
-    Confirms dependencies, versions and technical considerations before integrating.
-  </Step>
-
-  <Step title="Install the SDK">
-    Set up your mobile project with the library as required.
-  </Step>
-
-  <Step title="Implement collection or affiliations">
-    Choose the flow you need depending on your use case.
-  </Step>
-
-  <Step title="Valid in sandbox">
-    He runs tests before his production.
-  </Step>
-</Steps>
-
-<Card title="Integration checklist" icon="clipboard-check" href="/en/virtual-payments/sdk-mobile/integration-checklist">
-  Check the suggested validation for Android e iOS before you get out alive.
-</Card>
-
-<Card title="good practice" icon="shield-check" href="/en/virtual-payments/sdk-mobile/best-practices">
-  Check guidelines to protect SDKs, tokens and final payment validation.
-</Card>
+<div className="ao-cover ao-sdk-cover sdk-mobile not-prose">
+<section className="ao-hero" aria-labelledby="ao-title">
+<div className="ao-hero-copy"><p className="ao-eyebrow"><span /> ALIGNET ONE · MOBILE SDK</p><h1 id="ao-title">Your app.<br />Two platforms.<br /><em>One clear path.</em></h1><p className="ao-lead">Integrate payments and affiliations on Android and iOS. Choose your platform and follow the guide from requirements to testing.</p><div className="ao-actions"><a className="ao-button" href="/en/virtual-payments/sdk-mobile/android/introduction">Explore Android <span aria-hidden="true">↗</span></a><a className="ao-text-link" href="/en/virtual-payments/sdk-mobile/ios/introduction">Explore iOS <span aria-hidden="true">→</span></a></div><p className="ao-backing">Android and iOS · Alignet technology</p></div>
+<div className="sdk-hub-visual"><div className="sdk-visual-top">NATIVE MOBILE / ALIGNET ONE</div><div className="sdk-os-pair"><a className="sdk-os-tile sdk-android" href="/en/virtual-payments/sdk-mobile/android/introduction"><Icon icon="android" size={44} /><strong>Android</strong><span>Kotlin · Gradle</span></a><a className="sdk-os-tile sdk-ios" href="/en/virtual-payments/sdk-mobile/ios/introduction"><Icon icon="apple" size={44} /><strong>iOS</strong><span>Swift · Xcode</span></a></div><div className="sdk-connection" aria-hidden="true" /><div className="sdk-backend"><Icon icon="server" size={18} /><div><strong>Your backend</strong><span>Tokens · operations · confirmation</span></div></div><p className="sdk-visual-caption">Two platforms. One payment architecture.</p></div>
+</section>
+<div className="ao-trust-strip"><span>Native integration</span><strong>Payments</strong><span className="ao-divider" /><strong>Affiliations</strong><span className="ao-divider" /><strong>Sandbox → Production</strong></div>
+<section className="ao-section" aria-labelledby="sdk-route"><div className="ao-section-heading"><div><p className="ao-eyebrow">01 / YOUR INTEGRATION PATH</p><h2 id="sdk-route">Choose where to start.</h2></div><p>A guide for each stage.<br />Every reference, one step away.</p></div><div className="ao-paths"><a className="ao-path" href="/en/virtual-payments/sdk-mobile/android/introduction"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="android" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">01 / ANDROID</span><h3>Android</h3><p>Libraries, permissions and dependencies for your Kotlin project.</p></a>
+<a className="ao-path" href="/en/virtual-payments/sdk-mobile/ios/introduction"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="apple" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">02 / iOS</span><h3>iOS</h3><p>Frameworks, embedding and configuration for your Swift project.</p></a>
+<a className="ao-path" href="/en/virtual-payments/sdk-mobile/integration-checklist"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="clipboard-check" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">03 / VALIDATION</span><h3>Before production</h3><p>Check flows, responses and integration security.</p></a></div></section>
+<section className="ao-foundation" aria-labelledby="sdk-architecture"><div className="ao-foundation-copy"><p className="ao-eyebrow">02 / A SHARED FOUNDATION</p><h2 id="sdk-architecture">Your app presents.<br />Your backend protects.</h2><p>Generate tokens on the server. Use callbacks and delegates to update the user experience and keep control of the operation in your backend.</p><a className="ao-text-link" href="/en/virtual-payments/sdk-mobile/best-practices">Security and best practices <span aria-hidden="true">→</span></a></div><div className="ao-features"><div><span className="ao-feature-number">01</span><div><h3>Prepare the merchant</h3><p>Request SDKs, credentials, environment and enabled methods from the integration team.</p></div></div><div><span className="ao-feature-number">02</span><div><h3>Implement the flow</h3><p>Integrate payments or affiliations and handle responses, cancellations and errors.</p></div></div><div><span className="ao-feature-number">03</span><div><h3>Validate in sandbox</h3><p>Test each platform and coordinate the final review before production.</p></div></div></div></section>
+<section className="ao-section" aria-labelledby="sdk-release"><div className="ao-section-heading"><div><p className="ao-eyebrow">03 / VALIDATE BEFORE RELEASE</p><h2 id="sdk-release">Ready to test. Then, to release.</h2></div></div><div className="ao-paths"><a className="ao-path" href="/en/virtual-payments/payments/test-data"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="flask" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">TESTING</span><h3>Sandbox scenarios</h3><p>Test approval, decline, cancellation and errors. Never use test data in production.</p></a>
+<a className="ao-path" href="/en/virtual-payments/sdk-mobile/integration-checklist"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="clipboard-check" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">CONTROL</span><h3>Integration checklist</h3><p>Review navigation, app return, connectivity and test evidence.</p></a>
+<a className="ao-path" href="mailto:postventa.autenticacion@alignet.com"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="comments" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">COORDINATION</span><h3>Your integration team</h3><p>Confirm SDKs, versions, environment and enabled payment methods for your merchant.</p></a></div><p className="ao-availability-note">Methods depend on configuration: cards, Yape, QR, bank transfer, Cuotéalo and PagoEfectivo. Confirm availability with the integration team.</p></section>
+<div className="ao-bottom"><div><span className="ao-status-dot" /><p>A guide for each platform.<a href="/en/virtual-payments/sdk-mobile/ios/introduction">Explore iOS SDK →</a></p></div><a href="mailto:postventa.autenticacion@alignet.com">Contact our team ↗</a></div>
+</div>

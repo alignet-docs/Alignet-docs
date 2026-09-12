@@ -1,79 +1,23 @@
 ---
 title: "SDK Android"
-description: "Integra Alignet One SDK en Android para ejecutar cobros y afiliaciones desde aplicaciones móviles nativas."
+sidebarTitle: "Introducción"
+description: "Integra Alignet One en Android y mantén el pago dentro de la experiencia de tu aplicación. Una ruta clara para cobros, afiliaciones y respuestas."
+mode: "wide"
+hideFooterPagination: true
 ---
-Alignet One SDK Android permite integrar flujos de **cobro** y **afiliación** directamente en tu aplicación móvil, manteniendo una experiencia nativa para el usuario final.
 
-<Info>
-  La integración debe coordinarse con el equipo de integraciones para recibir SDKs, credenciales, ambiente y métodos de pago habilitados para tu comercio.
-</Info>
-
-## ¿Qué puedes integrar?
-
-<CardGroup cols={2}>
-  <Card title="Cobros móviles" icon="credit-card">
-    Inicializa el SDK para procesar pagos con los métodos habilitados para el comercio.
-  </Card>
-
-  <Card title="Afiliaciones" icon="user-plus">
-    Registra o actualiza datos asociados a flujos de afiliación cuando aplique al negocio.
-  </Card>
-
-  <Card title="Métodos de pago" icon="wallet">
-    Tarjetas, Yape, QR, transferencia bancaria, Cuotéalo y PagoEfectivo según configuración.
-  </Card>
-
-  <Card title="Sandbox" icon="flask">
-    Valida escenarios controlados antes de solicitar salida a producción.
-  </Card>
-</CardGroup>
-
-## Ruta sugerida
-
-<Steps>
-  <Step title="Revisa requisitos">
-    Confirma versiones, dependencias, permisos y prerequisitos de negocio en [Requisitos SDK Android](/pagos-virtuales/sdk-mobile/android/requisitos).
-  </Step>
-
-  <Step title="Instala el SDK">
-    Agrega las librerías entregadas por Alignet One, configura Gradle y valida permisos desde [Instalación](/pagos-virtuales/sdk-mobile/android/instalacion).
-  </Step>
-
-  <Step title="Implementa el flujo">
-    Inicializa `PaymeClient`, configura el ambiente y envía el objeto de request para cobro o afiliación.
-  </Step>
-
-  <Step title="Captura la respuesta">
-    Implementa los delegates del SDK para procesar resultado final, eventos, cancelaciones y errores.
-  </Step>
-
-  <Step title="Valida en sandbox">
-    Ejecuta pruebas con [Datos de prueba](/pagos-virtuales/pagos/datos-de-prueba) antes de pedir validación final.
-  </Step>
-</Steps>
-
-## Guías de integración
-
-<CardGroup cols={2}>
-  <Card title="Requisitos" icon="key" href="/pagos-virtuales/sdk-mobile/android/requisitos">
-    Revisa condiciones técnicas y de negocio antes de iniciar.
-  </Card>
-
-  <Card title="Instalación" icon="download" href="/pagos-virtuales/sdk-mobile/android/instalacion">
-    Configura SDKs, permisos y dependencias Android.
-  </Card>
-
-  <Card title="Flujo de cobro" icon="credit-card-front" href="/pagos-virtuales/sdk-mobile/android/flujo-de-cobro/inicializar-alignet-one-sdk-android">
-    Inicializa el SDK para iniciar un cobro desde tu app.
-  </Card>
-
-  <Card title="Afiliaciones" icon="user-plus" href="/pagos-virtuales/sdk-mobile/android/afiliaciones/inicializar-sdk-android">
-    Implementa los flujos de afiliación cuando apliquen.
-  </Card>
-</CardGroup>
-
-## Antes de producción
-
-<Warning>
-  No uses credenciales, SDKs ni datos de prueba en ambiente productivo. Coordina la validación final con el equipo de integraciones antes de salir a vivo.
-</Warning>
+<div className="ao-cover ao-sdk-cover sdk-android not-prose">
+<section className="ao-hero" aria-labelledby="ao-title">
+<div className="ao-hero-copy"><p className="ao-eyebrow"><span /> ALIGNET ONE · ANDROID</p><h1 id="ao-title">En tu app.<br />En su día<br />a <em>día.</em></h1><p className="ao-lead">Integra Alignet One en Android y mantén el pago dentro de la experiencia de tu aplicación. Una ruta clara para cobros, afiliaciones y respuestas.</p><div className="ao-actions"><a className="ao-button" href="/pagos-virtuales/sdk-mobile/android/requisitos">Comenzar integración <span aria-hidden="true">↗</span></a><a className="ao-text-link" href="/pagos-virtuales/sdk-mobile/android/flujo-de-cobro/inicializar-alignet-one-sdk-android">Ver el código <span aria-hidden="true">→</span></a></div><p className="ao-backing">Kotlin · Android Studio · Gradle</p></div>
+<div className="sdk-stage"><div className="sdk-visual-top"><span><Icon icon="android" size={19} /> Android</span><span>KOTLIN / GRADLE</span></div><div className="sdk-device"><div className="sdk-camera" aria-hidden="true" /><div className="sdk-device-brand">ALIGNET ONE</div><div className="sdk-device-title">Tu pedido</div><div className="sdk-receipt"><span>Total de ejemplo</span><strong>S/ 150.00</strong></div><div className="sdk-pay-row"><Icon icon="credit-card" size={17} /><span>Tarjeta <small>•••• 4821</small></span><span className="sdk-radio" /></div><div className="sdk-pay-row"><Icon icon="wallet" size={17} /><span>Otros métodos</span><span className="sdk-radio sdk-radio-empty" /></div><div className="sdk-pay-action">Continuar <span aria-hidden="true">→</span></div><div className="sdk-device-footer"><Icon icon="lock" size={10} /> Experiencia dentro de tu app</div></div><div className="sdk-stage-caption"><span className="sdk-platform-dot" /> SDK nativo · Interfaz ilustrativa</div></div>
+</section>
+<div className="ao-trust-strip"><span>Integración nativa</span><strong>Cobros</strong><span className="ao-divider" /><strong>Afiliaciones</strong><span className="ao-divider" /><strong>Sandbox → Producción</strong></div>
+<section className="ao-section" aria-labelledby="sdk-route"><div className="ao-section-heading"><div><p className="ao-eyebrow">01 / TU RUTA DE INTEGRACIÓN</p><h2 id="sdk-route">De tu proyecto al primer pago.</h2></div><p>Cada etapa, con su guía.<br />Cada referencia, a un paso.</p></div><div className="ao-paths"><a className="ao-path" href="/pagos-virtuales/sdk-mobile/android/requisitos"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="key" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">01 / PREPARA</span><h3>Revisa requisitos</h3><p>Confirma el ambiente, las credenciales y la compatibilidad de tu proyecto.</p></a>
+<a className="ao-path" href="/pagos-virtuales/sdk-mobile/android/instalacion"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="download" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">02 / INSTALA</span><h3>Configura el SDK</h3><p>Agrega las librerías, configura Gradle y declara los permisos.</p></a>
+<a className="ao-path" href="/pagos-virtuales/sdk-mobile/android/flujo-de-cobro/inicializar-alignet-one-sdk-android"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="code" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">03 / INTEGRA</span><h3>Implementa un cobro</h3><p>Inicializa el cliente, envía el request y captura delegates y eventos.</p></a></div><a className="ao-api-link" href="/pagos-virtuales/sdk-mobile/android/afiliaciones/inicializar-sdk-android"><span>¿Tu integración incluye <strong>afiliaciones?</strong></span><span aria-hidden="true">→</span></a></section>
+<section className="ao-foundation" aria-labelledby="sdk-architecture"><div className="ao-foundation-copy"><p className="ao-eyebrow">02 / UNA BASE COMPARTIDA</p><h2 id="sdk-architecture">Tu app presenta.<br />Tu backend protege.</h2><p>Genera tokens en el servidor. Usa callbacks y delegates para actualizar la experiencia del usuario y conserva el control de la operación en tu backend.</p><a className="ao-text-link" href="/pagos-virtuales/sdk-mobile/buenas-practicas">Seguridad y buenas prácticas <span aria-hidden="true">→</span></a></div><div className="ao-features"><div><span className="ao-feature-number">01</span><div><h3>Cobros dentro de tu app</h3><p>Envía los datos de la operación y procesa el resultado y los eventos del SDK.</p></div></div><div><span className="ao-feature-number">02</span><div><h3>Afiliaciones, si aplican</h3><p>Registra o actualiza los datos del flujo de afiliación según el alcance de tu comercio.</p></div></div><div><span className="ao-feature-number">03</span><div><h3>Confirmación desde backend</h3><p>Protege las credenciales y confirma el estado final cuando el método de pago lo requiera.</p></div></div></div></section>
+<section className="ao-section" aria-labelledby="sdk-release"><div className="ao-section-heading"><div><p className="ao-eyebrow">03 / VALIDA ANTES DE PUBLICAR</p><h2 id="sdk-release">Listo para probar. Luego, producir.</h2></div></div><div className="ao-paths"><a className="ao-path" href="/pagos-virtuales/pagos/datos-de-prueba"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="flask" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">PRUEBAS</span><h3>Escenarios sandbox</h3><p>Prueba aprobado, rechazo, cancelación y errores. No uses datos de prueba en producción.</p></a>
+<a className="ao-path" href="/pagos-virtuales/sdk-mobile/checklist-de-integracion"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="clipboard-check" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">CONTROL</span><h3>Checklist de integración</h3><p>Revisa navegación, retorno a la app, conectividad y evidencias de prueba.</p></a>
+<a className="ao-path" href="mailto:postventa.autenticacion@alignet.com"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="comments" size={22} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">COORDINACIÓN</span><h3>Tu equipo de integración</h3><p>Confirma SDKs, versiones, ambiente y medios de pago habilitados para tu comercio.</p></a></div><p className="ao-availability-note">Métodos sujetos a configuración: tarjetas, Yape, QR, transferencia bancaria, Cuotéalo y PagoEfectivo. Confirma su disponibilidad con el equipo de integraciones.</p></section>
+<div className="ao-bottom"><div><span className="ao-status-dot" /><p>Una guía para cada plataforma.<a href="/pagos-virtuales/sdk-mobile/ios/introduccion">Explorar SDK iOS →</a></p></div><a href="mailto:postventa.autenticacion@alignet.com">Habla con nuestro equipo ↗</a></div>
+</div>
