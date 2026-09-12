@@ -1,67 +1,42 @@
 ---
-title: "Tipos de integración"
-description: "Elige la mejor forma de conectar tu negocio con Alignet One según tu canal y nivel técnico."
+title: "Elige tu integración"
+description: "Encuentra la ruta de Alignet One que corresponde a tu tienda, sitio web o aplicación."
 icon: "circle-nodes"
 ---
 
-<Icon icon="rocket-launch" /> Contamos con **soluciones** que van desde la integración sin código hasta el control total del flujo de pago mediante API. Selecciona la opción **que mejor se adapte a tu canal de venta**.
+<div className="ao-cover not-prose">
+  <p className="ao-eyebrow"><span /> PRIMEROS PASOS / 02</p>
+  <h2>Tu canal.<br /><em>Tu forma de integrar.</em></h2>
+  <p className="ao-lead">Empieza por dónde compra tu cliente. Después, sigue una sola guía hasta completar tu primera prueba.</p>
+  <div className="ao-paths">
+    <a className="ao-path" href="/pagos-virtuales/e-commerce/introduccion"><div className="ao-path-top"><Icon icon="store" size={24} /><span>01 / TIENDA</span></div><h3>E-commerce</h3><p>Tu negocio ya utiliza WooCommerce, PrestaShop o VTEX. Configura la integración correspondiente a tu plataforma.</p><strong>Ver plataformas →</strong></a>
+    <a className="ao-path" href="/pagos-virtuales/checkout-web/introduccion"><div className="ao-path-top"><Icon icon="globe" size={24} /><span>02 / WEB</span></div><h3>Checkout Web</h3><p>Tienes un sitio a medida. Integra Flex y conecta tu backend para preparar la compra y confirmar su resultado.</p><strong>Explorar Flex →</strong></a>
+    <a className="ao-path" href="/pagos-virtuales/sdk-mobile/introduccion"><div className="ao-path-top"><Icon icon="mobile-screen" size={24} /><span>03 / APP</span></div><h3>SDK Mobile</h3><p>Tu cliente compra desde una app Android o iOS. Integra el SDK y gestiona la operación desde tu backend.</p><strong>Elegir plataforma →</strong></a>
+  </div>
+</div>
 
-<Frame>
-  <img className="theme-aware-image theme-aware-image-light" src="/images/virtual-payments-integration-types-light.png" alt="Tipos de integración disponibles en Alignet One" />
-  <img className="theme-aware-image theme-aware-image-dark" src="/images/virtual-payments-integration-types-dark.png" alt="Tipos de integración disponibles en Alignet One en modo oscuro" />
-</Frame>
+## Decide según tu proyecto
 
-## Integración directa
+| Si tu negocio tiene… | Elige… | Qué debes preparar |
+| --- | --- | --- |
+| Una tienda WooCommerce, PrestaShop o VTEX | E-commerce | Acceso administrativo y credenciales del comercio. |
+| Un sitio web desarrollado a medida | Checkout Web | Desarrollo frontend y backend, URLs y notificaciones. |
+| Una aplicación Android o iOS | SDK Mobile | Desarrollo móvil y backend, accesos y dispositivos de prueba. |
 
-Para comercios que integran pagos en sus propias aplicaciones móviles o sistemas web personalizados.
+El esfuerzo depende de tu sistema, los métodos habilitados y las validaciones de tu comercio. Configurar un plugin no elimina tus responsabilidades de seguridad y operación.
 
-<CardGroup cols={2}>
-  <Card title="SDK Mobile (iOS / Android)" icon="mobile" horizontal href="/pagos-virtuales/sdk-mobile/introduccion">
-    Pagos nativos optimizados para apps móviles.
-  </Card>
-  <Card title="Checkout Web (Flex)" icon="globe" horizontal href="/pagos-virtuales/checkout-web/introduccion">
-    La forma más rápida de integrar pagos seguros en la web.
-  </Card>
-</CardGroup>
-
-## E-commerce (plugins CMS)
-
-Ideal para negocios que utilizan plataformas comerciales y buscan una activación inmediata sin desarrollo de código.
-
-<Card title="Introducción E-commerce" icon="store" horizontal href="/pagos-virtuales/e-commerce/introduccion">
-  Revisa primero las opciones CMS disponibles y luego entra a WooCommerce, PrestaShop o VTEX.
-</Card>
+## ¿Qué plataforma usas?
 
 <CardGroup cols={3}>
-  <Card title="WooCommerce" icon="wordpress" href="/pagos-virtuales/wordpress-woocommerce/introduccion">Plugin para WordPress.</Card>
-  <Card title="PrestaShop" icon="store" href="/pagos-virtuales/prestashop/introduccion">Activación modular.</Card>
-  <Card title="VTEX" icon="shopping-cart" href="/pagos-virtuales/vtex/introduccion">Ecommerce empresarial.</Card>
+  <Card title="WooCommerce" icon="wordpress" href="/pagos-virtuales/wordpress-woocommerce/introduccion">Para tu tienda WordPress.</Card>
+  <Card title="PrestaShop" icon="store" href="/pagos-virtuales/prestashop/introduccion">Para tu tienda PrestaShop.</Card>
+  <Card title="VTEX" icon="cart-shopping" href="/pagos-virtuales/vtex/introduccion">Para tu comercio VTEX.</Card>
 </CardGroup>
 
-## Comparativa de esfuerzo y capacidades
+<Note>
+  Si ya utilizas VPOS, comienza por [Pasos para migrar](/pagos-virtuales/migracion/pasos-a-seguir). No prepares una nueva integración sobre la versión clásica.
+</Note>
 
-La elección del método depende del equilibrio que busques entre la **rapidez de salida a producción** y el **nivel de personalización** del flujo de pago.
-
-| Método de integración | Canal principal | Salida a producción | Esfuerzo técnico | Nivel de control | Requisito clave |
-| --- | --- | --- | --- | --- | --- |
-| **Plugins CMS** | E-commerce | **Rápida** | ⭐⭐⭐⭐⭐ | Bajo | Credenciales de comercio |
-| **Checkout Web** | Web (Flex/Modal) | **Muy rápida** | ⭐⭐⭐⭐ | Medio | Script de frontend |
-| **SDK Mobile** | Apps nativas | **Moderada** | ⭐⭐⭐ | Alto | App iOS/Android |
-
-### Análisis de capacidades
-
-- **Plugins CMS:** No requiere programación. La configuración es administrativa y delegas toda la seguridad a nuestro plugin.
-- **Checkout Web:** La mejor relación esfuerzo-beneficio. Procesamos los datos sensibles en nuestro entorno seguro, reduciendo tu carga de cumplimiento (PCI).
-- **SDK Mobile:** Permite una experiencia de usuario fluida y nativa, ideal para integrar pagos sin sacar al cliente de tu aplicación.
-
-<Tip>
-  Si necesitas validar tu modelo de negocio o salir a producción en pocos días, te recomendamos iniciar con **Checkout Web** o **Plugins CMS**. Podrás migrar a una integración por **API** en el futuro sin afectar tus operaciones.
-</Tip>
-
-## Siguiente paso
-
-¿Ya elegiste tu tipo? Continúa con nuestra guía de inicio rápido para configurar tus credenciales y realizar tu primera transacción de prueba.
-
-<Card title="Inicio rápido" icon="bolt" href="/pagos-virtuales/inicio-rapido">
-  Configura tu entorno de pruebas y obtén tus credenciales de integración.
+<Card title="Siguiente: inicio rápido" icon="arrow-right" href="/pagos-virtuales/inicio-rapido">
+  Prepara tus credenciales, configura tu canal y valida el primer pago de prueba.
 </Card>

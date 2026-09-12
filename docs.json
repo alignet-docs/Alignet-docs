@@ -64,9 +64,7 @@
                     "pages": [
                       "pagos-virtuales/introduccion",
                       "pagos-virtuales/tipos-de-integracion",
-                      "pagos-virtuales/inicio-rapido",
-                      "pagos-virtuales/buenas-practicas-generales",
-                      "pagos-virtuales/checklist-de-certificacion"
+                      "pagos-virtuales/inicio-rapido"
                     ]
                   },
                   {
@@ -219,7 +217,8 @@
                         "group": "Sandbox y pruebas",
                         "icon": "flask",
                         "pages": [
-                          "pagos-virtuales/pagos/datos-de-prueba"
+                          "pagos-virtuales/pagos/datos-de-prueba",
+                          "pagos-virtuales/checklist-de-certificacion"
                         ]
                       }
                     ]
@@ -466,9 +465,7 @@
                     "pages": [
                       "en/virtual-payments/introduction",
                       "en/virtual-payments/integration-types",
-                      "en/virtual-payments/quickstart",
-                      "en/virtual-payments/general-best-practices",
-                      "en/virtual-payments/certification-checklist"
+                      "en/virtual-payments/quickstart"
                     ]
                   },
                   {
@@ -621,7 +618,8 @@
                         "group": "Sandbox and testing",
                         "icon": "flask",
                         "pages": [
-                          "en/virtual-payments/payments/test-data"
+                          "en/virtual-payments/payments/test-data",
+                          "en/virtual-payments/certification-checklist"
                         ]
                       }
                     ]

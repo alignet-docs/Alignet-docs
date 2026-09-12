@@ -1,85 +1,63 @@
 ---
 title: "Inicio rápido"
-description: "Configura tu integración y realiza tu primera transacción con Alignet One."
+description: "Prepara tus credenciales, conecta tu canal y valida tu primer pago de prueba con Alignet One."
 icon: "gauge-high"
 ---
 
-Una vez completado el proceso comercial (firma de contrato), sigue este flujo para comenzar a aceptar pagos.
+<div className="ao-cover not-prose">
+  <p className="ao-eyebrow"><span /> PRIMEROS PASOS / 03</p>
+  <h2>De tus accesos<br /><em>a tu primera prueba.</em></h2>
+  <p className="ao-lead">Una ruta común para comenzar. Los detalles técnicos están en la guía del canal que elegiste.</p>
+</div>
 
-## Flujo general
+## Antes de comenzar
 
-<CardGroup cols={3}>
-  <Card title="1. Credenciales" icon="key">Obtén tus accesos para comenzar la integración.</Card>
-  <Card title="2. Método de integración" icon="shuffle">Elige cómo integrar pagos según tu canal.</Card>
-  <Card title="3. Configuración" icon="code">Configura tu integración y parámetros de pago.</Card>
-  <Card title="4. Pruebas (Sandbox)" icon="flask-round-potion">Valida tu integración en ambiente sandbox.</Card>
-  <Card title="5. Preproducción" icon="vial-circle-check">Valida el flujo completo con credenciales productivas.</Card>
-  <Card title="6. Producción" icon="rocket-launch">Activa pagos en vivo y comienza a operar.</Card>
-</CardGroup>
-
-## Flujo de integración
+- Completa el proceso comercial y confirma los accesos con Alignet.
+- [Elige tu integración](/pagos-virtuales/tipos-de-integracion) y los métodos habilitados para tu comercio.
+- Prepara un entorno de pruebas y una persona responsable de validar la integración.
 
 <Steps>
-  <Step title="Obtén tus credenciales">
-    Obtén tus credenciales de acceso (Client ID, Client Secret y Merchant ID). El equipo de integraciones se contactará contigo para enviarlas de forma segura.
+  <Step title="Obtén y protege las credenciales">
+    Necesitas **Código del comercio**, **Client ID** y **Client Secret**. Confirma con Alignet las credenciales y el ambiente asignado. Si registras el comercio en Command Center, guarda los datos que se muestran al finalizar el registro.
 
-    Con estas credenciales podrás:
+    Usa un gestor de secretos o configuración segura del servidor. No expongas el Client Secret en el navegador, la app, un repositorio o los logs. En plugins, restringe el acceso al panel administrativo donde ingresas estos datos.
 
-    - Autenticar tus solicitudes a la API.
-    - Identificar tu comercio en las transacciones.
-    - Configurar tu entorno de integración (**SANDBOX y PRODUCCIÓN**).
-
-    **Sandbox** se utiliza para pruebas y validación sin impacto en transacciones reales. **Producción** es el entorno en vivo para procesar transacciones reales.
+    <Warning>No mezcles credenciales de pruebas con credenciales productivas.</Warning>
   </Step>
-  <Step title="Elige tu método de integración">
-    Selecciona el método que mejor se adapte a tu negocio (Web, Mobile, API, CMS o POS) y define los medios de pago que deseas habilitar.
+  <Step title="Configura el canal elegido">
+    Sigue la guía de [E-commerce](/pagos-virtuales/e-commerce/introduccion), [Checkout Web](/pagos-virtuales/checkout-web/introduccion) o [SDK Mobile](/pagos-virtuales/sdk-mobile/introduccion).
 
-    Considera el canal de venta, el nivel de personalización requerido y los recursos técnicos disponibles.
+    Configura el comercio, el ambiente, importe, moneda y URLs o notificaciones requeridas por tu integración. Utiliza HTTPS y los parámetros documentados para ese canal.
   </Step>
-  <Step title="Configura tu método de integración">
-    Sigue la guía técnica correspondiente e implementa la autenticación, los parámetros de transacción y los componentes necesarios.
+  <Step title="Prepara la trazabilidad de la compra">
+    Relaciona tu pedido con la **operación** y conserva los identificadores de cada **transacción o intento**. Un reintento no debe crear otra venta en tu tienda.
 
-    - Configura autenticación (API Key o tokens).
-    - Define parámetros como `amount`, `currency` y `merchant_operation_number`.
-    - Configura URLs de retorno y notificaciones (webhooks/S2S).
-    - Integra componentes frontend o SDK, si aplica.
+    Confirma el resultado mediante el mecanismo de backend de tu integración; la pantalla del checkout o un callback visual no bastan para dar un pedido por pagado. Procesa notificaciones repetidas sin duplicar acciones.
+
+    Revisa [Operaciones inteligentes](/pagos-virtuales/pagos/operaciones-inteligentes) y [Estados de transacción](/pagos-virtuales/pagos/estados-de-transaccion).
   </Step>
-  <Step title="Realiza pruebas">
-    Ejecuta transacciones en sandbox y valida los estados de pago, las respuestas y el manejo de errores.
+  <Step title="Ejecuta el primer pago de prueba">
+    Usa únicamente [datos de prueba](/pagos-virtuales/pagos/datos-de-prueba) en el ambiente asignado. Comprueba el importe, la moneda y el resultado del pedido.
 
-    <Tip>Valida escenarios aprobados y rechazados, y verifica la recepción correcta de notificaciones (webhooks/S2S).</Tip>
+    Prueba también denegaciones, pendientes, expiración y errores controlados cuando correspondan al método habilitado. Valida notificaciones, retornos y recuperación ante fallas de conexión.
 
-    Para conocer el ciclo de vida y los estados de una transacción, revisa [Estados de transacción](/pagos-virtuales/pagos/estados-de-transaccion).
+    Conserva evidencias e identificadores para soporte, sin registrar secretos ni datos sensibles de tarjeta.
   </Step>
-  <Step title="Valida en preproducción">
-    El equipo de integraciones validará tu implementación y, si es conforme, te compartirá las **credenciales de producción**.
+  <Step title="Prepara la salida a producción">
+    Completa el [Checklist para producción](/pagos-virtuales/checklist-de-certificacion) y coordina la revisión con Alignet.
 
-    Ejecuta pruebas controladas, valida el flujo de extremo a extremo —incluidas las notificaciones— y confirma que las transacciones se procesen correctamente. Antes de continuar, completa el [Checklist de certificación técnica](/pagos-virtuales/checklist-de-certificacion).
-  </Step>
-  <Step title="Activa en producción">
-    Activa la integración en vivo, procesa transacciones reales y monitorea el comportamiento y los logs del sistema.
+    Realiza pruebas productivas controladas solo con las credenciales y autorización correspondientes. Supervisa errores, timeouts, rechazos inusuales y consistencia de pedidos al comenzar a operar.
   </Step>
 </Steps>
 
-Para asegurar una implementación segura y robusta, revisa nuestras [Buenas prácticas generales](/pagos-virtuales/buenas-practicas-generales).
-
-## Ejecuta tu primera transacción
-
-### Integración directa
-
-<CardGroup cols={2}>
-  <Card title="SDK Mobile (iOS / Android)" icon="mobile-screen-button" horizontal href="/pagos-virtuales/sdk-mobile/introduccion">Prueba el flujo de pago desde una aplicación móvil.</Card>
-  <Card title="Checkout Web (Flex)" icon="globe" horizontal href="/pagos-virtuales/checkout-web/introduccion">Realiza una transacción usando el checkout alojado.</Card>
-</CardGroup>
-
-### E-commerce (CMS)
-
-<Card title="Introducción E-commerce" horizontal href="/pagos-virtuales/e-commerce/introduccion">
-  Consulta el panorama general de WooCommerce, PrestaShop y VTEX.
-</Card>
+## Continúa con tu canal
 
 <CardGroup cols={3}>
-  <Card title="WooCommerce" icon="shopping-cart" href="/pagos-virtuales/wordpress-woocommerce/introduccion">Configura el plugin y realiza una compra de prueba.</Card>
-  <Card title="PrestaShop" icon="store" href="/pagos-virtuales/prestashop/introduccion">Activa el módulo y ejecuta una transacción de prueba.</Card>
-  <Card title="VTEX" icon="shopping-bag" href="/pagos-virtuales/vtex/introduccion">Integra y valida una compra en tu ecommerce.</Card>
+  <Card title="E-commerce" icon="store" href="/pagos-virtuales/e-commerce/buenas-practicas">Seguridad del CMS, configuración del plugin y gestión de pedidos.</Card>
+  <Card title="Checkout Web" icon="globe" href="/pagos-virtuales/checkout-web/pruebas-y-produccion">Valida Flex, callbacks, notificaciones y escenarios de error.</Card>
+  <Card title="SDK Mobile" icon="mobile-screen" href="/pagos-virtuales/sdk-mobile/buenas-practicas">Protege la app y prueba el flujo en dispositivos reales.</Card>
 </CardGroup>
+
+<Card title="Siguiente: checklist para producción" icon="clipboard-check" href="/pagos-virtuales/checklist-de-certificacion">
+  Reúne las evidencias y revisa las condiciones de seguridad, pruebas y operación antes de activar pagos reales.
+</Card>
