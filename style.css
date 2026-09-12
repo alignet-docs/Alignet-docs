@@ -263,6 +263,17 @@
 .ao-methods b { display: grid; place-items: center; width: 32px; height: 30px; color: #e5b18d; border: 1px solid #54595e; border-radius: 6px; font-size: 20px; font-weight: 400; }
 .ao-network-bottom { display: flex; gap: 7px; justify-content: center; align-items: center; border-top: 1px solid #454b50; margin-top: 25px; padding-top: 15px; font-size: 8px; color: #aeb7be; }
 .ao-network-bottom .ao-status-dot { width: 4px; height: 4px; }
+/* A single quiet payment-flow sequence; the diagram settles within five seconds. */
+@media (prefers-reduced-motion: no-preference) {
+  .ao-network-animated .ao-line::after { content: ""; position: absolute; top: 0; left: -2px; width: 5px; height: 5px; border-radius: 50%; background: #ffb37d; box-shadow: 0 0 9px #fb873970; opacity: 0; animation: ao-flow-arrive 4.8s ease-in-out; }
+  .ao-network-animated .ao-line-bottom::after { animation-name: ao-flow-depart; }
+  .ao-network-animated .ao-core { animation: ao-core-glow 4.8s ease-in-out; }
+  .ao-network-animated .ao-methods b { animation: ao-method-glow 4.8s ease-in-out; }
+}
+@keyframes ao-flow-arrive { 0%, 8% { opacity: 0; transform: translateY(0); } 16% { opacity: .85; } 34% { opacity: .85; transform: translateY(24px); } 40%, 100% { opacity: 0; transform: translateY(24px); } }
+@keyframes ao-core-glow { 0%, 24%, 76%, 100% { border-color: #916244; box-shadow: 0 0 35px #f9731610; } 42%, 50% { border-color: #c3865e; box-shadow: 0 0 35px #f9731628; } }
+@keyframes ao-flow-depart { 0%, 47% { opacity: 0; transform: translateY(0); } 54% { opacity: .85; } 70% { opacity: .85; transform: translateY(22px); } 76%, 100% { opacity: 0; transform: translateY(22px); } }
+@keyframes ao-method-glow { 0%, 66%, 100% { border-color: #54595e; background-color: transparent; } 79%, 85% { border-color: #9e795e; background-color: #f973160d; } }
 .ao-trust-strip { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--ao-line); border-bottom: 1px solid var(--ao-line); padding: 20px 0; font-size: 12px; }
 .ao-trust-strip > span:first-child { color: var(--ao-muted); font-size: 11px; }
 .ao-trust-strip strong { font-weight: 500; }
