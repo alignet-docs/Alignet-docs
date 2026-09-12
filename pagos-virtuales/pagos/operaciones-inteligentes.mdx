@@ -1,64 +1,136 @@
 ---
-title: "Operaciones Inteligentes"
-description: "Entiende la arquitectura de Alignet One: Cómo maximizamos tu conversión mediante Operaciones Inteligentes."
+title: "Operaciones inteligentes"
+description: "Una operación agrupa la sesión de compra; cada transacción representa un intento de pago. Aprende a relacionarlas sin duplicar pedidos ni confundir resultados."
 ---
-Para integrar Alignet One con éxito, es fundamental entender la diferencia entre una **Operación** (la intención de compra) y una **Transacción** (el intento técnico).
+import { OperationDemo } from "/snippets/payment-concepts.jsx"
 
-### El Modelo de Operación Inteligente
+<div className="pc-intro not-prose"><span>EL NUEVO MODELO DE PAGOS</span><h2>Una compra.<br /><em>Todos sus intentos.</em></h2><p>La operación reúne el contexto de la compra. Las transacciones cuentan qué ocurrió cada vez que el cliente intentó pagar.</p></div>
 
-A diferencia de otras pasarelas que cierran la sesión ante el primer error, Alignet One utiliza un modelo **resiliente**. Esto permite que un cliente intente pagar con distintos métodos sin que tú pierdas la venta.
+## El cambio de enfoque
 
-#### 1. La Operación (OP)
+En Alignet One, no debes leer cada transacción como si fuera una venta independiente. El modelo tiene dos niveles:
 
-Es el **contenedor maestro** de una venta. Se inicia cuando el cliente abre el formulario de pago.
+| Nivel | Qué representa | Qué necesitas saber |
+| --- | --- | --- |
+| **Operación** | La sesión o intención de compra que agrupa los intentos de pago. | ¿Qué compra estamos gestionando y cuál es su situación global? |
+| **Transacción** | Un intento individual dentro de esa operación, con su método, identificador, estado e historial. | ¿Qué pasó con este intento concreto? |
 
-* **ID de Operación:** Ejemplo `OP-12345`.
-* **Persistencia:** La operación permanece "viva" mientras el cliente esté en el checkout.
-* **Propósito:** Agrupar todos los intentos bajo un mismo número de pedido para facilitar tu conciliación.
+**Una operación puede tener varias transacciones. Una transacción pertenece al contexto de una operación.** Cambiar de método o reintentar no convierte, por sí solo, la compra en otro pedido.
 
-#### 2. La Transacción (TX)
+<Note>
+  “Sesión de compra” describe el contexto comercial. No significa que su vigencia sea idéntica a la de la pestaña del navegador, un token o un temporizador local. Respeta las condiciones de vigencia y reintento de tu integración.
+</Note>
 
-Es cada **intento individual** de cobro que ocurre dentro de esa operación.
+## Los nombres de estado se leen en dos niveles
 
-* Una operación puede contener **múltiples transacciones**.
-* Permite al cliente saltar entre métodos (ej: de Tarjeta a Yape) sin reiniciar el proceso.
+Operación y transacción utilizan los mismos nombres de estado, pero describen **recursos distintos**. Por eso no basta con decir “está denegado”: debes precisar si hablas de la operación o de un intento.
 
-***
+Los estados actuales son **Registrado, Pendiente, Autorizado, Inválido, Denegado, Extornado, Liquidado, Expirado y Cancelado**. El estado global de la operación y el de cada transacción deben conservarse por separado.
 
-### Ejemplo Real 1: Recuperación de Venta
+**Abonado y Devuelto están previstos, pero todavía no están disponibles.** No los uses como condiciones obligatorias de tu integración.
 
-Imagina un cliente con un carrito de **S/. 50.00**. Gracias a nuestra arquitectura, el flujo se ve así:
+## Mira cómo se conserva una misma compra
 
-| Acción del Cliente       | Estado Transacción  | Estado Operación | Resultado para el Comercio         |
-| :----------------------- | :------------------ | :--------------- | :--------------------------------- |
-| Intenta con Tarjeta Visa | ❌ Denegado (Saldo)  | **Pendiente**    | El cliente sigue en el checkout.   |
-| Intenta con Mastercard   | ❌ Denegado (Límite) | **Pendiente**    | El sistema le ofrece otros medios. |
-| Paga con **Yape**        | ✅ Aprobado          | **Exitosa**      | **¡Venta Cobrada!**                |
+Avanza por el ejemplo: dos intentos se rechazan y el tercero se autoriza. La operación y el pedido se mantienen; lo que crece es el historial de transacciones.
 
-> **Valor de Negocio:** En una pasarela tradicional, habrías tenido 2 ventas fallidas y 1 cliente frustrado. En Alignet One, tienes **1 Venta Exitosa** y una base de datos limpia.
+<OperationDemo locale="es" />
 
-> **Omnicanalidad en un solo flujo:** Alignet One no solo permite reintentar con otra tarjeta, sino que permite al cliente **cambiar radicalmente de método de pago** (de plástico a billetera digital) sin que el comercio tenga que anular el pedido original o el cliente tenga que rellenar sus datos. Esto elimina la fricción y rescata una venta que, en otras pasarelas, se habría perdido al primer rechazo bancario.
+La lectura correcta al terminar es **una compra de S/ 50.00 con tres intentos, uno de ellos autorizado**. No sumes los importes de los tres intentos como si fueran S/ 150.00 vendidos.
 
-***
+## Qué cambia para tu integración
 
-### Beneficios para tu Integración
-
-<CardGroup cols={3}>
-  <Card title="Alta Conversión" icon="chart-line">
-    Reduce el abandono al permitir reintentos inmediatos.
+<CardGroup cols={2}>
+  <Card title="Tu tienda conserva el pedido" icon="cart-shopping">
+    Relaciona la compra con su operación. No crees otro pedido únicamente porque un intento fue rechazado.
   </Card>
-
-  <Card title="Conciliación 1:1" icon="file-invoice-dollar">
-    Un pedido en tu tienda suele equivaler a una sola Operación.
+  <Card title="Cada intento conserva su identidad" icon="fingerprint">
+    Guarda cada transaction_id y su resultado. No sobrescribas el intento anterior al registrar el siguiente.
   </Card>
-
-  <Card title="UX Fluida" icon="mobile-screen-button">
-    El cliente no tiene que volver a llenar sus datos si una tarjeta falla.
+  <Card title="Soporte ve el recorrido" icon="list-timeline">
+    Distingue qué método se usó en cada intento, qué respuesta recibió y cuál terminó autorizado.
+  </Card>
+  <Card title="La conciliación separa niveles" icon="file-invoice-dollar">
+    Cuenta las compras por su contexto de operación y analiza autorizaciones, rechazos y ajustes por transacción.
   </Card>
 </CardGroup>
 
-***
+<Warning>
+  **Un intento pendiente no es un intento rechazado.** Ante un timeout, un QR o un CIP pendiente, consulta su resultado antes de promover otro cobro. No asumas que Alignet canceló los demás intentos ni que evita automáticamente cualquier duplicidad.
+</Warning>
 
-<Card title="Estados de Transacción" icon="arrow-right" href="/pagos-virtuales/pagos/estados-de-transaccion">
-  Aprende a interpretar los estados (Registrado, Autorizado, Denegado) de cada intento.
+## Cómo reconocer ambos niveles en la API
+
+En la [consulta de transacción](/api-reference/payin/consultar-transaccion-ecommerce), la respuesta contiene una estructura `operation` y una colección `transactions`.
+
+| Campo | Nivel | Uso |
+| --- | --- | --- |
+| `merchant_operation_number` | Operación | Número de operación registrado por el comercio. Relaciónalo con el pedido de tu tienda. |
+| `operation.state` | Operación | Estado de la operación informado por la plataforma. No lo reemplaces automáticamente por el estado del último intento. |
+| `operation.transactions[].transaction_id` | Transacción | Identificador del intento que debes conservar para consultas y trazabilidad. |
+| `operation.transactions[].state` | Transacción | Estado actual de ese intento. |
+| `operation.transactions[].lifecycle` | Transacción | Historial de estados de ese intento; no es la lista de intentos de la operación. |
+
+<Info>
+  **Dos listas distintas:** `transactions[]` agrupa transacciones; `lifecycle[]` agrupa eventos de una transacción. Que un intento pase por registrado, pendiente y autorizado no significa que existan tres intentos.
+</Info>
+
+La consulta documentada recibe `merchant_code`, `merchant_operation_number` y `transaction_id`. No supongas que una consulta filtrada por transacción devuelve necesariamente todo el historial de la operación.
+
+### Ejemplo de estructura
+
+Fragmento simplificado basado en la consulta documentada. Los identificadores son ilustrativos; no es un request para copiar ni el catálogo completo de estados.
+
+```json
+{
+  "operation": {
+    "merchant_operation_number": "2391645",
+    "state": "AUTORIZADO",
+    "amount": "15000",
+    "currency": "604",
+    "transactions": [
+      {
+        "transaction_id": "tx-ejemplo-01",
+        "state": "AUTORIZADO",
+        "lifecycle": [
+          { "state": "REGISTRADO" },
+          { "state": "PENDIENTE" },
+          { "state": "AUTORIZADO" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Aquí hay **una operación y una transacción con tres eventos**, no tres transacciones. En este contrato, el importe `15000` está expresado en centavos: equivale a S/ 150.00 con moneda `604` (PEN).
+
+## Reglas para implementar sin confusiones
+
+1. **Relaciona pedido y operación.** Conserva sus identificadores por separado; no presupongas que tienen el mismo formato.
+2. **Registra cada intento.** Guarda `transaction_id`, método, estado y referencias necesarias para soporte.
+3. **No deduzcas el pago de la interfaz.** Cerrar el checkout o recibir un callback no demuestra por sí mismo una aprobación.
+4. **Confirma desde el backend.** Comprueba la operación, el intento, importe y moneda mediante la consulta o notificación correspondiente.
+5. **Aplica cambios de forma idempotente.** Una notificación repetida o una consulta reiterada no deben duplicar la entrega ni volver a registrar la misma venta.
+6. **Conserva el historial.** Un extorno o una devolución posterior no elimina la transacción que originó el pago.
+
+<Note>
+  Mantener una operación para la misma compra no significa reenviar a ciegas la misma petición HTTP. Las reglas de reintento, expiración e idempotencia técnica dependen del endpoint y del canal utilizado.
+</Note>
+
+## Comprueba que tu equipo lo entendió
+
+<AccordionGroup>
+  <Accordion title="Dos rechazos y una autorización: ¿cuántas compras hay?">
+    En el ejemplo hay una compra, una operación y tres transacciones. Solo una transacción terminó autorizada.
+  </Accordion>
+  <Accordion title="Un intento tiene tres eventos en lifecycle: ¿son tres transacciones?">
+    No. Es una sola transacción que cambió de estado tres veces. Sus eventos comparten el mismo transaction_id.
+  </Accordion>
+  <Accordion title="La última transacción observada fue denegada: ¿la operación está perdida?">
+    No lo determines solo con ese dato. Revisa el estado de la operación y el contexto de sus intentos. No sobrescribas una compra ya confirmada con el rechazo de otro intento.
+  </Accordion>
+</AccordionGroup>
+
+<Card title="Continúa: estados de transacción" icon="arrow-right" href="/pagos-virtuales/pagos/estados-de-transaccion">
+  Aprende qué significa cada resultado y qué debe hacer tu integración.
 </Card>

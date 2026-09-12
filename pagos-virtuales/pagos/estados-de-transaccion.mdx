@@ -1,61 +1,119 @@
 ---
-title: "Estados de Transacción"
-description: "Comprende el ciclo de vida de un pago y los diferentes estados por los que transita."
+title: "Estados de transacción"
+description: "Distingue el estado de un intento del estado de la operación y de la respuesta técnica. Interpreta autorizaciones, pendientes, rechazos y ajustes."
 ---
-### Flujo de Vida del Pago
+import { StateExplorer } from "/snippets/payment-concepts.jsx"
 
-Este es el camino estándar que sigue una transacción exitosa versus una que no se completa.
+<div className="pc-intro not-prose"><span>LEE EL RESULTADO CORRECTO</span><h2>El estado de un intento.<br /><em>No toda la compra.</em></h2><p>Una transacción puede estar pendiente, ser rechazada o autorizarse. Ese resultado debe leerse dentro de su operación y no confundirse con la respuesta técnica del servicio.</p></div>
+
+## Antes de leer un estado, identifica su nivel
+
+| Pregunta | Dónde mirar | Qué no debes concluir |
+| --- | --- | --- |
+| ¿La petición se procesó correctamente? | `meta.status` y el contrato de respuesta del endpoint. | Que el pago fue aprobado. |
+| ¿Qué ocurrió con este intento? | `transaction.state` en autorización/callback, o `operation.transactions[].state` en consulta. | Que todos los intentos de la operación tienen ese resultado. |
+| ¿Cuál es la situación de la operación? | `operation.state`, cuando la respuesta lo incluya. | Que siempre coincide con la última transacción que llegó a tu sistema. |
+| ¿El dinero ya fue abonado al comercio? | La información de liquidación y abono correspondiente. | Que `AUTORIZADO` significa dinero depositado en la cuenta bancaria. |
+
+<Warning>
+  **HTTP 200, `success: true` o `meta.status.code: "00"` no bastan para marcar un pedido como pagado.** En los ejemplos de la API, un QR puede generarse correctamente mientras la transacción sigue en `PENDIENTE`.
+</Warning>
+
+## Prueba cómo cambia la interpretación
+
+Selecciona un escenario. La respuesta técnica puede ser correcta en todos, pero la decisión sobre el pago es distinta.
+
+<StateExplorer locale="es" />
+
+## Estados del intento: significado y acción
+
+Los nueve estados actuales aplican al modelo de operaciones y transacciones. Aquí explicamos su lectura a nivel de **transacción**; cuando se informe un estado de operación, léelo como la situación de la compra agrupada, no como el resultado de todos sus intentos.
+
+| Estado actual | Qué significa para el intento | Qué debe hacer tu integración |
+| --- | --- | --- |
+| **Registrado** | Existe un registro del intento. | Conserva su identidad. El registro no acredita un pago. |
+| **Pendiente** | El intento todavía no tiene una confirmación final de pago. Puede haber un QR, CIP o URL para continuar. | Mantén la compra sin confirmar por ese intento. Espera la notificación o consulta desde backend. |
+| **Autorizado** | El intento fue autorizado. | Valida contexto, importe y moneda antes de aplicar la lógica de pedido pagado. No lo confundas con liquidación o abono. |
+| **Inválido** | El intento no pudo completarse válidamente; revisa el motivo informado. | Corrige el problema o deriva a soporte. No repitas automáticamente la misma solicitud sin conocer la causa. |
+| **Denegado** | Ese intento fue rechazado por el emisor o las reglas aplicables. | Registra el rechazo y revisa si corresponde otro intento dentro de la operación. |
+| **Extornado** | Una autorización fue anulada. | Conserva la autorización anterior en el historial y concilia la anulación. |
+| **Liquidado** | El pago avanzó al proceso de liquidación. | Úsalo para seguimiento y conciliación. No lo equipares automáticamente con dinero abonado en la cuenta bancaria. |
+| **Expirado** | Se agotó la vigencia del intento. | Verifica su resultado actual antes de ofrecer otra alternativa. No uses solo un temporizador del navegador como fuente de verdad. |
+| **Cancelado** | El intento fue cancelado. | Identifica qué recurso fue cancelado. Cerrar una ventana no equivale a una cancelación confirmada por la plataforma. |
+
+### Nombres de negocio y valores de API
+
+En los ejemplos de la API publicada aparecen valores como `REGISTRADO`, `PENDIENTE`, `AUTORIZADO`, `DENEGADO`, `INVALIDO`, `CANCELADO` y `EXTORNADO`. Conserva el valor literal que define tu contrato; **no lo traduzcas a inglés en el código**, aunque tu interfaz esté en inglés.
+
+La lista de estados de negocio no sustituye el esquema específico de cada endpoint o notificación. Un servicio puede informar solo un subconjunto. Si recibes un valor desconocido, consérvalo y consulta su significado; no lo clasifiques como aprobado por defecto.
+
+### Próximamente: Abonado y Devuelto
+
+<Warning>
+  **Estos dos estados todavía no están disponibles.** Se muestran para anticipar la evolución del modelo, no como valores que tu integración deba esperar actualmente.
+</Warning>
+
+| Estado previsto | Concepto que representará |
+| --- | --- |
+| **Abonado** | Seguimiento del abono al comercio. Los detalles se documentarán cuando esté disponible. |
+| **Devuelto** | Seguimiento de una devolución sobre el pago. Los detalles y condiciones se documentarán cuando esté disponible. |
+
+No bloquees tus procesos esperando estos estados ni les asignes códigos de API por anticipado.
+
+<Info>
+  **El estado Devuelto y una solicitud de devolución no son lo mismo.** El API de devoluciones documenta su propio ciclo de solicitudes: `REGISTERED`, `IN_PROCESS`, `RESOLVED` y `REJECTED`. Eso no significa que el nuevo estado Devuelto ya esté habilitado en operaciones y transacciones.
+</Info>
+
+## Una transacción, varios cambios de estado
+
+Un recorrido de autorización documentado es:
+
+<div className="pc-lifecycle not-prose"><span>REGISTRADO</span><b aria-hidden="true">→</b><span>PENDIENTE</span><b aria-hidden="true">→</b><span className="pc-ok">AUTORIZADO</span></div>
+
+Los tres eventos pertenecen al **mismo `transaction_id`**. No son tres intentos. Un nuevo intento tiene su propia identidad e historial dentro de la operación.
+
+No todas las transacciones recorren este camino. Un intento puede no autorizarse; una autorización puede recibir un ajuste posterior. No conviertas el diagrama en una secuencia obligatoria para todos los métodos.
+
+## Confirma el resultado sin duplicar acciones
 
 <Steps>
-  <Step title="Pendiente (PENDING)" icon="hourglass-half">
-    La transacción ha sido iniciada. En métodos como transferencias o billeteras, estamos a la espera de la confirmación del usuario.
+  <Step title="Relaciona la respuesta con la compra">
+    Identifica comercio, operación y transaction_id. Comprueba que el importe y la moneda corresponden al pedido esperado.
   </Step>
-
-  <Step title="Autorizado (AUTHORIZED)" icon="shield-check">
-    El emisor ha aprobado el pago. Los fondos están reservados en la cuenta del cliente pero aún no han sido transferidos a tu cuenta.
+  <Step title="Lee el resultado del intento">
+    Revisa el campo state correcto para el tipo de respuesta. Usa state_reason y los detalles del procesador para diagnóstico, no como sustitutos del estado.
   </Step>
-
-  <Step title="Liquidado (SETTLED)" icon="money-bill-transfer">
-    ¡Éxito! El dinero ha sido procesado e incluido en el ciclo de liquidación para ser depositado en tu cuenta bancaria.
+  <Step title="Verifica desde tu backend">
+    Consulta el resultado o procesa la notificación de servidor según tu integración. Una respuesta visual del checkout no es por sí sola la fuente final.
+  </Step>
+  <Step title="Actualiza de forma idempotente">
+    Conserva el estado por transacción y el contexto de operación. Procesar el mismo evento otra vez no debe generar otra venta, entrega o correo de confirmación.
   </Step>
 </Steps>
 
-***
+### Cuando la información no es suficiente
 
-### Glosario de Estados
+- **Timeout o red interrumpida:** resultado desconocido no significa denegación. Consulta antes de iniciar otro cobro.
+- **Notificación repetida:** reconoce el intento y el evento; no vuelvas a aplicar una acción ya ejecutada.
+- **Respuesta tardía de otro intento:** no sobrescribas el resultado global de la compra usando solo el orden de llegada.
+- **Estados contradictorios:** vuelve a consultar y registra el caso para revisión. No habilites la entrega por inferencia.
+- **Mensaje técnico sensible:** muestra al cliente una explicación segura. Conserva el detalle técnico únicamente en los canales de soporte autorizados.
 
-Utiliza estos estados para mapear la lógica en tus webhooks y base de datos.
+## Ejemplos que no debes confundir
 
-#### Estados de Éxito
+<AccordionGroup>
+  <Accordion title="El servicio respondió 00 y entregó un CIP. ¿Ya puedo entregar el pedido?">
+    No solo por eso. El CIP permite continuar con el pago, pero la transacción puede seguir pendiente. Espera o consulta la confirmación.
+  </Accordion>
+  <Accordion title="Una transacción está autorizada y otra denegada. ¿Qué guardo?">
+    Ambas, cada una con su transaction_id. Mantén sus estados separados y valida la situación de la operación. No elimines el rechazo ni uses su llegada tardía para convertir automáticamente la compra en fallida.
+  </Accordion>
+  <Accordion title="¿Autorizado, liquidado y abonado significan lo mismo?">
+    No. Describen momentos distintos. La autorización del intento no demuestra por sí misma liquidación ni depósito bancario al comercio.
+  </Accordion>
+</AccordionGroup>
 
-| Estado         | Etiqueta                                                                              | Descripción                                   |
-| :------------- | :------------------------------------------------------------------------------------ | :-------------------------------------------- |
-| **AUTHORIZED** | <ResponseField name="Autorizado" type="success">                     </ResponseField> | Aprobada por la marca. Fondos retenidos.      |
-| **SETTLED**    | <ResponseField name="Liquidado" type="success">                     </ResponseField>  | Transacción completada y procesada para pago. |
-
-### Estados Finales de Error
-
-| Estado        | Etiqueta                                                                             | Descripción                                                                                                                   |
-| :------------ | :----------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| **DECLINED**  | <ResponseField name="Denegado" type="error">                     </ResponseField>    | Rechazada por el banco emisor o reglas del sistema.                                                                           |
-| **INVALID**   | <ResponseField name="Inválido" type="error">                     </ResponseField>    | Error de procesamiento, fallo de autenticación o bloqueo por prevención de fraude. **Siempre muestra el detalle del motivo.** |
-| **EXPIRED**   | <ResponseField name="Expirado" type="warning">                     </ResponseField>  | El tiempo límite de pago (TTL) ha caducado.                                                                                   |
-| **CANCELLED** | <ResponseField name="Cancelado" type="neutral">                     </ResponseField> | El usuario o el sistema decidieron cancelar la operación.                                                                     |
-
-### Estados Post-Venta
-
-| Estado       | Etiqueta                                                                          | Descripción                                                  |
-| :----------- | :-------------------------------------------------------------------------------- | :----------------------------------------------------------- |
-| **VOIDED**   | <ResponseField name="Extornado" type="info">                     </ResponseField> | Anulación de una transacción autorizada (antes de liquidar). |
-| **REFUNDED** | <ResponseField name="Devuelto" type="info">                     </ResponseField>  | Devolución total o parcial de una transacción ya liquidada.  |
-
-### Flujo de estados
-
-Este es el flujo de estados que recorre una transacción en la plataforma:
-
-* **Inicio**: Toda operación comienza como **Registrado** y pasa a **Pendiente** mientras se procesa.
-* **Resolución**: Desde pendiente, el pago puede ser **Autorizado** (éxito), **Denegado** (rechazo), **Cancelado/Expirado**(abandono) o **Invalido** (error de datos).
-* **Cierre**: Una vez autorizado, el flujo avanza a **Liquidado** (captura de fondos) y finaliza en **Abonado**.
-* **Post-venta**: Permite aplicar un **Extornado** (anulación antes de liquidar) o **Devuelto** (reembolso tras la liquidación).
-
-<img src="https://mintcdn.com/alignet/HjFoZLv28Up5F2DM/images/image-25.png?fit=max&auto=format&n=HjFoZLv28Up5F2DM&q=85&s=213a4e6316181d4e2c5f37df22e5a43c" alt="Image" title="Image" className="mx-auto" style={{ width:"80%" }} width="1056" height="992" data-path="images/image-25.png" />
+<CardGroup cols={2}>
+  <Card title="Volver al modelo de operaciones" icon="layer-group" href="/pagos-virtuales/pagos/operaciones-inteligentes">Repasa cómo una compra agrupa sus intentos.</Card>
+  <Card title="Consulta de transacción" icon="code" href="/api-reference/payin/consultar-transaccion-ecommerce">Revisa los campos y ejemplos de la API publicada.</Card>
+</CardGroup>

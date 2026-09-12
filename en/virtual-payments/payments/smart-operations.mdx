@@ -1,64 +1,120 @@
 ---
 title: "Smart operations"
-description: "Understand the Alignet One architecture and how smart operations help maximize conversion."
+description: "An operation groups a purchase session; each transaction is a payment attempt. Learn to connect them without duplicating orders or confusing outcomes."
 ---
-To integrate Alignet One successfully, it is important to understand the difference between an **Operation** (purchase intent) and a **Transaction** (technical payment attempt).
+import { OperationDemo } from "/snippets/payment-concepts.jsx"
 
-### The Intelligent Operation Model
+<div className="pc-intro not-prose"><span>THE NEW PAYMENT MODEL</span><h2>One purchase.<br /><em>Every attempt.</em></h2><p>The operation holds the purchase context. Transactions record what happened each time the customer tried to pay.</p></div>
 
-Unlike other gateways that close the session to first error, Alignet One using a model **resilient**. That allows a client to try and pay with different methods without you losing the sale.
+## A different way to read payments
 
-#### 1. Operation (OP)
+In Alignet One, a transaction is not necessarily an independent sale. The model has two levels:
 
-This is the **master container** for a sale. It begins when the customer opens the payment form.
+| Level | What it represents | What you need to know |
+| --- | --- | --- |
+| **Operation** | The purchase session or intent grouping payment attempts. | Which purchase are we managing, and what is its overall situation? |
+| **Transaction** | An individual attempt with its own method, identifier, state and history. | What happened to this specific attempt? |
 
-* **Operation ID:** Example `OP-12345`.
-* **Persistence:** The operation remains active while the customer is in checkout.
-* **Purpose:** Group all attempts under the same order number to simplify reconciliation.
+**One operation can contain several transactions. Each transaction belongs to an operation context.** Retrying or changing methods does not, by itself, create another store order.
 
-#### 2. The Transaction (TX)
+<Note>
+  “Purchase session” describes the business context. Its validity is not necessarily the same as a browser tab, token or local timer. Follow your integration's validity and retry rules.
+</Note>
 
-This is each **individual payment attempt** made within an operation.
+## The same state names, two different levels
 
-* An operation can contain **multiple transactions**.
-* The customer can switch between payment methods without restarting the process.
+Operations and transactions use the same state names, but describe **different resources**. Always specify whether a state belongs to the operation or to an attempt.
 
-***
+The current states are **Registered, Pending, Authorized, Invalid, Declined, Voided, Settled, Expired and Cancelled**. Keep the overall operation state separate from each transaction's state.
 
-### Real Example 1: Recovery of Sale
+**Abonado (merchant payout) and Devuelto (refunded) are planned but not available yet.** Do not make them required conditions in your integration.
 
-Imagine a customer with a cart totaling **S/ 50.00**. With this architecture, the flow works as follows:
+## Explore one purchase with several attempts
 
-| Customer action       | Transaction status  | Operation status | Result for the merchant         |
-| :----------------------- | :------------------ | :--------------- | :--------------------------------- |
-| Tries one card | Declined (insufficient balance)  | **Pending**    | The customer remains in checkout.   |
-| Tries another card   | Declined (limit) | **Pending**    | The system offers other methods. |
-| Pays with **Yape**        | Approved          | **Successful**      | **Sale completed.**                |
+Advance through the example: two attempts are declined and the third is authorized. The operation and store order stay the same; the transaction history grows.
 
-> **Business value:** With a traditional gateway, this could result in two failed sales and a frustrated customer. With Alignet One, it becomes **one successful sale** with a clear transaction record.
+<OperationDemo locale="en" />
 
-> **Omnichannel payments in a single flow:** Alignet One lets the customer retry with another card or **switch payment methods** without requiring the merchant to cancel the original order or the customer to enter all their information again. This reduces friction and can recover a sale after an initial decline.
+The final result is **one S/ 50.00 purchase with three attempts, one authorized**. Do not add their amounts together and report S/ 150.00 in sales.
 
-***
+## What changes in your integration
 
-### Benefits for your Integration
-
-<CardGroup cols={3}>
-  <Card title="High Conversion" icon="chart-line">
-    Reduce abandonment by allowing immediate retries.
-  </Card>
-
-  <Card title="Reconciliation 1: 1" icon="file-invoice-dollar">
-    One order in your store generally corresponds to one operation.
-  </Card>
-
-  <Card title="UX Flow" icon="mobile-screen-button">
-    The customer does not need to re-enter their information when an attempt fails.
-  </Card>
+<CardGroup cols={2}>
+  <Card title="Keep the store order" icon="cart-shopping">Connect the purchase to its operation. Do not create another order just because an attempt was declined.</Card>
+  <Card title="Keep each attempt's identity" icon="fingerprint">Store every transaction_id and its outcome. Do not overwrite a previous attempt when adding the next.</Card>
+  <Card title="Show support the journey" icon="list-timeline">Keep the method and response for every attempt and identify the one that was authorized.</Card>
+  <Card title="Separate reconciliation levels" icon="file-invoice-dollar">Count purchases in their operation context and analyze authorizations, declines and adjustments per transaction.</Card>
 </CardGroup>
 
-***
+<Warning>
+  **Pending is not declined.** After a timeout or while a QR/CIP is pending, query the outcome before encouraging another charge. Do not assume Alignet cancelled other attempts or automatically prevents every duplicate.
+</Warning>
 
-<Card title="Transaction States" icon="arrow-right" href="/en/virtual-payments/payments/transaction-states">
-  Learn how to interpret the status of each attempt: registered, authorized, or declined.
-</Card>
+## Recognize both levels in the API
+
+The [transaction query](/en/api-reference/payin/get-ecommerce-transaction) returns an `operation` structure and a `transactions` collection.
+
+| Field | Level | Purpose |
+| --- | --- | --- |
+| `merchant_operation_number` | Operation | Operation number registered by the merchant. Associate it with your store order. |
+| `operation.state` | Operation | State reported by the platform. Do not automatically replace it with the last attempt's state. |
+| `operation.transactions[].transaction_id` | Transaction | Attempt identifier for queries and traceability. |
+| `operation.transactions[].state` | Transaction | Current state of this attempt. |
+| `operation.transactions[].lifecycle` | Transaction | State history of this attempt, not a list of the operation's attempts. |
+
+<Info>
+  **Two different lists:** `transactions[]` groups transactions; `lifecycle[]` groups events within a transaction. Registered, pending and authorized events do not mean three attempts.
+</Info>
+
+The documented query takes `merchant_code`, `merchant_operation_number` and `transaction_id`. Do not assume a transaction-filtered query necessarily returns the operation's entire history.
+
+### Structure example
+
+Simplified response fragment based on the documented query. Identifiers are illustrative; this is not a request to copy or a complete state catalog.
+
+```json
+{
+  "operation": {
+    "merchant_operation_number": "2391645",
+    "state": "AUTORIZADO",
+    "amount": "15000",
+    "currency": "604",
+    "transactions": [
+      {
+        "transaction_id": "example-tx-01",
+        "state": "AUTORIZADO",
+        "lifecycle": [
+          { "state": "REGISTRADO" },
+          { "state": "PENDIENTE" },
+          { "state": "AUTORIZADO" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+This is **one operation and one transaction with three events**, not three transactions. In this contract, `15000` is an amount in minor units: S/ 150.00 with currency `604` (PEN).
+
+## Implementation rules
+
+1. **Connect order and operation.** Keep their identifiers separate; do not assume identical formats.
+2. **Record each attempt.** Store its transaction_id, method, state and support references.
+3. **Do not infer payment from the UI.** Closing checkout or receiving a callback does not by itself prove approval.
+4. **Confirm from your backend.** Validate operation, attempt, amount and currency using the appropriate query or notification.
+5. **Apply changes idempotently.** Repeated notifications or queries must not duplicate fulfillment or register the same sale again.
+6. **Preserve history.** A subsequent void or refund does not erase the original payment transaction.
+
+<Note>
+  Keeping an operation for the same purchase is not the same as blindly resending an HTTP request. Technical retry, expiration and idempotency rules depend on the endpoint and channel.
+</Note>
+
+## Check your understanding
+
+<AccordionGroup>
+  <Accordion title="Two declines and one authorization: how many purchases?">In the example: one purchase, one operation and three transactions. Only one transaction was authorized.</Accordion>
+  <Accordion title="Three lifecycle events: does that mean three transactions?">No. One transaction changed state three times. All events belong to the same transaction_id.</Accordion>
+  <Accordion title="The last observed transaction was declined. Is the operation lost?">Do not decide from that alone. Check the operation and its attempts. Do not overwrite a confirmed purchase with another attempt's decline.</Accordion>
+</AccordionGroup>
+
+<Card title="Next: transaction states" icon="arrow-right" href="/en/virtual-payments/payments/transaction-states">Learn what each outcome means and how your integration should respond.</Card>
