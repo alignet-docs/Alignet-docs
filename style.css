@@ -72,6 +72,10 @@
 .dark .mig-interactive .mig-card-amex { color: #fff; background: linear-gradient(125deg,#07315c,#08659f 65%,#218bad); }
 .mig-interactive .mig-card-amex .mig-card-top { color: #e0f3ff; }
 .mig-amex-mark { font-size: 13px; font-weight: 900; line-height: 1.05; letter-spacing: -.5px; text-align: center; }
+.mig-interactive .mig-card-mastercard, .dark .mig-interactive .mig-card-mastercard { color: #fff; background: linear-gradient(125deg,#202833,#394857 65%,#586574); }
+.mig-interactive .mig-card-mastercard .mig-card-top { color: #e1e6ee; }
+.mig-mastercard-mark { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+.mig-mastercard-mark small { color: #fff; font-size: 7px; letter-spacing: 0; margin-top: 3px; }
 .mig-interactive .mig-bank-card { transition: background 180ms ease; }
 .mig-interactive .mig-card-bottom > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 77%; }
 .mig-interactive .mig-sample-button { display: block; border: 0; padding: 9px 0; width: 100%; background: transparent; font-size: 9px; color: #265fec; text-decoration: underline; }
