@@ -1,0 +1,59 @@
+export const MigrationCheckout = ({ locale = "es" }) => {
+  const [language, setLanguage] = useState(locale);
+  const [values, setValues] = useState({ number: "", expiry: "", cvv: "", first: "", last: "", email: "" });
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState("");
+  const en = language === "en";
+  const t = (es, english) => en ? english : es;
+  const digits = values.number.replace(/\D/g, "");
+  const visa = digits.startsWith("4");
+  const sample = "4111111111111111";
+  useEffect(() => {
+    if (status !== "processing") return;
+    const timer = setTimeout(() => { setStatus("approved"); setValues({ number: "", expiry: "", cvv: "", first: "", last: "", email: "" }); }, 1200);
+    return () => clearTimeout(timer);
+  }, [status]);
+  const update = (key, value) => {
+    if (key === "number") value = value.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
+    if (key === "expiry") { const d = value.replace(/\D/g, "").slice(0, 4); value = d.length > 2 ? d.slice(0, 2) + "/" + d.slice(2) : d; }
+    if (key === "cvv") value = value.replace(/\D/g, "").slice(0, 3);
+    setValues(previous => ({ ...previous, [key]: value }));
+    setError("");
+  };
+  const loadSample = () => {
+    setValues({ number: "4111 1111 1111 1111", expiry: "12/" + String(new Date().getFullYear() + 2).slice(-2), cvv: "123", first: "Alex", last: "Demo", email: "alex@example.com" });
+    setError(""); setStatus("idle");
+  };
+  const submit = () => {
+    if (status !== "idle") return;
+    if (digits !== sample) { setError(t("Usa únicamente la tarjeta de prueba 4111 1111 1111 1111.", "Use only the test card 4111 1111 1111 1111.")); return; }
+    const [month, year] = values.expiry.split("/").map(Number);
+    const now = new Date();
+    if (!/^\d{2}\/\d{2}$/.test(values.expiry) || month < 1 || month > 12 || new Date(2000 + year, month, 1) <= now) { setError(t("Ingresa un vencimiento futuro válido (MM/AA).", "Enter a valid future expiry (MM/YY).")); return; }
+    if (values.cvv.length !== 3 || !values.first.trim() || !values.last.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) { setError(t("Completa los campos con datos ficticios. CVV de prueba: 123.", "Complete the fields with fictional data. Test CVV: 123.")); return; }
+    setError(""); setStatus("processing");
+  };
+  const field = (key, label, options = {}) => <input className="mig-field" aria-label={label} placeholder={label} value={values[key]} onChange={e => update(key, e.target.value)} autoComplete="off" spellCheck={false} disabled={status !== "idle"} maxLength={key === "email" ? 80 : 40} data-private="true" data-lpignore="true" data-1p-ignore="true" {...options} />;
+  return <div className="mig-checkout-stage mig-interactive ph-no-capture" data-private="true">
+    <div className="mig-demo-banner"><strong>{t("DEMO INTERACTIVA", "INTERACTIVE DEMO")}</strong><span>{t("Solo datos ficticios · Sin cobros", "Fictional data only · No charges")}</span></div>
+    <div className="mig-checkout">
+      <div className="mig-shop"><span className="mig-shop-icon" aria-hidden="true">▦</span><div><strong>{t("Tu comercio", "Your store")}</strong><small>{t("Prueba la experiencia", "Try the experience")}</small></div><div className="mig-languages" aria-label={t("Idioma de la demo", "Demo language")}><button type="button" aria-pressed={!en} onClick={() => {setLanguage("es");setError("");}}>ES</button><button type="button" aria-pressed={en} onClick={() => {setLanguage("en");setError("");}}>EN</button></div></div>
+      {status === "approved" ? <div className="mig-demo-success" role="status"><span className="mig-success-check" aria-hidden="true">✓</span><h3>{t("Pago de prueba aprobado", "Test payment approved")}</h3><strong>S/ 140.50</strong><p>{t("Simulación completada. No se realizó ningún cobro ni se enviaron datos de pago.", "Simulation complete. No charge was made and no payment data was sent.")}</p><button type="button" className="mig-pay" onClick={() => {setStatus("idle");setError("");}}>{t("Probar de nuevo", "Try again")}</button></div> : <div role="group" aria-label={t("Simulador de checkout", "Checkout simulator")} onKeyDown={e => { if (e.key === "Enter" && e.target.tagName === "INPUT") {e.preventDefault();submit();} }}>
+        <div className="mig-checkout-body">
+          <div className={"mig-bank-card" + (visa ? " mig-card-visa" : "")}><div className="mig-card-top"><span>{t("TARJETA DE PRUEBA", "TEST CARD")}</span><span className="mig-visa-mark">{visa ? "VISA" : "▱"}</span></div><div className="mig-card-number">{digits ? digits.padEnd(16, "•").replace(/(.{4})/g, "$1 ").trim() : "•••• •••• •••• ••••"}</div><div className="mig-card-bottom"><span>{[values.first, values.last].filter(Boolean).join(" ").toUpperCase() || t("NOMBRE Y APELLIDO", "CARDHOLDER NAME")}</span><span>{values.expiry || t("MM/AA", "MM/YY")}</span></div></div>
+          <button className="mig-sample-button" type="button" onClick={loadSample} disabled={status !== "idle"}>{t("Cargar datos de prueba", "Fill with test data")}</button>
+          {field("number", t("Número de tarjeta de prueba", "Test card number"), { inputMode: "numeric", maxLength: 19 })}
+          <div className="mig-field-row">{field("expiry", t("MM/AA", "MM/YY"), { inputMode: "numeric", maxLength: 5 })}{field("cvv", "CVV", { inputMode: "numeric", type: "password", maxLength: 3 })}</div>
+          <div className="mig-field-row">{field("first", t("Nombre ficticio", "Fictional first name"))}{field("last", t("Apellido ficticio", "Fictional last name"))}</div>
+          {field("email", t("Correo ficticio", "Fictional email"), { type: "email" })}
+          <p className="mig-demo-error" role="alert">{error}</p>
+        </div>
+        <div className="mig-checkout-total"><span>{t("Monto de ejemplo", "Sample amount")}</span><strong>S/ 140.50</strong></div>
+        <button className="mig-pay" type="button" disabled={status === "processing"} onClick={submit}>{status === "processing" ? <><span className="mig-demo-spinner" aria-hidden="true" />{t("Simulando…", "Simulating…")}</> : t("Simular pago", "Simulate payment")}</button>
+        <span className="mig-sr-only" role="status">{status === "processing" ? t("Simulación en curso", "Simulation in progress") : ""}</span>
+      </div>}
+      <div className="mig-checkout-footer"><span>Alignet One</span><span>{t("Entorno demostrativo", "Demo environment")}</span></div>
+    </div>
+    <p className="mig-demo-note">{t("Usa 4111 1111 1111 1111. No ingreses datos reales.", "Use 4111 1111 1111 1111. Do not enter real data.")}<br />{t("Esta demo no envía ni guarda tus datos.", "This demo does not send or save your data.")}</p>
+  </div>;
+};

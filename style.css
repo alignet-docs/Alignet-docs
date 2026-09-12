@@ -1,3 +1,38 @@
+/* Interactive checkout: local-only demonstration, never a payment endpoint. */
+.mig-demo-banner { text-align: center; margin-bottom: 15px; }
+.mig-demo-banner strong { display: block; color: var(--ao-accent); font-size: 9px; letter-spacing: 1.3px; }
+.mig-demo-banner > span { display: block; color: var(--ao-muted); font-size: 10px; margin-top: 5px; }
+.mig-interactive input.mig-field { display: block; width: 100%; min-width: 0; outline: none; font-family: inherit; box-shadow: none; }
+.mig-interactive input.mig-field::placeholder { color: inherit; opacity: .85; }
+.mig-interactive input.mig-field:focus { border-color: #3267ec; box-shadow: 0 0 0 2px #3267ec20; }
+.mig-interactive button { font-family: inherit; cursor: pointer; }
+.mig-interactive button:focus-visible { outline: 2px solid #3267ec; outline-offset: 3px; }
+.mig-interactive button:disabled { cursor: wait; opacity: .7; }
+.mig-interactive .mig-shop > .mig-languages { display: flex; flex: none; gap: 2px; padding: 3px; }
+.mig-interactive .mig-languages button { border: 0; border-radius: 4px; background: transparent; color: #7a87a1; font-size: 9px; padding: 3px 5px; }
+.mig-interactive .mig-languages button[aria-pressed="true"] { background: white; color: #265fec; }
+.mig-interactive .mig-card-visa { color: #fff; background: linear-gradient(125deg,#1737a4,#2563eb 65%,#3485fc); }
+.dark .mig-interactive .mig-card-visa { color: #fff; background: linear-gradient(125deg,#132d88,#235bda 65%,#3175ea); }
+.mig-interactive .mig-card-visa .mig-card-top { color: #dce7ff; }
+.mig-visa-mark { font-size: 23px; font-style: italic; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+.mig-interactive .mig-bank-card { transition: background 180ms ease; }
+.mig-interactive .mig-card-bottom > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 77%; }
+.mig-interactive .mig-sample-button { display: block; border: 0; padding: 9px 0; width: 100%; background: transparent; font-size: 9px; color: #265fec; text-decoration: underline; }
+.dark .mig-interactive .mig-sample-button { color: #a3bdff; }
+.mig-interactive button.mig-pay { display: flex; justify-content: center; align-items: center; gap: 8px; width: calc(100% - 20px); border: 0; }
+.ao-cover .mig-demo-error { font-size: 10px; line-height: 1.5; color: #b42318; margin: 8px 0 0; }
+.mig-demo-error:empty { display: none; }
+.dark .ao-cover .mig-demo-error { color: #ffb4ad; }
+.mig-demo-success { padding: 36px 20px 25px; text-align: center; min-height: 340px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.mig-success-check { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: #e2f4e9; color: #247449; font-size: 31px; margin-bottom: 22px; animation: mig-approve 250ms ease-out; }
+.ao-cover .mig-demo-success h3 { font-size: 21px; line-height: 1.3; font-weight: 500; margin-bottom: 14px; }
+.mig-demo-success > strong { font-size: 25px; font-weight: 500; }
+.ao-cover .mig-demo-success p { font-size: 11px; line-height: 1.8; margin: 18px 0 24px; }
+.mig-demo-spinner { width: 13px; height: 13px; border: 2px solid #ffffff60; border-top-color: white; border-radius: 50%; animation: mig-spin 700ms linear infinite; }
+.mig-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+@keyframes mig-spin { to { transform: rotate(360deg); } }
+@keyframes mig-approve { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+@media(prefers-reduced-motion:reduce) { .mig-demo-spinner, .mig-success-check { animation: none; } }
 /* Migration: an editorial entry point followed by a task-focused guide. */
 .mig-cover .ao-hero { grid-template-columns: 1.12fr 1fr; gap: 46px; }
 .mig-cover h1 { font-size: clamp(40px,3.8vw,59px); }
