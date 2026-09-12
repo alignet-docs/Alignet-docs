@@ -90,6 +90,43 @@
   object-fit: contain !important;
 }
 
+/* WooCommerce and PrestaShop cover details, sharing the approved cover system. */
+.ao-platform-logo { display: flex; align-items: center; justify-content: center; margin: 23px auto 0; padding: 13px 24px; border-radius: 9px; background: #fff; width: 220px; max-width: 100%; height: 72px; }
+.ao-cover .ao-platform-logo img { display: block; width: auto; height: auto; max-height: 49px; max-width: 100%; margin: 0; filter: none; }
+.ao-checkout { border: 1px solid #79604d; border-radius: 10px; padding: 19px; background: #2b3035; }
+.ao-checkout-label { display: flex; justify-content: space-between; align-items: center; color: #bac3cb; font-size: 8px; letter-spacing: 1px; margin-bottom: 13px; }
+.ao-checkout .icon { background-color: #c4cbd1 !important; }
+.ao-checkout > strong { font-size: 19px; font-weight: 500; letter-spacing: -.3px; }
+.ao-checkout-options { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0; color: #c4cbd1; font-size: 10px; }
+.ao-checkout-options > span { display: flex; gap: 7px; align-items: center; }
+.ao-checkout-action { display: flex; align-items: center; justify-content: space-between; padding: 11px 13px; color: #fff; background: #a84b22; border-radius: 5px; font-size: 11px; }
+.ao-order-sync { display: flex; align-items: center; gap: 12px; justify-content: center; }
+.ao-sync-check { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1px solid #a37755; color: #f2a165; font-size: 15px; }
+.ao-order-sync strong { display: block; font-size: 12px; font-weight: 500; }
+.ao-order-sync div > span { display: block; font-size: 9px; color: #b6bfc6; margin-top: 4px; }
+.ao-plugin-visual .ao-network-bottom { margin-top: 20px; }
+.ao-payment-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border-top: 1px solid var(--ao-line); border-bottom: 1px solid var(--ao-line); padding: 26px 0; }
+.ao-payment-grid > div { padding: 0 20px; border-left: 1px solid var(--ao-line); }
+.ao-payment-grid > div:first-child { padding-left: 0; border: 0; }
+.ao-cover .ao-payment-grid h3 { margin: 15px 0 9px; font-size: 13px; line-height: 1.5; font-weight: 500; }
+.ao-payment-grid p { color: var(--ao-muted); font-size: 11px; line-height: 1.8; }
+.ao-payment-flow { display: block; }
+.ao-cover .ao-flow-steps { list-style: none; padding: 0; margin: 30px 0 25px; display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 18px; }
+.ao-cover .ao-flow-steps li { padding: 0; margin: 0; min-width: 0; position: relative; }
+.ao-flow-steps li > span { display: grid; place-items: center; width: 29px; height: 29px; border: 1px solid var(--ao-line); border-radius: 50%; color: var(--ao-accent); font-family: monospace; font-size: 10px; background: var(--ao-surface); }
+.ao-flow-steps li:not(:last-child)::after { content: "→"; position: absolute; top: 2px; right: 0; color: var(--ao-muted); font-size: 16px; }
+.ao-cover .ao-flow-steps h3 { font-size: 13px; font-weight: 500; margin: 17px 0 10px; }
+.ao-flow-steps p { font-size: 11px; line-height: 1.8; color: var(--ao-muted); }
+.ao-order-states { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.ao-order-states > div { border: 1px solid var(--ao-line); border-radius: 10px; padding: 23px 21px; background: var(--ao-surface); }
+.ao-state-tag { font-size: 8px; font-weight: 500; letter-spacing: 1px; color: var(--ao-muted); }
+.ao-state-approved { color: var(--ao-accent); }
+.ao-cover .ao-order-states h3 { font-size: 18px; font-weight: 500; line-height: 1.4; margin: 12px 0; letter-spacing: -.3px; }
+.ao-order-states p { color: var(--ao-muted); font-size: 12px; line-height: 1.8; }
+.ao-plugin-start { padding-top: 0; }
+@media (max-width: 1100px) and (min-width: 701px) { .ao-payment-grid > div { padding: 0 12px; } .ao-cover .ao-flow-steps { gap: 12px; } }
+@media (max-width: 700px) { .ao-payment-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 25px 0; } .ao-payment-grid > div:nth-child(3) { padding-left: 0; border-left: 0; } .ao-cover .ao-flow-steps { grid-template-columns: 1fr; gap: 22px; } .ao-flow-steps li { padding-left: 44px !important; } .ao-flow-steps li > span { position: absolute; left: 0; top: 0; } .ao-flow-steps li:not(:last-child)::after { content: ""; left: 14px; top: 35px; bottom: -15px; width: 1px; height: auto; background: var(--ao-line); } .ao-cover .ao-flow-steps h3 { margin-top: 4px; } .ao-order-states { grid-template-columns: 1fr; } .ao-plugin-start { padding-top: 0; } }
+
 img[alt="dark logo"] {
   filter: none !important;
 }

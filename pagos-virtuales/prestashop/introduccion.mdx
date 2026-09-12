@@ -1,66 +1,70 @@
 ---
 title: "PrestaShop"
-description: "Integra la pasarela de pagos Alignet One en tu tienda PrestaShop de forma rápida y segura."
+description: "Integra Alignet One en PrestaShop. Instala el módulo, configura tus pagos y conoce el ciclo de vida de cada pedido."
+mode: "wide"
+hideFooterPagination: true
 ---
-<Frame>
-  <img src="https://mintcdn.com/alignet/1doMEpheovLEa4uV/images/image-64.png?fit=max&auto=format&n=1doMEpheovLEa4uV&q=85&s=2451c3d78dd1b8fe89ee1fba78829e3f" alt="Logo de PrestaShop" title="PrestaShop" className="mx-auto prestashop-brand-logo" style={{ width:"58%" }} width="440" height="180" data-path="images/image-64.png" />
-</Frame>
 
-Alignet One PrestaShop es el módulo oficial para **cobrar en tu tienda PrestaShop** con los métodos de pago más importantes del mercado local (Perú y región) desde una sola integración.
+<div className="ao-cover ao-plugin-cover not-prose">
+  <section className="ao-hero" aria-labelledby="ao-title">
+    <div className="ao-hero-copy">
+      <p className="ao-eyebrow"><span /> ALIGNET ONE · PRESTASHOP</p>
+      <h1 id="ao-title">Tu tienda.<br />Más formas<br />de <em>cobrar.</em></h1>
+      <p className="ao-lead">Conecta tu tienda PrestaShop con Alignet One. Acepta pagos y mantén tus pedidos al día desde una sola integración.</p>
+      <div className="ao-actions"><a className="ao-button" href="/pagos-virtuales/prestashop/instalacion-y-activacion">Instalar el módulo <span aria-hidden="true">↗</span></a><a className="ao-text-link" href="/pagos-virtuales/prestashop/configuracion-del-modulo">Ver configuración <span aria-hidden="true">→</span></a></div>
+      <p className="ao-backing">Módulo oficial · Tecnología de Alignet</p>
+    </div>
+    <div className="ao-network ao-plugin-visual">
+      <div className="ao-network-top"><span>DE TU CHECKOUT A CADA PEDIDO</span><span className="ao-mini-mark" aria-hidden="true">↗</span></div>
+      <div className="ao-platform-logo"><img src="https://mintcdn.com/alignet/1doMEpheovLEa4uV/images/image-64.png?fit=max&auto=format&n=1doMEpheovLEa4uV&q=85&s=2451c3d78dd1b8fe89ee1fba78829e3f" alt="PrestaShop" /></div>
+      <div className="ao-line" />
+      <div className="ao-checkout"><div className="ao-checkout-label"><span>CHECKOUT DE TU TIENDA</span><Icon icon="lock" size={13} /></div><strong>Pagar con Alignet One</strong><div className="ao-checkout-options"><span><Icon icon="credit-card" size={15} /> Tarjetas</span><span><Icon icon="wallet" size={15} /> Billeteras y más</span></div><div className="ao-checkout-action">Continuar al pago <span aria-hidden="true">→</span></div></div>
+      <div className="ao-line ao-line-bottom" />
+      <div className="ao-order-sync"><span className="ao-sync-check" aria-hidden="true">✓</span><div><strong>Pago confirmado</strong><span>Estado del pedido actualizado vía webhook</span></div></div>
+      <div className="ao-network-bottom">Esquema ilustrativo del flujo de integración</div>
+    </div>
+  </section>
+  <div className="ao-trust-strip"><span>Conecta tu operación</span><strong>Checkout integrado</strong><span className="ao-divider" /><strong>Notificaciones webhook</strong><span className="ao-divider" /><strong>Gestión de pedidos</strong></div>
 
-### Métodos de Pago Disponibles
+  <section className="ao-section" aria-labelledby="ao-methods-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">01 / MÉTODOS DE PAGO</p><h2 id="ao-methods-title">Más opciones para tus clientes.</h2></div><p>Disponibles según la configuración<br className="ao-desktop-break" /> de tu comercio y su región.</p></div>
+    <div className="ao-payment-grid">
+      <div><Icon icon="credit-card" size={21} /><h3>Tarjetas</h3><p>Visa, Mastercard,<br />American Express y Diners.</p></div>
+      <div><Icon icon="wallet" size={21} /><h3>Billeteras</h3><p>Yape y Plin.</p></div>
+      <div><Icon icon="qrcode" size={21} /><h3>Pagos con QR</h3><p>Una opción de pago<br />desde el móvil.</p></div>
+      <div><Icon icon="money-bill-transfer" size={21} /><h3>Transferencias y efectivo</h3><p>PagoEfectivo y Cuotéalo BCP.</p></div>
+    </div>
+  </section>
 
-Dependiendo de tu configuración, podrás habilitar
+  <section className="ao-foundation ao-payment-flow" aria-labelledby="ao-flow-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">02 / ASÍ SE CONECTA CADA PAGO</p><h2 id="ao-flow-title">Del checkout a la confirmación.</h2></div><p>El módulo gestiona el ciclo de la transacción<br className="ao-desktop-break" /> y comunica el resultado a tu tienda.</p></div>
+    <ol className="ao-flow-steps">
+      <li><span>01</span><h3>Selección</h3><p>Tu cliente elige Alignet One en el checkout de PrestaShop.</p></li>
+      <li><span>02</span><h3>Envío</h3><p>El módulo envía la información de la transacción de forma cifrada.</p></li>
+      <li><span>03</span><h3>Validación</h3><p>Alignet One valida el pago con emisores y procesadores bajo estándares PCI-DSS.</p></li>
+      <li><span>04</span><h3>Respuesta</h3><p>Tu cliente recibe una confirmación inmediata en pantalla.</p></li>
+      <li><span>05</span><h3>Notificación</h3><p>El webhook informa a tu tienda para actualizar el estado del pedido.</p></li>
+    </ol>
+    <a className="ao-text-link" href="/pagos-virtuales/prestashop/experiencia-del-cliente">Explora la experiencia del cliente <span aria-hidden="true">→</span></a>
+  </section>
 
-* **Tarjetas:** Visa, Mastercard, American Express, Diners.
-* **Billeteras:** Yape, Plin.
-* **Pagos con QR.**
-* **Transferencias y Efectivo:** PagoEfectivo, Cuotéalo BCP.
+  <section className="ao-section" aria-labelledby="ao-orders-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">03 / CICLO DE VIDA DEL PEDIDO</p><h2 id="ao-orders-title">Cada resultado, en su lugar.</h2></div><p>Los estados de pago se reflejan<br className="ao-desktop-break" /> en tu operación de PrestaShop.</p></div>
+    <div className="ao-order-states">
+      <div><span className="ao-state-tag">REGISTRO</span><h3>Esperando pago</h3><p>El pedido se crea como «Esperando pago» o «Pendiente».</p></div>
+      <div><span className="ao-state-tag ao-state-approved">PAGO APROBADO</span><h3>Pago aceptado</h3><p>El pedido pasa a «Pago aceptado» y puedes iniciar su preparación.</p></div>
+      <div><span className="ao-state-tag">FALLO O CANCELACIÓN</span><h3>Error de pago o cancelado</h3><p>Si el pago se rechaza o el cliente abandona el flujo, se refleja como «Error de pago» o «Cancelado».</p></div>
+    </div>
+    <a className="ao-api-link" href="/pagos-virtuales/prestashop/gestion-de-pedidos-y-transacciones"><span>Consulta el detalle de la <strong>gestión de pedidos y transacciones</strong></span><span aria-hidden="true">→</span></a>
+  </section>
 
-### Flujo General de Pago
-
-Comprender cómo viaja la información es clave para una integración exitosa. El módulo gestiona todo el ciclo de vida de la transacción automáticamente.
-
-<img className="theme-aware-image theme-aware-image-light" src="/images/virtual-payments-prestashop-flow-light.png" alt="Flujo general de pago de PrestaShop" width="1595" height="672" />
-<img className="theme-aware-image theme-aware-image-dark" src="/images/virtual-payments-prestashop-flow-dark.png" alt="Flujo general de pago de PrestaShop en modo oscuro" width="1595" height="672" />
-
-### ¿Cómo funciona?
-
-1. **Selección:** El cliente elige Alignet One como método de pago en el checkout de PrestaShop.
-2. **Envío:** El módulo envía de forma cifrada la información de la transacción a la pasarela Alignet One.
-3. **Validación:** Alignet One valida el pago con los emisores y procesadores bajo estándares de seguridad PCI-DSS.
-4. **Respuesta:**
-   * **Síncrona:** El cliente recibe una confirmación inmediata en pantalla.
-   * **Asíncrona (Webhook):** Alignet One notifica a tu tienda mediante un webhook para actualizar el estado del pedido automáticamente.
-
-***
-
-## Ciclo de Vida del Pedido
-
-Para que tu operación sea consistente, el módulo mapea los estados de la pasarela con los estados nativos de PrestaShop:
-
-<Steps>
-  <Step title="Registro y Pendiente">
-    El pedido se crea en PrestaShop como **"Esperando pago"** o **"Pendiente"**.
-  </Step>
-
-  <Step title="Pago Aprobado">
-    Si el pago es exitoso, el estado cambia a **"Pago aceptado"**, permitiendo iniciar la preparación del pedido.
-  </Step>
-
-  <Step title="Fallo o Cancelación">
-    Si el pago es rechazado o el cliente abandona el flujo, el pedido se marca como **"Error de pago"** o **"Cancelado"**.
-  </Step>
-</Steps>
-
-***
-
-<CardGroup cols={2}>
-  <Card title="Instalación" icon="download" href="/pagos-virtuales/prestashop/instalacion-y-activacion">
-    Descarga el módulo y súbelo desde el panel de administración de PrestaShop.
-  </Card>
-
-  <Card title="Configuración" icon="gear" href="/pagos-virtuales/prestashop/configuracion-del-modulo">
-    Configura tus credenciales y habilita los métodos de pago según tu negocio.
-  </Card>
-</CardGroup>
+  <section className="ao-section ao-plugin-start" aria-labelledby="ao-start-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">04 / EMPIEZA A INTEGRAR</p><h2 id="ao-start-title">Tu próximo paso.</h2></div></div>
+    <div className="ao-paths">
+      <a className="ao-path" href="/pagos-virtuales/prestashop/instalacion-y-activacion"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="download" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">01 / INSTALA</span><h3>Instalación y activación</h3><p>Descarga el módulo y súbelo desde el administrador de PrestaShop.</p><span className="ao-path-foot">Prepara tu tienda</span></a>
+      <a className="ao-path" href="/pagos-virtuales/prestashop/configuracion-del-modulo"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="sliders" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">02 / CONECTA</span><h3>Configuración</h3><p>Configura tus credenciales, el ambiente y los métodos de pago.</p><span className="ao-path-foot">Vincula tu comercio</span></a>
+      <a className="ao-path" href="/pagos-virtuales/prestashop/pruebas-y-certificacion"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="circle-check" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">03 / VALIDA</span><h3>Pruebas y certificación</h3><p>Comprueba el flujo y las notificaciones antes de salir a producción.</p><span className="ao-path-foot">Revisa tu integración</span></a>
+    </div>
+  </section>
+  <div className="ao-bottom"><div><span className="ao-status-dot" /><p>Te acompañamos en la integración.<a href="/pagos-virtuales/prestashop/solucion-de-problemas">Consulta la solución de problemas <span aria-hidden="true">→</span></a></p></div><a href="mailto:postventa.autenticacion@alignet.com">Habla con nuestro equipo <span aria-hidden="true">↗</span></a></div>
+</div>
