@@ -245,6 +245,11 @@
 .ao-cover .ao-text-link { font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; }
 .ao-cover .ao-text-link:hover { color: var(--ao-accent); }
 .ao-cover .ao-backing { font-size: 11px; color: var(--ao-muted); margin-top: 24px; }
+.ao-card-brands { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
+.ao-card-brands-label { font-size: 10px; color: var(--ao-muted); margin-right: 2px; }
+.ao-card-brand { display: inline-flex; align-items: center; color: #566376; }
+.dark .ao-card-brand { color: #c0c9d5; }
+.ao-card-brand svg { display: block; width: 34px; height: 26px; background-color: currentColor !important; }
 .ao-network { position: relative; overflow: hidden; border-radius: 16px; border: 1px solid #3e454a; color: #eef0f3; background: radial-gradient(ellipse at 50% 43%, #394047 0%, #252b31 50%, #20252a 100%); padding: 22px; min-width: 0; }
 .ao-network::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(#ffffff04 1px, transparent 1px), linear-gradient(90deg,#ffffff04 1px, transparent 1px); background-size: 24px 24px; }
 .ao-network > * { position: relative; }
