@@ -57,7 +57,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
           <nav className="mig-method-nav" aria-label={t("Métodos de la demo", "Demo payment methods")}>
             {[["card", t("Tarjeta", "Card"), "▱"], ["yape", "Yape", "Y"], ["qr", "QR", "▦"], ["installments", "Cuotéalo", "Ⅲ"], ["cash", "PagoEfectivo", "P"], ["bank", t("Transferencia", "Transfer"), "⌂"], ["google", "Google Pay", "G"]].map(([id, label, symbol]) => {
               const available = ["card", "yape", "qr"].includes(id);
-              return <button key={id} type="button" disabled={!available || status !== "idle"} aria-pressed={method === id} aria-label={label + (!available ? t(" — no disponible en la demo", " — unavailable in this demo") : "")} title={label + (!available ? t(" · No disponible", " · Unavailable") : "")} onClick={() => {setMethod(id);setError("");setNumberFocused(false);}}><span aria-hidden="true">{symbol}</span><small>{label}</small></button>;
+              return <button key={id} type="button" disabled={!available || status !== "idle"} aria-pressed={method === id} aria-label={label + (!available ? t(" — no disponible en la demo", " — unavailable in this demo") : "")} title={label + (!available ? t(" · No disponible", " · Unavailable") : "")} onClick={() => {setMethod(id);setError("");setNumberFocused(false);}}><span aria-hidden="true">{id === "yape" ? <img className="mig-yape-nav-logo" src="/images/demo-yape-logo.png" alt="" /> : symbol}</span><small>{label}</small></button>;
             })}
           </nav>
           <div className="mig-method-content">
@@ -70,7 +70,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
           <div className="mig-field-row">{field("first", t("Nombre ficticio", "Fictional first name"))}{field("last", t("Apellido ficticio", "Fictional last name"))}</div>
           {field("email", t("Correo ficticio", "Fictional email"), { type: "email" })}
           </> : method === "yape" ? <div className="mig-wallet-view">
-            <div className="mig-yape-word" aria-label="Yape">yape</div>
+            <img className="mig-yape-logo" src="/images/demo-yape-logo.png" alt="Yape" />
             <h3>{t("Confirma tu pago con Yape", "Confirm your payment with Yape")}</h3>
             <p>{t("Vista de ejemplo · No abras tu billetera real.", "Sample view · Do not open your real wallet.")}</p>
             <label>{t("Celular ficticio", "Fictional phone number")}<input className="mig-field" inputMode="numeric" autoComplete="off" data-private="true" value={phone} maxLength={9} disabled={status !== "idle"} onChange={e => {setPhone(e.target.value.replace(/\D/g, "").slice(0,9));setError("");}} /></label>
@@ -80,10 +80,10 @@ export const MigrationCheckout = ({ locale = "es" }) => {
           </div> : <div className="mig-wallet-view mig-qr-view">
             <h3>{t("Pago con QR", "QR payment")}</h3>
             <p>{t("Así se presenta el pago desde una billetera digital.", "A preview of a digital-wallet payment.")}</p>
-            <div className="mig-qr-placeholder" role="img" aria-label={t("Ilustración QR de demostración, no escaneable", "Non-scannable demo QR illustration")}>
-              <svg viewBox="0 0 100 100" width="145" height="145" aria-hidden="true"><g fill="none" stroke="currentColor" strokeWidth="5"><rect x="8" y="8" width="24" height="24" rx="2" /><rect x="68" y="8" width="24" height="24" rx="2" /><rect x="8" y="68" width="24" height="24" rx="2" /></g><g fill="currentColor"><rect x="15" y="15" width="10" height="10" /><rect x="75" y="15" width="10" height="10" /><rect x="15" y="75" width="10" height="10" /><path d="M68 68h9v9h-9zm15 0h9v24h-9zM68 83h9v9h-9z" /></g><text x="50" y="55" textAnchor="middle" fill="currentColor" fontSize="14" fontWeight="700">DEMO</text></svg>
+            <div className="mig-qr-placeholder">
+              <img className="mig-qr-image" src="/images/demo-qr-reference.png" alt={t("Imagen QR de referencia para la demo", "Reference QR image for the demo")} />
             </div>
-            <strong>{t("No escaneable", "Not scannable")}</strong>
+            <strong>{t("Solo demostración · No escanear", "Demo only · Do not scan")}</strong>
             <p>{t("Pulsa «Simular pago» para ver la confirmación. No se genera una orden ni un cobro real.", "Select ‘Simulate payment’ to see confirmation. No real order or charge is created.")}</p>
           </div>}
           <p className="mig-demo-error" role="alert">{error}</p>
