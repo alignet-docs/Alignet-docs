@@ -10,6 +10,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
   const [numberFocused, setNumberFocused] = useState(false);
+  const [cardShine, setCardShine] = useState(0);
   const en = language === "en";
   const t = (es, english) => en ? english : es;
   const digits = values.number.replace(/\D/g, "");
@@ -29,6 +30,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
     setError("");
   };
   const loadSample = () => {
+    setCardShine(previous => previous + 1);
     setValues(testValues());
     setPhone("900000000"); setApprovalCode("123456");
     setNumberFocused(false);
@@ -65,6 +67,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
         <div className="mig-checkout-body">
           {method === "card" ? <>
           <div className={"mig-bank-card mig-card-with-chip" + (amex ? " mig-card-amex" : mastercard ? " mig-card-mastercard" : "")}>
+            <span key={cardShine} className="mig-card-shine" aria-hidden="true" />
             <div className="mig-card-top"><span>{digits ? t("TARJETA DE PRUEBA", "TEST CARD") : ""}</span>{amex ? <span className="mig-amex-mark" aria-label="American Express">AMERICAN<br />EXPRESS</span> : <span className="mig-card-brands" aria-label="Visa, Mastercard y American Express"><b>VISA</b><svg width="25" height="16" viewBox="0 0 48 30" aria-hidden="true"><circle cx="17" cy="15" r="14" fill="#eb001b" /><circle cx="31" cy="15" r="14" fill="#f79e1b" /></svg><strong>AM<br />EX</strong></span>}</div>
             <svg className="mig-card-chip" width="25" height="20" viewBox="0 0 25 20" fill="none" aria-hidden="true"><rect x=".5" y=".5" width="24" height="19" rx="4" fill="#f8f8f7" stroke="#aaa" /><path d="M9 1v5L6 8v4l3 2v5M16 1v5l3 2v4l-3 2v5M1 6h8m7 0h8M1 14h8m7 0h8M9 6h7v8H9Z" stroke="#aaa" strokeWidth=".7" /></svg>
             <div className="mig-card-number">{maskedNumber}</div><div className="mig-card-bottom"><span>{[values.first, values.last].filter(Boolean).join(" ").toUpperCase() || t("NOMBRE Y APELLIDO", "CARDHOLDER NAME")}</span><span>{values.expiry || t("MM/AA", "MM/YY")}</span></div>
