@@ -184,6 +184,8 @@
 .mig-checkout { max-width: 305px; margin: auto; border: 1px solid #dce1ef; border-radius: 19px; background: #fff; color: #202738; overflow: hidden; box-shadow: 0 14px 35px #25314b0a; }
 .mig-shop { display: flex; align-items: center; gap: 9px; padding: 13px; border-bottom: 1px solid #e2e6f1; }
 .mig-shop-icon { display: grid; place-items: center; background: #e7edff; color: #285dda; width: 31px; height: 31px; border-radius: 50%; }
+.mig-shop-icon { flex: none; overflow: hidden; }
+.mig-shop-icon .mig-store-illustration { display: block; width: 25px; height: 25px; object-fit: contain; margin: 0; border-radius: 0; }
 .mig-shop > div { flex: 1; }
 .mig-shop strong { display: block; font-size: 12px; font-weight: 600; }
 .mig-shop small { font-size: 9px; color: #8090ad; display: block; margin-top: 3px; }
