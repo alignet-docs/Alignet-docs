@@ -99,7 +99,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
           </div>
         </div>
         <div className="mig-checkout-total"><span>{t("Monto de ejemplo", "Sample amount")}</span><strong>S/ 140.50</strong></div>
-        <button className="mig-pay" type="button" disabled={status === "processing"} onClick={submit}>{status === "processing" ? <><span className="mig-demo-spinner" aria-hidden="true" />{t("Simulando…", "Simulating…")}</> : t("Simular pago", "Simulate payment")}</button>
+        <button className="mig-pay mig-pay-sequence" type="button" disabled={status === "processing"} onClick={submit}>{method === "card" && status === "idle" && <span key={cardShine} className="mig-pay-shine" aria-hidden="true" />}{status === "processing" ? <><span className="mig-demo-spinner" aria-hidden="true" />{t("Simulando…", "Simulating…")}</> : <span className="mig-pay-label">{t("Simular pago", "Simulate payment")}</span>}</button>
         <span className="mig-sr-only" role="status">{status === "processing" ? t("Simulación en curso", "Simulation in progress") : ""}</span>
       </div>}
       <div className="mig-checkout-footer"><span>Alignet One</span><span>{t("Entorno demostrativo", "Demo environment")}</span></div>

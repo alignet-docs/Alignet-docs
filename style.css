@@ -68,7 +68,10 @@
 .mig-card-with-chip > :not(.mig-card-shine) { position: relative; z-index: 1; }
 .mig-card-shine { position: absolute; inset: -45% auto -45% -75%; width: 55%; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(255,255,255,.65) 50%, transparent); transform: translateX(0) rotate(22deg); opacity: 0; animation: mig-card-reflection 1.7s cubic-bezier(.22,.61,.36,1) .2s both; }
 @keyframes mig-card-reflection { 0% { transform: translateX(0) rotate(22deg); opacity: 0; } 18% { opacity: .8; } 75% { opacity: .6; } 100% { transform: translateX(440%) rotate(22deg); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .mig-card-shine { display: none; animation: none; } }
+.mig-pay-sequence { position: relative; overflow: hidden; isolation: isolate; }
+.mig-pay-label { position: relative; z-index: 1; }
+.mig-pay-shine { position: absolute; inset: -60% auto -60% -75%; width: 55%; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(255,255,255,.4) 50%, transparent); opacity: 0; animation: mig-card-reflection 1.25s cubic-bezier(.22,.61,.36,1) 2.05s both; }
+@media (prefers-reduced-motion: reduce) { .mig-card-shine, .mig-pay-shine { display: none; animation: none; } }
 .mig-interactive input.mig-field { display: block; width: 100%; min-width: 0; outline: none; font-family: inherit; box-shadow: none; }
 .mig-interactive input.mig-field::placeholder { color: inherit; opacity: .85; }
 .mig-interactive input.mig-field:focus { border-color: #3267ec; box-shadow: 0 0 0 2px #3267ec20; }
