@@ -6,14 +6,22 @@ mode: "wide"
 hideFooterPagination: true
 ---
 
-import { MigrationCheckout } from "/snippets/migration-checkout.jsx"
-
 <div className="ao-cover mig-cover not-prose">
 <section className="ao-hero" aria-labelledby="ao-title">
 <div className="ao-hero-copy"><p className="ao-eyebrow"><span /> PARA NUESTROS CLIENTES ACTUALES</p><h1 id="ao-title">Tu siguiente etapa.<br /><em>Alignet One.</em></h1><p className="ao-lead">Si ya cobras con nuestra plataforma anterior, esta guía te acompaña en el cambio: prepara tu tienda, configura el nuevo gateway y valida tu primer pago.</p><div className="ao-actions"><a className="ao-button" href="#preparar">Comenzar la migración <span aria-hidden="true">→</span></a><a className="ao-text-link" href="mailto:postventa.autenticacion@alignet.com">Necesito acompañamiento ↗</a></div><p className="ao-backing">WordPress / WooCommerce · 5 etapas guiadas</p><div className="mig-transition"><span>Tu plataforma anterior</span><span aria-hidden="true">→</span><strong>Alignet One</strong></div></div>
-<MigrationCheckout locale="es" />
+<div className="mig-roadmap">
+  <p className="mig-roadmap-label">TU RUTA HACIA ALIGNET ONE</p>
+  <div className="mig-roadmap-platforms"><div><small>ORIGEN</small><strong>VPOS</strong><span>Versión clásica</span></div><span className="mig-roadmap-arrow" aria-hidden="true">→</span><div className="mig-roadmap-target"><small>DESTINO</small><strong>Alignet One</strong><span>Tu nueva integración</span></div></div>
+  <div className="mig-roadmap-steps">
+    <a href="#preparar"><span>01</span><div><strong>Prepara tu tienda</strong><small>Respaldo y revisión del entorno</small></div><b aria-hidden="true">↗</b></a>
+    <a href="#registro"><span>02</span><div><strong>Registra el comercio</strong><small>Código, Client ID y Client Secret</small></div><b aria-hidden="true">↗</b></a>
+    <a href="#instalar"><span>03</span><div><strong>Instala la integración</strong><small>Nuevo plugin de Alignet One</small></div><b aria-hidden="true">↗</b></a>
+    <a href="#configurar"><span>04</span><div><strong>Configura los accesos</strong><small>Ambiente, moneda y credenciales</small></div><b aria-hidden="true">↗</b></a>
+    <a href="#validar"><span>05</span><div><strong>Valida tu primer pago</strong><small>Pruebas y revisión del pedido</small></div><b aria-hidden="true">↗</b></a>
+  </div>
+  <p className="mig-roadmap-note">Ruta guiada para WordPress / WooCommerce</p>
+</div>
 </section>
-<div className="mig-route" aria-label="Etapas de migración"><a href="#preparar"><span>01</span><strong>Prepara</strong><span aria-hidden="true">↗</span></a><a href="#registro"><span>02</span><strong>Registra</strong><span aria-hidden="true">↗</span></a><a href="#instalar"><span>03</span><strong>Instala</strong><span aria-hidden="true">↗</span></a><a href="#configurar"><span>04</span><strong>Configura</strong><span aria-hidden="true">↗</span></a><a href="#validar"><span>05</span><strong>Valida</strong><span aria-hidden="true">↗</span></a></div>
 <div className="mig-scope"><Icon icon="wordpress" size={23} /><p><strong>Esta ruta es para WordPress / WooCommerce.</strong>Si utilizas PrestaShop, VTEX, Checkout Web o SDK, coordina con Alignet el procedimiento de migración de tu canal antes de aplicar estos pasos.</p></div>
 </div>
 

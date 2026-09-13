@@ -6,7 +6,9 @@ mode: "wide"
 hideFooterPagination: true
 ---
 
-<div className="ao-cover not-prose">
+import { MigrationCheckout } from "/snippets/migration-checkout.jsx"
+
+<div className="ao-cover ao-demo-intro not-prose">
   <section className="ao-hero" aria-labelledby="ao-title">
     <div className="ao-hero-copy">
       <p className="ao-eyebrow"><span /> ALIGNET ONE · PAGOS VIRTUALES</p>
@@ -24,16 +26,7 @@ hideFooterPagination: true
         <span className="ao-card-brand" role="img" aria-label="American Express" title="American Express"><Icon icon="cc-amex" iconType="brands" size={34} /></span>
       </div>
     </div>
-    <div className="ao-network ao-network-animated" role="group" aria-label="Tu tienda, web o aplicación se conecta a Alignet One para aceptar tarjetas, billeteras, transferencias y efectivo.">
-      <div className="ao-network-top"><span>UN SOLO PUNTO DE CONEXIÓN</span><span className="ao-mini-mark">↗</span></div>
-      <div className="ao-channels"><span>Tienda online</span><span>Web</span><span>App</span></div>
-      <div className="ao-line ao-line-top" />
-      <div className="ao-core"><span className="ao-core-symbol" aria-hidden="true">↗</span><strong>Alignet One</strong><span>Infraestructura de pagos</span></div>
-      <div className="ao-line ao-line-bottom" />
-      <div className="ao-methods"><span><b aria-hidden="true">▤</b>Tarjetas</span><span><b aria-hidden="true">◫</b>Billeteras</span><span><b aria-hidden="true">⇄</b>Transferencias</span><span><b aria-hidden="true">▥</b>Efectivo</span></div>
-      <div className="ao-network-bottom"><span className="ao-status-dot" /> Una experiencia conectada, de principio a fin</div>
-      <label className="ao-animation-toggle"><input type="checkbox" /> Pausar animación</label>
-    </div>
+    <MigrationCheckout locale="es" />
   </section>
   <div className="ao-trust-strip"><span>Diseñado para conectar</span><strong>Adquirencia directa</strong><span className="ao-divider" /><strong>3-D Secure</strong><span className="ao-divider" /><strong>Tokenización</strong></div>
   <section className="ao-section" aria-labelledby="ao-paths-title">
@@ -44,6 +37,19 @@ hideFooterPagination: true
       <a className="ao-path" href="/pagos-virtuales/sdk-mobile/introduccion"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="mobile-screen-button" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">PARA TU APLICACIÓN</span><h3>SDK Mobile</h3><p>Lleva los pagos a tu app con una integración para dispositivos móviles.</p><span className="ao-path-foot">Android · iOS</span></a>
     </div>
     <a className="ao-api-link" href="/api-reference/authentication/generar-access-token"><span><span className="ao-code-mark" aria-hidden="true">&lt;/&gt;</span> ¿Buscas la referencia técnica? <strong>Explora API Docs</strong></span><span aria-hidden="true">→</span></a>
+  </section>
+  <section className="ao-connection-section" aria-labelledby="ao-connection-title">
+    <div><p className="ao-eyebrow">CÓMO SE CONECTA TODO</p><h2 id="ao-connection-title">Distintos canales.<br /><em>Un punto de conexión.</em></h2><p className="ao-lead">Tu tienda, sitio web o app se conecta a Alignet One para ofrecer los métodos de pago habilitados para tu comercio.</p><a className="ao-text-link" href="/pagos-virtuales/tipos-de-integracion">Elige tu integración →</a></div>
+    <div className="ao-network ao-network-animated" role="group" aria-label="Tu tienda, web o aplicación se conecta a Alignet One para aceptar tarjetas, billeteras, transferencias y efectivo.">
+      <div className="ao-network-top"><span>UN SOLO PUNTO DE CONEXIÓN</span><span className="ao-mini-mark">↗</span></div>
+      <div className="ao-channels"><span>Tienda online</span><span>Web</span><span>App</span></div>
+      <div className="ao-line ao-line-top" />
+      <div className="ao-core"><span className="ao-core-symbol" aria-hidden="true">↗</span><strong>Alignet One</strong><span>Infraestructura de pagos</span></div>
+      <div className="ao-line ao-line-bottom" />
+      <div className="ao-methods"><span><b aria-hidden="true">▤</b>Tarjetas</span><span><b aria-hidden="true">◫</b>Billeteras</span><span><b aria-hidden="true">⇄</b>Transferencias</span><span><b aria-hidden="true">▥</b>Efectivo</span></div>
+      <div className="ao-network-bottom"><span className="ao-status-dot" /> Una experiencia conectada, de principio a fin</div>
+      <label className="ao-animation-toggle"><input type="checkbox" /> Pausar animación</label>
+    </div>
   </section>
   <section className="ao-foundation" aria-labelledby="ao-foundation-title">
     <div className="ao-foundation-copy"><p className="ao-eyebrow">02 / LA BASE DE CADA PAGO</p><h2 id="ao-foundation-title">La confianza también<br />se integra.</h2><p>Alignet es adquirente directo y proveedor oficial de tecnología 3-D Secure. Centraliza tu operación con una infraestructura respaldada por nuestra tecnología.</p><a className="ao-text-link" href="/pagos-virtuales/buenas-practicas-generales">Conoce las buenas prácticas <span aria-hidden="true">→</span></a></div>

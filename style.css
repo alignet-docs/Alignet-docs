@@ -99,6 +99,29 @@
 .ao-cover.mig-cover { padding-top: 0; }
 .mig-cover .ao-hero { grid-template-columns: 1.12fr 1fr; gap: 46px; align-items: start; padding-top: 8px; padding-bottom: 32px; }
 .mig-cover .ao-hero-copy { padding-top: 24px; }
+.ao-demo-intro > .ao-hero { align-items: start; padding-top: 8px; }
+.ao-demo-intro > .ao-hero > .ao-hero-copy { padding-top: 30px; }
+.ao-connection-section { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 48px; padding: 32px 0 54px; }
+.ao-connection-section h2 em { color: var(--ao-accent); font-family: Georgia,serif; font-weight: 400; }
+.ao-connection-section .ao-lead { margin: 18px 0 24px; font-size: 14px; }
+.mig-roadmap { padding: 26px; border: 1px solid var(--ao-line); border-radius: 18px; background: linear-gradient(145deg,#c6531f08,transparent 55%),var(--ao-surface); }
+.ao-cover .mig-roadmap-label { color: var(--ao-accent); font-size: 9px; letter-spacing: 1.5px; font-weight: 600; }
+.mig-roadmap-platforms { display: grid; grid-template-columns: 1fr auto 1.25fr; gap: 12px; align-items: center; margin: 24px 0; }
+.mig-roadmap-platforms > div { display: flex; flex-direction: column; gap: 4px; }
+.mig-roadmap-platforms small { color: var(--ao-muted); font-size: 8px; letter-spacing: 1px; }
+.mig-roadmap-platforms strong { font-size: 20px; letter-spacing: -.6px; font-weight: 500; }
+.mig-roadmap-platforms div > span { font-size: 10px; color: var(--ao-muted); }
+.mig-roadmap-arrow { color: var(--ao-accent); font-size: 22px; }
+.mig-roadmap-target { padding: 12px; border: 1px solid #c6531f50; border-radius: 9px; background: #c6531f08; }
+.mig-roadmap-steps { border-top: 1px solid var(--ao-line); }
+.mig-roadmap-steps a { display: flex; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--ao-line); }
+.mig-roadmap-steps a > span { flex-shrink: 0; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #c6531f10; color: var(--ao-accent); font: 10px monospace; }
+.mig-roadmap-steps strong { display: block; font-size: 13px; font-weight: 500; }
+.mig-roadmap-steps small { display: block; color: var(--ao-muted); font-size: 10px; margin-top: 4px; }
+.mig-roadmap-steps b { margin-left: auto; color: var(--ao-muted); font-weight: 400; }
+.mig-roadmap-steps a:hover strong, .mig-roadmap-steps a:hover b { color: var(--ao-accent); }
+.ao-cover .mig-roadmap-note { font-size: 10px; color: var(--ao-muted); margin-top: 18px; }
+@media(max-width:700px) { .ao-connection-section { grid-template-columns: 1fr; gap: 26px; padding: 24px 0 36px; } .ao-demo-intro > .ao-hero > .ao-hero-copy { padding-top: 0; } .mig-roadmap { padding: 20px; } }
 @media (max-width: 700px) { #content-area:has(.mig-cover) { padding-top: 16px !important; } .mig-cover .ao-hero-copy { padding-top: 0; } }
 .mig-cover h1 { font-size: clamp(40px,3.8vw,59px); }
 .mig-transition { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; border-top: 1px solid var(--ao-line); margin-top: 29px; padding-top: 18px; font-size: 11px; color: var(--ao-muted); }
