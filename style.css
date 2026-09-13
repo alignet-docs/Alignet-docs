@@ -56,9 +56,14 @@
 .dark .pc-lifecycle span { border-color:#48505a; }
 @media(max-width:600px) { .pc-demo { padding:17px; } .pc-operation { padding:15px; } .pc-attempts li { flex-wrap:wrap; gap:8px; } .pc-attempts li > .pc-badge { margin-left:23px; } .pc-state-facts { grid-template-columns:1fr; } .pc-controls button { width:100%; } }
 /* Interactive checkout: local-only demonstration, never a payment endpoint. */
-.mig-demo-banner { text-align: center; margin-bottom: 15px; }
-.mig-demo-banner strong { display: block; color: var(--ao-accent); font-size: 9px; letter-spacing: 1.3px; }
-.mig-demo-banner > span { display: block; color: var(--ao-muted); font-size: 10px; margin-top: 5px; }
+.mig-demo-banner { display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; margin-bottom: 12px; }
+.mig-demo-banner strong { color: var(--ao-accent); font-size: 9px; letter-spacing: 1.3px; }
+.mig-demo-banner > span { color: var(--ao-muted); font-size: 9px; }
+.mig-card-brands { display: flex; align-items: center; gap: 5px; height: 27px; letter-spacing: -.4px; }
+.mig-card-brands b { color: #173bd0; font-size: 14px; font-style: italic; }
+.mig-card-brands strong { background: #0878bf; color: white; padding: 2px; font-size: 6px; line-height: .95; letter-spacing: -.2px; }
+.mig-card-chip { display: block; margin-top: 7px; }
+.mig-card-with-chip .mig-card-number { margin: 12px 0 17px; }
 .mig-interactive input.mig-field { display: block; width: 100%; min-width: 0; outline: none; font-family: inherit; box-shadow: none; }
 .mig-interactive input.mig-field::placeholder { color: inherit; opacity: .85; }
 .mig-interactive input.mig-field:focus { border-color: #3267ec; box-shadow: 0 0 0 2px #3267ec20; }
