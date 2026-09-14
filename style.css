@@ -56,6 +56,41 @@
 .dark .pc-lifecycle span { border-color:#48505a; }
 @media(max-width:600px) { .pc-demo { padding:17px; } .pc-operation { padding:15px; } .pc-attempts li { flex-wrap:wrap; gap:8px; } .pc-attempts li > .pc-badge { margin-left:23px; } .pc-state-facts { grid-template-columns:1fr; } .pc-controls button { width:100%; } }
 /* Interactive checkout: local-only demonstration, never a payment endpoint. */
+.psm-context { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 18px 20px; border: 1px solid #dce2eb; border-radius: 14px; margin: 24px 0; font-size: 13px; }
+.psm-context strong { flex-basis: 100%; }
+.psm-context > span { padding: 6px 10px; border-radius: 6px; background: #f0f3f8; }
+.psm-context small { flex-basis: 100%; color: #64748b; line-height: 1.6; }
+.psm { border: 1px solid #dce2eb; border-radius: 18px; padding: 20px; background: #fafbfc; color: #253040; }
+.psm-toolbar { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid #e1e6ee; }
+.psm-toolbar label { display: grid; gap: 7px; font-size: 11px; color: #64748b; }
+.psm-toolbar select { max-width: 100%; border: 1px solid #d4dce8; border-radius: 8px; padding: 9px 28px 9px 10px; background: #fff; color: #253040; font-size: 12px; }
+.psm-toolbar > button { border: 0; border-radius: 8px; padding: 10px 12px; background: #c94e19; color: #fff; font-size: 12px; cursor: pointer; }
+.psm-scroll { overflow-x: auto; }
+.psm-canvas { position: relative; width: 650px; height: 470px; margin: 0 auto; }
+.psm-lines { position: absolute; inset: 0; width: 650px; height: 470px; }
+.psm-edge { stroke: #a6b0be; stroke-width: 1.5; fill: none; }
+.psm-edge-active { stroke: #d65b23; stroke-width: 2.5; }
+.psm-node { position: absolute; display: flex; flex-direction: column; justify-content: center; gap: 5px; box-sizing: border-box; width: 140px; height: 62px; border: 1px solid #cfd8e4; border-radius: 11px; background: #fff; color: #253040; cursor: pointer; text-align: center; transition: border-color 200ms, box-shadow 200ms; }
+.psm-node strong { font-size: 14px; font-weight: 600; }
+.psm-node span { font-size: 9px; color: #607086; }
+.psm-node.psm-ok { background: #edf8f2; border-color: #a7d5bd; }
+.psm-node.psm-wait { background: #fff7e6; border-color: #e6ce91; }
+.psm-node.psm-stop { background: #f6f4f5; }
+.psm-node.psm-selected { border: 2px solid #d65b23; box-shadow: 0 0 0 4px #d65b2314; }
+.psm button:focus-visible, .psm select:focus-visible, .psm-scroll:focus-visible { outline: 2px solid #435f9a; outline-offset: 3px; }
+.psm-stage-label { position: absolute; left: 20px; top: 401px; width: 195px; color: #718096; font-size: 9px; line-height: 1.7; letter-spacing: 1px; }
+.psm-detail { border-left: 3px solid #d65b23; padding: 13px 16px; background: #fff; border-radius: 0 9px 9px 0; min-height: 104px; }
+.psm-detail > strong { font-size: 15px; }
+.psm .psm-detail p { margin: 6px 0 0; font-size: 13px; line-height: 1.7; color: #556478; }
+.psm .psm-caption { font-size: 11px; line-height: 1.6; color: #64748b; margin: 16px 0 0; }
+.dark .psm, .dark .psm-context { background: #232a32; border-color: #45515f; color: #e8edf4; }
+.dark .psm-node, .dark .psm-detail, .dark .psm-toolbar select, .dark .psm-context > span { background: #303b47; color: #edf2f7; border-color: #64748b; }
+.dark .psm-node.psm-ok { background: #213e34; }
+.dark .psm-node.psm-wait { background: #493f27; }
+.dark .psm-node.psm-selected { border-color: #fb8c50; }
+.dark .psm-node span, .dark .psm .psm-detail p, .dark .psm .psm-caption, .dark .psm-context small, .dark .psm-toolbar label { color: #bdc9d8; }
+@media (max-width: 600px) { .psm { padding: 12px; } .psm-toolbar { align-items: stretch; flex-direction: column; } .psm-toolbar > button { align-self: flex-start; } }
+@media (prefers-reduced-motion: reduce) { .psm-node { transition: none; } }
 .mig-demo-banner { display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; margin-bottom: 12px; }
 .mig-demo-banner strong { color: var(--ao-accent); font-size: 9px; letter-spacing: 1.3px; }
 .mig-demo-banner > span { color: var(--ao-muted); font-size: 9px; }
