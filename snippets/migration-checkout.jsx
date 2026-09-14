@@ -3,7 +3,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
   const formatNumber = value => /^3[47]/.test(value) ? [value.slice(0, 4), value.slice(4, 10), value.slice(10, 15)].filter(Boolean).join(" ") : value.match(/.{1,4}/g)?.join(" ") || "";
   const testValues = (brand = "amex") => ({ number: formatNumber(samples[brand]), expiry: "12/" + String(new Date().getFullYear() + 2).slice(-2), cvv: brand === "amex" ? "1234" : "123", first: "Alex", last: "Demo", email: "alex@example.com" });
   const [language, setLanguage] = useState(locale);
-  const [values, setValues] = useState({ number: "", expiry: "", cvv: "", first: "", last: "", email: "" });
+  const [values, setValues] = useState(() => testValues("mastercard"));
   const [method, setMethod] = useState("card");
   const [phone, setPhone] = useState("900000000");
   const [approvalCode, setApprovalCode] = useState("123456");
