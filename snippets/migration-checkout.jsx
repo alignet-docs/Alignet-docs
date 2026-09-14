@@ -1,7 +1,7 @@
 export const MigrationCheckout = ({ locale = "es" }) => {
-  const sample = "378282246310005";
+  const samples = { visa: "4111111111111111", mastercard: "5555555555554444", amex: "378282246310005" };
   const formatNumber = value => /^3[47]/.test(value) ? [value.slice(0, 4), value.slice(4, 10), value.slice(10, 15)].filter(Boolean).join(" ") : value.match(/.{1,4}/g)?.join(" ") || "";
-  const testValues = () => ({ number: formatNumber(sample), expiry: "12/" + String(new Date().getFullYear() + 2).slice(-2), cvv: "1234", first: "Alex", last: "Demo", email: "alex@example.com" });
+  const testValues = (brand = "amex") => ({ number: formatNumber(samples[brand]), expiry: "12/" + String(new Date().getFullYear() + 2).slice(-2), cvv: brand === "amex" ? "1234" : "123", first: "Alex", last: "Demo", email: "alex@example.com" });
   const [language, setLanguage] = useState(locale);
   const [values, setValues] = useState({ number: "", expiry: "", cvv: "", first: "", last: "", email: "" });
   const [method, setMethod] = useState("card");
@@ -16,6 +16,8 @@ export const MigrationCheckout = ({ locale = "es" }) => {
   const digits = values.number.replace(/\D/g, "");
   const mastercard = /^5[1-5]/.test(digits) || (Number(digits.slice(0, 4)) >= 2221 && Number(digits.slice(0, 4)) <= 2720);
   const amex = /^3[47]/.test(digits);
+  const visa = /^4/.test(digits);
+  const amount = "USD 140.50";
   const maskedNumber = digits ? formatNumber(digits).replace(/\d(?=(?:\D*\d){4})/g, "*") : "**** **** **** ****";
   useEffect(() => {
     if (status !== "processing") return;
@@ -29,9 +31,9 @@ export const MigrationCheckout = ({ locale = "es" }) => {
     setValues(previous => ({ ...previous, [key]: value }));
     setError("");
   };
-  const loadSample = () => {
+  const loadSample = (brand = "amex") => {
     setCardShine(previous => previous + 1);
-    setValues(testValues());
+    setValues(testValues(typeof brand === "string" && samples[brand] ? brand : "amex"));
     setPhone("900000000"); setApprovalCode("123456");
     setNumberFocused(false);
     setError(""); setStatus("idle");
@@ -43,11 +45,11 @@ export const MigrationCheckout = ({ locale = "es" }) => {
       if (phone !== "900000000" || approvalCode !== "123456") { setError(t("Usa los datos ficticios: 900000000 y código 123456.", "Use fictional data: 900000000 and code 123456.")); return; }
       setError(""); setStatus("processing"); return;
     }
-    if (digits !== sample) { setError(t("Usa «Cargar datos de prueba» para probar con la Amex ficticia.", "Use ‘Fill with test data’ to try the fictional Amex.")); return; }
+    if (!Object.values(samples).includes(digits)) { setError(t("Elige Visa, Mastercard o Amex para cargar una tarjeta ficticia.", "Choose Visa, Mastercard or Amex to load a fictional card.")); return; }
     const [month, year] = values.expiry.split("/").map(Number);
     const now = new Date();
     if (!/^\d{2}\/\d{2}$/.test(values.expiry) || month < 1 || month > 12 || new Date(2000 + year, month, 1) <= now) { setError(t("Ingresa un vencimiento futuro válido (MM/AA).", "Enter a valid future expiry (MM/YY).")); return; }
-    if (values.cvv.length !== 4 || !values.first.trim() || !values.last.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) { setError(t("Completa los campos con datos ficticios. Código de seguridad de prueba: 1234.", "Complete the fields with fictional data. Test security code: 1234.")); return; }
+    if (values.cvv !== (amex ? "1234" : "123") || !values.first.trim() || !values.last.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) { setError(t("Completa los campos con datos ficticios. Código de prueba: " + (amex ? "1234." : "123."), "Complete the fields with fictional data. Test security code: " + (amex ? "1234." : "123."))); return; }
     setError(""); setStatus("processing");
   };
   const field = (key, label, options = {}) => <input className="mig-field" aria-label={label} placeholder={label} value={values[key]} onChange={e => update(key, e.target.value)} autoComplete="off" spellCheck={false} disabled={status !== "idle"} maxLength={key === "email" ? 80 : 40} data-private="true" data-lpignore="true" data-1p-ignore="true" {...options} />;
@@ -55,7 +57,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
     <div className="mig-demo-banner"><strong>DEMO</strong><span>{t("Datos ficticios · Sin cobros", "Fictional data · No charges")}</span></div>
     <div className={"mig-checkout" + (status === "approved" ? " mig-checkout-approved" : "")}>
       <div className="mig-shop"><span className="mig-shop-icon"><img className="mig-store-illustration" src="/images/demo-storefront.svg" width="25" height="25" alt={t("Tienda ilustrada con toldo", "Illustrated storefront with awning")} /></span><div><strong>{t("Tu comercio", "Your store")}</strong><small>{t("Prueba la experiencia", "Try the experience")}</small></div><div className="mig-languages" aria-label={t("Idioma de la demo", "Demo language")}><button type="button" aria-pressed={!en} onClick={() => {setLanguage("es");setError("");}}>ES</button><button type="button" aria-pressed={en} onClick={() => {setLanguage("en");setError("");}}>EN</button></div></div>
-      {status === "approved" ? <div className="mig-demo-success" role="status"><span className="mig-success-check" aria-hidden="true"><svg width="68" height="68" viewBox="0 0 64 64" fill="none"><path d="m15 33 11 11 24-25" pathLength="1" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" /></svg></span><h3>{t("Pago de prueba aprobado", "Test payment approved")}</h3><strong>S/ 140.50</strong><p>{t("Simulación completada. No se realizó ningún cobro ni se enviaron datos de pago.", "Simulation complete. No charge was made and no payment data was sent.")}</p><button type="button" className="mig-pay" onClick={loadSample}>{t("Probar de nuevo", "Try again")}</button></div> : <div role="group" aria-label={t("Simulador de checkout", "Checkout simulator")} onKeyDown={e => { if (e.key === "Enter" && e.target.tagName === "INPUT") {e.preventDefault();submit();} }}>
+      {status === "approved" ? <div className="mig-demo-success" role="status"><span className="mig-success-check" aria-hidden="true"><svg width="68" height="68" viewBox="0 0 64 64" fill="none"><path d="m15 33 11 11 24-25" pathLength="1" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" /></svg></span><h3>{t("Pago de prueba aprobado", "Test payment approved")}</h3><strong>{amount}</strong><p>{t("Simulación completada. No se realizó ningún cobro ni se enviaron datos de pago.", "Simulation complete. No charge was made and no payment data was sent.")}</p><button type="button" className="mig-pay" onClick={loadSample}>{t("Probar de nuevo", "Try again")}</button></div> : <div role="group" aria-label={t("Simulador de checkout", "Checkout simulator")} onKeyDown={e => { if (e.key === "Enter" && e.target.tagName === "INPUT") {e.preventDefault();submit();} }}>
         <div className="mig-method-layout">
           <nav className="mig-method-nav" aria-label={t("Métodos de la demo", "Demo payment methods")}>
             {[["card", t("Tarjeta", "Card"), <svg key="card-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M3 10h18M7 15h4" /></svg>], ["yape", "Yape", "Y"], ["qr", "QR", <svg key="qr-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="6" height="6" rx="1" /><rect x="15" y="3" width="6" height="6" rx="1" /><rect x="3" y="15" width="6" height="6" rx="1" /><path d="M12 3v3m0 6h4v4h5m-9 5v-5m4 5h5v-2M3 12h3m3 0h1m10 0h1" /><path d="M6 6h.01M18 6h.01M6 18h.01" strokeWidth="2" /></svg>], ["installments", "Cuotéalo", "Ⅲ"], ["cash", "PagoEfectivo", "P"], ["bank", t("Transferencia", "Transfer"), "⌂"], ["google", "Google Pay", "G"]].map(([id, label, symbol]) => {
@@ -66,13 +68,13 @@ export const MigrationCheckout = ({ locale = "es" }) => {
           <div className="mig-method-content">
         <div className="mig-checkout-body">
           {method === "card" ? <>
-          <div className={"mig-bank-card mig-card-with-chip" + (amex ? " mig-card-amex" : mastercard ? " mig-card-mastercard" : "")}>
+          <div className={"mig-bank-card mig-card-with-chip" + (amex ? " mig-card-amex" : mastercard ? " mig-card-mastercard" : visa ? " mig-card-visa" : "")}>
             <span key={cardShine} className="mig-card-shine" aria-hidden="true" />
-            <div className="mig-card-top"><span>{digits ? t("TARJETA DE PRUEBA", "TEST CARD") : ""}</span>{amex ? <span className="mig-amex-mark" aria-label="American Express">AMERICAN<br />EXPRESS</span> : <span className="mig-card-brands" aria-label="Visa, Mastercard y American Express"><b>VISA</b><svg width="25" height="16" viewBox="0 0 48 30" aria-hidden="true"><circle cx="17" cy="15" r="14" fill="#eb001b" /><circle cx="31" cy="15" r="14" fill="#f79e1b" /></svg><strong>AM<br />EX</strong></span>}</div>
+            <div className="mig-card-top"><span>{digits ? t("TARJETA DE PRUEBA", "TEST CARD") : ""}</span>{amex ? <span className="mig-amex-mark" aria-label="American Express">AMERICAN<br />EXPRESS</span> : visa ? <span className="mig-visa-mark">VISA</span> : mastercard ? <span className="mig-mastercard-mark" aria-label="Mastercard"><svg width="42" height="27" viewBox="0 0 48 30" aria-hidden="true"><circle cx="17" cy="15" r="14" fill="#eb001b" /><circle cx="31" cy="15" r="14" fill="#f79e1b" /></svg><small>mastercard</small></span> : <span className="mig-card-brands" aria-label="Visa, Mastercard y American Express"><b>VISA</b><svg width="25" height="16" viewBox="0 0 48 30" aria-hidden="true"><circle cx="17" cy="15" r="14" fill="#eb001b" /><circle cx="31" cy="15" r="14" fill="#f79e1b" /></svg><strong>AM<br />EX</strong></span>}</div>
             <svg className="mig-card-chip" width="25" height="20" viewBox="0 0 25 20" fill="none" aria-hidden="true"><rect x=".5" y=".5" width="24" height="19" rx="4" fill="#f8f8f7" stroke="#aaa" /><path d="M9 1v5L6 8v4l3 2v5M16 1v5l3 2v4l-3 2v5M1 6h8m7 0h8M1 14h8m7 0h8M9 6h7v8H9Z" stroke="#aaa" strokeWidth=".7" /></svg>
             <div className="mig-card-number">{maskedNumber}</div><div className="mig-card-bottom"><span>{[values.first, values.last].filter(Boolean).join(" ").toUpperCase() || t("NOMBRE Y APELLIDO", "CARDHOLDER NAME")}</span><span>{values.expiry || t("MM/AA", "MM/YY")}</span></div>
           </div>
-          <button className="mig-sample-button" type="button" onClick={loadSample} disabled={status !== "idle"}>{t("Cargar datos de prueba", "Fill with test data")}</button>
+          <div className="mig-test-cards" role="group" aria-label={t("Cargar tarjeta de prueba", "Load a test card")}><span>{t("Cargar tarjeta de prueba", "Load a test card")}</span><div>{[["visa", "Visa"], ["mastercard", "Mastercard"], ["amex", "Amex"]].map(([brand, label]) => <button key={brand} type="button" disabled={status !== "idle"} aria-pressed={digits === samples[brand]} onClick={() => loadSample(brand)}>{label}</button>)}</div></div>
           {field("number", t("Número de tarjeta de prueba", "Test card number"), { inputMode: "numeric", maxLength: 19, value: digits && !numberFocused ? maskedNumber : values.number, onFocus: () => setNumberFocused(true), onBlur: () => setNumberFocused(false) })}
           <div className="mig-field-row">{field("expiry", t("MM/AA", "MM/YY"), { inputMode: "numeric", maxLength: 5 })}{field("cvv", amex ? "CID" : "CVV", { inputMode: "numeric", type: "password", maxLength: amex ? 4 : 3 })}</div>
           <div className="mig-field-row">{field("first", t("Nombre ficticio", "Fictional first name"))}{field("last", t("Apellido ficticio", "Fictional last name"))}</div>
@@ -98,7 +100,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
         </div>
           </div>
         </div>
-        <div className="mig-checkout-total"><span>{t("Monto de ejemplo", "Sample amount")}</span><strong>S/ 140.50</strong></div>
+        <div className="mig-checkout-total"><span>{t("Monto de ejemplo", "Sample amount")}</span><strong>{amount}</strong></div>
         <button className="mig-pay mig-pay-sequence" type="button" disabled={status === "processing"} onClick={submit}>{method === "card" && status === "idle" && <span key={cardShine} className="mig-pay-shine" aria-hidden="true" />}{status === "processing" ? <><span className="mig-demo-spinner" aria-hidden="true" />{t("Simulando…", "Simulating…")}</> : <span className="mig-pay-label">{t("Simular pago", "Simulate payment")}</span>}</button>
         <span className="mig-sr-only" role="status">{status === "processing" ? t("Simulación en curso", "Simulation in progress") : ""}</span>
       </div>}

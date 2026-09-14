@@ -64,6 +64,16 @@
 .mig-card-brands strong { background: #0878bf; color: white; padding: 2px; font-size: 6px; line-height: .95; letter-spacing: -.2px; }
 .mig-card-chip { display: block; margin-top: 7px; }
 .mig-card-with-chip .mig-card-number { margin: 12px 0 17px; }
+.mig-test-cards { margin: 10px 0; text-align: center; }
+.mig-test-cards > span { display: block; font-size: 8px; color: #71809e; margin-bottom: 6px; }
+.mig-test-cards > div { display: flex; gap: 5px; }
+.mig-test-cards button { flex: 1; border: 1px solid #dce3f6; border-radius: 6px; padding: 5px 3px; font-size: 9px; color: #435c94; background: #f6f8ff; cursor: pointer; }
+.mig-test-cards button[aria-pressed="true"] { background: #e9efff; border-color: #4977ed; color: #2150c7; }
+.mig-test-cards button:focus-visible { outline: 2px solid #285cf4; outline-offset: 2px; }
+.mig-test-cards button:disabled { opacity: .5; cursor: default; }
+.mig-interactive .mig-card-visa { background: linear-gradient(125deg,#1736ac,#2874f0); color: #fff; }
+.mig-interactive .mig-card-visa .mig-card-top { color: #e7efff; }
+.mig-visa-mark { font-size: 24px; font-weight: 900; font-style: italic; letter-spacing: -1px; line-height: 27px; }
 .mig-card-with-chip { position: relative; overflow: hidden; isolation: isolate; }
 .mig-card-with-chip > :not(.mig-card-shine) { position: relative; z-index: 1; }
 .mig-card-shine { position: absolute; inset: -45% auto -45% -75%; width: 55%; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(255,255,255,.65) 50%, transparent); transform: translateX(0) rotate(22deg); opacity: 0; animation: mig-card-reflection 1.7s cubic-bezier(.22,.61,.36,1) 2.2s both; }
