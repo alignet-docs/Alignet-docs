@@ -40,7 +40,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
   };
   const submit = () => {
     if (status !== "idle") return;
-    if (method === "qr") { setError(""); setStatus("processing"); return; }
+    if (method === "qr" || method === "google") { setError(""); setStatus("processing"); return; }
     if (method === "yape") {
       if (phone !== "900000000" || approvalCode !== "123456") { setError(t("Usa los datos ficticios: 900000000 y código 123456.", "Use fictional data: 900000000 and code 123456.")); return; }
       setError(""); setStatus("processing"); return;
@@ -60,8 +60,8 @@ export const MigrationCheckout = ({ locale = "es" }) => {
       {status === "approved" ? <div className="mig-demo-success" role="status"><span className="mig-success-check" aria-hidden="true"><svg width="68" height="68" viewBox="0 0 64 64" fill="none"><path d="m15 33 11 11 24-25" pathLength="1" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" /></svg></span><h3>{t("Pago de prueba aprobado", "Test payment approved")}</h3><strong>{amount}</strong><p>{t("Simulación completada. No se realizó ningún cobro ni se enviaron datos de pago.", "Simulation complete. No charge was made and no payment data was sent.")}</p><button type="button" className="mig-pay" onClick={loadSample}>{t("Probar de nuevo", "Try again")}</button></div> : <div role="group" aria-label={t("Simulador de checkout", "Checkout simulator")} onKeyDown={e => { if (e.key === "Enter" && e.target.tagName === "INPUT") {e.preventDefault();submit();} }}>
         <div className="mig-method-layout">
           <nav className="mig-method-nav" aria-label={t("Métodos de la demo", "Demo payment methods")}>
-            {[["card", t("Tarjeta", "Card"), <svg key="card-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M3 10h18M7 15h4" /></svg>], ["yape", "Yape", "Y"], ["qr", "QR", <svg key="qr-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="6" height="6" rx="1" /><rect x="15" y="3" width="6" height="6" rx="1" /><rect x="3" y="15" width="6" height="6" rx="1" /><path d="M12 3v3m0 6h4v4h5m-9 5v-5m4 5h5v-2M3 12h3m3 0h1m10 0h1" /><path d="M6 6h.01M18 6h.01M6 18h.01" strokeWidth="2" /></svg>], ["installments", "Cuotéalo", "Ⅲ"], ["cash", "PagoEfectivo", "P"], ["bank", t("Transferencia", "Transfer"), "⌂"], ["google", "Google Pay", "G"]].map(([id, label, symbol]) => {
-              const available = ["card", "yape", "qr"].includes(id);
+            {[["card", t("Tarjeta", "Card"), <svg key="card-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M3 10h18M7 15h4" /></svg>], ["google", "G Pay", <img key="google-icon" className="mig-google-nav-logo" src="/images/demo-google-pay.png" alt="" />], ["qr", "QR", <svg key="qr-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="6" height="6" rx="1" /><rect x="15" y="3" width="6" height="6" rx="1" /><rect x="3" y="15" width="6" height="6" rx="1" /><path d="M12 3v3m0 6h4v4h5m-9 5v-5m4 5h5v-2M3 12h3m3 0h1m10 0h1" /><path d="M6 6h.01M18 6h.01M6 18h.01" strokeWidth="2" /></svg>], ["yape", "Yape", "Y"]].map(([id, label, symbol]) => {
+              const available = ["card", "google", "qr", "yape"].includes(id);
               return <button key={id} type="button" disabled={!available || status !== "idle"} aria-pressed={method === id} aria-label={label + (!available ? t(" — no disponible en la demo", " — unavailable in this demo") : "")} title={label + (!available ? t(" · No disponible", " · Unavailable") : "")} onClick={() => {setMethod(id);setError("");setNumberFocused(false);}}><span aria-hidden="true">{id === "yape" ? <img className="mig-yape-nav-logo" src="/images/demo-yape-logo.png" alt="" /> : symbol}</span><small>{label}</small></button>;
             })}
           </nav>
@@ -79,7 +79,13 @@ export const MigrationCheckout = ({ locale = "es" }) => {
           <div className="mig-field-row">{field("expiry", t("MM/AA", "MM/YY"), { inputMode: "numeric", maxLength: 5 })}{field("cvv", amex ? "CID" : "CVV", { inputMode: "numeric", type: "password", maxLength: amex ? 4 : 3 })}</div>
           <div className="mig-field-row">{field("first", t("Nombre ficticio", "Fictional first name"))}{field("last", t("Apellido ficticio", "Fictional last name"))}</div>
           {field("email", t("Correo ficticio", "Fictional email"), { type: "email" })}
-          </> : method === "yape" ? <div className="mig-wallet-view">
+          </> : method === "google" ? <div className="mig-wallet-view mig-google-view">
+            <img className="mig-google-logo" src="/images/demo-google-pay.png" alt="Google Pay" />
+            <h3>{t("Paga con Google Pay", "Pay with Google Pay")}</h3>
+            <p>{t("Usa tus tarjetas guardadas en tu cuenta de Google.", "Use the cards saved in your Google account.")}</p>
+            <div className="mig-google-brands">{[["visa", "Visa"], ["mastercard", "Mastercard"], ["amex", "American Express"], ["diners", "Diners Club"]].map(([brand, label]) => <img key={brand} src={"/images/demo-brand-" + brand + (brand === "visa" ? ".svg" : brand === "amex" || brand === "mastercard" ? "-hd.png" : ".png")} alt={label} />)}</div>
+            <small>{t("Solo simulación. No se conectará tu cuenta de Google.", "Simulation only. Your Google account will not be connected.")}</small>
+          </div> : method === "yape" ? <div className="mig-wallet-view">
             <img className="mig-yape-logo" src="/images/demo-yape-logo.png" alt="Yape" />
             <h3>{t("Confirma tu pago con Yape", "Confirm your payment with Yape")}</h3>
             <p>{t("Vista de ejemplo · No abras tu billetera real.", "Sample view · Do not open your real wallet.")}</p>
@@ -101,11 +107,11 @@ export const MigrationCheckout = ({ locale = "es" }) => {
           </div>
         </div>
         <div className="mig-checkout-total"><span>{t("Monto de ejemplo", "Sample amount")}</span><strong>{amount}</strong></div>
-        <button className="mig-pay mig-pay-sequence" type="button" disabled={status === "processing"} onClick={submit}>{method === "card" && status === "idle" && <span key={cardShine} className="mig-pay-shine" aria-hidden="true" />}{status === "processing" ? <><span className="mig-demo-spinner" aria-hidden="true" />{t("Simulando…", "Simulating…")}</> : <span className="mig-pay-label">{t("Simular pago", "Simulate payment")}</span>}</button>
+        <button className={"mig-pay mig-pay-sequence" + (method === "google" ? " mig-google-pay" : "")} type="button" disabled={status === "processing"} onClick={submit}>{method === "card" && status === "idle" && <span key={cardShine} className="mig-pay-shine" aria-hidden="true" />}{status === "processing" ? <><span className="mig-demo-spinner" aria-hidden="true" />{t("Simulando…", "Simulating…")}</> : <span className="mig-pay-label">{method === "google" ? t("Simular pago con G Pay", "Simulate payment with G Pay") : t("Simular pago", "Simulate payment")}</span>}</button>
         <span className="mig-sr-only" role="status">{status === "processing" ? t("Simulación en curso", "Simulation in progress") : ""}</span>
       </div>}
       <div className="mig-checkout-footer"><span>Alignet One</span><span>{t("Entorno demostrativo", "Demo environment")}</span></div>
     </div>
-    <p className="mig-demo-note">{t("Prueba Tarjeta, Yape o QR. No ingreses datos reales.", "Try Card, Yape or QR. Do not enter real data.")}<br />{t("Esta demo no envía ni guarda tus datos.", "This demo does not send or save your data.")}</p>
+    <p className="mig-demo-note">{t("Prueba Tarjeta, G Pay, QR o Yape. No ingreses datos reales.", "Try Card, G Pay, QR or Yape. Do not enter real data.")}<br />{t("Esta demo no envía ni guarda tus datos.", "This demo does not send or save your data.")}</p>
   </div>;
 };
