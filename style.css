@@ -95,8 +95,8 @@
 .mig-interactive .mig-shop > .mig-languages { display: flex; flex: none; gap: 2px; padding: 3px; }
 .mig-interactive .mig-languages button { border: 0; border-radius: 4px; background: transparent; color: #7a87a1; font-size: 9px; padding: 3px 5px; }
 .mig-interactive .mig-languages button[aria-pressed="true"] { background: white; color: #265fec; }
-.mig-interactive .mig-card-amex { color: #fff; background: linear-gradient(125deg,#073b72,#0879bc 65%,#38a9d5); }
-.dark .mig-interactive .mig-card-amex { color: #fff; background: linear-gradient(125deg,#07315c,#08659f 65%,#218bad); }
+.mig-interactive .mig-card-amex { color: #fff; background: linear-gradient(125deg,#087f9c,#159aaa 65%,#38b9c2); }
+.dark .mig-interactive .mig-card-amex { color: #fff; background: linear-gradient(125deg,#08788f,#1394a3 65%,#30adb8); }
 .mig-interactive .mig-card-amex .mig-card-top { color: #e0f3ff; }
 .mig-amex-mark { font-size: 13px; font-weight: 900; line-height: 1.05; letter-spacing: -.5px; text-align: center; }
 .mig-interactive .mig-card-mastercard, .dark .mig-interactive .mig-card-mastercard { color: #fff; background: linear-gradient(125deg,#202833,#394857 65%,#586574); }
