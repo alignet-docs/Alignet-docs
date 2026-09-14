@@ -10,7 +10,7 @@ The test data are held at a central page so that you can re-use them without dup
 
 <CardGroup cols={2}>
   <Card title="Open Test Data" icon="credit-card" href="/en/virtual-payments/payments/test-data">
-    Check cards, Yapeand other sandbox scenarios from a single reference.
+    Review cards, Yape and other sandbox scenarios in one place.
   </Card>
 
   <Card title="Validate in Test Mode" icon="flask">
@@ -30,19 +30,19 @@ The test data are held at a central page so that you can re-use them without dup
 
 ## 2. Certification cycle
 
-To secure a note **10/10** Check these 4 key points for implementation:
+Check these four implementation requirements:
 
 <Steps>
   <Step title="Purchase Flow">
-    Reconduct a complete order and check that you are redirected to the **"Confirmed demand!"** in PrestaShop.
+    Place a complete order and confirm that you reach the **“Order confirmed!”** page in PrestaShop.
   </Step>
 
   <Step title="Automatic Status Change">
-    Confirms that order will pass from **"To be paid"** a **"Payment accepted"** after a successful transaction ( S2S).
+    Confirm that the order changes from **“Awaiting payment”** to **“Payment accepted”** after a successful transaction and S2S notification.
   </Step>
 
   <Step title="Reversal Test">
-    Executs an cancellation from the order and valid that the status changes to **Repaid**.
+    Cancel a payment from the order and validate that its state changes to **Refunded**.
   </Step>
 
   <Step title="Log Review">

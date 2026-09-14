@@ -13,7 +13,7 @@ These improvements are seen according to the component version and the configura
 
 | Enhancement              | What have you got to check?                                                                                                 | Parameter or guide                                                                                                                                     |
 | :------------------ | :---------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Configure logo   | The merchant should share URL public logo that you wish to display at the top left of the check out. | Configure enabled by integration equipment                                                                                              |
+| Configure logo   | The merchant should share URL public logo that you wish to display at the top left of the check out. | Configure enabled by integration team                                                                                              |
 | Multidioma          | Add the language settings if you want to display the selector `ES` / `EN`.                                     | [`i18n.mode`, `i18n.default_language`, `i18n.languages`](/en/virtual-payments/checkout-web/integrate-flex)                                               |
 | Closing Button     | Turn on the button if you need the buyer to get out of the checkout from the interface.                         | [`settings.show_close_button`](/en/virtual-payments/checkout-web/integrate-flex)                                                                         |
 | Most visual card  | Valves that the method `CARD` have been authorized and have the payload send the required buyer information.             | [`display_settings.methods`](/en/virtual-payments/checkout-web/integrate-flex) and [Construction of payload](/en/virtual-payments/checkout-web/integrate-flex) |
@@ -36,7 +36,7 @@ These improvements are seen according to the component version and the configura
     * It allows you to customize the logo that appears at the top left of the checkout.
     * The merchant should share URL public HTTPS from the logo you wish to display.
     * The URL have to aim directly at the image file and be available without authentication.
-    * The activation is co-ordinated with the integration equipment and cannot be configured from `settings`, `display_settings` and `i18n`.
+    * The activation is co-ordinated with the integration team and cannot be configured from `settings`, `display_settings` and `i18n`.
   </Accordion>
 
   <Accordion title="Multidioma" icon="language">
@@ -103,7 +103,7 @@ Flex retains its internal structure while the outer container calculates an appr
 ### Example of implementation
 
 <Info>
-  That visual example uses a popular presentation. The initialization, callbacks and dismantling described above also apply to drunk and expanded presentations.
+  This visual example uses a popup presentation. The initialization, callbacks and cleanup also apply to embedded and expanded presentations.
 </Info>
 
 <Tabs>
@@ -163,8 +163,8 @@ Flex retains its internal structure while the outer container calculates an appr
     const FLEX_RESPONSIVE_LAYOUT = {
       naturalWidth: 415,
       naturalHeight: 656,
-      viewportPaddingHorizontal: 40, // 20 px a cada lado
-      viewportPaddingVertical: 30,   // 15 px arriba y abajo
+      viewportPaddingHorizontal: 40, // 20 px on each side
+      viewportPaddingVertical: 30,   // 15 px above and below
       minimumScale: 0.25
     };
 
@@ -194,17 +194,17 @@ Flex retains its internal structure while the outer container calculates an appr
       );
     }
 
-    // Aplica la escala inicial y la recalcula cuando cambia el viewport.
+    // Apply the initial scale and recalculate it when the viewport changes.
     updateResponsiveScale();
     window.addEventListener("resize", updateResponsiveScale);
     window.visualViewport?.addEventListener("resize", updateResponsiveScale);
 
-    // Muestra el modal.
+    // Show the modal.
     const paymentModal = document.querySelector("#payment-modal");
     paymentModal.classList.add("is-open");
     paymentModal.setAttribute("aria-hidden", "false");
 
-    // Inicializa Flex.
+    // Initialize Flex.
     paymentForm.init(
       document.querySelector("#flex-container"),
       responseCallback,
@@ -236,8 +236,8 @@ Check the component in these scenarios:
 | Scenario                     | Expected result                                     |
 | :---------------------------- | :----------------------------------------------------- |
 | Wide viewing web       | The form keeps the scale `1` and it's focused. |
-| Vertical and horizontal cell | No horizontal scroll or cut constore appears.     |
-| Retirement         | The scale recalculates without re-initializing Flex.         |
+| Vertical and horizontal cell | No horizontal scrolling or clipped container appears.     |
+| Resize             | The scale recalculates without re-initializing Flex.         |
 | Change of step or method       | The new height remains inside the Viewport.         |
 | Virtual keyboard open       | Active fields are still visible and usable.   |
 

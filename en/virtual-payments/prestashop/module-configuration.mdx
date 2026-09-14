@@ -6,7 +6,7 @@ To gain access to these settings, go to **Modules** > **Module Manager** > **Ali
 
 ## 1. Basic adjustments
 
-Configure the dateway's identity in your checkout:
+Configure the gateway's identity in your checkout:
 
 | Parameter       | Action                                           | Recommendation                      |
 | :-------------- | :----------------------------------------------- | :--------------------------------- |
@@ -19,7 +19,7 @@ Configure the dateway's identity in your checkout:
 
 ## 2. Credentials API
 
-These data are your storage's "passport" Alignet One. Just get them to your account executive.
+These credentials connect your store to Alignet One. Request them from your account executive.
 
 <Info>
   Never share **Customer Secret** with or with third parties and with an open code repository.
@@ -33,17 +33,17 @@ These data are your storage's "passport" Alignet One. Just get them to your acco
 
 ## 3. Environment and Visualization
 
-Personalizes how the gateway behaves and how it operates.
+Customize how the gateway looks and operates.
 
 ### Implementing environment
 
 <Tabs>
   <Tab title="Sandbox (Tests)">
-    It uses this mode to conduct fictitious transaction with test cards. It's ideal to validate that your server gets notifications correctly.
+    Use this mode to conduct fictitious transaction with test cards. It's ideal to validate that your server gets notifications correctly.
   </Tab>
 
   <Tab title="Production">
-    It activates this mode only after you have completed the tests and have the actual credentials to process client money.
+    Activate this mode only after you have completed the tests and have the actual credentials to process client money.
   </Tab>
 </Tabs>
 
@@ -51,7 +51,7 @@ Personalizes how the gateway behaves and how it operates.
 
 You can choose between two types of user experience:
 
-* **Retirement:** The payment form is directly integrated into the Checkout page of PrestaShop.
+* **Embedded:** The payment form is integrated directly into the PrestaShop checkout page.
 * **Modal (Popup):** A secure pop up window about your store will be opened to capture payment data.
 
 ***

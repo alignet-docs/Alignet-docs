@@ -9,7 +9,7 @@ sidebarTitle: "Implementation"
 The collection function can be invoked Alignet One SDK from your app iOS to display the payment form and get the result of the operation.
 
 <Info>
-  Before starting SDKcomplete [Installation SDK iOS](/en/virtual-payments/sdk-mobile/ios/installation) and generates an `Access Token` from your backend using [Authentication](https://docs.pay-me.com/api-de-pagos/autenticacion).
+  Before starting SDKcomplete [Installation SDK iOS](/en/virtual-payments/sdk-mobile/ios/installation) and generates an `Access Token` from your backend using [Authentication](/en/api-reference/authentication/generate-access-token).
 </Info>
 
 ## Methods available
@@ -172,11 +172,11 @@ To complete integration, class should implement `PaymeClientDelegate`.
 ```swift theme={"system"}
 extension MainController: PaymeClientDelegate {
     func onRespondsPayme(response: PAYMEChargesResponse) {
-        // Procesa el resultado final del flujo.
+        // Process the final flow result.
     }
 
     func onPaymeEvents(event: PaymeEvent) {
-        // Registra eventos de navegación o interacción del SDK.
+        // Record SDK navigation or interaction events.
     }
 }
 ```
@@ -193,11 +193,11 @@ extension MainController: PaymeClientDelegate {
   </Card>
 
   <Card title="RETURN_LIST_PAYMENT_METHODS" icon="arrow-left">
-    He indicates that his user returned to his list of methods.
+    Indicates that the user returned to the payment method list.
   </Card>
 
   <Card title="CANCEL_PAYMENT_METHOD" icon="ban">
-    He indicates that the user cancelled a payment method.
+    Indicates that the user cancelled a payment method.
   </Card>
 
   <Card title="PRESS_PAY_BUTTON" icon="mouse-pointer-click">

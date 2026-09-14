@@ -9,7 +9,7 @@ sidebarTitle: "Implementation"
 The collection function can be invoked Alignet One SDK from your app Android to display the payment form and get the result of the operation.
 
 <Info>
-  Before starting SDKcomplete [Installation SDK Android](/en/virtual-payments/sdk-mobile/android/installation) and generates an `Access Token` from your backend using [Authentication](https://docs.pay-me.com/api-de-pagos/autenticacion).
+  Before starting SDKcomplete [Installation SDK Android](/en/virtual-payments/sdk-mobile/android/installation) and generates an `Access Token` from your backend using [Authentication](/en/api-reference/authentication/generate-access-token).
 </Info>
 
 ## Methods available
@@ -175,11 +175,11 @@ To complete integration, `Activity` have to implement `PaymeClientDelegate`.
 ```kotlin theme={"system"}
 class MainActivity : AppCompatActivity(), PaymeClientDelegate {
     override fun onRespondsPayme(response: PAYMEChargesResponse) {
-        // Procesa el resultado final del flujo.
+        // Process the final flow result.
     }
 
     override fun onPaymeEvents(event: PaymeEvent) {
-        // Registra eventos de navegación o interacción del SDK.
+        // Record SDK navigation or interaction events.
     }
 }
 ```
@@ -196,11 +196,11 @@ class MainActivity : AppCompatActivity(), PaymeClientDelegate {
   </Card>
 
   <Card title="RETURN_LIST_PAYMENT_METHODS" icon="arrow-left">
-    He indicates that his user returned to his list of methods.
+    Indicates that the user returned to the payment method list.
   </Card>
 
   <Card title="CANCEL_PAYMENT_METHOD" icon="ban">
-    He indicates that the user cancelled a payment method.
+    Indicates that the user cancelled a payment method.
   </Card>
 
   <Card title="PRESS_PAY_BUTTON" icon="mouse-pointer-click">

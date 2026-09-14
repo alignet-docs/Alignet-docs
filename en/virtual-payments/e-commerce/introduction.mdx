@@ -1,41 +1,30 @@
 ---
 title: "E-commerce"
-description: "Explore the available CMS integration options for e-commerce."
+sidebarTitle: "Overview"
+description: "Choose your store platform and connect its checkout to Alignet One."
+mode: "wide"
+hideFooterPagination: true
 ---
-The **E-commerce** integration is designed for merchants that use CMS platforms and want to reach production quickly through a guided implementation.
 
-Here you will find the available paths for the platforms currently supported by Alignet One:
-
-<CardGroup cols={3}>
-  <Card title="WooCommerce" icon="wordpress" href="/en/virtual-payments/wordpress-woocommerce/introduction">
-    Plugin for WordPress with administrative configuration and guided flow.
-  </Card>
-
-  <Card title="PrestaShop" icon="store" href="/en/virtual-payments/prestashop/introduction">
-    Modular integration to activate payments within your existing checkout.
-  </Card>
-
-  <Card title="VTEX" icon="shopping-cart" href="/en/virtual-payments/vtex/introduction">
-    A flow designed for enterprise e-commerce with environment-based configuration.
-  </Card>
-</CardGroup>
-
-***
-
-## When do you choose this route?
-
-* When your store already runs on a supported CMS.
-* When you want a faster activation with less custom development.
-* When you prefer a guided plugin or configuration instead of a direct API integration.
-
-## Next step
-
-If you have already chosen your platform, continue with its dedicated guide using the cards above.
-
-<Card title="Integration checklist" icon="clipboard-check" href="/en/virtual-payments/e-commerce/integration-checklist">
-  Review the minimum recommended validations before final testing or production.
-</Card>
-
-<Card title="Best practices" icon="shield-check" href="/en/virtual-payments/e-commerce/best-practices">
-  Review recommendations for operating e-commerce plugins and modules securely.
-</Card>
+<div className="ao-cover not-prose">
+<section className="ao-hero" aria-labelledby="ec-title">
+<div className="ao-hero-copy"><p className="ao-eyebrow"><span /> ALIGNET ONE · E-COMMERCE</p><h1 id="ec-title">Your store.<br />Your checkout.<br /><em>More ways to pay.</em></h1><p className="ao-lead">Connect Alignet One to the platform you already use. Configure your integration and validate each order journey.</p><div className="ao-actions"><a className="ao-button" href="#elige-tu-plataforma">Choose my platform ↗</a><a className="ao-text-link" href="/en/virtual-payments/e-commerce/integration-checklist">Preparation and testing →</a></div><p className="ao-backing">WooCommerce · PrestaShop · VTEX</p></div>
+<div className="ao-network ec-store-visual" role="img" aria-label="Your store connects to Alignet One through a plugin, module or connector. The confirmed payment result lets you update the order.">
+<div className="ao-network-top"><span>FROM YOUR STORE TO EVERY ORDER</span><span className="ao-mini-mark">↗</span></div>
+<div className="ec-store-window"><div className="ec-store-bar"><span /><span /><span /></div><div className="ec-store-row"><Icon icon="store" size={25} /><div><strong>Your online store</strong><small>The checkout your customers know</small></div></div><div className="ec-store-products" aria-hidden="true"><span><Icon icon="bag-shopping" size={22} /></span><span><Icon icon="shirt" size={22} /></span><span><Icon icon="box" size={22} /></span></div><div className="ec-store-pay">Continue to payment <span>→</span></div></div>
+<div className="ao-line" /><div className="ec-store-row ec-gateway"><span className="ao-core-symbol">↗</span><div><strong>Alignet One</strong><small>Plugin · module · connector</small></div></div><div className="ao-line ao-line-bottom" /><div className="ec-store-row ec-order"><Icon icon="clipboard-check" size={22} /><div><strong>Order updated</strong><small>Based on the confirmed payment result</small></div></div><div className="ao-network-bottom">Illustrative integration diagram</div>
+</div>
+</section>
+<div className="ao-trust-strip"><span>A shared path</span><strong>Prepare</strong><span className="ao-divider" /><strong>Configure</strong><span className="ao-divider" /><strong>Test</strong></div>
+<section className="ao-section">
+<p className="ao-eyebrow">01 / CHOOSE YOUR PLATFORM</p>
+<h2 id="elige-tu-plataforma">Start with your store platform.</h2>
+<div className="ao-paths">
+<a className="ao-path" href="/en/virtual-payments/wordpress-woocommerce/introduction"><span className="ao-path-top"><Icon icon="wordpress" size={24} /><span>↗</span></span><h3>WooCommerce</h3><p>Install the plugin and configure payments in WordPress.</p></a>
+<a className="ao-path" href="/en/virtual-payments/prestashop/introduction"><span className="ao-path-top"><Icon icon="store" size={24} /><span>↗</span></span><h3>PrestaShop</h3><p>Activate the module and review checkout and orders in your Back Office.</p></a>
+<a className="ao-path" href="/en/virtual-payments/vtex/introduction"><span className="ao-path-top"><Icon icon="cart-shopping" size={24} /><span>↗</span></span><h3>VTEX</h3><p>Configure the connector, credentials and payment conditions.</p></a>
+</div>
+</section>
+<section className="ao-foundation"><div><p className="ao-eyebrow">02 / PREPARE AND VALIDATE</p><h2>More than displaying<br />an approved payment.</h2><p>Check that the confirmed payment result is reflected in the order. Also validate pending payments, declines and notifications.</p></div><div><h3>Everything in one place</h3><p>Credentials, configuration, CMS security and test scenarios, without switching between a checklist and a separate recommendations page.</p><a className="ao-text-link" href="/en/virtual-payments/e-commerce/integration-checklist">Preparation and testing →</a></div></section>
+<p className="ao-availability-note">Available methods depend on the merchant, country and configuration. For custom-built websites, see <a href="/en/virtual-payments/checkout-web/introduction">Web Checkout</a>.</p>
+</div>

@@ -9,33 +9,33 @@ With a valid nonce, connect the payment form in three stages: load the library, 
 
 ## 1. Load CSS and JavaScript
 
-To be used Alignet One Flex have to include the following code in the HTML from the page by environment:
+To use Alignet One Flex, include the following code in your page's HTML for the selected environment:
 
 <Tabs>
-  <Tab title="production">
+  <Tab title="Preproduction">
     ```html theme={"system"}
-        <!-- Estilos CSS -->
+        <!-- CSS styles -->
         <link
           rel="stylesheet"
           type="text/css"
           href="https://flex.dev.pay-me.cloud/main-flex-payment-forms.css"
         />
 
-        <!-- Librería JS -->
+        <!-- JavaScript library -->
         <script src="https://flex.dev.pay-me.cloud/flex-payment-forms.min.js"></script>
     ```
   </Tab>
 
   <Tab title="Production">
     ```html theme={"system"}
-        <!-- Estilos CSS -->
+        <!-- CSS styles -->
         <link
           rel="stylesheet"
           type="text/css"
           href="https://flex.alignet.io/main-flex-payment-forms.css"
         />
 
-        <!-- Librería JS -->
+        <!-- JavaScript library -->
         <script src="https://flex.alignet.io/flex-payment-forms.min.js"></script>
     ```
   </Tab>
@@ -43,11 +43,11 @@ To be used Alignet One Flex have to include the following code in the HTML from 
 
 <CardGroup cols={2}>
   <Card title="CSS" icon="paintbrush">
-    Undetermined terms of the payment form. Include before closure `<head>`.
+    Default payment-form styles. Include them before the closing `</head>` tag.
   </Card>
 
   <Card title="JS" icon="code">
-    Main library Alignet One Flex. Include after CSS at `<head>`.
+    Main Alignet One Flex library. Include it after the CSS in `<head>`.
   </Card>
 </CardGroup>
 
@@ -57,7 +57,7 @@ To be used Alignet One Flex have to include the following code in the HTML from 
 
 ## 2. Build the payment payload
 
-The `payload` of Flex reuses the structure of **API of Authorisation - ecommerce**with an important difference: `payment_method` at the root object but as an empty object `{}`, because the client will choose the method within the form.
+The Flex `payload` reuses the **E-commerce authorization API** structure with one difference: send `payment_method` at the root as an empty object `{}`, because the customer selects the method inside the form.
 
 <Info>
   Think about this step as preparing the request for `POST /charges` for Flex. What you build here will be the basis of the operation that you will end up reading at `responseCallback(response)`.
@@ -80,17 +80,17 @@ The `payload` of Flex reuses the structure of **API of Authorisation - ecommerce
 Expand each block to check which fields belong to each level of the object that you will send to Flex.
 
 <AccordionGroup>
-  <Accordion title="Retirement" icon="table" defaultOpen>
+  <Accordion title="Root object" icon="table" defaultOpen>
     Contains general information about the operation and links with `payment_details`where she travels the details of the collection.
 
     | Field                       | Description                                     | Example                              | Type   | Mandatory |
     | :-------------------------- | :---------------------------------------------- | :----------------------------------- | :----- | :---------- |
-    | `action`                    | Action to be implemented                               | `authorize`                          | String | If          |
-    | `channel`                   | Channel where transaction will be run         | `ecommerce`                          | String | If          |
-    | `merchant_code`             | Merchant identifier                      | Alphanumeric Chain                  | String | If          |
-    | `merchant_operation_number` | Operation order number                | 6 to 12 digits | String | If          |
-    | `payment_method`            | Subject matter reserved for Flex. To be sent empty | `{}`                                 | Object | If          |
-    | `payment_details`           | Object with information about the transaction        | Object                               | Object | If          |
+    | `action`                    | Action to be implemented                               | `authorize`                          | String | Yes |
+    | `channel`                   | Channel where transaction will be run         | `ecommerce`                          | String | Yes |
+    | `merchant_code`             | Merchant identifier                      | Alphanumeric Chain                  | String | Yes |
+    | `merchant_operation_number` | Operation order number                | 6 to 12 digits | String | Yes |
+    | `payment_method`            | Subject matter reserved for Flex. To be sent empty | `{}`                                 | Object | Yes |
+    | `payment_details`           | Object with information about the transaction        | Object                               | Object | Yes |
   </Accordion>
 
   <Accordion title="Item payment_details" icon="receipt">
@@ -98,12 +98,12 @@ Expand each block to check which fields belong to each level of the object that 
 
     | Field                               | Description                                                                                      | Example               | Type       | Mandatory |
     | :---------------------------------- | :----------------------------------------------------------------------------------------------- | :-------------------- | :--------- | :---------- |
-    | `payment_details.amount`            | Operating cents                                                                | `1050`                | String     | If          |
-    | `payment_details.currency`          | Code [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) of the currency of the operation | `604`                 | String     | If          |
-    | `payment_details.additional_fields` | Dictionary to send custom fields and values `key:value`                        | `external_id:5468724` | Dictionary | NO          |
-    | `payment_details.customer`          | Object with information from the client who buys                                         | Object                | Object     | NO          |
-    | `payment_details.billing`           | Object with billing information                                                            | Object                | Object     | If          |
-    | `payment_details.shipping`          | Object with sending information                                                                  | Object                | Object     | NO          |
+    | `payment_details.amount`            | Operating cents                                                                | `1050`                | String     | Yes |
+    | `payment_details.currency`          | Code [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) of the currency of the operation | `604`                 | String     | Yes |
+    | `payment_details.additional_fields` | Dictionary to send custom fields and values `key:value`                        | `external_id:5468724` | Dictionary | No |
+    | `payment_details.customer`          | Object with information from the client who buys                                         | Object                | Object     | No |
+    | `payment_details.billing`           | Object with billing information                                                            | Object                | Object     | Yes |
+    | `payment_details.shipping`          | Object with sending information                                                                  | Object                | Object     | No |
   </Accordion>
 
   <Accordion title="Item payment_details" icon="address-book">
@@ -111,22 +111,22 @@ Expand each block to check which fields belong to each level of the object that 
 
     | Field                                                   | Description                                       | Type   | Mandatory |
     | :------------------------------------------------------ | :------------------------------------------------ | :----- | :---------- |
-    | `payment_details.customer.first_name`                   | Names                                           | String | NO          |
-    | `payment_details.customer.last_name`                    | Surname                                         | String | NO          |
-    | `payment_details.customer.email`                        | Email                                | String | NO          |
-    | `payment_details.customer.phone`                        | Object with phone information               | Object | NO          |
-    | `payment_details.customer.phone.country_code`           | Telephone Country Code                      | String | NO          |
-    | `payment_details.customer.phone.subscriber`             | Telephone number                               | String | NO          |
-    | `payment_details.customer.identity_document`            | Object with information about the identity document | Object | NO          |
-    | `payment_details.customer.identity_document.country`    | Country of document                                | String | NO          |
-    | `payment_details.customer.identity_document.type`       | Type of document                                 | String | NO          |
-    | `payment_details.customer.identity_document.identifier` | document number                               | String | NO          |
-    | `payment_details.customer.location`                     | Object with location information               | Object | NO          |
-    | `payment_details.customer.location.line_1`              | Section 1                                       | String | NO          |
-    | `payment_details.customer.location.line_2`              | Directorate 2                                       | String | NO          |
-    | `payment_details.customer.location.city`                | City                                            | String | NO          |
-    | `payment_details.customer.location.state`               | State                                            | String | NO          |
-    | `payment_details.customer.location.country`             | Country                                              | String | NO          |
+    | `payment_details.customer.first_name`                   | Names                                           | String | No |
+    | `payment_details.customer.last_name`                    | Surname                                         | String | No |
+    | `payment_details.customer.email`                        | Email                                | String | No |
+    | `payment_details.customer.phone`                        | Object with phone information               | Object | No |
+    | `payment_details.customer.phone.country_code`           | Telephone Country Code                      | String | No |
+    | `payment_details.customer.phone.subscriber`             | Telephone number                               | String | No |
+    | `payment_details.customer.identity_document`            | Object with information about the identity document | Object | No |
+    | `payment_details.customer.identity_document.country`    | Country of document                                | String | No |
+    | `payment_details.customer.identity_document.type`       | Type of document                                 | String | No |
+    | `payment_details.customer.identity_document.identifier` | document number                               | String | No |
+    | `payment_details.customer.location`                     | Object with location information               | Object | No |
+    | `payment_details.customer.location.line_1`              | Section 1                                       | String | No |
+    | `payment_details.customer.location.line_2`              | Directorate 2                                       | String | No |
+    | `payment_details.customer.location.city`                | City                                            | String | No |
+    | `payment_details.customer.location.state`               | State                                            | String | No |
+    | `payment_details.customer.location.country`             | Country                                              | String | No |
   </Accordion>
 
   <Accordion title="Item payment_details" icon="file-text">
@@ -134,18 +134,18 @@ Expand each block to check which fields belong to each level of the object that 
 
     | Field                                        | Description                         | Type   | Mandatory |
     | :------------------------------------------- | :---------------------------------- | :----- | :---------- |
-    | `payment_details.billing.first_name`         | Names                             | String | If          |
-    | `payment_details.billing.last_name`          | Surname                           | String | If          |
-    | `payment_details.billing.email`              | Email                  | String | If          |
-    | `payment_details.billing.phone`              | Object with phone information | Object | If          |
-    | `payment_details.billing.phone.country_code` | Telephone Country Code        | String | If          |
-    | `payment_details.billing.phone.subscriber`   | Telephone number                 | String | If          |
-    | `payment_details.billing.location`           | Object with location information | Object | If          |
-    | `payment_details.billing.location.line_1`    | Section 1                         | String | If          |
-    | `payment_details.billing.location.line_2`    | Directorate 2                         | String | NO          |
-    | `payment_details.billing.location.city`      | City                              | String | If          |
-    | `payment_details.billing.location.state`     | State                              | String | If          |
-    | `payment_details.billing.location.country`   | Country                                | String | If          |
+    | `payment_details.billing.first_name`         | Names                             | String | Yes |
+    | `payment_details.billing.last_name`          | Surname                           | String | Yes |
+    | `payment_details.billing.email`              | Email                  | String | Yes |
+    | `payment_details.billing.phone`              | Object with phone information | Object | Yes |
+    | `payment_details.billing.phone.country_code` | Telephone Country Code        | String | Yes |
+    | `payment_details.billing.phone.subscriber`   | Telephone number                 | String | Yes |
+    | `payment_details.billing.location`           | Object with location information | Object | Yes |
+    | `payment_details.billing.location.line_1`    | Section 1                         | String | Yes |
+    | `payment_details.billing.location.line_2`    | Directorate 2                         | String | No |
+    | `payment_details.billing.location.city`      | City                              | String | Yes |
+    | `payment_details.billing.location.state`     | State                              | String | Yes |
+    | `payment_details.billing.location.country`   | Country                                | String | Yes |
   </Accordion>
 
   <Accordion title="Item payment_details" icon="location-dot">
@@ -153,18 +153,18 @@ Expand each block to check which fields belong to each level of the object that 
 
     | Field                                         | Description                         | Type   | Mandatory |
     | :-------------------------------------------- | :---------------------------------- | :----- | :---------- |
-    | `payment_details.shipping.first_name`         | Names                             | String | NO          |
-    | `payment_details.shipping.last_name`          | Surname                           | String | NO          |
-    | `payment_details.shipping.email`              | Email                  | String | NO          |
-    | `payment_details.shipping.phone`              | Object with phone information | Object | NO          |
-    | `payment_details.shipping.phone.country_code` | Telephone Country Code        | String | NO          |
-    | `payment_details.shipping.phone.subscriber`   | Telephone number                 | String | NO          |
-    | `payment_details.shipping.location`           | Object with location information | Object | NO          |
-    | `payment_details.shipping.location.line_1`    | Section 1                         | String | NO          |
-    | `payment_details.shipping.location.line_2`    | Directorate 2                         | String | NO          |
-    | `payment_details.shipping.location.city`      | City                              | String | NO          |
-    | `payment_details.shipping.location.state`     | State                              | String | NO          |
-    | `payment_details.shipping.location.country`   | Country                                | String | NO          |
+    | `payment_details.shipping.first_name`         | Names                             | String | No |
+    | `payment_details.shipping.last_name`          | Surname                           | String | No |
+    | `payment_details.shipping.email`              | Email                  | String | No |
+    | `payment_details.shipping.phone`              | Object with phone information | Object | No |
+    | `payment_details.shipping.phone.country_code` | Telephone Country Code        | String | No |
+    | `payment_details.shipping.phone.subscriber`   | Telephone number                 | String | No |
+    | `payment_details.shipping.location`           | Object with location information | Object | No |
+    | `payment_details.shipping.location.line_1`    | Section 1                         | String | No |
+    | `payment_details.shipping.location.line_2`    | Directorate 2                         | String | No |
+    | `payment_details.shipping.location.city`      | City                              | String | No |
+    | `payment_details.shipping.location.state`     | State                              | String | No |
+    | `payment_details.shipping.location.country`   | Country                                | String | No |
   </Accordion>
 </AccordionGroup>
 

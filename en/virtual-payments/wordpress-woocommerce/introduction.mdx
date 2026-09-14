@@ -1,65 +1,70 @@
 ---
 title: "WooCommerce"
-description: "Integrate Alignet One into your WordPress store quickly and securely."
+description: "Integrate Alignet One into WooCommerce. Install the plugin, configure payments and understand each order's lifecycle."
+mode: "wide"
+hideFooterPagination: true
 ---
-<Frame>
-  <img src="https://mintcdn.com/alignet/1doMEpheovLEa4uV/images/image-65.png?fit=max&auto=format&n=1doMEpheovLEa4uV&q=85&s=164e4c6a5f07e36b083b93f31818a7b8" alt="Image" title="Image" className="mx-auto" style={{ width:"45%" }} width="451" height="120" data-path="images/image-65.png" />
-</Frame>
 
-Alignet One WooCommerce an official plugin for **Recovery at your store WordPress** with the most important payment methods from local market (Peru and region) from a single integration.
+<div className="ao-cover ao-plugin-cover not-prose">
+  <section className="ao-hero" aria-labelledby="ao-title">
+    <div className="ao-hero-copy">
+      <p className="ao-eyebrow"><span /> ALIGNET ONE · WOOCOMMERCE</p>
+      <h1 id="ao-title">Your store.<br />More ways<br />to <em>get paid.</em></h1>
+      <p className="ao-lead">Integrate Alignet One into your WordPress and WooCommerce store. Accept payments and keep orders up to date with a single integration.</p>
+      <div className="ao-actions"><a className="ao-button" href="/en/virtual-payments/wordpress-woocommerce/installation-and-activation">Install the plugin <span aria-hidden="true">↗</span></a><a className="ao-text-link" href="/en/virtual-payments/wordpress-woocommerce/configuration-and-keys">View configuration <span aria-hidden="true">→</span></a></div>
+      <p className="ao-backing">Official plugin · Alignet technology</p>
+    </div>
+    <div className="ao-network ao-plugin-visual">
+      <div className="ao-network-top"><span>FROM YOUR CHECKOUT TO EVERY ORDER</span><span className="ao-mini-mark" aria-hidden="true">↗</span></div>
+      <div className="ao-platform-logo"><img src="https://mintcdn.com/alignet/1doMEpheovLEa4uV/images/image-65.png?fit=max&auto=format&n=1doMEpheovLEa4uV&q=85&s=164e4c6a5f07e36b083b93f31818a7b8" alt="WooCommerce" /></div>
+      <div className="ao-line" />
+      <div className="ao-checkout"><div className="ao-checkout-label"><span>YOUR STORE CHECKOUT</span><Icon icon="lock" size={13} /></div><strong>Pay with Alignet One</strong><div className="ao-checkout-options"><span><Icon icon="credit-card" size={15} /> Cards</span><span><Icon icon="wallet" size={15} /> Wallets and more</span></div><div className="ao-checkout-action">Continue to payment <span aria-hidden="true">→</span></div></div>
+      <div className="ao-line ao-line-bottom" />
+      <div className="ao-order-sync"><span className="ao-sync-check" aria-hidden="true">✓</span><div><strong>Payment confirmed</strong><span>Order status updated via webhook</span></div></div>
+      <div className="ao-network-bottom">Illustrative integration flow</div>
+    </div>
+  </section>
+  <div className="ao-trust-strip"><span>Connect your payments</span><strong>Integrated checkout</strong><span className="ao-divider" /><strong>Webhook notifications</strong><span className="ao-divider" /><strong>Order management</strong></div>
 
-### Unavailable payment methods
+  <section className="ao-section" aria-labelledby="ao-methods-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">01 / PAYMENT METHODS</p><h2 id="ao-methods-title">More options for your customers.</h2></div><p>Available depending on the configuration<br className="ao-desktop-break" /> of your merchant account and region.</p></div>
+    <div className="ao-payment-grid">
+      <div><Icon icon="credit-card" size={21} /><h3>Cards</h3><p>Visa, Mastercard,<br />American Express and Diners.</p></div>
+      <div><Icon icon="wallet" size={21} /><h3>Wallets</h3><p>Yape and Plin.</p></div>
+      <div><Icon icon="qrcode" size={21} /><h3>QR payments</h3><p>A payment option<br />from a mobile device.</p></div>
+      <div><Icon icon="money-bill-transfer" size={21} /><h3>Transfers and cash</h3><p>PagoEfectivo and Cuotéalo BCP.</p></div>
+    </div>
+  </section>
 
-Depending on your configuration, you can enable:
+  <section className="ao-foundation ao-payment-flow" aria-labelledby="ao-flow-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">02 / HOW EACH PAYMENT CONNECTS</p><h2 id="ao-flow-title">From checkout to confirmation.</h2></div><p>The plugin manages the transaction lifecycle<br className="ao-desktop-break" /> and sends the result to your store.</p></div>
+    <ol className="ao-flow-steps">
+      <li><span>01</span><h3>Selection</h3><p>Your customer selects Alignet One in the WooCommerce checkout.</p></li>
+      <li><span>02</span><h3>Submission</h3><p>The plugin sends encrypted transaction information.</p></li>
+      <li><span>03</span><h3>Validation</h3><p>Alignet One validates the payment with issuers and processors under PCI-DSS standards.</p></li>
+      <li><span>04</span><h3>Response</h3><p>Your customer receives an immediate on-screen confirmation.</p></li>
+      <li><span>05</span><h3>Notification</h3><p>The webhook notifies your store so it can update the order status.</p></li>
+    </ol>
+    <a className="ao-text-link" href="/en/virtual-payments/wordpress-woocommerce/checkout-experience">Explore the customer experience <span aria-hidden="true">→</span></a>
+  </section>
 
-* **Cards:** Visa, Mastercard, American Express, Dines.
-* **Cash bills:** YapePlin.
-* **Payments with QR.**
-* **Transfers and Cash:** PagoEfectivo, Cuotéalo BCP.
+  <section className="ao-section" aria-labelledby="ao-orders-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">03 / ORDER LIFECYCLE</p><h2 id="ao-orders-title">Every outcome, in the right place.</h2></div><p>Payment states are reflected<br className="ao-desktop-break" /> in your WooCommerce workflow.</p></div>
+    <div className="ao-order-states">
+      <div><span className="ao-state-tag">REGISTRATION</span><h3>Pending payment</h3><p>The order is created as “Pending payment” while the transaction is completed.</p></div>
+      <div><span className="ao-state-tag ao-state-approved">PAYMENT APPROVED</span><h3>Processing</h3><p>The order moves to “Processing” or “Completed”, depending on your configuration, and the customer is notified by email.</p></div>
+      <div><span className="ao-state-tag">FAILURE OR CANCELLATION</span><h3>Failed or cancelled</h3><p>If payment is declined or the customer closes the window, the order is marked as “Failed” or “Cancelled”.</p></div>
+    </div>
+    <a className="ao-api-link" href="/en/virtual-payments/wordpress-woocommerce/order-and-transaction-management"><span>Read more about <strong>order and transaction management</strong></span><span aria-hidden="true">→</span></a>
+  </section>
 
-### General Flow of Payment
-
-Understanding how information travels is key to a successful integration. The plugin manages the whole life cycle of the transaction automatically.
-
-<img className="theme-aware-image theme-aware-image-light" src="/images/virtual-payments-woocommerce-flow-light.png" alt="WooCommerce general payment flow" width="1564" height="672" />
-<img className="theme-aware-image theme-aware-image-dark" src="/images/virtual-payments-woocommerce-flow-dark.png" alt="WooCommerce general payment flow in dark mode" width="1564" height="672" />
-
-### How does that work?
-
-1. **Selection:** The client chooses Alignet One as a payment method at the WooCommerce.
-2. **Sending:** The plugin encoded the transaction information to the gateway Alignet One.
-3. **Validation:** Alignet One Valids payment with issuers and processors under safety standards PCI-DSS.
-4. **Answer:** - **Symchrone:** The client receives an immediate confirmation on screen.
-   * **Asynchronous (Webhook):** Alignet One notify your store using a web hold to update the order status automatically.
-
-***
-
-## Requesting Life Cycle
-
-To make your logistics efficient, the plugin mapes the states of the gateway with the native states of WooCommerce:
-
-<Steps>
-  <Step title="Registration and pending">
-    The order will be created at WooCommerce how **"outstanding"**.
-  </Step>
-
-  <Step title="Authorisation">
-    If payment is successful, the state changes to **"Processing"** (or "Complete" as per your configuration), notifying the client by mail.
-  </Step>
-
-  <Step title="Failed or Abandoned">
-    If the payment is rejected or the client closes the window, the order will be marked as **Failed** or **"Cancelled"**.
-  </Step>
-</Steps>
-
-***
-
-<CardGroup cols={2}>
-  <Card title="Installation" icon="download" href="/en/virtual-payments/wordpress-woocommerce/installation-and-activation">
-    Download the plugin and follow the steps to get it up to you WordPress.
-  </Card>
-
-  <Card title="Configure" icon="gear" href="/en/virtual-payments/wordpress-woocommerce/configuration-and-keys">
-    Enter your production credentials and activate payment methods.
-  </Card>
-</CardGroup>
+  <section className="ao-section ao-plugin-start" aria-labelledby="ao-start-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">04 / START INTEGRATING</p><h2 id="ao-start-title">Your next step.</h2></div></div>
+    <div className="ao-paths">
+      <a className="ao-path" href="/en/virtual-payments/wordpress-woocommerce/installation-and-activation"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="download" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">01 / INSTALL</span><h3>Installation and activation</h3><p>Download the plugin and upload it to WordPress.</p><span className="ao-path-foot">Prepare your store</span></a>
+      <a className="ao-path" href="/en/virtual-payments/wordpress-woocommerce/configuration-and-keys"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="sliders" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">02 / CONNECT</span><h3>Configuration</h3><p>Configure your credentials, environment and payment methods.</p><span className="ao-path-foot">Connect your merchant account</span></a>
+      <a className="ao-path" href="/en/virtual-payments/wordpress-woocommerce/testing-and-certification"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="circle-check" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">03 / VALIDATE</span><h3>Testing and certification</h3><p>Check the flow and notifications before going live.</p><span className="ao-path-foot">Review your integration</span></a>
+    </div>
+  </section>
+  <div className="ao-bottom"><div><span className="ao-status-dot" /><p>We can help you integrate. <a href="/en/virtual-payments/wordpress-woocommerce/troubleshooting">Explore troubleshooting <span aria-hidden="true">→</span></a></p></div><a href="mailto:postventa.autenticacion@alignet.com">Talk to our team <span aria-hidden="true">↗</span></a></div>
+</div>

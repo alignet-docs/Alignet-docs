@@ -5,25 +5,25 @@ description: "Handle callbacks, confirm payments on your backend and clean up th
 
 <div className="ao-guide-rail not-prose"><a href="/en/virtual-payments/checkout-web/introduction">← Checkout Web overview</a><span>STEP 04 / 05</span></div>
 
-When you call `paymentForm.init(...)`, Flex It allows you to capture three callback functions. The most important result for front `responseCallback(response)`.
+When you call `paymentForm.init(...)`, Flex accepts three callback functions. The main payment result reaches your frontend through `responseCallback(response)`.
 
 <Info>
-  Here. `responseCallback(response)` as the main entrance of the result at front. The JSON That you get there reuses the same structure of **API of Authorisation - ecommerce** for the method of payment chosen within Flex.
+  Use `responseCallback(response)` as the main entry point for frontend results. The returned JSON follows the **E-commerce authorization API** structure for the payment method selected in Flex.
 </Info>
 
 ## Callbacks available
 
 <CardGroup cols={3}>
   <Card title="responseCallback" icon="circle-check">
-    It runs when the process gets to a business result and gives you the JSON response.
+    Runs when the flow reaches a business outcome and returns the JSON response.
   </Card>
 
   <Card title="trackingCallback" icon="chart-line">
-    It runs for every flow event, as a method change, clicks or user advance within the form.
+    Runs for flow events such as method changes, clicks or progress through the form.
   </Card>
 
-  <Card title="Failed" icon="circle-xmark">
-    It runs after a technical error occurs during the load or performance of the component.
+  <Card title="onErrorCallback" icon="circle-xmark">
+    Runs when a technical error occurs while loading or running the component.
   </Card>
 </CardGroup>
 
@@ -31,17 +31,17 @@ When you call `paymentForm.init(...)`, Flex It allows you to capture three callb
 
 ```javascript theme={"system"}
 function responseCallback(response) {
-    console.log("-------Respuesta-------");
+    console.log("-------Response-------");
     console.log({response});
 }
 
 function trackingCallback(trackdata) {
-    console.log("-------Tracking de Eventos-------");
+    console.log("-------Event tracking-------");
     console.log({trackdata});
 }
 
 function onErrorCallback(error) {
-    console.log("-------Error en el proceso-------");
+    console.log("-------Processing error-------");
     console.log({error});
 }
 
@@ -60,49 +60,49 @@ paymentForm.init(
 </Note>
 
 <Warning>
-  Do not use `response.meta.status.code` as an approved or refused payer. That code indicates only the result of the service processing or if the response was generated correctly. To validate the payment result, check `response.transaction.state` and confirms from backend with [Consultation](/en/api-reference/payin/get-ecommerce-transaction) or [Notifications](https://docs.pay-me.com/payin/notificaciones)with the method of payment.
+  Do not use `response.meta.status.code` to decide whether a payment was approved or declined. It only describes service processing. Read `response.transaction.state` and confirm the result from your backend using a [query](/en/api-reference/payin/get-ecommerce-transaction) or server notifications for the payment method.
 </Warning>
 
 <Tabs>
   <Tab title="CARD">
-    The object `response` following the contract of [API from Authorisation with Card](https://docs.pay-me.com/payin/autorizacion-tarjeta).
+    The `response` object follows the contract of [Card authorization API](https://docs.pay-me.com/payin/autorizacion-tarjeta).
 
     If your flow uses Redirect or 3DS authentication outside the same screen, complete this reading with [Considerations for Redirect methods](https://docs.pay-me.com/payin/autorizacion-metodos-con-redirect).
   </Tab>
 
   <Tab title="YAPE">
-    The object `response` following the contract of [API from Authorisation with Yape](https://docs.pay-me.com/payin/autorizacion-yape).
+    The `response` object follows the contract of [Yape authorization API](https://docs.pay-me.com/payin/autorizacion-yape).
 
-    Even if the result goes by `responseCallback`, also valid operative consistency from backend before confirming order.
+    Even when the result arrives through `responseCallback`, validate consistency from the backend before confirming the order.
   </Tab>
 
   <Tab title="BANK_TRANSFER">
-    The object `response` following the contract of [API with Bank Transfer](https://docs.pay-me.com/payin/autorizacion-transferencia-bancaria).
+    The `response` object follows the contract of [Bank transfer authorization API](https://docs.pay-me.com/payin/autorizacion-transferencia-bancaria).
 
-    That method may require later confirmation. Do not take the front as the only source of truth: get up at [Consultation](https://docs.pay-me.com/payin/consulta-transferencia-bancaria) or [Notifications](https://docs.pay-me.com/payin/notificaciones).
+    This method may require later confirmation. Do not use the frontend as the only source of truth; use [Consultation](https://docs.pay-me.com/payin/consulta-transferencia-bancaria) or [Notifications](https://docs.pay-me.com/payin/notificaciones).
   </Tab>
 
   <Tab title="QR">
-    The object `response` following the contract of [API from Authorisation with QR](https://docs.pay-me.com/payin/autorizacion-qr).
+    The `response` object follows the contract of [QR authorization API](https://docs.pay-me.com/payin/autorizacion-qr).
 
-    To generate QR or showing an initial response does not amount to a confirmed final payment. Use [Consultation](https://docs.pay-me.com/payin/consulta-qr) or [Notifications](https://docs.pay-me.com/payin/notificaciones) To close up his business logic.
+    Generating a QR or displaying an initial response does not confirm final payment. Use [Consultation](https://docs.pay-me.com/payin/consulta-qr) or [Notifications](https://docs.pay-me.com/payin/notificaciones) to complete your business logic.
   </Tab>
 
   <Tab title="CUOTEALO">
-    The object `response` following the contract of [API from Authorisation with Cuotéalo](https://docs.pay-me.com/payin/autorizacion-cuotealo).
+    The `response` object follows the contract of [Cuotéalo authorization API](https://docs.pay-me.com/payin/autorizacion-cuotealo).
 
-    The final status with a redirection or monitoring flow confirms [Consultation](https://docs.pay-me.com/payin/consulta-cuotealo) or [Notifications](https://docs.pay-me.com/payin/notificaciones).
+    Confirm the final state after redirection or follow-up using [Consultation](https://docs.pay-me.com/payin/consulta-cuotealo) or [Notifications](https://docs.pay-me.com/payin/notificaciones).
   </Tab>
 
   <Tab title="PAGOEFECTIVO">
-    The object `response` following the contract of [API from Authorisation with PagoEfectivo](https://docs.pay-me.com/payin/autorizacion-pagoefectivo).
+    The `response` object follows the contract of [PagoEfectivo authorization API](https://docs.pay-me.com/payin/autorizacion-pagoefectivo).
 
-    The generation of CIP or from the payment link doesn't mean that the money's been received. confirms the result with [Consultation](https://docs.pay-me.com/payin/consulta-pagoefectivo) or [Notifications](https://docs.pay-me.com/payin/notificaciones).
+    Generating a CIP or payment link does not mean funds have been received. Confirm the result using [Consultation](https://docs.pay-me.com/payin/consulta-pagoefectivo) or [Notifications](https://docs.pay-me.com/payin/notificaciones).
   </Tab>
 </Tabs>
 
 <Warning>
-  `trackingCallback` and `onErrorCallback` for technical faults. No one replaces the business logic you have to build up about `responseCallback` and backend confirmation.
+  Use `trackingCallback` for events and `onErrorCallback` for technical failures. Neither replaces the business logic built around `responseCallback` and backend confirmation.
 </Warning>
 
 ## Life cycle of the instance
@@ -111,45 +111,45 @@ paymentForm.init(
   The following examples use `unmountFlex()` from the [responsive example](/en/virtual-payments/checkout-web/customize-checkout#responsive-conduct). Adapt cleanup to your presentation: embedded, popup or expanded.
 </Note>
 
-`paymentForm.terminate?.()` complete the internal processes, list and resources that maintain the Flex. That operation is different from eliminating the form from DOM (`flexContainer.innerHTML = ""`) and applying to any type of presentation.
+`paymentForm.terminate?.()` ends Flex's internal processes, listeners and resources. This is different from removing the form from the DOM (`flexContainer.innerHTML = ""`) and applies to every presentation type.
 
 <Info>
-  The operator `?.` run `terminate()` only when the method exists. That prevents an error if the loaded version of Flex Do not implement that method.
+  The `?.` operator calls `terminate()` only if the method exists. This avoids errors if the loaded Flex version does not implement it.
 </Info>
 
-### When to dismount according to presentation
+### When to unmount each presentation
 
 | Presentation  | When to Unmount                                                          | Following visual action                                       |
 | :------------ | :------------------------------------------------------------------------ | :------------------------------------------------------------ |
-| Drink      | When you hide the checkout, you change Section or navigate to another screen. | Withdraw or replace the constore where it was Flex.            |
-| Popup (modal) | When the buyer closes his pup or his flow ends.                   | Hide the overlay and return the focus to the main interface. |
-| Expand     | When you get a check out or leave an expanded vision.               | Take the panel or restore the earlier Layout.               |
+| Embedded   | When hiding checkout, changing sections or navigating to another screen. | Remove or replace the container that held Flex.            |
+| Popup (modal) | When the customer closes the popup or the flow ends.                   | Hide the overlay and return the focus to the main interface. |
+| Expand     | When collapsing checkout or leaving an expanded view.               | Collapse the panel or restore the previous layout.               |
 
 In all 3 cases, first process any outstanding result and then run `unmountFlex()` before updating the visual presentation.
 
 <Warning>
-  Do not modify the internal styles of Flex. Execut `unmountFlex()` When you withdraw the form, regardless of whether it's embedded, into a popup or an expanded view.
+  Do not modify the internal styles of Flex. Call `unmountFlex()` When you withdraw the form, regardless of whether it's embedded, into a popup or an expanded view.
 </Warning>
 
-### own result screen
+### Your own result screen
 
-When you set up `settings.display_result_screen: false`, Flex doesn't have his final screen. Your application should get the `response`, evaluate the status of the transaction and display an own result screen.
+With `settings.display_result_screen: false`, Flex does not display its final screen. Your application must receive the `response`, evaluate the transaction state and display its own result screen.
 
 <Steps>
   <Step title="Mount form">
-    `paymentForm.init(...)` challenges Flex inside the container.
+    `paymentForm.init(...)` mounts Flex inside the container.
   </Step>
 
   <Step title="Receives result">
-    Flex run `responseCallback(response)`. Read the result from `response.transaction.state` and conduct related business validations.
+    Flex runs `responseCallback(response)`. Read `response.transaction.state` and perform the relevant business validations.
   </Step>
 
   <Step title="Show your screen">
-    Save the `response` at the status of your application and navigate or render the result screen from the merchant.
+    Save `response` in your application state, then navigate to or render your result screen.
   </Step>
 
   <Step title="Unmount Flex">
-    When the result has been processed, run `terminate()`, cleanes the container and updates the presentation drunk, popup or expanded.
+    After processing the result, call `terminate()`, clear the container and update the embedded, popup or expanded presentation.
   </Step>
 </Steps>
 
@@ -169,26 +169,26 @@ paymentForm.init(
   (response) => {
     const transactionState = response.transaction?.state;
 
-    // Procesa y conserva la respuesta antes de desmontar Flex.
+    // Process and retain the response before unmounting Flex.
     showMerchantResultScreen({ transactionState, response });
     unmountFlex();
   },
   (tracking) => {
-    console.log("Evento de seguimiento", tracking);
+    console.log("Tracking event", tracking);
   },
   (error) => {
-    console.error("Error de Flex", error);
+    console.error("Flex error", error);
   }
 );
 ```
 
 <Warning>
-  Don't run `terminate()` before receiving and processing `responseCallback(response)`. If you finish the instance earlier, you can stop the flow and lose the result that Flex He's been put up.
+  Do not call `terminate()` before receiving and processing `responseCallback(response)`. Ending the instance early can interrupt the flow and lose the result Flex was about to return.
 </Warning>
 
-### Reusable cleaning
+### Reusable cleanup
 
-It encapsulates initiation and dismantling into an independent framework controller. You can use them from pure JavaScript or connect them to React's life cycle, Vue, Angular or other technologies.
+Encapsulate initialization and cleanup in a framework-independent controller. Use it in plain JavaScript or connect it to the lifecycle of React, Vue, Angular or another framework.
 
 ```javascript theme={"system"}
 function createFlexController({
@@ -201,7 +201,7 @@ function createFlexController({
   let instance = null;
 
   function mount() {
-    // Evita conservar una instancia anterior al volver a abrir Flex.
+    // Avoid retaining a previous instance when reopening Flex.
     destroy();
 
     instance = new FlexPaymentForms(configuration);
@@ -231,36 +231,36 @@ const flexController = createFlexController({
   onError: onErrorCallback
 });
 
-// Abre o vuelve a crear el formulario.
+// Open or recreate the form.
 flexController.mount();
 
-// Finaliza la instancia al cerrar, navegar o retirar la presentación.
+// Destroy the instance when closing, navigating away or removing the view.
 // flexController.destroy();
 ```
 
 <CardGroup cols={3}>
   <Card title="JavaScript" icon="code">
-    Execut `destroy()` before withdrawing the container from the page.
+    Call `destroy()` before withdrawing the container from the page.
   </Card>
 
-  <Card title="Implementation SPA" icon="arrows-rotate">
-    Connect `destroy()` to change of path or to dismount vision.
+  <Card title="SPA integration" icon="arrows-rotate">
+    Call `destroy()` on route changes or when unmounting the view.
   </Card>
 
   <Card title="Dynamic presentation" icon="window-restore">
-    Do so by hiding the embossed block, closing the Popup or getting an expanded view.
+    Call it when hiding the embedded block, closing the popup or collapsing an expanded view.
   </Card>
 </CardGroup>
 
-`container.replaceChildren()` an empty constore equivalent to `container.innerHTML = ""`without dependent on a specific framework.
+`container.replaceChildren()` clears the container, like `container.innerHTML = ""`, without depending on a framework.
 
 <Note>
-  `terminate()` does not return the payment response. The result always comes with the first call of `paymentForm.init(...)`. Check. [Capture callback functions](/en/virtual-payments/checkout-web/results-and-cleanup) to interpret and confirm the operation.
+  `terminate()` does not return the payment response. The result arrives through the first callback passed to `paymentForm.init(...)`. See [Capture callback functions](/en/virtual-payments/checkout-web/results-and-cleanup) to interpret and confirm the operation.
 </Note>
 
 ### Management of closure with show\_close_button
 
-Figure `settings.show_close_button: true` to display the native clasp of Flex. That option works with embumbing, pounding and expanding presentations.
+Set `settings.show_close_button: true` to display the native Flex close button. This works with embedded, popup and expanded presentations.
 
 ```javascript theme={"system"}
 const paymentForm = new FlexPaymentForms({
@@ -272,23 +272,23 @@ const paymentForm = new FlexPaymentForms({
 });
 ```
 
-When the buyer presses the button, Flex send message `cerro el carrito` with `onErrorCallback`. Although using the error call, this message represents a voluntary action by the buyer and not a technical failure.
+When the customer presses the button, Flex sends `cerro el carrito` through `onErrorCallback`. Although it uses the error callback, this message represents a voluntary customer action, not a technical failure. Keep this literal message unchanged in code.
 
 <CardGroup cols={3}>
   <Card title="Show the button" icon="circle-xmark">
-    Active `show_close_button` inside `settings`.
+    Enable `show_close_button` in `settings`.
   </Card>
 
-  <Card title="Play the event" icon="code-branch">
-    Identifies the exact message `cerro el carrito` in `onErrorCallback`.
+  <Card title="Handle the event" icon="code-branch">
+    Identify the exact message `cerro el carrito` in `onErrorCallback`.
   </Card>
 
   <Card title="Close presentation" icon="power-off">
-    Execut `onClose()` for dismantling Flex and update the interface.
+    Call `onClose()` to unmount Flex and update the interface.
   </Card>
 </CardGroup>
 
-It implements an exclusive branch for voluntary closure and preserves other messages as technical errors:
+Implement a separate branch for voluntary closure and handle other messages as technical errors:
 
 ```javascript theme={"system"}
 function getFlexErrorMessage(error) {
@@ -304,22 +304,22 @@ function onErrorCallback(error) {
     return;
   }
 
-  // Los demás mensajes se procesan como errores técnicos.
+  // Handle other messages as technical errors.
   handleFlexError(error);
 }
 
 function onClose() {
   unmountFlex();
 
-  // Oculta el popup, retira el bloque embebido o contrae la vista expandida.
+  // Hide the popup, remove the embedded block or collapse the expanded view.
   hideFlexPresentation();
 }
 ```
 
-The closing flow is `show_close_button` → `onErrorCallback` → `onClose()` → `unmountFlex()`. `hideFlexPresentation()` represents the visual logic of your application: remove the embedded block, hide the popup or get an expanded view.
+The closing flow is `show_close_button` → `onErrorCallback` → `onClose()` → `unmountFlex()`. `hideFlexPresentation()` represents the visual logic of your application: remove the embedded block, hide the popup or collapse an expanded view.
 
 <Warning>
-  Execut `onClose()` only after complete message `cerro el carrito`. Any other value received at `onErrorCallback` have to continue to manage technical errors.
+  Call `onClose()` only after matching the exact message `cerro el carrito`. Continue handling any other value received by `onErrorCallback` as a technical error.
 </Warning>
 
 <Card title="5. Testing and production" icon="arrow-right" href="/en/virtual-payments/checkout-web/testing-and-production">Review security, functional tests and production readiness.</Card>

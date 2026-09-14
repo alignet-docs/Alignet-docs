@@ -1,230 +1,130 @@
 ---
 title: "Preparation and testing"
-description: "Recommended validations for completing an e-commerce integration with WooCommerce, PrestaShop, or VTEX."
+description: "Recommended checks for completing an e-commerce integration with WooCommerce, PrestaShop or VTEX."
 ---
 
 <div className="ao-cover not-prose"><p className="ao-eyebrow"><span /> E-COMMERCE / PREPARE · PROTECT · TEST</p><h2>One guide.<br /><em>From setup to testing.</em></h2></div>
 
-Use this checklist as a quick guide before applying for final validation to the integration team.
+Use this checklist as a quick guide before requesting final validation from the integration team.
 
-<Info>
-  This guide applies to implementations CMS with **WooCommerce**, **PrestaShop** and **VTEX**.
-</Info>
+<Info>This guide applies to CMS implementations with **WooCommerce**, **PrestaShop** and **VTEX**.</Info>
 
-## Overview
+## Security and best practices
 
-<CardGroup cols={2}>
-  <Card title="Preparation" icon="key">
-    Credentials, administrative accesses and properly authorized payment methods.
-  </Card>
-
-  <Card title="Configure" icon="gear">
-    Plugin or module installed, set up keys and active sandbox environment.
-  </Card>
-
-  <Card title="Functional Validation" icon="cart-shopping">
-    Approved purchase, rejected and post-payment check end to end.
-  </Card>
-
-  <Card title="Output to production" icon="rocket">
-    Flow validated with equipment and ready to move to production credentials.
-  </Card>
-</CardGroup>
-
-## Suggested route
-
-<Steps>
-  <Step title="Prepare the environment">
-    He confirms that you have already received credentials, backoffice access and Affiliation of payment methods.
-  </Step>
-
-  <Step title="Configure your CMS">
-    Install the right plugin or module and load the evidence environment credentials.
-  </Step>
-
-  <Step title="Test the purchase flow">
-    Valids approved, rejected and asynchronous scenarios as required.
-  </Step>
-
-  <Step title="Check operation and states">
-    Check order states, logs, notifications and consistency between store and gateway.
-  </Step>
-
-  <Step title="Requests final validation">
-    Once the tests have been completed, coordinate the final review with the integration team.
-  </Step>
-</Steps>
-
-## Checklist base
-
-<AccordionGroup>
-  <Accordion title="1. Preparation" icon="key" defaultOpen>
-    * Credentials received for the environment you will use.
-    * A merchant set up with the payment methods enabled.
-    * Administrative access to your platform CMS.
-    * Plugin or module right available to install.
-  </Accordion>
-
-  <Accordion title="2. Functional configuration" icon="gear">
-    * Keys and credentials entered without mistakes.
-    * Retirement URLs and confirmed pages revised.
-    * Currency, country and means of payment set up correctly.
-    * Active Sandbox Mode before validating purchases.
-  </Accordion>
-
-  <Accordion title="3. Purchase Flow" icon="cart-shopping">
-    * Approved purchase validated end to end.
-    * Rejected purchase validated with message visible to the client.
-    * Asynchronous methods tested if activated.
-    * Confirmation of order aligned with actual payment status.
-  </Accordion>
-
-  <Accordion title="4. Operation and backoffice" icon="table-columns">
-    * Requesting States revised from the administrative panel.
-    * Loks or plugin logs available for support.
-    * Reversas, reversals or refunds revised if applicable.
-    * Post, message or post-payment pages revised.
-  </Accordion>
-
-  <Accordion title="5. Production" icon="rocket">
-    * Sandbox Validated before using production credentials.
-    * Flow production controlled with equipment.
-    * Fitted means of payment coincide with the affiliate.
-    * Integration ready for live leave.
-  </Accordion>
-</AccordionGroup>
-
-## Points by platform
-
-<Tabs>
-  <Tab title="WooCommerce">
-    <CardGroup cols={2}>
-      <Card title="Plugin and credentials" icon="wordpress">
-        Check installation, plugin activation and proper key configuration.
-      </Card>
-
-      <Card title="Checkout and order" icon="credit-card">
-        Check that the checkout shows valid means and that the order changes status correctly.
-      </Card>
-    </CardGroup>
-
-    * Validar purchase approved with correct final redirection or confirmation.
-    * Validar buy rejected with clear message for the client.
-    * Confirm plugin logs available for support.
-    * Review conduct of asynchronous methods if they are active.
-  </Tab>
-
-  <Tab title="PrestaShop">
-    <CardGroup cols={2}>
-      <Card title="Module and hooks" icon="store">
-        Confirm that the module is activated and available at the right check out.
-      </Card>
-
-      <Card title="Requesting States" icon="clipboard-check">
-        Check that the order reflect the status of payment after response or notification.
-      </Card>
-    </CardGroup>
-
-    * Validate module installation and configuration from Back Office.
-    * Confirmation of client's experience at approved, pending and rejected payment.
-    * Check automatic update of status and module logs.
-    * Test Reverting or Operating Validation if the flow includes them.
-  </Tab>
-
-  <Tab title="VTEX">
-    <CardGroup cols={2}>
-      <Card title="Business configuration" icon="shopping-cart">
-        Check for credentials, payment conditions and environment config.
-      </Card>
-
-      <Card title="Flow of payment" icon="arrow-right-arrow-left">
-        Check that check out of VTEX complete payment and reflect the result correctly.
-      </Card>
-    </CardGroup>
-
-    * Validar configuration of payment methods and conditions under VTEX.
-    * Review approved purchase and conduct of reattempts or rejections.
-    * Confirm consistency between order, payment and response from the gateway.
-    * Complete functional tests before final approval.
-  </Tab>
-</Tabs>
-
-## Minimum approval criterion
-
-<CardGroup cols={3}>
-  <Card title="Validated purchase" icon="check">
-    At least one approved flow and one rejected correctly.
-  </Card>
-
-  <Card title="Operating coherence" icon="database">
-    Order States, messages and logs aligned between store and gateway.
-  </Card>
-
-  <Card title="Ready to certify" icon="shield-check">
-    The merchant can be moved to final review and production-to-production programming.
-  </Card>
-</CardGroup>
-
-## Related guides
-
-<CardGroup cols={3}>
-  <Card title="WooCommerce" icon="wordpress" href="/en/virtual-payments/wordpress-woocommerce/introduction">
-    Check the complete flow for WordPress.
-  </Card>
-
-  <Card title="PrestaShop" icon="store" href="/en/virtual-payments/prestashop/introduction">
-    Check the complete flow for PrestaShop.
-  </Card>
-
-  <Card title="VTEX" icon="shopping-cart" href="/en/virtual-payments/vtex/introduction">
-    Check the complete flow for VTEX.
-  </Card>
-</CardGroup>
-
-
-## Security and operational practices
-
-Implement these recommendations as you integrate Alignet One with **WooCommerce**, **PrestaShop** or **VTEX**.
+Apply these recommendations when integrating Alignet One through **WooCommerce**, **PrestaShop** or **VTEX**.
 
 ## Security and credentials
 
 <AccordionGroup>
   <Accordion title="Credentials by environment" icon="key" defaultOpen>
-    * He uses sandbox credentials only for testing.
-    * Do not mix with prior-production and production credentials.
-    * Restrict administrative access to the panel where keys are set up.
+    * Use sandbox credentials only for testing.
+    * Do not mix preproduction and production credentials.
+    * Restrict administrator access to the panel where keys are configured.
   </Accordion>
-
-  <Accordion title="Backoffice secure" icon="lock">
-    * Keep up with CMS, plugin, module and dependencies.
-    * He uses individual administrative users and doesn't share accounts.
-    * Check logs without presenting sensitive information from the buyer.
+  <Accordion title="Secure back office" icon="lock">
+    * Keep the CMS, plugin, module and dependencies up to date.
+    * Use individual administrator accounts, not shared accounts.
+    * Review logs without exposing sensitive customer data.
   </Accordion>
 </AccordionGroup>
 
-## Operation of order
+## Order operations
 
 <CardGroup cols={2}>
-  <Card title="Conformed States" icon="database">
-    The status of the order should reflect the actual status of payment, not just the screen that the client saw.
-  </Card>
-
-  <Card title="Asynchronous methods" icon="clock">
-    To QR, Cuotéalo or PagoEfectivoHe expects final confirmation before releasing his order.
-  </Card>
-
-  <Card title="Support logs" icon="file-lines">
-    Keep operation number, status and date for traceability with integration equipment.
-  </Card>
-
-  <Card title="Controlled tests" icon="flask">
-    Valide approved, rejected and earrings in sandbox before passing to production.
-  </Card>
+  <Card title="Consistent states" icon="database">The order state must reflect the actual payment state, not just the screen the customer saw.</Card>
+  <Card title="Asynchronous methods" icon="clock">For QR, transfers, Cuotéalo or PagoEfectivo, wait for final confirmation before releasing the order.</Card>
+  <Card title="Support logs" icon="file-lines">Keep the operation number, state and date for traceability with the integration team.</Card>
+  <Card title="Controlled tests" icon="flask">Validate approved, declined and pending payments in sandbox before going live.</Card>
 </CardGroup>
 
-## Before we get out alive
+## Before going live
 
-* Check that the plugin or module is production only where appropriate.
-* Confirms that the activated methods coincide with the affiliate for the merchant.
-* Valids emails, back pages, messages to the buyer and order states.
-* Prepare minimum evidence for final review.
+* Set the plugin or module to production mode only when appropriate.
+* Confirm that enabled methods match those approved for the merchant.
+* Validate emails, return pages, customer messages and order states.
+* Prepare the minimum test evidence for final review.
+
+## Core checklist
+
+<AccordionGroup>
+  <Accordion title="1. Preparation" icon="key" defaultOpen>
+    * Credentials received for the target environment.
+    * Merchant configured with enabled payment methods.
+    * Administrator access to your CMS platform.
+    * Correct plugin or module available for installation.
+  </Accordion>
+  <Accordion title="2. Functional configuration" icon="gear">
+    * Keys and credentials entered correctly.
+    * Return URLs and confirmation pages reviewed.
+    * Currency, country and payment methods configured correctly.
+    * Sandbox mode active before validating purchases.
+  </Accordion>
+  <Accordion title="3. Purchase flow" icon="cart-shopping">
+    * Approved purchase validated end to end.
+    * Declined purchase validated with a visible customer message.
+    * Asynchronous methods tested when enabled.
+    * Order confirmation aligned with the actual payment state.
+  </Accordion>
+  <Accordion title="4. Operations and back office" icon="table-columns">
+    * Order states reviewed in the admin panel.
+    * Plugin logs available for support.
+    * Reversals, voids or refunds reviewed where applicable.
+    * Emails, messages and post-payment pages reviewed.
+  </Accordion>
+  <Accordion title="5. Production" icon="rocket">
+    * Sandbox validated before using production credentials.
+    * Controlled production flow reviewed with the team.
+    * Enabled methods match those approved for the merchant.
+    * Integration ready to go live.
+  </Accordion>
+</AccordionGroup>
+
+## Platform-specific checks
+
+<Tabs>
+  <Tab title="WooCommerce">
+    <CardGroup cols={2}>
+      <Card title="Plugin and credentials" icon="wordpress">Check installation, plugin activation and key configuration.</Card>
+      <Card title="Checkout and order" icon="credit-card">Check that checkout displays valid methods and that order states change correctly.</Card>
+    </CardGroup>
+
+    * Validate an approved purchase with the correct redirect or final confirmation.
+    * Validate a declined purchase with a clear customer message.
+    * Confirm plugin logs are available for support.
+    * Review asynchronous method behavior when enabled.
+  </Tab>
+  <Tab title="PrestaShop">
+    <CardGroup cols={2}>
+      <Card title="Module and hooks" icon="store">Confirm that the module is active and available in the correct checkout.</Card>
+      <Card title="Order states" icon="clipboard-check">Check that the order reflects the payment state after a response or notification.</Card>
+    </CardGroup>
+
+    * Validate module installation and configuration in Back Office.
+    * Confirm the customer experience for approved, pending and declined payments.
+    * Review automatic state updates and module logs.
+    * Test reversals or operational validation if the flow supports them.
+  </Tab>
+  <Tab title="VTEX">
+    <CardGroup cols={2}>
+      <Card title="Merchant configuration" icon="shopping-cart">Review credentials, payment conditions and connector configuration for each environment.</Card>
+      <Card title="Payment flow" icon="arrow-right-arrow-left">Verify that VTEX checkout completes payment and reflects the result correctly.</Card>
+    </CardGroup>
+
+    * Validate payment methods and conditions in VTEX.
+    * Review approved purchases and retry or decline behavior.
+    * Confirm consistency between the order, payment and gateway response.
+    * Complete functional tests before final certification.
+  </Tab>
+</Tabs>
+
+## Related guides
+
+<CardGroup cols={3}>
+  <Card title="WooCommerce" icon="wordpress" href="/en/virtual-payments/wordpress-woocommerce/introduction">Review the complete WordPress flow.</Card>
+  <Card title="PrestaShop" icon="store" href="/en/virtual-payments/prestashop/introduction">Review the complete PrestaShop flow.</Card>
+  <Card title="VTEX" icon="shopping-cart" href="/en/virtual-payments/vtex/introduction">Review the complete VTEX flow.</Card>
+</CardGroup>
+
+<Card title="Production checklist" icon="clipboard-check" href="/en/virtual-payments/certification-checklist">
+  Gather evidence and coordinate final validation with Alignet before enabling live payments.
+</Card>

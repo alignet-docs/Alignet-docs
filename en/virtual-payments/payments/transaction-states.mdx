@@ -1,105 +1,31 @@
 ---
 title: "Transaction states"
-description: "Separate attempt state, operation state and service response. Interpret pending payments, authorizations, declines and adjustments."
+description: "Understand the nine states and the journey of a payment attempt with an interactive diagram."
 ---
-import { StateExplorer } from "/snippets/payment-concepts.jsx"
+import { PaymentStateMap } from "/snippets/payment-state-map.jsx"
 
-<div className="pc-intro not-prose"><span>READ THE RIGHT OUTCOME</span><h2>One attempt's state.<br /><em>Not the whole purchase.</em></h2><p>A transaction can be pending, declined or authorized. Read that outcome within its operation and keep it separate from the service's technical response.</p></div>
+<div className="pc-intro not-prose"><span>THE PAYMENT JOURNEY</span><h2>One attempt.<br /><em>One state at a time.</em></h2><p>An operation is the purchase session. It can contain several payment attempts, and each transaction keeps its own state.</p></div>
 
-## Identify the level before interpreting a state
+<div className="psm-context not-prose"><strong>One operation · One purchase</strong><span>Attempt 1: Declined</span><span>Attempt 2: Authorized</span><small>Two attempts, not two purchases. A state change does not create another transaction either.</small></div>
 
-| Question | Where to look | What not to conclude |
-| --- | --- | --- |
-| Was the request processed correctly? | `meta.status` and the endpoint's response contract. | That payment was approved. |
-| What happened to this attempt? | `transaction.state` in authorization/callback, or `operation.transactions[].state` in a query. | That every attempt has this outcome. |
-| What is the operation's situation? | `operation.state`, when included. | That it always matches the last transaction received by your system. |
-| Has money reached the merchant bank account? | The relevant settlement and payout information. | That `AUTORIZADO` means deposited funds. |
+## How the state changes
 
-<Warning>
-  **HTTP 200, `success: true` or `meta.status.code: "00"` are not enough to mark an order as paid.** API examples show QR generation succeeding while the transaction remains `PENDIENTE`.
-</Warning>
+Select a state to learn what it means, or play an example journey.
 
-## Explore the different interpretations
+<PaymentStateMap locale="en" />
 
-Select a scenario. The technical response can be successful in all cases, while the payment decision is different.
-
-<StateExplorer locale="en" />
-
-## Current states and recommended actions
-
-These nine states apply to the operation and transaction model. The table explains their meaning for a **transaction**. An operation state describes the grouped purchase, not necessarily every attempt.
-
-| Current state | Meaning for the attempt | Recommended action |
-| --- | --- | --- |
-| **Registered** | The attempt has a record. | Keep its identity. Registration is not proof of payment. |
-| **Pending** | No final payment confirmation yet. A QR, CIP or continuation URL may exist. | Do not confirm the purchase based on this attempt. Wait for notification or query from your backend. |
-| **Authorized** | The attempt was authorized. | Validate context, amount and currency before applying paid-order logic. Do not confuse it with settlement or merchant payout. |
-| **Invalid** | The attempt could not complete validly. | Review the reason, fix the issue or contact support. Do not blindly repeat the request. |
-| **Declined** | The issuer or applicable rules rejected the attempt. | Record the decline and check whether another attempt is appropriate within the operation. |
-| **Voided** | A previous authorization was reversed. | Preserve its history and reconcile the reversal. |
-| **Settled** | The payment advanced to settlement processing. | Use for tracking and reconciliation; do not automatically equate it with a bank-account deposit. |
-| **Expired** | The attempt's validity ended. | Verify its current outcome before offering another option. Do not rely solely on a browser timer. |
-| **Cancelled** | The attempt was cancelled. | Identify which resource was cancelled. Closing a window is not a platform-confirmed cancellation. |
-
-### Business labels and API values
-
-Published API examples include `REGISTRADO`, `PENDIENTE`, `AUTORIZADO`, `DENEGADO`, `INVALIDO`, `CANCELADO` and `EXTORNADO`. Preserve the literal value specified by your contract; **do not translate these values into English in code**.
-
-This business-state list does not replace an endpoint or notification schema. A service can report only a subset. Preserve unknown values and confirm their meaning; never classify them as approved by default.
-
-### Coming soon: Abonado and Devuelto
-
-<Warning>
-  **These two states are not available yet.** They describe planned evolution, not values your integration should currently expect.
-</Warning>
-
-| Planned state | Intended concept |
-| --- | --- |
-| **Abonado** | Tracking merchant payout. Details will be documented when available. |
-| **Devuelto** | Tracking a refund against the payment. Details and conditions will be documented when available. |
-
-Do not block your processes waiting for these states or assign API codes in advance.
-
-<Info>
-  **The planned Devuelto state is not the same as a refund request.** The refunds API has its own request lifecycle: `REGISTERED`, `IN_PROCESS`, `RESOLVED` and `REJECTED`. This does not mean the new Devuelto state is already enabled for operations and transactions.
-</Info>
-
-## One transaction, several state changes
-
-A documented authorization journey is:
-
-<div className="pc-lifecycle not-prose"><span>REGISTRADO</span><b aria-hidden="true">→</b><span>PENDIENTE</span><b aria-hidden="true">→</b><span className="pc-ok">AUTORIZADO</span></div>
-
-These events belong to the **same transaction_id**, not three attempts. A new attempt has its own identity and history within the operation.
-
-Not every transaction follows this path. An attempt may never authorize; an authorization may receive a later adjustment. Do not treat this diagram as a mandatory sequence for all methods.
-
-## Confirm outcomes without duplicating actions
-
-<Steps>
-  <Step title="Connect the response to the purchase">Identify merchant, operation and transaction_id. Check the amount and currency against the expected order.</Step>
-  <Step title="Read the attempt outcome">Read the correct state field for the response type. Use state_reason and processor details for diagnostics, not as substitutes for state.</Step>
-  <Step title="Verify from your backend">Query the outcome or process server notifications according to your integration. A visual checkout response is not the final source on its own.</Step>
-  <Step title="Update idempotently">Keep per-transaction state and operation context. Processing an event again must not create another sale, delivery or confirmation email.</Step>
-</Steps>
-
-### When the information is insufficient
-
-- **Timeout or interrupted network:** unknown does not mean declined. Query before starting another charge.
-- **Repeated notification:** identify the attempt and event; do not repeat an action already applied.
-- **Late response from another attempt:** do not overwrite the purchase outcome based solely on arrival order.
-- **Conflicting states:** query again and record the case for review. Do not fulfill an order by inference.
-- **Sensitive technical message:** show customers a safe explanation. Keep technical details in authorized support channels.
-
-## Common misunderstandings
+## Three important distinctions
 
 <AccordionGroup>
-  <Accordion title="The service returned 00 and a CIP. Can I fulfill the order?">Not based on that alone. The CIP lets the customer continue payment, but the transaction can remain pending. Wait for or query confirmation.</Accordion>
-  <Accordion title="One transaction is authorized and another declined. What should I store?">Both, each under its transaction_id. Keep their states separate and validate the operation's situation. Do not delete the decline or let its late arrival automatically mark the purchase as failed.</Accordion>
-  <Accordion title="Do authorized, settled and merchant payout mean the same thing?">No. These are different moments. Authorization alone does not demonstrate settlement or a bank-account deposit.</Accordion>
+  <Accordion title="Authorized does not mean settled or paid out">
+    **Authorized:** the payment was approved. **Settled:** the operation is submitted to the card network for BASE2 processing. Settlement alone does not confirm a deposit into the merchant's account.
+  </Accordion>
+  <Accordion title="Cancelled is not the same as reversed">
+    **Cancelled:** the user cancels before authorization. **Reversed:** an authorized operation is voided during the first day and before settlement. The amount returned takes applicable administrative fees into account.
+  </Accordion>
+  <Accordion title="Declined, invalid and expired mean different things">
+    **Declined:** the issuer rejected the payment. **Invalid:** a rule, validation or error prevented it from continuing. **Expired:** the deadline passed without a customer response, depending on the payment method. None of these attempts was authorized, but the reasons differ.
+  </Accordion>
 </AccordionGroup>
 
-<CardGroup cols={2}>
-  <Card title="Back to the operation model" icon="layer-group" href="/en/virtual-payments/payments/smart-operations">Review how one purchase groups its attempts.</Card>
-  <Card title="Query a transaction" icon="code" href="/en/api-reference/payin/get-ecommerce-transaction">Review the published API fields and examples.</Card>
-</CardGroup>
+[Understand operations and attempts](/en/virtual-payments/payments/smart-operations) · [Query a transaction through the API](/en/api-reference/payin/get-ecommerce-transaction)

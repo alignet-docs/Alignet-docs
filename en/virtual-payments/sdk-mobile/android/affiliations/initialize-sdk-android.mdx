@@ -9,7 +9,7 @@ sidebarTitle: "Implementation"
 The Affiliations Flow allows to register or update information associated with a recipient from Alignet One SDK Android.
 
 <Info>
-  Before we start this flow, complete [Installation SDK Android](/en/virtual-payments/sdk-mobile/android/installation)Check. [Affiliation parameters](/en/virtual-payments/sdk-mobile/android/affiliations/sdk-android-parameters) and generates an `Access Token` from backend using [Authentication](https://docs.pay-me.com/api-de-pagos/autenticacion).
+  Before we start this flow, complete [Installation SDK Android](/en/virtual-payments/sdk-mobile/android/installation)Check. [Affiliation parameters](/en/virtual-payments/sdk-mobile/android/affiliations/sdk-android-parameters) and generates an `Access Token` from backend using [Authentication](/en/api-reference/authentication/generate-access-token).
 </Info>
 
 ## Integration Flow
@@ -135,7 +135,7 @@ To complete integration, `Activity` have to implement `PaymeClientDelegate` and 
 ```kotlin theme={"system"}
 class MainActivity : AppCompatActivity(), PaymeClientDelegate {
     override fun onAffiliationResponse(response: PAYMEAffiliationResponse) {
-        // Procesa el resultado final de la afiliación.
+        // Process the final affiliation result.
     }
 }
 ```

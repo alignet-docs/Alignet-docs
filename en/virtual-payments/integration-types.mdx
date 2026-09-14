@@ -1,59 +1,43 @@
 ---
 title: "Choose your integration"
-description: "Choose the best way to connect your business to Alignet One based on your channel and technical capabilities."
+description: "Find the Alignet One integration path for your store, website or app."
 icon: "circle-nodes"
+mode: "wide"
 ---
 
-<Icon icon="rocket-launch" /> Our **solutions** range from no-code integrations to full control over the payment flow through APIs. Select the option **that best fits your sales channel**.
+<div className="ao-cover integration-picker not-prose">
+  <p className="ao-eyebrow"><span /> GETTING STARTED / 02</p>
+  <h2>Your channel.<br /><em>Your integration path.</em></h2>
+  <p className="ao-lead">Choose where your customers shop.<br />Find the guide for your channel.</p>
+  <div className="ip-options">
+    <a className="ip-option ip-store" href="/en/virtual-payments/e-commerce/introduction"><div className="ip-top"><span className="ip-icon"><Icon icon="store" size={23} /></span><span>01 / STORE</span></div><h3>E-commerce</h3><p>Connect payments to the store you already use.</p><span className="ip-detail">WooCommerce · PrestaShop · VTEX</span><span className="ip-action">View platforms <span aria-hidden="true">↗</span></span></a>
+    <a className="ip-option ip-web" href="/en/virtual-payments/checkout-web/introduction"><div className="ip-top"><span className="ip-icon"><Icon icon="globe" size={23} /></span><span>02 / WEB</span></div><h3>Web Checkout</h3><p>Integrate Flex into your custom-built website.</p><span className="ip-detail">Frontend + backend</span><span className="ip-action">Explore Flex <span aria-hidden="true">↗</span></span></a>
+    <a className="ip-option ip-app" href="/en/virtual-payments/sdk-mobile/introduction"><div className="ip-top"><span className="ip-icon"><Icon icon="mobile-screen" size={23} /></span><span>03 / APP</span></div><h3>Mobile SDK</h3><p>Bring the payment flow to your mobile app.</p><span className="ip-detail">Android · iOS + backend</span><span className="ip-action">Choose a platform <span aria-hidden="true">↗</span></span></a>
+  </div>
+</div>
 
-<Frame>
-  <img className="theme-aware-image theme-aware-image-light" src="/images/virtual-payments-integration-types-light.png" alt="Alignet One integration types" />
-  <img className="theme-aware-image theme-aware-image-dark" src="/images/virtual-payments-integration-types-dark.png" alt="Alignet One integration types in dark mode" />
-</Frame>
+## Choose based on your project
 
-## Direct integration
+| If your business has… | Choose… | What to prepare |
+| --- | --- | --- |
+| A WooCommerce, PrestaShop or VTEX store | E-commerce | Administrator access and merchant credentials. |
+| A custom-built website | Web Checkout | Frontend and backend development, URLs and notifications. |
+| An Android or iOS app | Mobile SDK | Mobile and backend development, credentials and test devices. |
 
-For merchants that integrate payments into their own mobile applications or custom web systems.
+The effort depends on your system, enabled methods and merchant validation requirements. Configuring a plugin does not remove your security and operational responsibilities.
 
-<CardGroup cols={2}>
-  <Card title="Mobile SDK (iOS / Android)" icon="mobile" horizontal href="https://docs.pay-me.com/sdk-mobile/introduccion">Native payments optimized for mobile apps.</Card>
-  <Card title="Web Checkout (Flex)" icon="globe" horizontal href="https://docs.pay-me.com/checkout-web/flex/introduccion">The fastest way to integrate secure web payments.</Card>
-</CardGroup>
-
-## E-commerce (CMS plugins)
-
-Ideal for businesses using commercial platforms that need rapid activation without custom development.
-
-<Card title="E-commerce introduction" icon="store" horizontal href="https://docs.pay-me.com/e-commerce/introduccion">Review the available CMS options before exploring WooCommerce, PrestaShop, or VTEX.</Card>
+## Which platform do you use?
 
 <CardGroup cols={3}>
-  <Card title="WooCommerce" icon="wordpress" href="https://docs.pay-me.com/wordpress-woocommerce/introduccion">Plugin for WordPress.</Card>
-  <Card title="PrestaShop" icon="store" href="https://docs.pay-me.com/prestashop/introduccion">Modular activation.</Card>
-  <Card title="VTEX" icon="shopping-cart" href="https://docs.pay-me.com/vtex/introduccion">Enterprise e-commerce.</Card>
+  <Card title="WooCommerce" icon="wordpress" href="/en/virtual-payments/wordpress-woocommerce/introduction">For your WordPress store.</Card>
+  <Card title="PrestaShop" icon="store" href="/en/virtual-payments/prestashop/introduction">For your PrestaShop store.</Card>
+  <Card title="VTEX" icon="cart-shopping" href="/en/virtual-payments/vtex/introduction">For your VTEX store.</Card>
 </CardGroup>
 
-## Effort and capability comparison
+<Note>
+  If you already use VPOS, start with [Migration steps](/en/virtual-payments/migration/steps-to-follow). Do not build a new integration on the classic version.
+</Note>
 
-Your choice depends on the balance you need between **speed to production** and the **level of payment-flow customization**.
-
-| Integration method | Primary channel | Time to production | Technical effort | Level of control | Key requirement |
-| --- | --- | --- | --- | --- | --- |
-| **CMS plugins** | E-commerce | **Fast** | ⭐⭐⭐⭐⭐ | Low | Merchant credentials |
-| **Web Checkout** | Web (Flex/Modal) | **Very fast** | ⭐⭐⭐⭐ | Medium | Frontend script |
-| **Mobile SDK** | Native apps | **Moderate** | ⭐⭐⭐ | High | iOS/Android app |
-
-### Capability analysis
-
-- **CMS plugins:** No programming is required. Setup is administrative, and the plugin handles security.
-- **Web Checkout:** Offers an excellent effort-to-value balance. Sensitive data is processed in our secure environment, reducing your PCI compliance scope.
-- **Mobile SDK:** Provides a smooth native experience, ideal for accepting payments without taking customers out of your app.
-
-<Tip>
-  If you need to validate your business model or go live within days, start with **Web Checkout** or **CMS plugins**. You can migrate to an **API** integration later without affecting your operation.
-</Tip>
-
-## Next step
-
-Once you choose an integration type, continue with the quickstart guide to configure your credentials and run your first test transaction.
-
-<Card title="Quickstart" icon="bolt" href="/en/virtual-payments/quickstart">Set up your test environment and obtain your integration credentials.</Card>
+<Card title="Next: quickstart" icon="arrow-right" href="/en/virtual-payments/quickstart">
+  Prepare your credentials, configure your channel and validate your first test payment.
+</Card>

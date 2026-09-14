@@ -1,47 +1,71 @@
 ---
 title: "Introduction"
-description: "Omnichannel payment infrastructure designed to scale your business."
+description: "One integration. More ways to pay. Discover Alignet One and find the right integration path for your business."
 icon: "rocket-launch"
+mode: "wide"
+hideFooterPagination: true
 ---
 
-The **Alignet One** payment platform is fully powered and supported by **Alignet** technology. A single integration connects you to our infrastructure, helping maximize conversion securely throughout the region.
+import { MigrationCheckout } from "/snippets/migration-checkout.jsx"
 
-<Frame>
-  <img className="virtual-payments-intro virtual-payments-intro-light" src="/images/virtual-payments-secure-network-en-light.png" alt="Secure payment confirmation connected to an international network" />
-  <img className="virtual-payments-intro virtual-payments-intro-dark" src="/images/virtual-payments-secure-network-en-dark.png" alt="Secure payment confirmation connected to an international network in dark mode" />
-</Frame>
-
-## The advantage of a direct connection
-
-Unlike other aggregators in the market, **Alignet is a direct acquirer and an official 3-D Secure technology provider**.
-
-Centralizing your operation with us removes technical intermediaries. The result is faster processing, a substantial reduction in false declines, and a higher approval rate while operating under global payment network standards.
-
-<CardGroup cols={2}>
-  <Card title="Direct acquiring" icon="bolt" horizontal>Processing without intermediaries for cards, wallets, transfers, and cash.</Card>
-  <Card title="3D Secure technology" icon="shield-check" horizontal>Integrated fraud prevention and native authentication to protect your transactions.</Card>
-  <Card title="One-Click tokenization" icon="credit-card-blank" horizontal>Store cards under PCI standards for recurring purchases and frictionless checkouts.</Card>
-  <Card title="Smart reconciliation" icon="chart-line" horizontal>Manage metrics and refunds in real time from a dashboard.</Card>
-</CardGroup>
-
-## Connect your ecosystem
-
-Our official plugins accelerate your go-live on leading e-commerce platforms.
-
-<Frame>
-  <img className="theme-aware-image theme-aware-image-light" src="/images/virtual-payments-ecosystem-light.png" alt="Alignet One integration ecosystem" />
-  <img className="theme-aware-image theme-aware-image-dark" src="/images/virtual-payments-ecosystem-dark.png" alt="Alignet One integration ecosystem in dark mode" />
-</Frame>
-
-## Ready to get started?
-
-Choose the model that best fits your technical architecture. If you need assistance during the process, our specialists are ready to guide you.
-
-<CardGroup cols={2}>
-  <Card title="Integration types" icon="code" href="/en/virtual-payments/integration-types">Explore our plugins, SDKs, and REST APIs for full control.</Card>
-  <Card title="Integration support" icon="headset" href="mailto:postventa.autenticacion@alignet.com">Contact our technical team to ensure a successful go-live.</Card>
-</CardGroup>
-
-<Frame>
-  <img src="https://mintcdn.com/alignet/nPRvVozKppA8yKfQ/images/image-23.png?fit=max&auto=format&n=nPRvVozKppA8yKfQ&q=85&s=d3ec88e23aed50282023d010c076df55" alt="Alignet One, powered by Alignet technology" />
-</Frame>
+<div className="ao-cover ao-demo-intro not-prose">
+  <section className="ao-hero" aria-labelledby="ao-title">
+    <div className="ao-hero-copy">
+      <p className="ao-eyebrow"><span /> ALIGNET ONE · ONLINE PAYMENTS</p>
+      <h1 id="ao-title">One integration.<br />More ways<br />to <em>pay.</em></h1>
+      <p className="ao-lead">Connect your business to payment infrastructure designed to support your growth.</p>
+      <div className="ao-actions">
+        <a className="ao-button" href="/en/virtual-payments/quickstart">Start integrating <span aria-hidden="true">↗</span></a>
+        <a className="ao-text-link" href="/en/virtual-payments/integration-types">Explore solutions <span aria-hidden="true">→</span></a>
+      </div>
+      <p className="ao-backing">Alignet technology. Direct connection.</p>
+      <div className="ao-card-brands" aria-label="Featured brands: Visa, Mastercard and American Express">
+        <span className="ao-card-brands-label">Featured brands</span>
+        <span className="ao-card-brand" role="img" aria-label="Visa" title="Visa"><Icon icon="cc-visa" iconType="brands" size={34} /></span>
+        <span className="ao-card-brand" role="img" aria-label="Mastercard" title="Mastercard"><Icon icon="cc-mastercard" iconType="brands" size={34} /></span>
+        <span className="ao-card-brand" role="img" aria-label="American Express" title="American Express"><Icon icon="cc-amex" iconType="brands" size={34} /></span>
+      </div>
+    </div>
+    <MigrationCheckout locale="en" />
+  </section>
+  <div className="ao-trust-strip"><span>Designed to connect</span><strong>Direct acquiring</strong><span className="ao-divider" /><strong>3-D Secure</strong><span className="ao-divider" /><strong>Tokenization</strong></div>
+  <section className="ao-section" aria-labelledby="ao-paths-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">01 / YOUR STARTING POINT</p><h2 id="ao-paths-title">Your business. Your integration.</h2></div><p>Choose the path that best fits<br className="ao-desktop-break" /> your channel and your team.</p></div>
+    <div className="ao-paths">
+      <a className="ao-path" href="/en/virtual-payments/e-commerce/introduction"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="store" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">FOR YOUR STORE</span><h3>E-commerce</h3><p>Enable payments on your platform with our official plugins.</p><span className="ao-path-foot">WooCommerce · PrestaShop · VTEX</span></a>
+      <a className="ao-path" href="/en/virtual-payments/checkout-web/introduction"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="window-maximize" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">FOR YOUR WEBSITE</span><h3>Web Checkout</h3><p>Integrate a payment experience that feels like part of your business.</p><span className="ao-path-foot">Web components · Flex</span></a>
+      <a className="ao-path" href="/en/virtual-payments/sdk-mobile/introduction"><span className="ao-path-top"><span className="ao-path-icon"><Icon icon="mobile-screen-button" size={21} /></span><span className="ao-arrow" aria-hidden="true">↗</span></span><span className="ao-path-label">FOR YOUR APP</span><h3>Mobile SDK</h3><p>Bring payments to your app with a mobile integration.</p><span className="ao-path-foot">Android · iOS</span></a>
+    </div>
+    <a className="ao-api-link" href="/en/api-reference/authentication/generate-access-token"><span><span className="ao-code-mark" aria-hidden="true">&lt;/&gt;</span> Looking for the technical reference? <strong>Explore API Docs</strong></span><span aria-hidden="true">→</span></a>
+  </section>
+  <section className="ao-connection-section" aria-labelledby="ao-connection-title">
+    <div><p className="ao-eyebrow">HOW IT ALL CONNECTS</p><h2 id="ao-connection-title">Different channels.<br /><em>One connection point.</em></h2><p className="ao-lead">Your store, website or app connects to Alignet One to offer the payment methods enabled for your business.</p><a className="ao-text-link" href="/en/virtual-payments/integration-types">Choose your integration →</a></div>
+    <div className="ao-network ao-network-animated" role="group" aria-label="Your store, website or app connects to Alignet One to accept cards, wallets, transfers and cash.">
+      <div className="ao-network-top"><span>ONE CONNECTION POINT</span><span className="ao-mini-mark">↗</span></div>
+      <div className="ao-channels"><span>Online store</span><span>Web</span><span>App</span></div>
+      <div className="ao-line ao-line-top" />
+      <div className="ao-core"><span className="ao-core-symbol" aria-hidden="true">↗</span><strong>Alignet One</strong><span>Payment infrastructure</span></div>
+      <div className="ao-line ao-line-bottom" />
+      <div className="ao-methods"><span><b aria-hidden="true">▤</b>Cards</span><span><b aria-hidden="true">◫</b>Wallets</span><span><b aria-hidden="true">⇄</b>Transfers</span><span><b aria-hidden="true">▥</b>Cash</span></div>
+      <div className="ao-network-bottom"><span className="ao-status-dot" /> A connected experience, from start to finish</div>
+      <label className="ao-animation-toggle"><input type="checkbox" /> Pause animation</label>
+    </div>
+  </section>
+  <section className="ao-foundation" aria-labelledby="ao-foundation-title">
+    <div className="ao-foundation-copy"><p className="ao-eyebrow">02 / THE FOUNDATION OF EVERY PAYMENT</p><h2 id="ao-foundation-title">Trust is part<br />of the integration.</h2><p>Alignet is a direct acquirer and an official 3-D Secure technology provider. Centralize your payments on infrastructure backed by our technology.</p><a className="ao-text-link" href="/en/virtual-payments/general-best-practices">Explore best practices <span aria-hidden="true">→</span></a></div>
+    <div className="ao-features">
+      <div><span className="ao-feature-number">01</span><div><h3>Direct connection</h3><p>Process payments with fewer technical intermediaries.</p></div></div>
+      <div><span className="ao-feature-number">02</span><div><h3>Security in every transaction</h3><p>3-D Secure authentication and tokenization to protect the payment experience.</p></div></div>
+      <div><span className="ao-feature-number">03</span><div><h3>Visibility into your payments</h3><p>Look up transactions, manage refunds and reconcile payments.</p></div></div>
+    </div>
+  </section>
+  <section className="ao-section" aria-labelledby="ao-start-title">
+    <div className="ao-section-heading"><div><p className="ao-eyebrow">03 / FROM GUIDE TO PRODUCTION</p><h2 id="ao-start-title">Your next step starts here.</h2></div></div>
+    <div className="ao-steps">
+      <a href="/en/virtual-payments/quickstart"><span className="ao-step-number">01</span><h3>Prepare your integration <span aria-hidden="true">↗</span></h3><p>Review requirements and get started.</p></a>
+      <a href="/en/virtual-payments/payments/test-data"><span className="ao-step-number">02</span><h3>Test in sandbox <span aria-hidden="true">↗</span></h3><p>Validate the payment flow using test data.</p></a>
+      <a href="/en/virtual-payments/certification-checklist"><span className="ao-step-number">03</span><h3>Prepare to go live <span aria-hidden="true">↗</span></h3><p>Complete the checklist before going live.</p></a>
+    </div>
+  </section>
+  <div className="ao-bottom"><div><span className="ao-status-dot" /><p>Already integrated with us? <a href="/en/virtual-payments/migration/steps-to-follow">Review the migration steps <span aria-hidden="true">→</span></a></p></div><a href="mailto:postventa.autenticacion@alignet.com">Talk to our team <span aria-hidden="true">↗</span></a></div>
+</div>

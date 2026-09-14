@@ -56,48 +56,48 @@ Implement these recommendations as you integrate **Web Checkout** with Alignet O
 
 
 
-Use this checklist as a quick guide before applying for final flow validation **Web Checkout**.
+Use this checklist before requesting final validation of your **Web Checkout** flow.
 
 <Info>
-  The guide aims at implementation with **Flex**, including front, `nonce`, payment response and final validation of result.
+  This guide covers **Flex** implementations, including the frontend, `nonce`, payment response and final result validation.
 </Info>
 
 ## Checklist base
 
 <AccordionGroup>
   <Accordion title="1. Preparation" icon="key" defaultOpen>
-    * Revised business and technical requirements.
+    * Business and technical requirements reviewed.
     * Credentials and testing environment available.
-    * Domination, return pages and defined callbacks.
-    * Checkout Flow confirmed for merchant.
+    * Domain, return pages and callbacks defined.
+    * Checkout flow confirmed for the merchant.
   </Accordion>
 
   <Accordion title="2. Technical configuration" icon="gear">
-    * Operating Authentication to Generate `token` or `nonce`.
-    * Libraries or fronstore components loaded correctly.
+    * Authentication working to generate a `token` or `nonce`.
+    * Libraries or frontend components loaded correctly.
     * Mandatory parameters sent with proper format.
     * Styles and visual experience reviewed within the checkout.
   </Accordion>
 
   <Accordion title="3. Flow Validation" icon="cart-shopping">
     * Approved transaction completed correctly.
-    * Rejected transaction validated with bug management.
-    * autoisation response processed at front.
+    * Declined transaction validated with error handling.
+    * Authorization response processed by the frontend.
     * Asynchronous methods tested if activated.
   </Accordion>
 
   <Accordion title="4. Confirmation and consistency" icon="database">
     * Final status confirmed from backend or through consultation.
-    * Duples and reattempts handled securely.
-    * Order or pay properly updated to your system.
+    * Duplicates and retries handled safely.
+    * Order or payment updated correctly in your system.
     * Minimum logs available for support and diagnosis.
   </Accordion>
 
   <Accordion title="5. Production" icon="rocket">
-    * Sandbox complete with minimum evidence of evidence.
-    * The production configuration revised by environment.
-    * Critical flows tested with integration equipment.
-    * Integration ready for live leave.
+    * Sandbox completed with the required test evidence.
+    * Production configuration reviewed for the target environment.
+    * Critical flows tested with integration team.
+    * Integration ready for go-live.
   </Accordion>
 </AccordionGroup>
 
@@ -105,14 +105,14 @@ Use this checklist as a quick guide before applying for final flow validation **
 
 <CardGroup cols={3}>
   <Card title="Approved purchase" icon="check">
-    At least an approved end to end validated flow.
+    At least one approved flow validated end to end.
   </Card>
 
   <Card title="Rejected purchase" icon="x">
-    Full Validation of Rejection and message management for the user.
+    Decline handling and customer messages fully validated.
   </Card>
 
-  <Card title="Consisstore result" icon="shield-check">
-    Confirmation between front and backend and final status of payment before production.
+  <Card title="Consistent result" icon="shield-check">
+    Frontend, backend and final payment state aligned before production.
   </Card>
 </CardGroup>

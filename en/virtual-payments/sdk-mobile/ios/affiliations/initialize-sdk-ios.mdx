@@ -9,7 +9,7 @@ sidebarTitle: "Implementation"
 The Affiliations Flow allows to register or update information associated with a recipient from Alignet One SDK iOS.
 
 <Info>
-  Before we start this flow, complete [Installation SDK iOS](/en/virtual-payments/sdk-mobile/ios/installation)Check. [Affiliation parameters](/en/virtual-payments/sdk-mobile/ios/affiliations/sdk-ios-parameters) and generates an `Access Token` from backend using [Authentication](https://docs.pay-me.com/api-de-pagos/autenticacion).
+  Before we start this flow, complete [Installation SDK iOS](/en/virtual-payments/sdk-mobile/ios/installation)Check. [Affiliation parameters](/en/virtual-payments/sdk-mobile/ios/affiliations/sdk-ios-parameters) and generates an `Access Token` from backend using [Authentication](/en/api-reference/authentication/generate-access-token).
 </Info>
 
 ## Integration Flow
@@ -132,7 +132,7 @@ To complete integration, class should implement `PaymeClientDelegate` and proces
 ```swift theme={"system"}
 extension MainController: PaymeClientDelegate {
     func onAffiliationResponse(response: PAYMEAffiliationResponse) {
-        // Procesa el resultado final de la afiliación.
+        // Process the final affiliation result.
     }
 }
 ```

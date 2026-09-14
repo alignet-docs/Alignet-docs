@@ -29,7 +29,7 @@
             "name": "ALG-API-VERSION",
             "in": "header",
             "required": true,
-            "description": "Version del API a usar.",
+            "description": "API version to use.",
             "schema": {
               "type": "string",
               "default": "1709847567"
@@ -75,7 +75,7 @@
                   },
                   "audience": {
                     "type": "string",
-                    "description": "URL base del API Orquestador segun el ambiente configurado.",
+                    "description": "Orchestrator API base URL for the configured environment.",
                     "enum": [
                       "https://api.preprod.alignet.io/",
                       "https://api.alignet.io/"
@@ -85,13 +85,13 @@
                   },
                   "client_id": {
                     "type": "string",
-                    "description": "Identificacion del cliente.",
+                    "description": "Client identifier.",
                     "default": "your_client_id",
                     "example": "your_client_id"
                   },
                   "client_secret": {
                     "type": "string",
-                    "description": "Secreto del cliente.",
+                    "description": "Client secret.",
                     "default": "your_client_secret",
                     "example": "your_client_secret"
                   },
@@ -149,7 +149,7 @@
                     },
                     "expires_in": {
                       "type": "integer",
-                      "description": "Tiempo de expiracion del token en segundos.",
+                      "description": "Token lifetime in seconds.",
                       "example": 8600
                     },
                     "token_type": {
@@ -159,21 +159,21 @@
                     },
                     "authorization": {
                       "type": "object",
-                      "description": "Objeto que contiene metadatos del flujo ejecutado.",
+                      "description": "Object containing metadata for the executed flow.",
                       "required": [
                         "meta"
                       ],
                       "properties": {
                         "meta": {
                           "type": "object",
-                          "description": "Objeto que contiene metadatos del flujo ejecutado.",
+                          "description": "Object containing metadata for the executed flow.",
                           "required": [
                             "status"
                           ],
                           "properties": {
                             "status": {
                               "type": "object",
-                              "description": "Objeto que contiene el resultado del flujo ejecutado.",
+                              "description": "Object containing the result of the executed flow.",
                               "required": [
                                 "code",
                                 "message_ilgn"
@@ -181,12 +181,12 @@
                               "properties": {
                                 "code": {
                                   "type": "string",
-                                  "description": "Codigo del resultado tecnico del servicio o request. No valida si un pago fue autorizado o denegado.",
+                                  "description": "Technical result code for the service or request. It does not indicate whether a payment was authorized or declined.",
                                   "example": "00"
                                 },
                                 "message_ilgn": {
                                   "type": "array",
-                                  "description": "Lista de mensajes resultantes del flujo.",
+                                  "description": "List of messages returned by the flow.",
                                   "items": {
                                     "type": "object",
                                     "required": [
@@ -196,12 +196,12 @@
                                     "properties": {
                                       "locale": {
                                         "type": "string",
-                                        "description": "Localidad a nivel de lenguaje para el mensaje del flujo ejecutado.",
+                                        "description": "Language locale for the message returned by the flow.",
                                         "example": "es_PE"
                                       },
                                       "value": {
                                         "type": "string",
-                                        "description": "Mensaje resultante del flujo ejecutado.",
+                                        "description": "Message returned by the executed flow.",
                                         "example": "Access Token creado"
                                       }
                                     }
@@ -261,7 +261,7 @@
             "name": "ALG-API-VERSION",
             "in": "header",
             "required": true,
-            "description": "Version del API a usar.",
+            "description": "API version to use.",
             "schema": {
               "type": "string",
               "default": "1709847567"
@@ -301,7 +301,7 @@
                   },
                   "audience": {
                     "type": "string",
-                    "description": "URL base del API Orquestador segun el ambiente configurado.",
+                    "description": "Orchestrator API base URL for the configured environment.",
                     "enum": [
                       "https://api.preprod.alignet.io/",
                       "https://api.alignet.io/"
@@ -311,7 +311,7 @@
                   },
                   "client_id": {
                     "type": "string",
-                    "description": "Identificacion del cliente.",
+                    "description": "Client identifier.",
                     "default": "your_client_id",
                     "example": "your_client_id"
                   },
@@ -357,7 +357,7 @@
                     },
                     "nonce": {
                       "type": "string",
-                      "description": "Token temporal a usar en la inicializacion de Alignet One Flex.",
+                      "description": "Temporary token used to initialize Alignet One Flex.",
                       "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
                     },
                     "scope": {
@@ -367,26 +367,26 @@
                     },
                     "expires_in": {
                       "type": "integer",
-                      "description": "Tiempo de expiracion del nonce en segundos.",
+                      "description": "Nonce lifetime in seconds.",
                       "example": 30
                     },
                     "nonce_creation": {
                       "type": "object",
-                      "description": "Objeto que contiene metadatos del flujo ejecutado.",
+                      "description": "Object containing metadata for the executed flow.",
                       "required": [
                         "meta"
                       ],
                       "properties": {
                         "meta": {
                           "type": "object",
-                          "description": "Objeto que contiene metadatos del flujo ejecutado.",
+                          "description": "Object containing metadata for the executed flow.",
                           "required": [
                             "status"
                           ],
                           "properties": {
                             "status": {
                               "type": "object",
-                              "description": "Objeto que contiene el resultado del flujo ejecutado.",
+                              "description": "Object containing the result of the executed flow.",
                               "required": [
                                 "code",
                                 "message_ilgn"
@@ -394,12 +394,12 @@
                               "properties": {
                                 "code": {
                                   "type": "string",
-                                  "description": "Codigo del resultado tecnico del servicio o request. No valida si un pago fue autorizado o denegado.",
+                                  "description": "Technical result code for the service or request. It does not indicate whether a payment was authorized or declined.",
                                   "example": "00"
                                 },
                                 "message_ilgn": {
                                   "type": "array",
-                                  "description": "Lista de mensajes resultantes del flujo.",
+                                  "description": "List of messages returned by the flow.",
                                   "items": {
                                     "type": "object",
                                     "required": [
@@ -409,12 +409,12 @@
                                     "properties": {
                                       "locale": {
                                         "type": "string",
-                                        "description": "Localidad a nivel de lenguaje para el mensaje del flujo ejecutado.",
+                                        "description": "Language locale for the message returned by the flow.",
                                         "example": "es_PE"
                                       },
                                       "value": {
                                         "type": "string",
-                                        "description": "Mensaje resultante del flujo ejecutado.",
+                                        "description": "Message returned by the executed flow.",
                                         "example": "Codigo Nonce creado"
                                       }
                                     }
@@ -458,10 +458,10 @@
             "description": "Token invalido o expirado."
           },
           "403": {
-            "description": "El token no cuenta con el scope necesario para solicitar el nonce."
+            "description": "The token does not have the scope required to request a nonce."
           },
           "500": {
-            "description": "Error temporal del servicio."
+            "description": "Temporary service error."
           }
         }
       }
@@ -500,7 +500,7 @@
             "name": "ALG-API-VERSION",
             "in": "header",
             "required": true,
-            "description": "Version del API a usar.",
+            "description": "API version to use.",
             "schema": {
               "type": "string",
               "default": "1709847567"
@@ -1402,7 +1402,7 @@
             "name": "ALG-API-VERSION",
             "in": "header",
             "required": true,
-            "description": "Version del API a usar.",
+            "description": "API version to use.",
             "schema": {
               "type": "string",
               "default": "1709847567"
@@ -1413,7 +1413,7 @@
             "name": "payment-facilitator-code",
             "in": "header",
             "required": false,
-            "description": "Identificador del Facilitador de Pago.",
+            "description": "Payment facilitator identifier.",
             "schema": {
               "type": "string"
             },
@@ -1423,7 +1423,7 @@
             "name": "merchant_code",
             "in": "path",
             "required": true,
-            "description": "Identificador del comercio.",
+            "description": "Merchant identifier.",
             "schema": {
               "type": "string"
             },
@@ -1443,7 +1443,7 @@
             "name": "transaction_id",
             "in": "path",
             "required": true,
-            "description": "Identificador unico de la transaccion consultada.",
+            "description": "Unique identifier of the queried transaction.",
             "schema": {
               "type": "string"
             },
@@ -1950,7 +1950,7 @@
             "name": "ALG-API-VERSION",
             "in": "header",
             "required": true,
-            "description": "Version del API a usar.",
+            "description": "API version to use.",
             "schema": {
               "type": "string",
               "default": "1709847567"
@@ -1961,7 +1961,7 @@
             "name": "payment-facilitator-code",
             "in": "header",
             "required": false,
-            "description": "Identificador del Facilitador de Pago.",
+            "description": "Payment facilitator identifier.",
             "schema": {
               "type": "string"
             },
@@ -1971,7 +1971,7 @@
             "name": "merchant_code",
             "in": "path",
             "required": true,
-            "description": "Identificador del comercio.",
+            "description": "Merchant identifier.",
             "schema": {
               "type": "string"
             },
@@ -2212,7 +2212,7 @@
             "name": "ALG-API-VERSION",
             "in": "header",
             "required": true,
-            "description": "Version del API a usar.",
+            "description": "API version to use.",
             "schema": {
               "type": "string",
               "default": "1709847567"
@@ -2223,7 +2223,7 @@
             "name": "payment-facilitator-code",
             "in": "header",
             "required": false,
-            "description": "Identificador del Facilitador de Pago.",
+            "description": "Payment facilitator identifier.",
             "schema": {
               "type": "string"
             },
@@ -2253,7 +2253,7 @@
             "name": "merchant_code",
             "in": "query",
             "required": false,
-            "description": "Codigo unico del comercio.",
+            "description": "Unique merchant code.",
             "schema": {
               "type": "string"
             },
@@ -2273,7 +2273,7 @@
             "name": "transaction_id",
             "in": "query",
             "required": false,
-            "description": "UUID unico de una transaccion.",
+            "description": "Unique transaction UUID.",
             "schema": {
               "type": "string"
             },
@@ -2283,7 +2283,7 @@
             "name": "refund_state",
             "in": "query",
             "required": false,
-            "description": "Estado del refund.",
+            "description": "Refund status.",
             "schema": {
               "type": "string",
               "enum": [
@@ -2396,7 +2396,7 @@
             "name": "ALG-API-VERSION",
             "in": "header",
             "required": true,
-            "description": "Version del API a usar.",
+            "description": "API version to use.",
             "schema": {
               "type": "string",
               "default": "1709847567"
@@ -2407,7 +2407,7 @@
             "name": "payment-facilitator-code",
             "in": "header",
             "required": false,
-            "description": "Identificador del Facilitador de Pago.",
+            "description": "Payment facilitator identifier.",
             "schema": {
               "type": "string"
             },
@@ -2542,7 +2542,7 @@
             "name": "ALG-API-VERSION",
             "in": "header",
             "required": true,
-            "description": "Version del API a usar.",
+            "description": "API version to use.",
             "schema": {
               "type": "string",
               "default": "1709847567"
@@ -2553,7 +2553,7 @@
             "name": "payment-facilitator-code",
             "in": "header",
             "required": false,
-            "description": "Identificador del Facilitador de Pago.",
+            "description": "Payment facilitator identifier.",
             "schema": {
               "type": "string"
             },
@@ -2563,7 +2563,7 @@
             "name": "merchant_code",
             "in": "path",
             "required": true,
-            "description": "Identificador del comercio.",
+            "description": "Merchant identifier.",
             "schema": {
               "type": "string"
             },
@@ -2660,7 +2660,7 @@
             "name": "signature",
             "in": "header",
             "required": true,
-            "description": "Firma digital en Base64 generada con SHA512withRSA sobre el body completo recibido. Considerar hasta una longitud de 512 caracteres.",
+            "description": "Base64 digital signature generated with SHA512withRSA over the complete received body. Allow up to 512 characters.",
             "schema": {
               "type": "string",
               "maxLength": 512
@@ -2716,7 +2716,7 @@
         },
         "responses": {
           "200": {
-            "description": "El comercio confirma la recepcion de la notificacion con HTTP 200 en un maximo de 10 segundos."
+            "description": "The merchant acknowledges the notification with HTTP 200 within 10 seconds."
           }
         }
       }
@@ -2927,12 +2927,12 @@
           },
           "redirect_url": {
             "type": "string",
-            "description": "URL de retorno al finalizar la autenticacion 3DS.",
+            "description": "Return URL after 3DS authentication completes.",
             "example": "https://example.com"
           },
           "callback_url": {
             "type": "string",
-            "description": "URL host to host para notificaciones.",
+            "description": "Host-to-host notification URL.",
             "example": "https://example.com/callback"
           },
           "authentication_result": {
@@ -2972,7 +2972,7 @@
         "properties": {
           "callback_url": {
             "type": "string",
-            "description": "URL donde se realizara la notificacion host to host.",
+            "description": "URL that receives the host-to-host notification.",
             "example": "https://example.com/callback"
           },
           "phone": {
@@ -2980,7 +2980,7 @@
           },
           "otp": {
             "type": "string",
-            "description": "Codigo OTP de la billetera Yape.",
+            "description": "Yape wallet OTP code.",
             "example": "557454"
           }
         }
@@ -3013,12 +3013,12 @@
         "properties": {
           "redirect_url": {
             "type": "string",
-            "description": "URL donde se realizara el redirect cuando finalice la autorizacion.",
+            "description": "Redirect URL after authorization completes.",
             "example": "https://example.com"
           },
           "callback_url": {
             "type": "string",
-            "description": "URL donde se realizara la notificacion host to host.",
+            "description": "URL that receives the host-to-host notification.",
             "example": "https://example.com/callback"
           }
         }
@@ -3051,12 +3051,12 @@
         "properties": {
           "redirect_url": {
             "type": "string",
-            "description": "URL donde se realizara el redirect cuando finalice la autorizacion.",
+            "description": "Redirect URL after authorization completes.",
             "example": "https://example.com"
           },
           "callback_url": {
             "type": "string",
-            "description": "URL donde se realizara la notificacion host to host.",
+            "description": "URL that receives the host-to-host notification.",
             "example": "https://example.com/callback"
           }
         }
@@ -3089,12 +3089,12 @@
         "properties": {
           "redirect_url": {
             "type": "string",
-            "description": "URL donde se realizara el redirect cuando finalice la autorizacion.",
+            "description": "Redirect URL after authorization completes.",
             "example": "https://example.com"
           },
           "callback_url": {
             "type": "string",
-            "description": "URL donde se realizara la notificacion host to host.",
+            "description": "URL that receives the host-to-host notification.",
             "example": "https://example.com/callback"
           }
         }
@@ -3124,7 +3124,7 @@
         "properties": {
           "callback_url": {
             "type": "string",
-            "description": "URL donde se realizara la notificacion host to host.",
+            "description": "URL that receives the host-to-host notification.",
             "example": "https://example.com/callback"
           }
         }
@@ -3181,7 +3181,7 @@
           },
           "product_details": {
             "type": "array",
-            "description": "Detalle de productos asociados a la operacion.",
+            "description": "Details of the products associated with the operation.",
             "items": {
               "type": "object"
             },
@@ -3208,7 +3208,7 @@
           },
           "channel": {
             "type": "string",
-            "description": "Canal de la transaccion.",
+            "description": "Transaction channel.",
             "enum": [
               "ecommerce"
             ],
@@ -3216,12 +3216,12 @@
           },
           "merchant_code": {
             "type": "string",
-            "description": "Codigo del comercio.",
+            "description": "Merchant code.",
             "example": "your_merchant_code"
           },
           "merchant_operation_number": {
             "type": "string",
-            "description": "Identificador unico de la operacion en el comercio.",
+            "description": "Unique operation identifier in the merchant's system.",
             "example": "2391645"
           },
           "payment_method": {
@@ -3725,7 +3725,7 @@
         "properties": {
           "code": {
             "type": "string",
-            "description": "Codigo del resultado tecnico del servicio o request. No valida si un pago fue autorizado o denegado; para eso usa el estado de la transaccion.",
+            "description": "Technical result code for the service or request. It does not indicate whether payment was authorized or declined; use the transaction state for that.",
             "example": "00"
           },
           "message_ilgn": {
@@ -3772,7 +3772,7 @@
           },
           "amount": {
             "type": "string",
-            "description": "Monto de la transaccion autorizado en centavos.",
+            "description": "Authorized transaction amount in minor currency units.",
             "example": "15000"
           },
           "currency": {
