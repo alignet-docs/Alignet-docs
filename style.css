@@ -142,10 +142,12 @@
 .mig-interactive .mig-checkout { max-width: 350px; }
 .mig-method-layout { display: grid; grid-template-columns: 45px minmax(0,1fr); }
 .mig-method-nav { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 13px 3px; border-right: 1px solid #dce1ef; }
-.mig-method-nav button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; width: 38px; min-height: 42px; border: 0; border-radius: 7px; background: transparent; color: #6980a7; cursor: pointer; }
+.mig-method-nav button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; width: 38px; min-height: 42px; border: 0; border-radius: 7px; background: transparent; color: #899bbb; cursor: pointer; }
 .mig-method-nav button > span { font-size: 21px; line-height: 1; }
 .mig-method-nav small { font-size: 6px; line-height: 1.2; max-width: 38px; overflow-wrap: anywhere; }
 .mig-method-nav button[aria-pressed="true"] { background: #edf2ff; color: #285cf4; }
+.mig-method-nav button[aria-pressed="false"] img { filter: grayscale(1) sepia(1) saturate(.65) hue-rotate(173deg) brightness(.85); opacity: .75; }
+.mig-method-nav button[aria-pressed="true"] img { filter: none; opacity: 1; }
 .mig-method-nav button:disabled { opacity: .35; cursor: not-allowed; }
 .mig-method-nav button:focus-visible { outline: 2px solid #285cf4; outline-offset: 1px; }
 .mig-method-content { min-width: 0; }
