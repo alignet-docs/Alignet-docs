@@ -132,7 +132,7 @@
 .mig-interactive .mig-shop > .mig-languages { display: flex; flex: none; gap: 2px; padding: 3px; }
 .mig-interactive .mig-languages button { border: 0; border-radius: 4px; background: transparent; color: #7a87a1; font-size: 9px; padding: 3px 5px; }
 .mig-interactive .mig-languages button[aria-pressed="true"] { background: white; color: #265fec; }
-.mig-interactive .mig-card-amex, .dark .mig-interactive .mig-card-amex { color: #244b3d; background: linear-gradient(125deg,#b9dbc7,#a3ceb5 65%,#c7e3d1); }
+.mig-interactive .mig-card-amex, .dark .mig-interactive .mig-card-amex { color: #183d2b; background: linear-gradient(125deg,#8fb79d,#a6cbb0 65%,#bdd8c2); }
 .mig-interactive .mig-card-amex .mig-card-top { color: #315b48; }
 .mig-amex-mark { font-size: 13px; font-weight: 900; line-height: 1.05; letter-spacing: -.5px; text-align: center; }
 .mig-interactive .mig-card-mastercard, .dark .mig-interactive .mig-card-mastercard { color: #fff; background: linear-gradient(125deg,#202833,#394857 65%,#586574); }
