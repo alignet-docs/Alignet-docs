@@ -76,6 +76,7 @@
 .mig-test-cards button:disabled { opacity: .5; cursor: default; }
 .mig-interactive .mig-card-visa { background: linear-gradient(125deg,#1736ac,#2874f0); color: #fff; }
 .mig-interactive .mig-card-visa .mig-card-top { color: #e7efff; }
+.mig-interactive .mig-card-visa img.mig-brand-image { filter: brightness(0) invert(1); }
 .mig-visa-mark { font-size: 24px; font-weight: 900; font-style: italic; letter-spacing: -1px; line-height: 27px; }
 .mig-card-with-chip { position: relative; overflow: hidden; isolation: isolate; }
 .mig-card-with-chip > :not(.mig-card-shine) { position: relative; z-index: 1; }
