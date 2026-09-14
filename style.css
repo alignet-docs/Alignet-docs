@@ -63,7 +63,7 @@
 .mig-card-brands b { color: #173bd0; font-size: 14px; font-style: italic; }
 .mig-card-brands strong { background: #0878bf; color: white; padding: 2px; font-size: 6px; line-height: .95; letter-spacing: -.2px; }
 .mig-card-chip { display: block; margin-top: 7px; }
-.mig-brand-image-badge { display: flex; align-items: center; justify-content: center; height: 30px; min-width: 42px; padding: 5px 6px; border-radius: 5px; background: #fff; box-sizing: border-box; }
+.mig-brand-image-badge { display: flex; align-items: center; justify-content: flex-end; height: 30px; min-width: 42px; padding: 0; border-radius: 0; background: transparent; box-sizing: border-box; }
 .mig-card-top img.mig-brand-image { display: block; height: 20px; width: auto; max-width: 55px; object-fit: contain; margin: 0; border-radius: 0; }
 .mig-card-brands img.mig-brand-image-small { display: block; height: 14px; width: auto; max-width: 36px; object-fit: contain; margin: 0; border-radius: 0; }
 .mig-bank-card img.mig-card-chip-image { display: block; width: 26px; height: 20px; object-fit: contain; border-radius: 3px; padding: 0; }
