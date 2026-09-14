@@ -23,8 +23,8 @@ Selecciona un estado para conocer su significado o reproduce un recorrido de eje
   <Accordion title="Cancelado no es lo mismo que extornado">
     **Cancelado:** el usuario cancela antes de la autorización. **Extornado:** se anula una operación autorizada, durante el primer día y antes de su liquidación. El importe a restituir considera los gastos administrativos aplicables.
   </Accordion>
-  <Accordion title="Una respuesta técnica correcta no confirma un pago">
-    No marques una compra como pagada solo por recibir HTTP 200 o una respuesta técnica exitosa. Confirma el estado desde tu backend y conserva por separado el estado de la operación y el de cada transacción. Procesar una notificación repetida no debe duplicar la entrega.
+  <Accordion title="Denegado, inválido y expirado no significan lo mismo">
+    **Denegado:** el emisor rechazó el pago. **Inválido:** una regla, validación o error impidió continuar. **Expirado:** venció el plazo sin respuesta del cliente, según el método de pago. En los tres casos el intento no se autorizó, pero la causa es distinta.
   </Accordion>
 </AccordionGroup>
 
