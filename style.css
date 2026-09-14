@@ -158,7 +158,7 @@
 .mig-method-content .mig-mastercard-mark small { font-size: 6px; margin-top: 2px; }
 .mig-wallet-view { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding: 12px 0; }
 .mig-wallet-view.mig-google-view { min-height: 305px; justify-content: center; gap: 14px; padding: 30px 8px; box-sizing: border-box; }
-.mig-method-nav img.mig-google-nav-logo { display: block; width: 30px; height: 18px; object-fit: cover; margin: 0; border-radius: 9px; }
+.mig-method-nav img.mig-google-nav-logo { display: block; width: 23px; height: 23px; object-fit: contain; margin: 0; border-radius: 0; }
 .mig-google-view img.mig-google-logo { width: 110px; height: 60px; object-fit: cover; margin: 0 0 6px; border-radius: 30px; }
 .mig-google-brands { display: flex; align-items: center; justify-content: center; gap: 14px; }
 .mig-google-brands img { display: block; width: auto; height: 20px; max-width: 44px; object-fit: contain; margin: 0; border-radius: 0; }
