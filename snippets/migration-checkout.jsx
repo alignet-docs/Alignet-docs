@@ -68,7 +68,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
           <div className="mig-method-content">
         <div className="mig-checkout-body">
           {method === "card" ? <>
-          <div className={"mig-bank-card mig-card-with-chip" + (amex ? " mig-card-amex" : mastercard ? " mig-card-mastercard" : visa ? " mig-card-visa" : "")} style={amex ? { background: "linear-gradient(125deg,#8fb79d,#a6cbb0 65%,#bdd8c2)", color: "#183d2b" } : undefined}>
+          <div className={"mig-bank-card mig-card-with-chip" + (amex ? " mig-card-amex" : mastercard ? " mig-card-mastercard" : visa ? " mig-card-visa" : "")} style={amex ? { background: "linear-gradient(125deg,#b7cee5,#d0e1f1 65%,#e6eff8)", color: "#173b60" } : undefined}>
             <span key={cardShine} className="mig-card-shine" aria-hidden="true" />
             <div className="mig-card-top"><span>{digits ? t("TARJETA DE PRUEBA", "TEST CARD") : ""}</span>{amex || visa || mastercard ? <span className="mig-brand-image-badge"><img className="mig-brand-image" src={amex ? "/images/demo-brand-amex-hd.png" : visa ? "/images/demo-brand-visa.svg" : "/images/demo-brand-mastercard-hd.png"} alt={amex ? "American Express" : visa ? "Visa" : "Mastercard"} /></span> : <span className="mig-card-brands">{[["visa", "Visa"], ["mastercard", "Mastercard"], ["amex", "American Express"], ["diners", "Diners Club"]].map(([brand, label]) => <img key={brand} className="mig-brand-image-small" src={"/images/demo-brand-" + brand + (brand === "visa" ? ".svg" : brand === "amex" || brand === "mastercard" ? "-hd.png" : ".png")} alt={label} />)}</span>}</div>
             <img className="mig-card-chip mig-card-chip-image" src="/images/demo-card-chip.png" width="26" height="20" alt="" aria-hidden="true" />
