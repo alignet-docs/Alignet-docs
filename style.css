@@ -64,11 +64,10 @@
 .mig-card-brands strong { background: #0878bf; color: white; padding: 2px; font-size: 6px; line-height: .95; letter-spacing: -.2px; }
 .mig-card-chip { display: block; margin-top: 7px; }
 .mig-card-with-chip .mig-card-number { margin: 12px 0 17px; }
-.mig-test-cards { margin: 10px 0; text-align: center; }
-.mig-test-cards > span { display: block; font-size: 8px; color: #71809e; margin-bottom: 6px; }
-.mig-test-cards > div { display: flex; gap: 5px; }
-.mig-test-cards button { flex: 1; border: 1px solid #dce3f6; border-radius: 6px; padding: 5px 3px; font-size: 9px; color: #435c94; background: #f6f8ff; cursor: pointer; }
-.mig-test-cards button[aria-pressed="true"] { background: #e9efff; border-color: #4977ed; color: #2150c7; }
+.mig-test-cards { margin: 10px 0; text-align: center; color: #71809e; font-size: 9px; line-height: 1.7; }
+.mig-test-cards > span { display: inline; }
+.mig-test-cards button { display: inline; border: 0; border-radius: 0; padding: 0; font: inherit; color: #285cf4; background: transparent; box-shadow: none; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.mig-test-cards button[aria-pressed="true"] { color: #435c94; text-decoration-thickness: 2px; }
 .mig-test-cards button:focus-visible { outline: 2px solid #285cf4; outline-offset: 2px; }
 .mig-test-cards button:disabled { opacity: .5; cursor: default; }
 .mig-interactive .mig-card-visa { background: linear-gradient(125deg,#1736ac,#2874f0); color: #fff; }
@@ -110,7 +109,12 @@
 .mig-method-nav button:focus-visible { outline: 2px solid #285cf4; outline-offset: 1px; }
 .mig-method-content { min-width: 0; }
 .mig-method-content .mig-checkout-body { padding: 17px 12px 12px; min-height: 384px; }
-.mig-method-content .mig-bank-card { padding: 14px 12px; }
+.mig-method-content .mig-bank-card { padding: 14px 12px; box-sizing: border-box; width: 100%; height: 150px; min-height: 150px; max-height: 150px; display: grid; grid-template-rows: 32px 20px 18px 10px; align-content: space-between; }
+.mig-method-content .mig-bank-card .mig-card-top { height: 32px; min-height: 0; }
+.mig-method-content .mig-bank-card .mig-card-chip, .mig-method-content .mig-bank-card .mig-card-number { margin: 0; }
+.mig-method-content .mig-bank-card .mig-card-number { white-space: nowrap; }
+.mig-method-content .mig-mastercard-mark svg { height: 24px; }
+.mig-method-content .mig-mastercard-mark small { font-size: 6px; margin-top: 2px; }
 .mig-wallet-view { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding: 12px 0; }
 .ao-cover .mig-wallet-view h3 { font-size: 13px; line-height: 1.5; font-weight: 600; margin: 0; }
 .ao-cover .mig-wallet-view p { font-size: 10px; line-height: 1.6; color: #6b7893; margin: 0; }

@@ -33,7 +33,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
   };
   const loadSample = (brand = "amex") => {
     setCardShine(previous => previous + 1);
-    setValues(testValues(typeof brand === "string" && samples[brand] ? brand : "amex"));
+    setValues(brand === "none" ? { number: "", expiry: "", cvv: "", first: "", last: "", email: "" } : testValues(typeof brand === "string" && samples[brand] ? brand : "amex"));
     setPhone("900000000"); setApprovalCode("123456");
     setNumberFocused(false);
     setError(""); setStatus("idle");
@@ -74,7 +74,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
             <svg className="mig-card-chip" width="25" height="20" viewBox="0 0 25 20" fill="none" aria-hidden="true"><rect x=".5" y=".5" width="24" height="19" rx="4" fill="#f8f8f7" stroke="#aaa" /><path d="M9 1v5L6 8v4l3 2v5M16 1v5l3 2v4l-3 2v5M1 6h8m7 0h8M1 14h8m7 0h8M9 6h7v8H9Z" stroke="#aaa" strokeWidth=".7" /></svg>
             <div className="mig-card-number">{maskedNumber}</div><div className="mig-card-bottom"><span>{[values.first, values.last].filter(Boolean).join(" ").toUpperCase() || t("NOMBRE Y APELLIDO", "CARDHOLDER NAME")}</span><span>{values.expiry || t("MM/AA", "MM/YY")}</span></div>
           </div>
-          <div className="mig-test-cards" role="group" aria-label={t("Cargar tarjeta de prueba", "Load a test card")}><span>{t("Cargar tarjeta de prueba", "Load a test card")}</span><div>{[["visa", "Visa"], ["mastercard", "Mastercard"], ["amex", "Amex"]].map(([brand, label]) => <button key={brand} type="button" disabled={status !== "idle"} aria-pressed={digits === samples[brand]} onClick={() => loadSample(brand)}>{label}</button>)}</div></div>
+          <div className="mig-test-cards" role="group" aria-label={t("Cargar tarjeta de prueba", "Load a test card")}><span>{t("Cargar tarjeta de prueba:", "Load a test card:")} </span>{[["visa", "Visa"], ["mastercard", "Mastercard"], ["amex", "Amex"], ["none", t("sin tarjeta", "no card")]].map(([brand, label], index) => <span key={brand}>{index > 0 && ", "}<button type="button" disabled={status !== "idle"} aria-pressed={brand === "none" ? !digits : digits === samples[brand]} onClick={() => loadSample(brand)}>{label}</button></span>)}</div>
           {field("number", t("Número de tarjeta de prueba", "Test card number"), { inputMode: "numeric", maxLength: 19, value: digits && !numberFocused ? maskedNumber : values.number, onFocus: () => setNumberFocused(true), onBlur: () => setNumberFocused(false) })}
           <div className="mig-field-row">{field("expiry", t("MM/AA", "MM/YY"), { inputMode: "numeric", maxLength: 5 })}{field("cvv", amex ? "CID" : "CVV", { inputMode: "numeric", type: "password", maxLength: amex ? 4 : 3 })}</div>
           <div className="mig-field-row">{field("first", t("Nombre ficticio", "Fictional first name"))}{field("last", t("Apellido ficticio", "Fictional last name"))}</div>
