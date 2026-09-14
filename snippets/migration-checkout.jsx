@@ -1,7 +1,7 @@
 export const MigrationCheckout = ({ locale = "es" }) => {
   const samples = { visa: "4111111111111111", mastercard: "5555555555554444", amex: "378282246310005" };
   const formatNumber = value => /^3[47]/.test(value) ? [value.slice(0, 4), value.slice(4, 10), value.slice(10, 15)].filter(Boolean).join(" ") : value.match(/.{1,4}/g)?.join(" ") || "";
-  const testValues = (brand = "amex") => ({ number: formatNumber(samples[brand]), expiry: "12/" + String(new Date().getFullYear() + 2).slice(-2), cvv: brand === "amex" ? "1234" : "123", first: "Alex", last: "Demo", email: "alex@example.com" });
+  const testValues = (brand = "amex") => ({ number: formatNumber(samples[brand]), expiry: "12/" + String(new Date().getFullYear() + 2).slice(-2), cvv: brand === "amex" ? "1234" : "123", first: "María", last: "Demo", email: "maria@example.com" });
   const [language, setLanguage] = useState(locale);
   const [values, setValues] = useState(() => testValues("mastercard"));
   const [method, setMethod] = useState("card");
