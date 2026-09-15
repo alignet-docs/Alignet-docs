@@ -100,7 +100,8 @@
 .mig-card-chip { display: block; margin-top: 7px; }
 .mig-brand-image-badge { display: flex; align-items: center; justify-content: flex-end; height: 30px; min-width: 42px; padding: 0; border-radius: 0; background: transparent; box-sizing: border-box; }
 .mig-card-top img.mig-brand-image { display: block; height: 20px; width: auto; max-width: 55px; object-fit: contain; margin: 0; border-radius: 0; }
-.mig-card-amex .mig-card-top img.mig-brand-image { width: 30px; height: 30px; background-color: #fff; }
+.mig-card-amex .mig-brand-image-badge { min-width: 38px; padding: 3px; border: 1px solid #ffffff66; border-radius: 7px; background: #fff; box-shadow: 0 4px 12px #041d3d38; }
+.mig-card-amex .mig-card-top img.mig-brand-image { width: 27px; height: 27px; background-color: #fff; }
 .mig-card-mastercard .mig-card-top img.mig-brand-image { width: 48px; height: 27px; }
 .mig-card-brands img.mig-brand-image-small { display: block; height: 14px; width: auto; max-width: 36px; object-fit: contain; margin: 0; border-radius: 0; }
 .mig-bank-card img.mig-card-chip-image { display: block; width: 26px; height: 20px; object-fit: contain; border-radius: 3px; padding: 0; }
@@ -132,8 +133,8 @@
 .mig-interactive .mig-shop > .mig-languages { display: flex; flex: none; gap: 2px; padding: 3px; }
 .mig-interactive .mig-languages button { border: 0; border-radius: 4px; background: transparent; color: #7a87a1; font-size: 9px; padding: 3px 5px; }
 .mig-interactive .mig-languages button[aria-pressed="true"] { background: white; color: #265fec; }
-.mig-interactive .mig-card-amex, .dark .mig-interactive .mig-card-amex { color: #173b60; background: linear-gradient(125deg,#b7cee5,#d0e1f1 65%,#e6eff8); }
-.mig-interactive .mig-card-amex .mig-card-top { color: #345678; }
+.mig-interactive .mig-card-amex, .dark .mig-interactive .mig-card-amex { color: #fff; background: radial-gradient(circle at 82% 18%,#32a9dc55,transparent 34%),linear-gradient(125deg,#102b4e,#075b96 62%,#0878c9); box-shadow: inset 0 1px 0 #ffffff24,0 8px 20px #062c5730; }
+.mig-interactive .mig-card-amex .mig-card-top { color: #d9efff; }
 .mig-amex-mark { font-size: 13px; font-weight: 900; line-height: 1.05; letter-spacing: -.5px; text-align: center; }
 .mig-interactive .mig-card-mastercard, .dark .mig-interactive .mig-card-mastercard { color: #fff; background: linear-gradient(125deg,#202833,#394857 65%,#586574); }
 .mig-interactive .mig-card-mastercard .mig-card-top { color: #e1e6ee; }
