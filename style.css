@@ -100,8 +100,8 @@
 .mig-card-chip { display: block; margin-top: 7px; }
 .mig-brand-image-badge { display: flex; align-items: center; justify-content: flex-end; height: 30px; min-width: 42px; padding: 0; border-radius: 0; background: transparent; box-sizing: border-box; }
 .mig-card-top img.mig-brand-image { display: block; height: 20px; width: auto; max-width: 55px; object-fit: contain; margin: 0; border-radius: 0; }
-.mig-card-amex .mig-brand-image-badge { min-width: 38px; padding: 3px; border: 1px solid #ffffff66; border-radius: 7px; background: #fff; box-shadow: 0 4px 12px #041d3d38; }
-.mig-card-amex .mig-card-top img.mig-brand-image { width: 27px; height: 27px; background-color: #fff; }
+.mig-card-amex .mig-brand-image-badge { min-width: 38px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.mig-card-amex .mig-card-top img.mig-brand-image { width: 34px; height: auto; background: transparent; filter: drop-shadow(0 2px 5px #00152f4d); }
 .mig-card-mastercard .mig-card-top img.mig-brand-image { width: 48px; height: 27px; }
 .mig-card-brands img.mig-brand-image-small { display: block; height: 14px; width: auto; max-width: 36px; object-fit: contain; margin: 0; border-radius: 0; }
 .mig-bank-card img.mig-card-chip-image { display: block; width: 26px; height: 20px; object-fit: contain; border-radius: 3px; padding: 0; }
