@@ -1,4 +1,6 @@
 export const MigrationCheckout = ({ locale = "es" }) => {
+  const cardBrandAssets = { visa: "/images/demo-brand-visa.svg", mastercard: "/images/demo-brand-mastercard-card.png", amex: "/images/demo-brand-amex-card.png" };
+  const cardBrandLabels = { visa: "Visa", mastercard: "Mastercard", amex: "American Express" };
   const samples = { visa: "4111111111111111", mastercard: "5555555555554444", amex: "378282246310005" };
   const formatNumber = value => /^3[47]/.test(value) ? [value.slice(0, 4), value.slice(4, 10), value.slice(10, 15)].filter(Boolean).join(" ") : value.match(/.{1,4}/g)?.join(" ") || "";
   const testValues = (brand = "amex") => ({ number: formatNumber(samples[brand]), expiry: "12/" + String(new Date().getFullYear() + 2).slice(-2), cvv: brand === "amex" ? "1234" : "123", first: "María", last: "Demo", email: "maria@example.com" });
@@ -17,8 +19,17 @@ export const MigrationCheckout = ({ locale = "es" }) => {
   const mastercard = /^5[1-5]/.test(digits) || (Number(digits.slice(0, 4)) >= 2221 && Number(digits.slice(0, 4)) <= 2720);
   const amex = /^3[47]/.test(digits);
   const visa = /^4/.test(digits);
+  const activeBrand = amex ? "amex" : visa ? "visa" : mastercard ? "mastercard" : "";
   const amount = "USD 140.50";
   const maskedNumber = digits ? formatNumber(digits).replace(/\d(?=(?:\D*\d){4})/g, "*") : "**** **** **** ****";
+  useEffect(() => {
+    Object.values(cardBrandAssets).forEach(src => {
+      const image = new window.Image();
+      image.decoding = "async";
+      image.src = src;
+      image.decode?.().catch(() => {});
+    });
+  }, []);
   useEffect(() => {
     if (status !== "processing") return;
     const timer = setTimeout(() => { setStatus("approved"); setValues({ number: "", expiry: "", cvv: "", first: "", last: "", email: "" }); }, 1200);
@@ -70,7 +81,7 @@ export const MigrationCheckout = ({ locale = "es" }) => {
           {method === "card" ? <>
           <div className={"mig-bank-card mig-card-with-chip" + (amex ? " mig-card-amex" : mastercard ? " mig-card-mastercard" : visa ? " mig-card-visa" : "")}>
             <span key={cardShine} className="mig-card-shine" aria-hidden="true" />
-            <div className="mig-card-top"><span>{digits ? t("TARJETA DE PRUEBA", "TEST CARD") : ""}</span>{amex || visa || mastercard ? <span className="mig-brand-image-badge"><img className="mig-brand-image" src={amex ? "/images/demo-brand-amex-card.png" : visa ? "/images/demo-brand-visa.svg" : "/images/demo-brand-mastercard-hd.png"} alt={amex ? "American Express" : visa ? "Visa" : "Mastercard"} /></span> : <span className="mig-card-brands">{[["visa", "Visa"], ["mastercard", "Mastercard"], ["amex", "American Express"], ["diners", "Diners Club"]].map(([brand, label]) => <img key={brand} className="mig-brand-image-small" src={"/images/demo-brand-" + brand + (brand === "visa" ? ".svg" : brand === "amex" || brand === "mastercard" ? "-hd.png" : ".png")} alt={label} />)}</span>}</div>
+            <div className="mig-card-top"><span>{digits ? t("TARJETA DE PRUEBA", "TEST CARD") : ""}</span>{activeBrand ? <span className="mig-brand-image-badge"><img key={activeBrand} className="mig-brand-image" src={cardBrandAssets[activeBrand]} alt={cardBrandLabels[activeBrand]} /></span> : <span className="mig-card-brands">{[["visa", "Visa"], ["mastercard", "Mastercard"], ["amex", "American Express"], ["diners", "Diners Club"]].map(([brand, label]) => <img key={brand} className="mig-brand-image-small" src={"/images/demo-brand-" + brand + (brand === "visa" ? ".svg" : brand === "amex" || brand === "mastercard" ? "-hd.png" : ".png")} alt={label} />)}</span>}</div>
             <img className="mig-card-chip mig-card-chip-image" src="/images/demo-card-chip.png" width="26" height="20" alt="" aria-hidden="true" />
             <div className="mig-card-number">{maskedNumber}</div><div className="mig-card-bottom"><span>{[values.first, values.last].filter(Boolean).join(" ").toUpperCase() || t("NOMBRE Y APELLIDO", "CARDHOLDER NAME")}</span><span>{values.expiry || t("MM/AA", "MM/YY")}</span></div>
           </div>
