@@ -302,7 +302,7 @@
 .dark .mig-result { background: #2a342f; color: #bfcfc4; }
 .dark .mig-result strong, .dark .mig-result > span { color: #acd1b9; }
 .dark .mig-checkout { background: #252d3c; color: #e4eaf7; border-color: #4b566c; }
-.dark .mig-shop, .dark .mig-checkout-total, .dark .mig-checkout-footer { border-color: #414c61; }
+.dark .mig-shop, .dark .mig-method-nav, .dark .mig-checkout-total, .dark .mig-checkout-footer { border-color: #414c61; }
 .dark .mig-bank-card { background: linear-gradient(120deg,#424b5b,#303847); }
 .dark .mig-card-top { color: #c5d0e3; }
 .dark .mig-field { background: #2d374b; border-color: #45536b; color: #bcc8df; }
