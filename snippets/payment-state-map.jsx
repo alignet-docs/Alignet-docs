@@ -23,11 +23,10 @@ export const PaymentStateMap = ({ locale = "es" }) => {
     { id: "settled", name: "Liquidado", hint: "Presentado a la marca", x: 255, y: 385, tone: "ok", text: "La operación autorizada se presenta a la marca para su procesamiento en BASE2. No significa necesariamente que el dinero ya esté abonado al comercio." },
     { id: "reversed", name: "Extornado", hint: "Autorización anulada", x: 435, y: 385, tone: "stop", text: "Se anula una operación autorizada durante el primer día y antes de que sea liquidada, a solicitud del usuario. La restitución considera los gastos administrativos aplicables." }
   ].map(state => en ? { ...state, name: englishStates[state.id][0], hint: englishStates[state.id][1], text: englishStates[state.id][2] } : state);
-  const edges = [["registered", "pending"], ["registered", "invalid"], ["pending", "invalid"], ["pending", "canceled"], ["pending", "expired"], ["pending", "authorized"], ["pending", "denied"], ["authorized", "settled"], ["authorized", "reversed"]];
-  const routes = { settled: ["registered", "pending", "authorized", "settled"], reversed: ["registered", "pending", "authorized", "reversed"], denied: ["registered", "pending", "denied"], expired: ["registered", "pending", "expired"], canceled: ["registered", "pending", "canceled"], invalid: ["registered", "invalid"] };
+  const routes = { settled: ["registered", "pending", "authorized", "settled"], reversed: ["registered", "pending", "authorized", "reversed"], denied: ["registered", "pending", "denied"], expired: ["registered", "pending", "expired"], canceled: ["registered", "pending", "canceled"], invalid: ["registered", "invalid"], invalidPending: ["registered", "pending", "invalid"] };
   const [selected, setSelected] = useState("registered");
   const [scenario, setScenario] = useState("settled");
-  const [step, setStep] = useState(-1);
+  const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [reduced, setReduced] = useState(false);
   useEffect(() => {
@@ -40,25 +39,42 @@ export const PaymentStateMap = ({ locale = "es" }) => {
     if (!playing) return;
     const path = routes[scenario];
     if (step >= path.length - 1) { setPlaying(false); return; }
-    const timer = setTimeout(() => { setStep(step + 1); setSelected(path[step + 1]); }, 1400);
+    const timer = setTimeout(() => { setStep(step + 1); setSelected(path[step + 1]); }, 3200);
     return () => clearTimeout(timer);
   }, [playing, step, scenario]);
-  const advance = () => { const next = step >= routes[scenario].length - 1 ? 0 : step + 1; setStep(next); setSelected(routes[scenario][next]); };
+  const goTo = next => { setPlaying(false); setStep(next); setSelected(routes[scenario][next]); };
+  const choose = id => { setScenario(id); setPlaying(false); setStep(0); setSelected("registered"); };
   const active = states.find(state => state.id === selected);
-  const visited = step < 0 ? [] : routes[scenario].slice(0, step + 1);
-  return <div className="psm not-prose">
-    <div className="psm-toolbar"><label>{t("Recorrido de ejemplo", "Example journey")}<select value={scenario} onChange={event => {setScenario(event.target.value);setStep(-1);setPlaying(false);setSelected("registered");}}><option value="settled">{t("Pago autorizado y liquidado", "Authorized and settled payment")}</option><option value="reversed">{t("Pago autorizado y extornado", "Authorized and reversed payment")}</option><option value="denied">{t("Intento denegado", "Declined attempt")}</option><option value="expired">{t("Intento expirado", "Expired attempt")}</option><option value="canceled">{t("Intento cancelado", "Cancelled attempt")}</option><option value="invalid">{t("Intento inválido", "Invalid attempt")}</option></select></label><button type="button" onClick={() => { if (reduced) {advance();return;} if (playing) {setPlaying(false);return;} if (step < 0 || step >= routes[scenario].length - 1) {setStep(0);setSelected("registered");} setPlaying(true); }}>{reduced ? t("Siguiente paso →", "Next step →") : playing ? t("Pausar", "Pause") : t("Reproducir recorrido →", "Play journey →")}</button></div>
-    <div className="psm-scroll" tabIndex="0" aria-label={t("Diagrama de estados; desplázate horizontalmente en pantallas pequeñas", "State diagram; scroll horizontally on small screens")}><div className="psm-canvas">
-      <svg viewBox="0 0 650 470" aria-hidden="true" className="psm-lines">{edges.map(([from, to]) => {
-        const a = states.find(state => state.id === from), b = states.find(state => state.id === to), side = a.y === b.y;
-        const x1 = side ? a.x + 140 : a.x + 70, y1 = side ? a.y + 31 : a.y + 62, x2 = side ? b.x : b.x + 70, y2 = side ? b.y + 31 : b.y;
-        const lit = visited.indexOf(from) >= 0 && visited.indexOf(to) === visited.indexOf(from) + 1;
-        return <g key={from + to} className={lit ? "psm-edge psm-edge-active" : "psm-edge"}><path d={"M" + x1 + " " + y1 + " L" + x2 + " " + y2} /><path d="M-4 -5 0 0 4 -5" transform={"translate(" + x2 + " " + y2 + ") rotate(" + (Math.atan2(y2-y1,x2-x1)*180/Math.PI-90) + ")"} /></g>;
-      })}</svg>
-      {states.map(state => <button type="button" key={state.id} className={"psm-node psm-" + state.tone + (selected === state.id ? " psm-selected" : "")} style={{left: state.x, top: state.y}} aria-pressed={selected === state.id} onClick={() => {setSelected(state.id);setPlaying(false);setStep(-1);}}><strong>{state.name}</strong><span>{state.hint}</span></button>)}
-      <span className="psm-stage-label">{t("DESPUÉS DE AUTORIZAR · OPERACIÓN", "AFTER AUTHORIZATION · OPERATION")}</span>
-    </div></div>
-    <div className={"psm-detail psm-" + active.tone} aria-live="polite" aria-atomic="true"><strong>{active.name}</strong><p>{active.text}</p></div>
-    <p className="psm-caption">{t("Las flechas muestran alternativas, no pasos obligatorios. La expiración y las acciones disponibles dependen del método de pago.", "Arrows show alternatives, not mandatory steps. Expiration and available actions depend on the payment method.")}</p>
+  const path = routes[scenario];
+  const scenarios = [
+    ["settled", t("Pago aprobado", "Approved payment"), t("Hasta la liquidación", "Through settlement")],
+    ["denied", t("Pago denegado", "Declined payment"), t("El emisor lo rechaza", "The issuer declines")],
+    ["reversed", t("Pago extornado", "Reversed payment"), t("Se anula tras autorizar", "Voided after authorization")],
+    ["canceled", t("Cancelación", "Cancellation"), t("El usuario lo detiene", "Stopped by the user")],
+    ["expired", t("Expiración", "Expiration"), t("Se agota el plazo", "The deadline passes")],
+    ["invalid", t("Validación fallida", "Failed validation"), t("El intento no continúa", "The attempt stops")]
+  ];
+  const takeaway = {
+    registered: t("Recibir una transacción no significa aprobar el pago.", "Receiving a transaction does not mean approving the payment."),
+    pending: t("Espera el resultado antes de considerar el pago aprobado.", "Wait for the result before treating the payment as approved."),
+    authorized: t("El pago ya está aprobado. La liquidación es una etapa posterior.", "The payment is approved. Settlement is a later stage."),
+    settled: t("Liquidado no confirma un abono en la cuenta del comercio.", "Settled does not confirm a deposit into the merchant's account."),
+    reversed: t("Extornar requiere una autorización previa; cancelar, no.", "Reversal requires a prior authorization; cancellation does not."),
+    denied: t("Este intento terminó sin autorización.", "This attempt ended without authorization."),
+    canceled: t("La cancelación ocurre antes de autorizar el pago.", "Cancellation occurs before payment authorization."),
+    expired: t("La expiración depende del método de pago.", "Expiration depends on the payment method."),
+    invalid: t("Puede ocurrir desde Registrado o desde Pendiente.", "It can happen from Registered or Pending.")
+  };
+  return <div className="psg not-prose">
+    <div className="psg-heading"><div><span className="psg-eyebrow">{t("EXPLORA UN PAGO", "EXPLORE A PAYMENT")}</span><h3>{t("¿Qué ocurre en cada paso?", "What happens at each step?")}</h3><div className="psg-summary">{t("Elige un escenario y sigue un solo intento, de principio a fin.", "Choose a scenario and follow one attempt from start to finish.")}</div></div><span className="psg-demo">{t("Ejemplo interactivo", "Interactive example")}</span></div>
+    <div className="psg-scenarios" role="group" aria-label={t("Escenarios de pago", "Payment scenarios")}>{scenarios.map(([id, label, hint]) => <button type="button" key={id} aria-pressed={scenario === id || id === "invalid" && scenario === "invalidPending"} onClick={() => choose(id)}><strong>{label}</strong><span>{hint}</span></button>)}</div>
+    <div className="psg-stage">
+      <div className="psg-stage-top"><span>{t("UN INTENTO · UN RECORRIDO", "ONE ATTEMPT · ONE JOURNEY")}</span><span>{t("Paso", "Step")} {step + 1} / {path.length}</span></div>
+      <ol className="psg-track">{path.map((id, index) => { const state = states.find(item => item.id === id); return <li key={id} className={(index < step ? "is-done" : index === step ? "is-current" : "") + " psg-tone-" + state.tone}><button type="button" onClick={() => goTo(index)} aria-current={index === step ? "step" : undefined}><span className="psg-dot" aria-hidden="true">{index < step ? "✓" : String(index + 1).padStart(2, "0")}</span><strong>{state.name}</strong><small>{state.hint}</small></button></li>; })}</ol>
+      <div className="psg-explanation" aria-live="polite" aria-atomic="true"><div><span className={"psg-status psg-tone-" + active.tone}>{active.name}</span><h4>{active.hint}</h4><div className="psg-description">{active.text}</div></div><aside><span>{t("QUÉ DEBES RECORDAR", "KEY TAKEAWAY")}</span><div className="psg-takeaway">{takeaway[active.id]}</div></aside></div>
+      {(scenario === "invalid" || scenario === "invalidPending") && <label className="psg-invalid-choice">{t("El error también puede aparecer…", "The error can also occur…")}<select value={scenario} onChange={event => choose(event.target.value)}><option value="invalid">{t("Al registrar", "At registration")}</option><option value="invalidPending">{t("Mientras está pendiente", "While pending")}</option></select></label>}
+      <div className="psg-controls"><button type="button" className="psg-play" onClick={() => { if (reduced) {goTo(step === path.length - 1 ? 0 : step + 1);return;} if (playing) {setPlaying(false);return;} if (step === path.length - 1) {setStep(0);setSelected(path[0]);} setPlaying(true); }}><span aria-hidden="true">{playing ? "Ⅱ" : "▷"}</span>{reduced ? t("Avanzar un paso", "Advance one step") : playing ? t("Pausar", "Pause") : step === path.length - 1 ? t("Volver a reproducir", "Replay") : t("Reproducir", "Play")}</button><div><button type="button" disabled={step === 0} onClick={() => goTo(step - 1)} aria-label={t("Paso anterior", "Previous step")}>←</button><button type="button" disabled={step === path.length - 1} onClick={() => goTo(step + 1)}>{t("Siguiente", "Next")} →</button></div></div>
+    </div>
+    <div className="psg-legend"><strong>{t("Cómo leer el recorrido", "How to read the journey")}</strong><div className="psg-summary">{t("Cada escenario muestra una alternativa. Un intento no pasa por todos los estados.", "Each scenario shows one alternative. An attempt does not go through every state.")}</div><div className="psg-keys"><span><i className="psg-tone-neutral" />{t("Inicio", "Start")}</span><span><i className="psg-tone-wait" />{t("En proceso", "In progress")}</span><span><i className="psg-tone-ok" />{t("Autorización / liquidación", "Authorization / settlement")}</span><span><i className="psg-tone-stop" />{t("Detención / anulación", "Stopped / voided")}</span></div></div>
   </div>;
 };
