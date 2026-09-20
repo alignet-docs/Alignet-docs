@@ -442,6 +442,7 @@
 @media (max-width: 700px) { .sdk-stage, .sdk-hub-visual { padding: 22px; } .sdk-os-tile strong { font-size: 23px; } .sdk-visual-top { font-size: 8px; } }
 /* Introduction design proposal. All rules are scoped to this cover. */
 #content-area:has(.ao-cover) #header { display: none; }
+#content-area:has(.pc-intro) #header { display: none; }
 #content-area:has(.ao-cover) #content { margin-top: 0; }
 #content-container:has(.ao-cover) > span.absolute { opacity: 0.22 !important; }
 .ao-cover { --ao-ink: #202932; --ao-muted: #64707b; --ao-line: #dfe3e7; --ao-surface: #fff; --ao-soft: #f7f8f9; --ao-accent: #c6531f; color: var(--ao-ink); font-family: inherit; padding-top: 10px; }
