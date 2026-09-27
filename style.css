@@ -1,3 +1,33 @@
+/* Introduction: a quieter canvas and one coordinated Alignet accent. */
+html:has(.ao-demo-intro) { --primary: 198 83 31; --primary-light: 198 83 31; --primary-dark: 253 154 96; }
+html:has(.ao-demo-intro):not(.dark) #background-color { background-color: #fafbfb !important; }
+html:has(.ao-demo-intro) #content-container:has(.ao-demo-intro) > span.absolute {
+  opacity: .3 !important;
+  background: radial-gradient(65% 60% at 65% 0%, #c6d3d84a, transparent 85%) !important;
+}
+html:has(.ao-demo-intro) #content-container > span.absolute > div { opacity: .2; }
+html.dark:has(.ao-demo-intro) #content-container:has(.ao-demo-intro) > span.absolute { background: radial-gradient(65% 60% at 65% 0%, #c6531f20, transparent 85%) !important; }
+.ao-demo-intro .mig-checkout-stage { background: transparent; border: 0; border-radius: 0; padding: 23px 0 15px; }
+.ao-demo-intro .mig-checkout { border-color: #dde4e7; box-shadow: 0 18px 40px -20px #263e4c40, 0 4px 12px #263e4c08; }
+.ao-demo-intro .mig-shop, .ao-demo-intro .mig-method-nav, .ao-demo-intro .mig-checkout-total, .ao-demo-intro .mig-checkout-footer { border-color: #dde4e7; }
+.ao-demo-intro .mig-field { background: #f5f8f9; border-color: #dce4e8; color: #586c79; }
+.ao-demo-intro .mig-interactive input.mig-field:focus { border-color: #c6531f; box-shadow: 0 0 0 3px #c6531f15; }
+.ao-demo-intro .mig-pay:not(.mig-google-pay) { background: #c6531f; transition: background .18s; }
+.ao-demo-intro .mig-pay:not(.mig-google-pay):hover { background: #a94317; }
+.ao-demo-intro .mig-method-nav button[aria-pressed="true"], .ao-demo-intro .mig-shop-icon { color: #b34d20; background: #faf0e9; }
+.ao-demo-intro .mig-interactive .mig-languages button[aria-pressed="true"], .ao-demo-intro .mig-interactive .mig-sample-button { color: #a94317; }
+.ao-demo-intro .mig-languages { background: #f1f4f5; }
+.ao-demo-intro .mig-shop small, .ao-demo-intro .mig-card-hint, .ao-demo-intro .mig-checkout-footer, .ao-demo-intro .mig-method-nav button { color: #70818d; }
+.ao-demo-intro .mig-interactive button:focus-visible { outline-color: #c6531f; }
+.dark .ao-demo-intro .mig-checkout { background: #292f34; border-color: #465158; box-shadow: 0 18px 40px -20px #0008; }
+.dark .ao-demo-intro .mig-shop, .dark .ao-demo-intro .mig-method-nav, .dark .ao-demo-intro .mig-checkout-total, .dark .ao-demo-intro .mig-checkout-footer { border-color: #465158; }
+.dark .ao-demo-intro .mig-field { background: #30383e; border-color: #4a565f; color: #d0d9df; }
+.dark .ao-demo-intro .mig-method-nav button[aria-pressed="true"], .dark .ao-demo-intro .mig-shop-icon { color: #ffac7a; background: #48372d; }
+.dark .ao-demo-intro .mig-interactive .mig-sample-button, .dark .ao-demo-intro .mig-interactive .mig-languages button[aria-pressed="true"] { color: #ffac7a; }
+.dark .ao-demo-intro .mig-languages { background: #333c43; }
+.dark .ao-demo-intro .mig-interactive .mig-languages button[aria-pressed="true"] { background: #48525a; }
+.dark .ao-demo-intro .mig-shop small, .dark .ao-demo-intro .mig-card-hint, .dark .ao-demo-intro .mig-checkout-footer, .dark .ao-demo-intro .mig-method-nav button { color: #b2c0ca; }
+
 /* Payment concepts: hierarchy and outcomes, scoped to explanatory components. */
 .pc-intro, .pc-demo { --pc-ink:#24303a; --pc-muted:#63707c; --pc-line:#dfe4e8; --pc-surface:#fff; --pc-soft:#f6f8fa; color:var(--pc-ink); }
 .dark .pc-intro, .dark .pc-demo { --pc-ink:#edf0f4; --pc-muted:#b7c0c9; --pc-line:#48505a; --pc-surface:#2c3036; --pc-soft:#282c32; }
