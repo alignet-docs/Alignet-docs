@@ -1,12 +1,5 @@
 /* Introduction: a quieter canvas and one coordinated Alignet accent. */
 html:has(.ao-demo-intro) { --primary: 198 83 31; --primary-light: 198 83 31; --primary-dark: 253 154 96; }
-html:has(.ao-demo-intro):not(.dark) #background-color { background-color: #fafbfb !important; }
-html:has(.ao-demo-intro) #content-container:has(.ao-demo-intro) > span.absolute {
-  opacity: .3 !important;
-  background: radial-gradient(65% 60% at 65% 0%, #c6d3d84a, transparent 85%) !important;
-}
-html:has(.ao-demo-intro) #content-container > span.absolute > div { opacity: .2; }
-html.dark:has(.ao-demo-intro) #content-container:has(.ao-demo-intro) > span.absolute { background: radial-gradient(65% 60% at 65% 0%, #c6531f20, transparent 85%) !important; }
 .ao-demo-intro .mig-checkout-stage { background: transparent; border: 0; border-radius: 0; padding: 23px 0 15px; }
 .ao-demo-intro .mig-checkout { border-color: #dde4e7; box-shadow: 0 18px 40px -20px #263e4c40, 0 4px 12px #263e4c08; }
 .ao-demo-intro .mig-shop, .ao-demo-intro .mig-method-nav, .ao-demo-intro .mig-checkout-total, .ao-demo-intro .mig-checkout-footer { border-color: #dde4e7; }
@@ -909,16 +902,20 @@ html.dark #content-container > span.absolute > div,
   opacity: 0.58;
 }
 
-/* Let Mint's Windows decoration continue behind the light-mode header. */
+/* Keep the decoration visible while separating scrolled content from navigation. */
+#navbar-transition {
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
 html.light #navbar-transition,
 [data-theme="light"] #navbar-transition {
-  background-color: transparent !important;
+  background-color: rgba(255, 255, 255, .72) !important;
   background-image: none !important;
 }
 
 html.dark #navbar-transition,
 [data-theme="dark"] #navbar-transition {
-  background-color: transparent !important;
+  background-color: rgba(41, 41, 41, .72) !important;
   background-image: none !important;
 }
 
