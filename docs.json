@@ -451,7 +451,8 @@
         },
         "products": [
           {
-            "product": "Online payments · Alignet One",
+            "product": "Pagos online · Alignet One",
+            "name": "Online payments · Alignet One",
             "icon": "credit-card",
             "tabs": [
               {
@@ -637,7 +638,8 @@
             ]
           },
           {
-            "product": "Acquiring Processing",
+            "product": "Procesamiento adquirente",
+            "name": "Acquiring Processing",
             "icon": "credit-card-alt",
             "tabs": [
               {
@@ -692,7 +694,8 @@
             ]
           },
           {
-            "product": "VPOS · Classic version",
+            "product": "VPOS · Versión clásica",
+            "name": "VPOS · Classic version",
             "icon": "plug",
             "tabs": [
               {
