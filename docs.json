@@ -33,8 +33,8 @@
     "links": [],
     "primary": {
       "type": "button",
-      "label": "Contacto comercial",
-      "href": "mailto:postventa.autenticacion@alignet.com"
+      "label": "Ir a Alignet",
+      "href": "https://www.alignet.com"
     }
   },
   "navigation": {
@@ -46,8 +46,8 @@
           "links": [],
           "primary": {
             "type": "button",
-            "label": "Contacto comercial",
-            "href": "mailto:postventa.autenticacion@alignet.com"
+            "label": "Ir a Alignet",
+            "href": "https://www.alignet.com"
           }
         },
         "products": [
@@ -445,8 +445,8 @@
           "links": [],
           "primary": {
             "type": "button",
-            "label": "Sales contact",
-            "href": "mailto:postventa.autenticacion@alignet.com"
+            "label": "Go to Alignet",
+            "href": "https://www.alignet.com"
           }
         },
         "products": [
