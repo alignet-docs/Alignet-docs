@@ -975,5 +975,10 @@
   "styling": {
     "latex": false,
     "codeblocks": "system"
+  },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-RK73J9RZ3M"
+    }
   }
 }
