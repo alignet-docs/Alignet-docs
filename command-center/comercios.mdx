@@ -1,0 +1,45 @@
+---
+title: "Comercios"
+description: "Consulta comercios y conoce las etapas del asistente de registro."
+icon: "store"
+---
+
+## Consultar un comercio
+
+1. Abre **Gestión de entidades → Comercios**.
+2. Busca por nombre, nombre corto o Tax ID.
+3. Selecciona **Todos**, **Activos** o **Inactivos**. Utiliza **Filtros**, **Tipo de captura**, **Procesadora** o **Engagement** cuando corresponda.
+4. Pulsa **Buscar** y abre **Ver detalle** del registro correcto.
+
+La tabla permite ajustar columnas y paginar. Verifica la entidad seleccionada antes de realizar una acción administrativa.
+
+## Asistente de registro
+
+Selecciona **Registrar comercio** para abrir el asistente. Los campos con asterisco son obligatorios.
+
+<Frame caption="Formulario vacío de registro. Los valores grises son ejemplos del sistema.">
+  ![Inicio del registro de comercio y sus ocho etapas](/images/command-center/registro-comercio.png)
+</Frame>
+
+| Etapa | Qué revisar |
+| --- | --- |
+| Datos generales | Nombre comercial, con máximo de 25 caracteres, y MCC de cuatro dígitos. |
+| Jerarquía | Adquirente y, si corresponde, Payment Facilitator. Las capacidades dependen de lo habilitado en la entidad padre. |
+| Information | País, datos tributarios, razón social, ubicación, contacto, cuenta bancaria, moneda y URL del logo. |
+| Capture | Configuración de captura y vista previa del checkout. Requiere seleccionar antes la jerarquía. |
+| Procesamiento | Procesadoras, marcas y métodos permitidos por la entidad padre. La versión revisada indica procesamiento para Perú. |
+| Servicios | Tokenización, notificación por email, callback, pagos recurrentes, ajustes comerciales y wallet, según lo acordado. |
+| VTEX | Acceso para agregar una integración VTEX. |
+| Revisión | Resumen previo a **Confirmar y crear comercio**. |
+
+<Frame caption="Opciones visibles de servicios, sin activar ni modificar configuraciones.">
+  ![Etapa de servicios del registro de comercio sin datos de clientes](/images/command-center/servicios-comercio.png)
+</Frame>
+
+<Warning>
+**Confirmar y crear comercio** registra la entidad; no es una vista previa. Valida la jerarquía, datos tributarios y bancarios, y configuración comercial con el responsable antes de confirmar.
+</Warning>
+
+<Note>
+Esta guía describe las etapas observadas. No se ejecutó un alta ni se validaron los campos condicionales de captura, procesamiento o VTEX con una entidad de pruebas. Valida esos flujos antes de utilizarlos como un procedimiento de alta definitivo.
+</Note>

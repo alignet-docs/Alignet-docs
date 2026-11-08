@@ -1,0 +1,52 @@
+---
+title: "Transacciones"
+description: "Busca operaciones y consulta sus intentos de pago, resultados y trazabilidad."
+icon: "receipt"
+---
+
+Una **operación o pedido** puede tener varios **intentos de pago**. Consulta el intento específico antes de interpretar su resultado.
+
+## Buscar una operación
+
+1. Abre **Transacciones**.
+2. En **Buscar por**, selecciona el identificador e ingresa el valor. La opción inicial observada fue **N° pedido**.
+3. Completa **Desde**, **Hasta** y **Estado** si necesitas acotar la consulta.
+4. Pulsa **Buscar**.
+5. Revisa los filtros activos. Quita un criterio o selecciona **Limpiar todos** para ampliar la búsqueda.
+
+<Frame caption="Búsqueda ficticia sin datos reales de clientes ni operaciones.">
+  ![Controles de búsqueda de transacciones con el identificador de ejemplo MANUAL-EJEMPLO-SIN-DATOS](/images/command-center/transacciones-busqueda.png)
+</Frame>
+
+## Filtros avanzados
+
+Abre **Filtros avanzados**, completa los criterios disponibles y pulsa **Aplicar**. **Cancelar** cierra el panel y **Limpiar** restablece sus criterios.
+
+| Grupo | Criterios habilitados observados |
+| --- | --- |
+| Organización | Adquirente y código de comercio. |
+| Pago | Método, marca, procesadora, canal, BIN y últimos cuatro dígitos. |
+| Operación | Terminal y observación. La observación requiere coincidencia exacta; el terminal puede faltar en operaciones antiguas. |
+| Identificadores | N° de pedido, ID de operación e ID de transacción. |
+
+<Note>Los campos deshabilitados o marcados como **Próximamente** no están disponibles para filtrar. Su disponibilidad puede cambiar según la versión.</Note>
+
+## Leer los resultados
+
+La tabla muestra Fecha, N° pedido, Comercio, Estado, Monto, Método, Marca, Canal e Intentos. Usa **Mostrar u ocultar columnas** para ajustar la vista y **Filas por página**, **Anterior** y **Siguiente** para recorrerla.
+
+Si no aparecen resultados, verifica fechas, identificador, estado y filtros. Una lista vacía no demuestra que la operación no exista.
+
+## Revisar intentos
+
+1. Selecciona **Expandir intentos** en la operación.
+2. Consulta el resumen de estado, importe e intentos autorizados y fallidos.
+3. En **Historial de intentos**, abre el intento correspondiente.
+4. Recorre las pestañas **Pago**, **Cliente**, **Trazabilidad** y **Técnico**, según tus permisos.
+5. Selecciona **Volver a operación** para regresar al resumen.
+
+**Pago** reúne la información del pago, datos de tarjeta cuando existan y códigos de autorización y respuesta. **Trazabilidad** presenta cambios de estado, pasos de procesamiento, duración e inicio y fin; algunos pasos ofrecen **Entrada** y **Salida**.
+
+<Warning>
+No compartas datos de clientes, tarjetas, identificadores ni contenidos de Entrada/Salida en documentos públicos. Un intento autorizado no confirma, por sí solo, la liquidación de la operación.
+</Warning>

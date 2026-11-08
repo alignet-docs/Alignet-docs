@@ -220,6 +220,20 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "group": "Command Center",
+                    "icon": "desktop",
+                    "pages": [
+                      "command-center/introduccion",
+                      "command-center/acceso",
+                      "command-center/dashboard",
+                      "command-center/transacciones",
+                      "command-center/comercios",
+                      "command-center/entidades",
+                      "command-center/catalogos",
+                      "command-center/usuarios-y-roles"
+                    ]
                   }
                 ]
               },
