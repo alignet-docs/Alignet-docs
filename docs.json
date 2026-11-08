@@ -641,6 +641,27 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "group": "Administration",
+                    "icon": "gear",
+                    "pages": [
+                      {
+                        "group": "Command Center",
+                        "icon": "desktop",
+                        "expanded": false,
+                        "pages": [
+                          "en/command-center/introduction",
+                          "en/command-center/access",
+                          "en/command-center/dashboard",
+                          "en/command-center/transactions",
+                          "en/command-center/merchants",
+                          "en/command-center/entities",
+                          "en/command-center/catalogs",
+                          "en/command-center/users-and-roles"
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
