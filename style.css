@@ -989,7 +989,7 @@ html.dark #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
 .cc-motion-check { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .cc-inputs { display: flex; justify-content: space-around; gap: 12px; margin: 28px 14px 0; }
 .cc-inputs > span { display: flex; align-items: center; gap: 7px; color: #e2e7e6; font-size: 11px; }
-.cc-inputs svg, .cc-modules svg { color: #f89564; }
+.cc-inputs svg, .cc-modules svg { color: #f89564; background-color: #f89564 !important; }
 .cc-live-dot, .cc-event-dot { width: 5px; height: 5px; border-radius: 50%; background: #f89564; display: inline-block; }
 .cc-stream { display: flex; justify-content: space-around; height: 40px; margin: 8px 25px 0; overflow: hidden; }
 .cc-stream span { position: relative; width: 1px; background: linear-gradient(transparent,#f8956466); }
