@@ -16,10 +16,25 @@ hideFooterPagination: true
 <div className="ao-actions"><a className="ao-button" href="/command-center/acceso">Comenzar por el acceso <span aria-hidden="true">↗</span></a><a className="ao-text-link" href="/command-center/transacciones">Consultar una transacción <span aria-hidden="true">→</span></a></div>
 <p className="ao-backing">Tu organización. Tu rol. Tu alcance autorizado.</p>
 </div>
-<div className="ao-network">
-<div className="ao-network-top"><span>TU PORTAL DE OPERACIONES</span><Icon icon="desktop" size={16} /></div>
-<div role="img" aria-label="Pantalla de bienvenida de Alignet.one Command Center." style={{ width: '100%', aspectRatio: '1096 / 672', borderRadius: '8px', margin: '20px 0', backgroundColor: '#f5f3eb', backgroundImage: 'url(/images/command-center/portada-sistema.png)', backgroundRepeat: 'no-repeat', backgroundSize: '110.402% auto', backgroundPosition: '50% 54.545%' }} />
-<div className="ao-network-bottom">Pantalla real de acceso · Sin datos de clientes</div>
+<div className="ao-network cc-motion">
+<input className="cc-motion-check" type="checkbox" id="cc-motion-pause" aria-label="Pausar animación" />
+<div className="ao-network-top"><span>COMMAND CENTER</span><span className="cc-live-dot" aria-hidden="true" /></div>
+<div className="cc-inputs"><span><Icon icon="globe" size={17} /> Web</span><span><Icon icon="mobile-screen-button" size={17} /> App</span><span><Icon icon="credit-card" size={17} /> POS</span></div>
+<div className="cc-stream" aria-hidden="true"><i /><i /><i /></div>
+<div className="cc-console">
+<div className="cc-console-head"><strong>Alignet<span>.one</span></strong><span>OPERACIONES</span></div>
+<div className="cc-console-body">
+<div className="cc-console-nav" aria-hidden="true"><Icon icon="chart-line" size={16} /><Icon icon="receipt" size={16} /><Icon icon="store" size={16} /><Icon icon="shield-halved" size={16} /></div>
+<div className="cc-console-main">
+<div className="cc-console-label">Tu operación, conectada<span>↗</span></div>
+<div className="cc-chart" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /><i /><i /></div>
+<div className="cc-event"><span className="cc-event-dot" /><span>Transacción</span><b>✓</b></div>
+<div className="cc-event"><span className="cc-event-dot" /><span>Trazabilidad</span><b>✓</b></div>
+</div>
+</div>
+</div>
+<div className="cc-modules"><span><Icon icon="receipt" size={14} /> Pagos</span><span><Icon icon="store" size={14} /> Comercios</span><span><Icon icon="shield-halved" size={14} /> Accesos</span></div>
+<div className="cc-motion-footer"><span>Ilustración · Sin datos en vivo</span><label htmlFor="cc-motion-pause"><span className="cc-pause-text">Ⅱ Pausar</span><span className="cc-play-text">▷ Animar</span></label></div>
 </div>
 </section>
 <div className="ao-trust-strip"><span>Una guía para tu equipo</span><strong>Transacciones</strong><span className="ao-divider" /><strong>Entidades</strong><span className="ao-divider" /><strong>Accesos</strong></div>
