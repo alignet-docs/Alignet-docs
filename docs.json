@@ -222,17 +222,24 @@
                     ]
                   },
                   {
-                    "group": "Command Center",
-                    "icon": "desktop",
+                    "group": "Administración",
+                    "icon": "gear",
                     "pages": [
-                      "command-center/introduccion",
-                      "command-center/acceso",
-                      "command-center/dashboard",
-                      "command-center/transacciones",
-                      "command-center/comercios",
-                      "command-center/entidades",
-                      "command-center/catalogos",
-                      "command-center/usuarios-y-roles"
+                      {
+                        "group": "Command Center",
+                        "icon": "desktop",
+                        "expanded": false,
+                        "pages": [
+                          "command-center/introduccion",
+                          "command-center/acceso",
+                          "command-center/dashboard",
+                          "command-center/transacciones",
+                          "command-center/comercios",
+                          "command-center/entidades",
+                          "command-center/catalogos",
+                          "command-center/usuarios-y-roles"
+                        ]
+                      }
                     ]
                   }
                 ]
