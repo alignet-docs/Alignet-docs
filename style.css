@@ -1030,5 +1030,3 @@ html.dark #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
 @keyframes cc-confirm { 0%,100% { opacity: .4; } 40%,75% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .cc-motion *, .cc-motion *::after { animation: none !important; } .cc-motion-footer label { display: none; } }
 @media (max-width: 380px) { .cc-motion { padding: 18px 14px; } .cc-console-main { padding: 14px 10px; } .cc-modules > span { font-size: 9px; } }
-.cc-original-art { min-width: 0; align-self: center; }
-.cc-original-art img { display: block; width: 100%; height: auto; margin: 0; border: 0; border-radius: 0; box-shadow: none; }

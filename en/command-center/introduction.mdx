@@ -16,7 +16,26 @@ hideFooterPagination: true
 <div className="ao-actions"><a className="ao-button" href="/en/command-center/access">Start with access <span aria-hidden="true">↗</span></a><a className="ao-text-link" href="/en/command-center/transactions">Find a transaction <span aria-hidden="true">→</span></a></div>
 <p className="ao-backing">Your organization. Your role. Your authorized scope.</p>
 </div>
-<div className="cc-original-art"><img src="/images/command-center/cc.svg" alt="Alignet.one Command Center" noZoom /></div>
+<div className="ao-network cc-motion">
+<input className="cc-motion-check" type="checkbox" id="cc-motion-pause" aria-label="Pause animation" />
+<div className="ao-network-top"><span>COMMAND CENTER</span><span className="cc-live-dot" aria-hidden="true" /></div>
+<div className="cc-inputs"><span><Icon icon="globe" size={17} /> Web</span><span><Icon icon="mobile-screen-button" size={17} /> App</span><span><Icon icon="credit-card" size={17} /> POS</span></div>
+<div className="cc-stream" aria-hidden="true"><span /><span /><span /></div>
+<div className="cc-console">
+<div className="cc-console-head"><strong>Alignet<span>.one</span></strong><span>OPERATIONS</span></div>
+<div className="cc-console-body">
+<div className="cc-console-nav" aria-hidden="true"><Icon icon="chart-line" size={16} /><Icon icon="receipt" size={16} /><Icon icon="store" size={16} /><Icon icon="shield-halved" size={16} /></div>
+<div className="cc-console-main">
+<div className="cc-console-label">Your operation, connected<span>↗</span></div>
+<div className="cc-chart" aria-hidden="true"><span /><span /><span /><span /><span /><span /><span /><span /><span /></div>
+<div className="cc-event"><span className="cc-event-dot" /><span>Transaction</span><b>✓</b></div>
+<div className="cc-event"><span className="cc-event-dot" /><span>Traceability</span><b>✓</b></div>
+</div>
+</div>
+</div>
+<div className="cc-modules"><span><Icon icon="receipt" size={14} /> Payments</span><span><Icon icon="store" size={14} /> Merchants</span><span><Icon icon="shield-halved" size={14} /> Access</span></div>
+<div className="cc-motion-footer"><span>Illustration · No live data</span><label htmlFor="cc-motion-pause"><span className="cc-pause-text">Ⅱ Pause</span><span className="cc-play-text">▷ Play</span></label></div>
+</div>
 </section>
 <div className="ao-trust-strip"><span>A guide for your team</span><strong>Transactions</strong><span className="ao-divider" /><strong>Entities</strong><span className="ao-divider" /><strong>Access</strong></div>
 <section className="ao-section" aria-labelledby="cc-tasks">
