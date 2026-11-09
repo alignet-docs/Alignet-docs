@@ -9,8 +9,8 @@
     "dark": "#fd8c29"
   },
   "logo": {
-    "light": "/images/alignet-logo-header-orange-docs.png",
-    "dark": "/images/alignet-logo-header-dark-orange-docs.png"
+    "light": "/images/alignet-docs-light.svg",
+    "dark": "/images/alignet-docs-dark.svg"
   },
   "favicon": {
     "light": "/images/alignet-favicon-v8.svg",

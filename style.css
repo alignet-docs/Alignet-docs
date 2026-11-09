@@ -620,7 +620,7 @@ html:has(.ao-demo-intro) { --primary: 198 83 31; --primary-light: 198 83 31; --p
 @media (prefers-reduced-motion: reduce) { .ao-cover *, .ao-cover *::before { transition: none !important; } .ao-cover .ao-path:hover { transform: none; } }
 
 .nav-logo {
-  height: 55.64832px !important;
+  height: 34px !important;
   width: auto !important;
   max-width: none !important;
   object-fit: contain !important;
