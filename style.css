@@ -977,7 +977,7 @@ html.dark #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
 
   #navbar div:has(> #localization-select-trigger) {
     position: absolute;
-    right: 222px;
+    right: 176px;
     top: 50%;
     z-index: 30;
     display: flex;
@@ -985,6 +985,13 @@ html.dark #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
   }
 }
 /* Command Center cover illustration: isolated from other documentation visuals. */
+@media (min-width: 1024px) {
+  #navbar div:has(> nav[aria-label="Main"]) { gap: 12px; }
+  #navbar div:has(> nav[aria-label="Main"]) > * { margin-inline: 0; }
+  #navbar #topbar-cta-button > a { width: 116px; height: 36px; box-sizing: border-box; justify-content: center; padding: 0 10px; }
+  #navbar #localization-select-trigger { height: 36px; }
+  #navbar #theme-preference-menu-trigger { width: 36px; height: 36px; box-sizing: border-box; }
+}
 .ao-network.cc-motion { padding: 24px; background: radial-gradient(ellipse at 50% 45%, #353d40, #192224 75%); }
 .cc-motion-check { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .cc-inputs { display: flex; justify-content: space-around; gap: 12px; margin: 28px 14px 0; }
