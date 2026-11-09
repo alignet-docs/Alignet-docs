@@ -1030,3 +1030,18 @@ html.dark #navbar a[href^="mailto:postventa.autenticacion@alignet.com"] {
 @keyframes cc-confirm { 0%,100% { opacity: .4; } 40%,75% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .cc-motion *, .cc-motion *::after { animation: none !important; } .cc-motion-footer label { display: none; } }
 @media (max-width: 380px) { .cc-motion { padding: 18px 14px; } .cc-console-main { padding: 14px 10px; } .cc-modules > span { font-size: 9px; } }
+/* Corporate navigation CTA: charcoal, independent of the brand accent. */
+#navbar a[href="https://www.alignet.com"] > span.absolute {
+  background-color: #202932;
+  border: 1px solid #ffffff26;
+  transition: background-color 160ms ease;
+}
+#navbar a[href="https://www.alignet.com"]:hover > span.absolute {
+  background-color: #35434e;
+  opacity: 1;
+}
+#navbar a[href="https://www.alignet.com"]:focus-visible {
+  outline: 2px solid #64707b;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
