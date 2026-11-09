@@ -68,6 +68,29 @@
                     ]
                   },
                   {
+                    "group": "Conceptos y pruebas",
+                    "icon": "credit-card",
+                    "pages": [
+                      {
+                        "group": "Conceptos fundamentales",
+                        "icon": "lightbulb",
+                        "pages": [
+                          "pagos-virtuales/pagos/operaciones-inteligentes",
+                          "pagos-virtuales/pagos/estados-de-transaccion",
+                          "pagos-virtuales/pagos/codigos-de-retorno"
+                        ]
+                      },
+                      {
+                        "group": "Sandbox y pruebas",
+                        "icon": "flask",
+                        "pages": [
+                          "pagos-virtuales/pagos/datos-de-prueba",
+                          "pagos-virtuales/checklist-de-certificacion"
+                        ]
+                      }
+                    ]
+                  },
+                  {
                     "group": "Integración",
                     "icon": "wrench",
                     "pages": [
@@ -196,29 +219,6 @@
                     "icon": "route",
                     "pages": [
                       "pagos-virtuales/migracion/pasos-a-seguir"
-                    ]
-                  },
-                  {
-                    "group": "Pagos",
-                    "icon": "credit-card",
-                    "pages": [
-                      {
-                        "group": "Conceptos fundamentales",
-                        "icon": "lightbulb",
-                        "pages": [
-                          "pagos-virtuales/pagos/operaciones-inteligentes",
-                          "pagos-virtuales/pagos/estados-de-transaccion",
-                          "pagos-virtuales/pagos/codigos-de-retorno"
-                        ]
-                      },
-                      {
-                        "group": "Sandbox y pruebas",
-                        "icon": "flask",
-                        "pages": [
-                          "pagos-virtuales/pagos/datos-de-prueba",
-                          "pagos-virtuales/checklist-de-certificacion"
-                        ]
-                      }
                     ]
                   },
                   {
@@ -489,6 +489,29 @@
                     ]
                   },
                   {
+                    "group": "Concepts and testing",
+                    "icon": "credit-card",
+                    "pages": [
+                      {
+                        "group": "Fundamental concepts",
+                        "icon": "lightbulb",
+                        "pages": [
+                          "en/virtual-payments/payments/smart-operations",
+                          "en/virtual-payments/payments/transaction-states",
+                          "en/virtual-payments/payments/return-codes"
+                        ]
+                      },
+                      {
+                        "group": "Sandbox and testing",
+                        "icon": "flask",
+                        "pages": [
+                          "en/virtual-payments/payments/test-data",
+                          "en/virtual-payments/certification-checklist"
+                        ]
+                      }
+                    ]
+                  },
+                  {
                     "group": "Integration",
                     "icon": "wrench",
                     "pages": [
@@ -617,29 +640,6 @@
                     "icon": "route",
                     "pages": [
                       "en/virtual-payments/migration/steps-to-follow"
-                    ]
-                  },
-                  {
-                    "group": "Payments",
-                    "icon": "credit-card",
-                    "pages": [
-                      {
-                        "group": "Fundamental concepts",
-                        "icon": "lightbulb",
-                        "pages": [
-                          "en/virtual-payments/payments/smart-operations",
-                          "en/virtual-payments/payments/transaction-states",
-                          "en/virtual-payments/payments/return-codes"
-                        ]
-                      },
-                      {
-                        "group": "Sandbox and testing",
-                        "icon": "flask",
-                        "pages": [
-                          "en/virtual-payments/payments/test-data",
-                          "en/virtual-payments/certification-checklist"
-                        ]
-                      }
                     ]
                   },
                   {
