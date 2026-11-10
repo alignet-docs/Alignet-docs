@@ -42,13 +42,35 @@ Si no aparecen resultados, verifica fechas, identificador, estado y filtros. Una
 
 ## Revisar intentos
 
-1. Selecciona **Expandir intentos** en la operación.
-2. Consulta el resumen de estado, importe e intentos autorizados y fallidos.
-3. En **Historial de intentos**, abre el intento correspondiente.
-4. Recorre las pestañas **Pago**, **Cliente**, **Trazabilidad** y **Técnico**, según tus permisos.
-5. Selecciona **Volver a operación** para regresar al resumen.
+### Desplegar la tabla de intentos
 
-**Pago** reúne la información del pago, datos de tarjeta cuando existan y códigos de autorización y respuesta. **Trazabilidad** presenta cambios de estado, pasos de procesamiento, duración e inicio y fin; algunos pasos ofrecen **Entrada** y **Salida**.
+1. Selecciona **Expandir intentos**, la flecha al inicio de la fila de la operación.
+2. Revisa la tabla que aparece debajo. Muestra número de intento, ID de transacción, método, marca, PAN enmascarado, moneda, monto, fechas, estado, observación, código de autorización y VCI/ECI, cuando están disponibles.
+3. Selecciona **Colapsar intentos** para ocultar la tabla.
+
+### Consultar el resumen de la operación
+
+El panel de la operación es una vista distinta de la tabla desplegable. Presenta pedido, monto, estado, cantidad de intentos autorizados y fallidos, **Historial de intentos**, información del comercio e ID de operación. El control **Copiar ID de operación** permite copiar ese identificador.
+
+<Note>
+Las capturas muestran el panel abierto, pero no identifican el control utilizado para abrirlo desde el listado. Ese acceso queda pendiente de confirmar; **Expandir intentos** despliega la tabla y no debe describirse como la apertura de este panel.
+</Note>
+
+### Consultar el detalle de un intento
+
+1. Desde **Historial de intentos**, selecciona el intento que deseas revisar.
+2. Consulta sus pestañas según la información disponible.
+3. Usa **Anterior** y **Siguiente** para recorrer los intentos de la misma operación.
+4. Selecciona **Volver a operación** para regresar al resumen o cierra el panel con **✕**. **Copiar ID de transacción** copia el identificador del intento.
+
+| Pestaña | Contenido observado |
+| --- | --- |
+| Pago | Información del pago, datos de tarjeta cuando existan y resultado con códigos de autorización y respuesta. |
+| Cliente | Secciones Customer, Billing y Shipping. Los bloques sin datos muestran **Sin información**. |
+| Trazabilidad | Ciclo de vida, cambios de estado, pasos de procesamiento, duración e inicio y fin. Algunos pasos ofrecen **Entrada** y **Salida** desplegables. |
+| Técnico | Pestaña visible cuyo contenido está pendiente de documentar. |
+
+Una operación autorizada puede conservar intentos anteriores denegados. Revisa el estado y la observación de cada intento para reconstruir lo ocurrido.
 
 <Warning>
 No compartas datos de clientes, tarjetas, identificadores ni contenidos de Entrada/Salida en documentos públicos. Un intento autorizado no confirma, por sí solo, la liquidación de la operación.

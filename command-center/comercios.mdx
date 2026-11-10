@@ -39,6 +39,28 @@ Selecciona **Registrar comercio** para abrir el asistente. Los campos con asteri
   ![Etapa de servicios del registro de comercio sin datos de clientes](/images/command-center/servicios-comercio.png)
 </Frame>
 
+## Configurar Capture y Procesamiento
+
+En **Capture**, activa **SDK** o **FLEX** según las opciones habilitadas por el adquirente o facilitador de pago. Solo se muestran los tipos de captura, métodos y marcas que esa entidad permite.
+
+- **SDK:** al activarlo, permite configurar métodos, marcas y estilo.
+- **FLEX:** al activarlo, permite configurar métodos, marcas e idiomas.
+- Un tipo desactivado aparece como **Inactivo — no se enviará**.
+
+La **Vista previa del checkout** es solo visual. Para mostrarla, la interfaz solicita activar SDK o FLEX y agregar métodos.
+
+Antes de configurar métodos en **Procesamiento**, habilita al menos un método en **Capture**. Después utiliza **Agregar procesadora**; las procesadoras disponibles dependen del adquirente o facilitador seleccionado.
+
+<Note>
+El país seleccionado en **Information** actualiza los catálogos de documentos, geografía, bancos, tipos de cuenta y moneda. La interfaz revisada indica que el procesamiento se configura para **Perú**, independientemente del país elegido en Information. Seleccionar otro país o moneda en ese formulario no confirma disponibilidad de procesamiento para ellos.
+</Note>
+
+## Revisar antes de crear
+
+En **Revisión**, comprueba nombre, MCC, país, razón social, Tax ID, moneda, captura, procesadoras y regiones de procesamiento. Usa **Anterior** para volver a las etapas previas y revisar los datos.
+
+La captura recibida muestra campos vacíos en el resumen. Llegar a esta etapa no demuestra que el registro sea válido ni que se haya creado el comercio.
+
 <Warning>
 **Confirmar y crear comercio** registra la entidad; no es una vista previa. Valida la jerarquía, datos tributarios y bancarios, y configuración comercial con el responsable antes de confirmar.
 </Warning>

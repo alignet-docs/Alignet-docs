@@ -16,16 +16,45 @@ icon: "users-gear"
 
 ## Preparar una invitación
 
-Selecciona **Nuevo usuario**. La primera etapa solicita **Correo electrónico** y **Nombre completo**. El asistente muestra después Organización y rol, Configuración avanzada y Revisión.
+Selecciona **Nuevo usuario** para abrir el asistente de cuatro etapas. Los campos con asterisco son obligatorios.
+
+### 1. Datos generales
+
+Ingresa el **Correo** al que se enviará la invitación y el **Nombre completo** de la persona.
 
 <Frame caption="Formulario vacío, sin nombres ni correos reales.">
   ![Primera etapa del formulario de nuevo usuario](/images/command-center/nuevo-usuario.png)
 </Frame>
 
+### 2. Organización y rol
+
+Selecciona el **Ámbito** del acceso:
+
+- **Entidad externa:** requiere seleccionar un **Adquirente**. Los campos **Facilitador de pago** y **Comercio** son opcionales. La ayuda del facilitador indica que, si se deja vacío, el usuario se crea a nivel del adquirente.
+- **Plataforma Alignet:** corresponde a un usuario interno, sin asociación a una entidad externa. La pantalla indica que el acceso se creará en la organización activa de la plataforma.
+
+Selecciona el **Rol** obligatorio. Consulta las descripciones en [Consultar un rol](#consultar-un-rol) antes de continuar.
+
+### 3. Configuración avanzada
+
+Esta etapa es opcional. Permite definir el alcance, la vigencia y la autenticación del acceso.
+
+| Ajuste | Opciones |
+| --- | --- |
+| Alcance | **Toda la descendencia** incluye la organización y las organizaciones que dependen de ella. **Organizaciones seleccionadas** limita el acceso a las organizaciones elegidas. |
+| Vence | **Sin vencimiento** mantiene el acceso sin una fecha de término. La pantalla ofrece establecer una fecha de vencimiento opcional. |
+| Autenticación y seguridad | **Con MFA (recomendado)** exige configurar una aplicación autenticadora para iniciar sesión. **Sin MFA** permite iniciar sesión sin verificación en dos pasos. |
+
+En la captura revisada estaban seleccionados **Toda la descendencia**, **Sin vencimiento** y **Con MFA**. Revisa estas opciones para el acceso concreto que estás preparando.
+
+### 4. Revisión
+
+El asistente incluye una etapa final de **Revisión**. Su contenido y el control final de envío están pendientes de documentar. Usa **Anterior** y **Siguiente** para recorrer las etapas disponibles.
+
 <Warning>Antes de enviar una invitación, confirma destinatario, organización y rol con el responsable. Asigna únicamente los permisos necesarios.</Warning>
 
 <Note>
-Solo se inspeccionó el formulario inicial y los nombres de las etapas. No se enviaron invitaciones ni se validaron las opciones internas de las etapas siguientes. El envío y la aceptación requieren validación en un ambiente de pruebas.
+Las capturas del 10 de noviembre de 2026 permiten describir las tres primeras etapas. No se enviaron invitaciones ni se validaron el guardado, la aceptación o la configuración de MFA. También quedan pendientes los campos que aparecen al elegir organizaciones específicas o una fecha de vencimiento.
 </Note>
 
 ## Consultar un rol
