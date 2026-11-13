@@ -70,16 +70,16 @@ import com.alignet.payme.util.PaymeEnvironment
 
 ```kotlin theme={"system"}
 val beneficiary = PAYMEAddressData(
-    firstName = "Producto",
-    lastName = "Alignet",
-    email = "producto@alignet.com",
+    firstName = "Cliente",
+    lastName = "Ejemplo",
+    email = "correo@dominio.com",
     phone = "51-999999999",
     identityDocument = PAYMEIdentityDocument(
         type = "DNI",
         identifier = "77777777",
         country = "PE"
     ),
-    addressLine1 = "Av casimiro Ulloa 333",
+    addressLine1 = "Av. Ejemplo 123",
     addressLine2 = null,
     city = "Lima",
     state = "Lima",
@@ -87,7 +87,7 @@ val beneficiary = PAYMEAddressData(
 )
 
 val additionalFields = hashMapOf(
-    "FACTURACION_ID" to "LEV_72661927",
+    "FACTURACION_ID" to "LEV_00000000",
     "reserved1" to "Reservado 1"
 )
 

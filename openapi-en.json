@@ -530,9 +530,9 @@
                         "expiry_date": "1231",
                         "security_code": "123",
                         "card_holder": {
-                          "first_name": "Pedro",
-                          "last_name": "Miranda",
-                          "email": "pedro@example.com",
+                          "first_name": "Sample",
+                          "last_name": "Customer",
+                          "email": "correo@dominio.com",
                           "phone": {
                             "prefix": "51",
                             "number": "999835685"
@@ -548,9 +548,9 @@
                       "amount": "15000",
                       "currency": "604",
                       "billing": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -564,9 +564,9 @@
                         }
                       },
                       "shipping": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -580,9 +580,9 @@
                         }
                       },
                       "customer": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -621,9 +621,9 @@
                       "amount": "15000",
                       "currency": "604",
                       "billing": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -637,9 +637,9 @@
                         }
                       },
                       "shipping": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -653,9 +653,9 @@
                         }
                       },
                       "customer": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -690,9 +690,9 @@
                       "amount": "15000",
                       "currency": "604",
                       "billing": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -706,9 +706,9 @@
                         }
                       },
                       "shipping": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -722,9 +722,9 @@
                         }
                       },
                       "customer": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -759,9 +759,9 @@
                       "amount": "15000",
                       "currency": "604",
                       "billing": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -775,9 +775,9 @@
                         }
                       },
                       "shipping": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -791,9 +791,9 @@
                         }
                       },
                       "customer": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -828,9 +828,9 @@
                       "amount": "15000",
                       "currency": "604",
                       "billing": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -844,9 +844,9 @@
                         }
                       },
                       "shipping": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -860,9 +860,9 @@
                         }
                       },
                       "customer": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -896,9 +896,9 @@
                       "amount": "15000",
                       "currency": "604",
                       "billing": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -912,9 +912,9 @@
                         }
                       },
                       "shipping": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -928,9 +928,9 @@
                         }
                       },
                       "customer": {
-                        "first_name": "Pedro",
-                        "last_name": "Miranda",
-                        "email": "pedro@example.com",
+                        "first_name": "Sample",
+                        "last_name": "Customer",
+                        "email": "correo@dominio.com",
                         "phone": {
                           "country_code": "+51",
                           "subscriber": "999835685"
@@ -2802,15 +2802,15 @@
         "properties": {
           "first_name": {
             "type": "string",
-            "example": "Pedro"
+            "example": "Sample"
           },
           "last_name": {
             "type": "string",
-            "example": "Miranda"
+            "example": "Customer"
           },
           "email": {
             "type": "string",
-            "example": "pedro@example.com"
+            "example": "correo@dominio.com"
           },
           "phone": {
             "$ref": "#/components/schemas/PhoneWithCountryCode"
@@ -2831,15 +2831,15 @@
         "properties": {
           "first_name": {
             "type": "string",
-            "example": "Pedro"
+            "example": "Sample"
           },
           "last_name": {
             "type": "string",
-            "example": "Miranda"
+            "example": "Customer"
           },
           "email": {
             "type": "string",
-            "example": "pedro@example.com"
+            "example": "correo@dominio.com"
           },
           "phone": {
             "$ref": "#/components/schemas/PhoneWithPrefix"
